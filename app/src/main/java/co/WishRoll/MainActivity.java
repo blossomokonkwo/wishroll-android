@@ -27,6 +27,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         tvPrompt.setOnClickListener(this);
         bLogin.setOnClickListener(this);
 
+        String usernameSend = etUsernameEmail.getText().toString();
+        String passwordSend = etPassword.getText().toString();
+
+        //extracted the values from the edit Text sequence, idk what but ready to send to the database
+
 
     }
 
@@ -35,6 +40,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v){
         switch(v.getId()){
             case R.id.bLogin:
+                //might need to add verification method here, more if else statements
+                //checking credentials against the database values etc
                     startMainPg();
                 break;
             case R.id.tvPrompt:
@@ -43,6 +50,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         }
     }
+
+
+
+
+
+
 
 
 

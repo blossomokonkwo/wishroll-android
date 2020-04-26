@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class setpassword extends AppCompatActivity implements View.OnClickListener {
 
@@ -32,12 +33,22 @@ public class setpassword extends AppCompatActivity implements View.OnClickListen
 
 
 
+
+
+
     }
 
     public void onClick(View v){
         switch (v.getId()){
             case R.id.bJoin:
-                flowToMain();
+                String passwordOne = etSetPassword.getText().toString();
+                String passwordTwo = etConfirmPassword.getText().toString();
+                //is it a problem that this is defined in the switch case? can this still be sent to the database styl?
+                if((passwordOne.equals(passwordTwo)) && (!passwordOne.isEmpty() && !passwordTwo.isEmpty())) {
+                    flowToMain();
+                }else{
+                    Toast.makeText(this, "Please confirm correct password", Toast.LENGTH_SHORT).show();
+                }
                 break;
             case R.id.ibBackName:
                 backNameFlow();

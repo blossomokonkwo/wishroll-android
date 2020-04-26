@@ -10,12 +10,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class setusername extends AppCompatActivity implements View.OnClickListener {
 
     ImageButton ibBackEmail;
     EditText etUsernameSignUp;
-    TextView tvUsernameLabel;
+    // Do we even need this
+    // TextView tvUsernameLabel;
     Button bNext2;
 
     @Override
@@ -26,6 +31,7 @@ public class setusername extends AppCompatActivity implements View.OnClickListen
         ibBackEmail = (ImageButton) findViewById(R.id.ibBackEmail);
         etUsernameSignUp = (EditText) findViewById(R.id.etUsernameSignup);
         bNext2 = (Button) findViewById(R.id.bNext2);
+
 
         ibBackEmail.setOnClickListener(this);
         bNext2.setOnClickListener(this);
@@ -38,7 +44,13 @@ public class setusername extends AppCompatActivity implements View.OnClickListen
                 openSetEmail();
                 break;
             case R.id.bNext2:
-                openSetAge();
+                String username = etUsernameSignUp.getText().toString();
+                if(usernameCheck(username)){
+                    openSetAge();
+                }else{
+                    Toast.makeText(this, "Please enter a valid username", Toast.LENGTH_SHORT).show();
+                }
+
                 break;
 
 
@@ -55,6 +67,13 @@ public class setusername extends AppCompatActivity implements View.OnClickListen
     public void openSetAge(){
         Intent setAgeFlow = new Intent(this, setage.class);
         startActivity(setAgeFlow);
+    }
 
+    public boolean usernameCheck(String usernameInput){
+        String usernameRegex = "^[A-Z0-9]([._](?![._])|[a-z0-9]){1,20}[a-z0-9]$";
+        Pattern usernamePat = Pattern.compile(usernameRegex, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = usernamePat.matcher(usernameInput);
+
+        return matcher.find();
     }
 }

@@ -6,11 +6,16 @@ import java.util.regex.Pattern;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+//This activity is the first page in the register sequence. It asks for the users email and validates.
 public class register extends AppCompatActivity implements View.OnClickListener{
 
     TextView tvAlready;
@@ -25,13 +30,14 @@ public class register extends AppCompatActivity implements View.OnClickListener{
         bNext1 = (Button) findViewById(R.id.bNext1);
         etEmailSignup = (EditText) findViewById(R.id.etEmailSignup);
 
-       String emailSignup = etEmailSignup.toString();
+
 
         bNext1.setOnClickListener(this);
         tvAlready.setOnClickListener(this);
 
-      //boolean emailCorrect = validateEmailForm(etEmailSignup);
-      //turning editText to String
+
+
+
 
 
     }
@@ -40,7 +46,14 @@ public class register extends AppCompatActivity implements View.OnClickListener{
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.bNext1:
-                openRegister2();
+                //takes email entered and validates it
+                String email = etEmailSignup.getText().toString();
+                if(validateEmailForm(email)) {
+                    openRegister2();
+                }else{
+                    //Alert that shows that email is invalid
+                    Toast.makeText(this, "Please enter a valid email address", Toast.LENGTH_SHORT).show();
+                }
 
                 break;
             case R.id.tvAlready:
@@ -63,9 +76,12 @@ public class register extends AppCompatActivity implements View.OnClickListener{
 
     public static boolean validateEmailForm(String emailInput){
 
-        String emailRegex = "^[A-ZO-9._%+-]+@[A-ZO-9._%+-]+\\.[A-Z]{2,6}$";
+        String emailRegex = "^[A-Z0-9._%+-]+@[A-Z0-9._%+-]+\\.[A-Z]{2,64}$";
         Pattern emailPat = Pattern.compile(emailRegex, Pattern.CASE_INSENSITIVE);
         Matcher matcher = emailPat.matcher(emailInput);
+
         return matcher.find();
     }
+
+
 }
