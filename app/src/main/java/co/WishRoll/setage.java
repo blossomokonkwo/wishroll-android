@@ -9,9 +9,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 public class setage extends AppCompatActivity implements View.OnClickListener {
 
     Button bNext3;
@@ -38,6 +35,7 @@ public class setage extends AppCompatActivity implements View.OnClickListener {
     public void onClick(View v){
         switch(v.getId()){
             case R.id.bNext3:
+
                     openFullName();
                 break;
 
@@ -59,6 +57,8 @@ public class setage extends AppCompatActivity implements View.OnClickListener {
         startActivity(flowToFull);
 
     }
+
+
 
 
 
