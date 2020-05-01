@@ -1,4 +1,6 @@
-package co.WishRoll;
+package co.WishRoll.Search;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -6,23 +8,21 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
-import co.WishRoll.utils.BottomNavigationViewHelper;
+import co.WishRoll.R;
+import co.WishRoll.Utils.BottomNavigationViewHelper;
 
-public class notificationpage extends AppCompatActivity {
-    private static final String TAG = "notificationpage";
-    private Context mContext = notificationpage.this;
-    private static final int ACTIVITY_NUM = 3;
+public class SearchActivity extends AppCompatActivity {
+
+    private static final String TAG = "SearchActivity";
+    private Context mContext = SearchActivity.this;
+    private static final int ACTIVITY_NUM = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_searchpage);
-
-
         Log.d(TAG, "onCreate: starting");
 
         setupBottomNavigationView();
@@ -37,7 +37,6 @@ public class notificationpage extends AppCompatActivity {
         Menu menu = bottomNavigationViewEx.getMenu();
         MenuItem menuItem = menu.getItem(ACTIVITY_NUM);
         menuItem.setChecked(true);
-
 
 
     }

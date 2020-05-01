@@ -1,4 +1,4 @@
-package co.WishRoll;
+package co.WishRoll.Signup;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,7 +9,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
-public class setage extends AppCompatActivity implements View.OnClickListener {
+import co.WishRoll.R;
+
+public class AgeActivity extends AppCompatActivity implements View.OnClickListener {
 
     Button bNext3;
     ImageButton ibBackUsername;
@@ -47,13 +49,13 @@ public class setage extends AppCompatActivity implements View.OnClickListener {
 
 
     public void backUsername(){
-        Intent backToUser = new Intent(this, setusername.class);
+        Intent backToUser = new Intent(this, UsernameActivity.class);
         startActivity(backToUser);
 
     }
 
     public void openFullName(){
-        Intent flowToFull = new Intent(this, setfull.class);
+        Intent flowToFull = new Intent(this, NameActivity.class);
         startActivity(flowToFull);
 
     }

@@ -1,4 +1,4 @@
-package co.WishRoll;
+package co.WishRoll.Signup;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,7 +9,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
-public class setfull extends AppCompatActivity implements View.OnClickListener{
+import co.WishRoll.R;
+
+public class NameActivity extends AppCompatActivity implements View.OnClickListener{
 
     EditText etFullName;
     Button bNext4;
@@ -44,12 +46,12 @@ public class setfull extends AppCompatActivity implements View.OnClickListener{
 
 
     public void flowToPassword(){
-        Intent toPassword  = new Intent(this, setpassword.class);
+        Intent toPassword  = new Intent(this, PasswordActivity.class);
         startActivity(toPassword);
     }
 
     public void backToAge(){
-        Intent backAge = new Intent(this, setage.class);
+        Intent backAge = new Intent(this, AgeActivity.class);
         startActivity(backAge);
     }
 }

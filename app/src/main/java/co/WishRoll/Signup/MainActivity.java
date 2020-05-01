@@ -1,4 +1,4 @@
-package co.WishRoll;
+package co.WishRoll.Signup;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,6 +8,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import co.WishRoll.R;
+import co.WishRoll.Search.SearchActivity;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
     Button bLogin;
@@ -61,13 +64,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     public void openSignUpActivity(){
-        Intent signUpFlow = new Intent(this, register.class);
+        Intent signUpFlow = new Intent(this, RegisterActivity.class);
         startActivity(signUpFlow);
     }
 
 
     public void startMainPg(){
-        Intent flowToMain = new Intent(this, searchpage.class);
+        Intent flowToMain = new Intent(this, SearchActivity.class);
         startActivity(flowToMain);
     }
 }

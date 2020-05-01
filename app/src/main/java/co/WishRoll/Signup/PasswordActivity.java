@@ -1,4 +1,4 @@
-package co.WishRoll;
+package co.WishRoll.Signup;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,7 +11,10 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class setpassword extends AppCompatActivity implements View.OnClickListener {
+import co.WishRoll.R;
+import co.WishRoll.Search.SearchActivity;
+
+public class PasswordActivity extends AppCompatActivity implements View.OnClickListener {
 
     Button bJoin;
     EditText etSetPassword, etConfirmPassword;
@@ -57,12 +60,12 @@ public class setpassword extends AppCompatActivity implements View.OnClickListen
     }
 
     public void backNameFlow(){
-        Intent backName = new Intent(this, setfull.class);
+        Intent backName = new Intent(this, NameActivity.class);
         startActivity(backName);
     }
 
     public void flowToMain(){
-        Intent mainFlow = new Intent (this, searchpage.class);
+        Intent mainFlow = new Intent (this, SearchActivity.class);
         startActivity(mainFlow);
     }
 }

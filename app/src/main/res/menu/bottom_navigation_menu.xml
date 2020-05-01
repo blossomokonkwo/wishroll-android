@@ -3,36 +3,42 @@
 
     <item
         android:id="@+id/ic_search"
-        android:icon="@drawable/ic_search"
+        android:icon="@drawable/search_selector"
         android:title=""
-        >
-    </item>
+        android:button="@null"
+        android:checked="false"
+        android:clickable="true" />
+
 
     <item
         android:id="@+id/ic_house"
-        android:icon="@drawable/ic_house"
+        android:icon="@drawable/home_selector"
         android:title=""
+        android:iconTint="@color/wishroll_blue"
         >
     </item>
 
     <item
         android:id="@+id/ic_upload"
-        android:icon="@drawable/ic_upload"
+        android:icon="@drawable/upload_selector"
         android:title=""
+        android:iconTint="@color/wishroll_blue"
         >
     </item>
 
     <item
         android:id="@+id/ic_notification"
-        android:icon="@drawable/ic_notification"
+        android:icon="@drawable/notification_selector"
         android:title=""
+        android:iconTint="@color/wishroll_blue"
         >
     </item>
 
     <item
         android:id="@+id/ic_profile"
-        android:icon="@drawable/ic_profile"
+        android:icon="@drawable/profile_selector"
         android:title=""
+        android:iconTint="@color/wishroll_blue"
         >
     </item>
 

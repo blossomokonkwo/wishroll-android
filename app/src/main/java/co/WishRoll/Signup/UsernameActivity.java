@@ -1,21 +1,21 @@
-package co.WishRoll;
+package co.WishRoll.Signup;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class setusername extends AppCompatActivity implements View.OnClickListener {
+import co.WishRoll.R;
+
+public class UsernameActivity extends AppCompatActivity implements View.OnClickListener {
 
     ImageButton ibBackEmail;
     EditText etUsernameSignUp;
@@ -59,13 +59,13 @@ public class setusername extends AppCompatActivity implements View.OnClickListen
     }
 
     public void openSetEmail(){
-        Intent backEmailFlow = new Intent(this, register.class);
+        Intent backEmailFlow = new Intent(this, RegisterActivity.class);
         startActivity(backEmailFlow);
 
     }
 
     public void openSetAge(){
-        Intent setAgeFlow = new Intent(this, setage.class);
+        Intent setAgeFlow = new Intent(this, AgeActivity.class);
         startActivity(setAgeFlow);
     }
 

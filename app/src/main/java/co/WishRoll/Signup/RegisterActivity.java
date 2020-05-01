@@ -1,4 +1,4 @@
-package co.WishRoll;
+package co.WishRoll.Signup;
 
 import androidx.appcompat.app.AppCompatActivity;
 import java.util.regex.Matcher;
@@ -6,17 +6,16 @@ import java.util.regex.Pattern;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-//This activity is the first page in the register sequence. It asks for the users email and validates.
-public class register extends AppCompatActivity implements View.OnClickListener{
+import co.WishRoll.R;
+
+//This activity is the first page in the RegisterActivity sequence. It asks for the users email and validates.
+public class RegisterActivity extends AppCompatActivity implements View.OnClickListener{
 
     TextView tvAlready;
     EditText etEmailSignup;
@@ -70,7 +69,7 @@ public class register extends AppCompatActivity implements View.OnClickListener{
     }
 
     public void openRegister2(){
-        Intent flowToSetUsername = new Intent(this, setusername.class );
+        Intent flowToSetUsername = new Intent(this, UsernameActivity.class );
         startActivity(flowToSetUsername);
     }
 
