@@ -18,19 +18,45 @@
             android:layout_height="wrap_content"
             android:id="@+id/relLayout1">
 
-            <include layout="@layout/layout_top_tabs"/>
+
+
+
+            <include layout="@layout/layout_top_tabs"
+                />
+
+
+
+
 
 
 
         </RelativeLayout>
+
         <!-- Middle Section -->
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/relLayout2"
-            android:layout_below="@id/relLayout1">
+            android:layout_below="@id/relLayout1"
+           >
 
             <include layout="@layout/layout_center_viewpager"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/recyclerView"
+                android:orientation="vertical"
+                android:padding="5dp"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                android:layout_below="@+id/tabs">
+
+
+
+
+
+
+            </androidx.recyclerview.widget.RecyclerView>
 
         </RelativeLayout>
 

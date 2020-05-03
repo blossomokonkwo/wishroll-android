@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import co.WishRoll.Models.User;
 import co.WishRoll.R;
 
 //This activity is the first page in the RegisterActivity sequence. It asks for the users email and validates.

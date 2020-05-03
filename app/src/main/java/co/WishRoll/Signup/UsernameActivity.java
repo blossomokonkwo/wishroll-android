@@ -74,6 +74,7 @@ public class UsernameActivity extends AppCompatActivity implements View.OnClickL
         Pattern usernamePat = Pattern.compile(usernameRegex, Pattern.CASE_INSENSITIVE);
         Matcher matcher = usernamePat.matcher(usernameInput);
 
+
         return matcher.find();
     }
 }
