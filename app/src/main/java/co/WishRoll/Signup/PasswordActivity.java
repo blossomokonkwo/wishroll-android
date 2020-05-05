@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,10 +17,14 @@ import co.WishRoll.Search.SearchActivity;
 
 public class PasswordActivity extends AppCompatActivity implements View.OnClickListener {
 
+    private static final String TAG = "PasswordActivity";
+
     Button bJoin;
     EditText etSetPassword, etConfirmPassword;
     ImageButton ibBackName;
     TextView tvTerms;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +38,8 @@ public class PasswordActivity extends AppCompatActivity implements View.OnClickL
 
         bJoin.setOnClickListener(this);
         ibBackName.setOnClickListener(this);
+
+
 
 
 

@@ -198,18 +198,13 @@ public class User extends AppCompatActivity {
 
     public void setUsername(String rawUsername) {
         //sets username
-        if(usernameCheck(rawUsername)) {
+
 
             String username = rawUsername.toLowerCase().replace(' ', '_');
             //convert all to lowercase and replace spaces with underscores
 
             this.username = username;
 
-        }else{
-
-            Toast.makeText(this, "Please enter a valid username", Toast.LENGTH_SHORT).show();
-
-        }
 
     }
 }

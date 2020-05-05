@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,11 +19,16 @@ import co.WishRoll.R;
 
 public class UsernameActivity extends AppCompatActivity implements View.OnClickListener {
 
+    private static final String TAG = "UsernameActivity";
+
     ImageButton ibBackEmail;
     EditText etUsernameSignUp;
-    // Do we even need this
-    // TextView tvUsernameLabel;
+
     Button bNext2;
+
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,22 +43,33 @@ public class UsernameActivity extends AppCompatActivity implements View.OnClickL
         ibBackEmail.setOnClickListener(this);
         bNext2.setOnClickListener(this);
 
-        User user = new User(null);
-        user.setUsername(etUsernameSignUp.getText().toString());
+
+
+
+
+
+
 
     }
 
     public void onClick(View v){
         switch(v.getId()){
+            case R.id.bNext2:
+
+                if(usernameCheck(etUsernameSignUp.getText().toString())){
+                    openSetAge();
+                }else{
+                    Toast.makeText(this, "Please enter a valid username", Toast.LENGTH_SHORT).show();
+                }
+
+                break;
             case R.id.ibBackEmail:
                 openSetEmail();
-                break;
-            case R.id.bNext2:
-                openSetAge();
                 break;
         }
 
     }
+
 
     public void openSetEmail(){
         Intent backEmailFlow = new Intent(this, RegisterActivity.class);
@@ -65,5 +82,19 @@ public class UsernameActivity extends AppCompatActivity implements View.OnClickL
         startActivity(setAgeFlow);
     }
 
+
+    public boolean usernameCheck(String usernameInput){
+        String usernameRegex = "^[A-Z0-9]([._](?![._])|[a-z0-9]){1,20}[a-z0-9]$";
+        Pattern usernamePat = Pattern.compile(usernameRegex, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = usernamePat.matcher(usernameInput);
+
+
+        return matcher.find();
+
+
+
+
+
+    }
 
 }
