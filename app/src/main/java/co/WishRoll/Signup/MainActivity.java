@@ -13,9 +13,16 @@ import co.WishRoll.R;
 import co.WishRoll.Search.SearchActivity;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+    //get users email/username and password verifies credentials
+
+
     Button bLogin;
     TextView tvPrompt;
     EditText etPassword, etUsernameEmail;
+
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

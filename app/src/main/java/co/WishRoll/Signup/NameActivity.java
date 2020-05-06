@@ -12,10 +12,14 @@ import android.widget.ImageButton;
 import co.WishRoll.R;
 
 public class NameActivity extends AppCompatActivity implements View.OnClickListener{
+    //asks for the new user's full name.
+
 
     EditText etFullName;
     Button bNext4;
     ImageButton ibBackAge;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +35,7 @@ public class NameActivity extends AppCompatActivity implements View.OnClickListe
 
 
     }
+
 
 
     public void onClick(View v){

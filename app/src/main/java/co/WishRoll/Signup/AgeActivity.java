@@ -12,10 +12,16 @@ import android.widget.ImageButton;
 import co.WishRoll.R;
 
 public class AgeActivity extends AppCompatActivity implements View.OnClickListener {
+    //asks for the new user's age.
+
+
 
     Button bNext3;
     ImageButton ibBackUsername;
     EditText etMonth, etDay, etYear;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +36,10 @@ public class AgeActivity extends AppCompatActivity implements View.OnClickListen
 
         bNext3.setOnClickListener(this);
         ibBackUsername.setOnClickListener(this);
+
+
+
+
 
     }
 
@@ -46,6 +56,8 @@ public class AgeActivity extends AppCompatActivity implements View.OnClickListen
                 break;
         }
     }
+
+
 
 
     public void backUsername(){

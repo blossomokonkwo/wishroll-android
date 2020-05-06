@@ -17,15 +17,19 @@ import android.widget.Toast;
 import co.WishRoll.Models.User;
 import co.WishRoll.R;
 
-//This activity is the first page in the RegisterActivity sequence. It asks for the users email and validates.
+
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener{
-
-    String emailSend;
-    TextView tvAlready;
-
-    Button bNext1;
+    //asks for the new user's email.
 
     private static final String TAG = "RegisterActivity";
+
+
+    TextView tvAlready;
+    Button bNext1;
+
+
+
+
 
 
     @Override
@@ -51,14 +55,21 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.bNext1:
+
+
                 //takes email entered and validates it
                 EditText etEmailSignup = (EditText) findViewById(R.id.etEmailSignup);
                 String email = etEmailSignup.getText().toString();
 
+
                 if(validateEmailForm(email)){
+
                     openRegister2();
+
                 }else{
+
                     Toast.makeText(this, "Please enter a valid email address", Toast.LENGTH_SHORT).show();
+
                 }
                 break;
 

@@ -10,6 +10,7 @@ import java.util.regex.Pattern;
 public class User extends AppCompatActivity {
 
     String username;
+    String password;
     int followersCount;
     int followingCount;
     int totalViewCount;
@@ -18,12 +19,17 @@ public class User extends AppCompatActivity {
     boolean isFollowing;
     String fullName;
     String bio;
+    String defaultProfilePictureURL;
+    String email;
 
 
-
-    public User(String username){
+    public User( String email, String username, String fullName, String password ){
         //constructor for an instance of the User class
         this.username = username;
+        this.password = password;
+        this.fullName = fullName;
+        this.email = email;
+        this.defaultProfilePictureURL = "whatever URL that photo was idk";
 
 
 
@@ -32,18 +38,48 @@ public class User extends AppCompatActivity {
 
     }
 
-    public boolean usernameCheck(String usernameInput){
-        String usernameRegex = "^[A-Z0-9]([._](?![._])|[a-z0-9]){1,20}[a-z0-9]$";
-        Pattern usernamePat = Pattern.compile(usernameRegex, Pattern.CASE_INSENSITIVE);
-        Matcher matcher = usernamePat.matcher(usernameInput);
-
-
-        return matcher.find();
-
+    public User(String username, String password, String email){
+        //constructor for an instance of the User class
+        this.username = username;
+        this.password = password;
+        this.email = email;
 
 
 
 
+
+
+    }
+
+    public User(String password, String email){
+        //constructor for an instance of the User class
+
+        this.password = password;
+        this.email = email;
+
+
+
+
+
+
+    }
+
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setPassword(String password){
+        this.password = password;
+    }
+    public String getPassword(){
+
+        return password;
     }
 
 
@@ -59,6 +95,10 @@ public class User extends AppCompatActivity {
         this.followersCount = followersCount;
     }
 
+
+
+
+
     public int getFollowingCount() {
         //returns numbers of users followed by this user.
 
@@ -69,6 +109,15 @@ public class User extends AppCompatActivity {
         //increments following count when another user is followed.
 
         this.followingCount = followingCount;
+    }
+
+
+    public String getDefaultProfilePictureURL() {
+        return defaultProfilePictureURL;
+    }
+
+    public void setDefaultProfilePictureURL(String defaultProfilePictureURL) {
+        this.defaultProfilePictureURL = defaultProfilePictureURL;
     }
 
     public int getTotalViewCount() {
@@ -86,13 +135,14 @@ public class User extends AppCompatActivity {
         this.totalViewCount = totalViewCount;
     }
 
+
+
+
+
     public String getProfilePictureURL() {
         //returns users profile picture URL, if null set as default
 
             return profilePictureURL;
-
-
-
     }
 
 
@@ -106,15 +156,14 @@ public class User extends AppCompatActivity {
 
 
 
+
+
     public boolean isVerified() {
         //checks if user is verified or not
 
 
         return isVerified;
     }
-
-
-
 
     public void setVerified(boolean verified) {
         //makes user verified
@@ -126,16 +175,13 @@ public class User extends AppCompatActivity {
 
 
 
+
     public boolean isFollowing() {
         //checks if user is following/not following another user.
 
 
         return isFollowing;
     }
-
-
-
-
 
     public void setFollowing(boolean following) {
         //makes user follow/unfollow another user
@@ -147,20 +193,18 @@ public class User extends AppCompatActivity {
 
 
 
+
     public String getFullName() {
         //returns user's full name
 
         return fullName;
     }
-
-
-
-
     public void setFullName(String fullName) {
         //sets user's full name
 
         this.fullName = fullName;
     }
+
 
 
 
@@ -170,18 +214,12 @@ public class User extends AppCompatActivity {
         return bio;
     }
 
-
-
-
     public void setBio(String bio) {
         //sets user's bio
 
-        if (bio.length()>200){
-
-        }
-
         this.bio = bio;
     }
+
 
 
 
@@ -193,18 +231,16 @@ public class User extends AppCompatActivity {
         return username;
     }
 
-
-
-
     public void setUsername(String rawUsername) {
         //sets username
 
 
-            String username = rawUsername.toLowerCase().replace(' ', '_');
+        String username = rawUsername.toLowerCase().replace(' ', '_');
             //convert all to lowercase and replace spaces with underscores
 
-            this.username = username;
-
-
+        this.username = username;
     }
+
+
 }
+

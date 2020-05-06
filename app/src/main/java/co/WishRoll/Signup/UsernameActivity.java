@@ -18,12 +18,14 @@ import co.WishRoll.Models.User;
 import co.WishRoll.R;
 
 public class UsernameActivity extends AppCompatActivity implements View.OnClickListener {
+    //asks for the new user's username.
 
     private static final String TAG = "UsernameActivity";
 
+
+
     ImageButton ibBackEmail;
     EditText etUsernameSignUp;
-
     Button bNext2;
 
 
@@ -52,17 +54,23 @@ public class UsernameActivity extends AppCompatActivity implements View.OnClickL
 
     }
 
+
     public void onClick(View v){
         switch(v.getId()){
             case R.id.bNext2:
 
                 if(usernameCheck(etUsernameSignUp.getText().toString())){
+
                     openSetAge();
+
                 }else{
+
                     Toast.makeText(this, "Please enter a valid username", Toast.LENGTH_SHORT).show();
+
                 }
 
                 break;
+
             case R.id.ibBackEmail:
                 openSetEmail();
                 break;
@@ -90,9 +98,6 @@ public class UsernameActivity extends AppCompatActivity implements View.OnClickL
 
 
         return matcher.find();
-
-
-
 
 
     }

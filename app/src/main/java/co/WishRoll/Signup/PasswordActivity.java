@@ -16,13 +16,20 @@ import co.WishRoll.R;
 import co.WishRoll.Search.SearchActivity;
 
 public class PasswordActivity extends AppCompatActivity implements View.OnClickListener {
+    //asks for the new user's password
+    //
+    // .
 
     private static final String TAG = "PasswordActivity";
+
+
 
     Button bJoin;
     EditText etSetPassword, etConfirmPassword;
     ImageButton ibBackName;
     TextView tvTerms;
+
+
 
 
 
@@ -48,16 +55,27 @@ public class PasswordActivity extends AppCompatActivity implements View.OnClickL
 
     }
 
+
+
+
     public void onClick(View v){
         switch (v.getId()){
             case R.id.bJoin:
+
+
                 String passwordOne = etSetPassword.getText().toString();
                 String passwordTwo = etConfirmPassword.getText().toString();
-                //is it a problem that this is defined in the switch case? can this still be sent to the database styl?
+
+
+
                 if((passwordOne.equals(passwordTwo)) && (!passwordOne.isEmpty() && !passwordTwo.isEmpty())) {
+
                     flowToMain();
+
                 }else{
+
                     Toast.makeText(this, "Please confirm correct password", Toast.LENGTH_SHORT).show();
+
                 }
                 break;
             case R.id.ibBackName:
@@ -65,6 +83,9 @@ public class PasswordActivity extends AppCompatActivity implements View.OnClickL
                 break;
         }
     }
+
+
+
 
     public void backNameFlow(){
         Intent backName = new Intent(this, NameActivity.class);
