@@ -41,7 +41,8 @@ public class NameActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v){
         switch (v.getId()){
             case R.id.bNext4:
-                flowToPassword();
+                String fullName = etFullName.getText().toString();
+                flowToPassword(fullName);
                 break;
             case R.id.ibBackAge:
                 backToAge();
@@ -50,8 +51,18 @@ public class NameActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
-    public void flowToPassword(){
+    public void flowToPassword(String fullName){
         Intent toPassword  = new Intent(this, PasswordActivity.class);
+
+        Intent intent = getIntent();
+
+        String email = intent.getStringExtra("email");
+        String username = intent.getStringExtra("username");
+
+        toPassword.putExtra("email", email);
+        toPassword.putExtra("fullName", fullName);
+        toPassword.putExtra("username", username);
+
         startActivity(toPassword);
     }
 

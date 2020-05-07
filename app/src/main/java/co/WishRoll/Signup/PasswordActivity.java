@@ -12,13 +12,13 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import co.WishRoll.Models.User;
 import co.WishRoll.R;
 import co.WishRoll.Search.SearchActivity;
 
 public class PasswordActivity extends AppCompatActivity implements View.OnClickListener {
     //asks for the new user's password
-    //
-    // .
+   
 
     private static final String TAG = "PasswordActivity";
 
@@ -70,7 +70,7 @@ public class PasswordActivity extends AppCompatActivity implements View.OnClickL
 
                 if((passwordOne.equals(passwordTwo)) && (!passwordOne.isEmpty() && !passwordTwo.isEmpty())) {
 
-                    flowToMain();
+                    flowToMain(passwordOne);
 
                 }else{
 
@@ -92,8 +92,23 @@ public class PasswordActivity extends AppCompatActivity implements View.OnClickL
         startActivity(backName);
     }
 
-    public void flowToMain(){
+    public void flowToMain(String password){
         Intent mainFlow = new Intent (this, SearchActivity.class);
+
+        Intent intent = getIntent();
+
+        String fullName = intent.getStringExtra("fullName");
+        String username = intent.getStringExtra("username");
+        String email = intent.getStringExtra("email");
+
+        mainFlow.putExtra("password", password);
+        mainFlow.putExtra("username", username);
+        mainFlow.putExtra("fullName", fullName);
+        mainFlow.putExtra("email", email);
+
+        User registeredData = new User(email, username, fullName, password);
+
+
         startActivity(mainFlow);
     }
 }

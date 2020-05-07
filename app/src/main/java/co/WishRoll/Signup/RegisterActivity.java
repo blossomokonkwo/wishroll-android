@@ -49,6 +49,10 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
 
 
+
+
+
+
     }
 
     @Override
@@ -64,7 +68,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
                 if(validateEmailForm(email)){
 
-                    openRegister2();
+                    openRegister2(email);
+
 
                 }else{
 
@@ -84,11 +89,14 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     public void openLogin(){
 
         Intent backLogin = new Intent(this, MainActivity.class);
+
         startActivity(backLogin);
     }
 
-    public void openRegister2(){
+    public void openRegister2(String email){
         Intent flowToSetUsername = new Intent(this, UsernameActivity.class );
+
+        flowToSetUsername.putExtra("email", email);
         startActivity(flowToSetUsername);
 
     }

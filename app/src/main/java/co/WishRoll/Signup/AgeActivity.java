@@ -68,6 +68,15 @@ public class AgeActivity extends AppCompatActivity implements View.OnClickListen
 
     public void openFullName(){
         Intent flowToFull = new Intent(this, NameActivity.class);
+
+        Intent intent = getIntent();
+
+        String email = intent.getStringExtra("email");
+        String username = intent.getStringExtra("username");
+
+        flowToFull.putExtra("email", email);
+        flowToFull.putExtra("username", username);
+
         startActivity(flowToFull);
 
     }

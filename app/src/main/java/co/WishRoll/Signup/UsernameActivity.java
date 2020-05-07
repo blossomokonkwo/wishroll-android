@@ -59,9 +59,12 @@ public class UsernameActivity extends AppCompatActivity implements View.OnClickL
         switch(v.getId()){
             case R.id.bNext2:
 
-                if(usernameCheck(etUsernameSignUp.getText().toString())){
+                String username = etUsernameSignUp.getText().toString();
 
-                    openSetAge();
+                if(usernameCheck(username)){
+
+                    openSetAge(username);
+
 
                 }else{
 
@@ -85,8 +88,15 @@ public class UsernameActivity extends AppCompatActivity implements View.OnClickL
 
     }
 
-    public void openSetAge(){
+    public void openSetAge(String username){
         Intent setAgeFlow = new Intent(this, AgeActivity.class);
+
+        Intent intent1 = getIntent();
+        String email = intent1.getStringExtra("email");
+
+        setAgeFlow.putExtra("email", email);
+        setAgeFlow.putExtra("username", username);
+
         startActivity(setAgeFlow);
     }
 
