@@ -18,9 +18,10 @@ import co.WishRoll.Search.SearchActivity;
 
 public class PasswordActivity extends AppCompatActivity implements View.OnClickListener {
     //asks for the new user's password
-   
-
     private static final String TAG = "PasswordActivity";
+
+
+
 
 
 
@@ -72,6 +73,7 @@ public class PasswordActivity extends AppCompatActivity implements View.OnClickL
 
                     flowToMain(passwordOne);
 
+
                 }else{
 
                     Toast.makeText(this, "Please confirm correct password", Toast.LENGTH_SHORT).show();
@@ -107,7 +109,7 @@ public class PasswordActivity extends AppCompatActivity implements View.OnClickL
         mainFlow.putExtra("email", email);
 
         User registeredData = new User(email, username, fullName, password);
-
+        Log.d(TAG, "onClick: credentials of the registered user, please work lol aha "+ email + " " + username + " " + fullName + " " + password);
 
         startActivity(mainFlow);
     }

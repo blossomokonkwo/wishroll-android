@@ -52,6 +52,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.bLogin:
                 //might need to add verification method here, more if else statements
                 //checking credentials against the database values etc
+
+
+
+
                     startMainPg();
                 break;
             case R.id.tvPrompt:

@@ -18,11 +18,11 @@ public class UserLocalStore {
 
     public void storeUserData(User user){
             SharedPreferences.Editor spEditor = userLocalDatabase.edit();
-            spEditor.putString("username", user.getUsername());
-            spEditor.putString("fullName", user.getFullName());
-            spEditor.putString("password", user.getPassword());
-            spEditor.putString("profilePictureURL", user.getProfilePictureURL());
-            spEditor.putString("email", user.getEmail());
+            spEditor.putString("username", user.username);
+            spEditor.putString("fullName", user.fullName);
+            spEditor.putString("password", user.password);
+            spEditor.putString("profilePictureURL", user.profilePictureURL);
+            spEditor.putString("email", user.email);
             //yeah lol when do I stop? do I copy over everything? Is everything shared in the local database??
             spEditor.commit();
 
@@ -34,9 +34,9 @@ public class UserLocalStore {
             String username = userLocalDatabase.getString("username", "");
             String password = userLocalDatabase.getString("password", "");
             String email = userLocalDatabase.getString("email", "");
-            String fullName = userLocalDatabase.getString("fullName", "");
 
-            User storedUser = new User(username, email,fullName, password );
+
+            User storedUser = new User(username, password, email );
 
             return storedUser;
 

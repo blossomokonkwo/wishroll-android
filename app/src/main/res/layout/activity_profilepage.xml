@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Profile.ProfileActivity">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!-- Top Toolbar -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/relLayout1">
+
+            <include layout="@layout/layout_top_tabs"/>
+
+
+
+
+
+         </RelativeLayout>
+
+        <!-- Middle Section -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/relLayout2"
+            android:layout_below="@id/relLayout1">
+
+
+
+
+
+            <com.google.android.material.appbar.AppBarLayout
+                android:id="@+id/appBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                android:fitsSystemWindows="true">
+
+                <com.google.android.material.appbar.CollapsingToolbarLayout
+                    android:id="@+id/collapsingToolBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    app:expandedTitleTextAppearance="@android:color/transparent"
+                    app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                    android:fitsSystemWindows="true"
+                    app:contentScrim="@android:color/transparent"
+                    app:expandedTitleMarginStart="48dp"
+                    app:titleEnabled="false">
+
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:background="@color/white"
+                            android:layout_width="match_parent"
+                            android:layout_height="350dp"
+                            android:orientation="vertical">
+
+
+                            <de.hdodenhof.circleimageview.CircleImageView
+                                android:id="@+id/profilePic"
+                                android:layout_width="120dp"
+                                android:layout_height="120dp"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_marginTop="10dp"
+                                android:src="@drawable/um_chile"
+                                app:civ_border_color="@color/white"
+                                app:civ_border_width="0dp"
+
+                                >
+
+
+
+
+                            </de.hdodenhof.circleimageview.CircleImageView>
+
+                            <TextView
+                                android:id="@+id/fullNameProfileView"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:layout_gravity="center_horizontal"
+                                android:text="Blossom"
+                                android:textColor="@color/black"
+                                android:textStyle="bold"
+                                android:textSize="20sp">
+
+                            </TextView>
+                            <TextView
+                                android:id="@+id/bioProfileView"
+                                android:layout_width="wrap_content"
+                                android:layout_marginRight="25dp"
+                                android:layout_marginLeft="25dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="20dp"
+                                android:layout_gravity="center_horizontal"
+                                android:text="Whew Chile anyways Literally I want to write the longest thing I "
+                                android:textColor="@color/black"
+                                android:textAlignment="center"
+                                android:textSize="15sp">
+
+                            </TextView>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_horizontal"
+
+                                >
+
+                                <TextView
+                                    android:id="@+id/tvViewsNumber"
+                                    android:layout_width="80dp"
+                                    android:layout_height="wrap_content"
+                                    android:text="133"
+                                    android:textSize="18dp"
+                                    android:textColor="@color/black"
+                                    android:layout_marginTop="30dp"
+                                    android:layout_marginLeft="30dp"
+                                    android:layout_marginRight="30dp"
+                                    android:textStyle="bold"
+                                    android:textAlignment="center"
+                                    android:gravity="center_horizontal" />
+
+                                <TextView
+                                    android:id="@+id/tvFollowersNumber"
+                                    android:layout_width="80dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="30dp"
+                                    android:text="13k"
+                                    android:textSize="18dp"
+                                    android:textColor="@color/black"
+                                    android:layout_marginLeft="30dp"
+                                    android:layout_marginRight="30dp"
+                                    android:textStyle="bold"
+                                    android:textAlignment="center"
+                                    android:gravity="center_horizontal"/>
+
+                                <TextView
+                                    android:id="@+id/tvFollowingNumber"
+                                    android:layout_width="80dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="30dp"
+                                    android:layout_marginLeft="30dp"
+                                    android:layout_marginRight="30dp"
+                                    android:text="103"
+                                    android:textSize="18dp"
+                                    android:textColor="@color/black"
+
+                                    android:textStyle="bold"
+                                    android:textAlignment="center"
+                                    android:gravity="center_horizontal"/>
+                            </LinearLayout>
+
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_horizontal"
+
+                                >
+
+                                <TextView
+                                    android:id="@+id/tvViewsLabel"
+                                    android:layout_width="80dp"
+                                    android:layout_height="wrap_content"
+                                    android:text="Views"
+                                    android:textSize="15dp"
+                                    android:textColor="@color/black"
+                                    android:layout_marginLeft="30dp"
+                                    android:layout_marginRight="30dp"
+                                    android:textAlignment="center"
+                                    android:gravity="center_horizontal" />
+
+                                <TextView
+                                    android:id="@+id/tvFollowersLabel"
+                                    android:layout_width="80dp"
+                                    android:layout_height="wrap_content"
+                                    android:text="Followers"
+                                    android:textSize="15dp"
+                                    android:textColor="@color/black"
+                                    android:layout_marginLeft="30dp"
+                                    android:layout_marginRight="30dp"
+                                    android:textAlignment="center"
+                                    android:gravity="center_horizontal"/>
+
+                                <TextView
+                                    android:id="@+id/tvFollowingLabel"
+                                    android:layout_width="80dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="30dp"
+                                    android:layout_marginRight="30dp"
+                                    android:text="Following"
+                                    android:textSize="15dp"
+                                    android:textColor="@color/black"
+                                    android:textAlignment="center"
+                                    android:gravity="center_horizontal"/>
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                >
+                                <com.google.android.material.tabs.TabLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:id="@+id/tluploadLikedToolbar"
+                                    android:background="@color/white"
+                                    app:tabSelectedTextColor="@color/wishroll_blue"
+                                    app:tabTextColor="@color/black"
+                                    app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
+                                    android:layout_marginTop="5dp"
+
+
+                                    >
+                                    <com.google.android.material.tabs.TabItem
+                                        android:id="@+id/tiUploads"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Uploads"
+
+
+                                        >
+
+                                    </com.google.android.material.tabs.TabItem>
+
+                                    <com.google.android.material.tabs.TabItem
+                                        android:id="@+id/tiLiked"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Liked"
+                                        >
+
+                                    </com.google.android.material.tabs.TabItem>
+
+
+
+                                </com.google.android.material.tabs.TabLayout>
+
+
+                            </LinearLayout>
+
+
+                        </LinearLayout>
+
+                    </RelativeLayout>
+
+                </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+            </com.google.android.material.appbar.AppBarLayout>
+
+            <include layout="@layout/layout_center_viewpager"/>
+
+
+
+        </RelativeLayout>
+
+
+        <!-- Bottom Navgation -->
+        <include layout="@layout/layout_bottom_navigation_view"/>
+
+
+    </RelativeLayout>
+
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>

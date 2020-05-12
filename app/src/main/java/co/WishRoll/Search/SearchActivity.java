@@ -33,19 +33,20 @@ public class SearchActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
 
+        /*
         String username = intent.getStringExtra("username");
         String email = intent.getStringExtra("email");
         String fullName = intent.getStringExtra("fullName");
         String password = intent.getStringExtra("password");
 
-        /*
+
         if(fullName == "" || fullName == null){
             User user = new User(email, password, email);
         }else{
             User user = new User(email, username, fullName, password);
         }
 
-*/
+        */
 
 
 

@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 
 public class User extends AppCompatActivity {
 
+
     String username;
     String password;
     int followersCount;
@@ -43,6 +44,8 @@ public class User extends AppCompatActivity {
         this.username = username;
         this.password = password;
         this.email = email;
+        this.fullName = "";
+        this.defaultProfilePictureURL = "whatever URL that photo was idk";
 
 
 
