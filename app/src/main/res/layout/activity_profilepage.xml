@@ -16,10 +16,10 @@
         <!-- Top Toolbar -->
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/relLayout1">
+            android:layout_height="50dp"
+            android:id="@+id/relLayout1"
+            android:background="@color/white">
 
-            <include layout="@layout/layout_top_tabs"/>
 
 
 
@@ -29,32 +29,33 @@
 
         <!-- Middle Section -->
         <RelativeLayout
+            android:id="@+id/relLayout2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/relLayout2"
-            android:layout_below="@id/relLayout1">
-
-
-
+            android:layout_below="@id/relLayout1"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginEnd="0dp"
+            android:layout_marginRight="0dp">
 
 
             <com.google.android.material.appbar.AppBarLayout
                 android:id="@+id/appBar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-                android:fitsSystemWindows="true">
+                android:fitsSystemWindows="true"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
                 <com.google.android.material.appbar.CollapsingToolbarLayout
                     android:id="@+id/collapsingToolBar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
-                    app:expandedTitleTextAppearance="@android:color/transparent"
-                    app:layout_scrollFlags="scroll|exitUntilCollapsed"
                     android:fitsSystemWindows="true"
                     app:contentScrim="@android:color/transparent"
                     app:expandedTitleMarginStart="48dp"
+                    app:expandedTitleTextAppearance="@android:color/transparent"
+                    app:layout_scrollFlags="scroll|exitUntilCollapsed"
                     app:titleEnabled="false">
 
 
@@ -63,9 +64,9 @@
                         android:layout_height="wrap_content">
 
                         <LinearLayout
-                            android:background="@color/white"
                             android:layout_width="match_parent"
                             android:layout_height="350dp"
+                            android:background="@color/white"
                             android:orientation="vertical">
 
 
@@ -82,33 +83,32 @@
                                 >
 
 
-
-
                             </de.hdodenhof.circleimageview.CircleImageView>
 
                             <TextView
                                 android:id="@+id/fullNameProfileView"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
                                 android:layout_gravity="center_horizontal"
+                                android:layout_marginTop="10dp"
                                 android:text="Blossom"
                                 android:textColor="@color/black"
-                                android:textStyle="bold"
-                                android:textSize="20sp">
+                                android:textSize="20sp"
+                                android:textStyle="bold">
 
                             </TextView>
+
                             <TextView
                                 android:id="@+id/bioProfileView"
                                 android:layout_width="wrap_content"
-                                android:layout_marginRight="25dp"
-                                android:layout_marginLeft="25dp"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="20dp"
                                 android:layout_gravity="center_horizontal"
+                                android:layout_marginLeft="25dp"
+                                android:layout_marginTop="20dp"
+                                android:layout_marginRight="25dp"
                                 android:text="Whew Chile anyways Literally I want to write the longest thing I "
-                                android:textColor="@color/black"
                                 android:textAlignment="center"
+                                android:textColor="@color/black"
                                 android:textSize="15sp">
 
                             </TextView>
@@ -124,44 +124,44 @@
                                     android:id="@+id/tvViewsNumber"
                                     android:layout_width="80dp"
                                     android:layout_height="wrap_content"
-                                    android:text="133"
-                                    android:textSize="18dp"
-                                    android:textColor="@color/black"
-                                    android:layout_marginTop="30dp"
                                     android:layout_marginLeft="30dp"
+                                    android:layout_marginTop="30dp"
                                     android:layout_marginRight="30dp"
-                                    android:textStyle="bold"
+                                    android:gravity="center_horizontal"
+                                    android:text="133"
                                     android:textAlignment="center"
-                                    android:gravity="center_horizontal" />
+                                    android:textColor="@color/black"
+                                    android:textSize="18dp"
+                                    android:textStyle="bold" />
 
                                 <TextView
                                     android:id="@+id/tvFollowersNumber"
                                     android:layout_width="80dp"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginTop="30dp"
-                                    android:text="13k"
-                                    android:textSize="18dp"
-                                    android:textColor="@color/black"
                                     android:layout_marginLeft="30dp"
+                                    android:layout_marginTop="30dp"
                                     android:layout_marginRight="30dp"
-                                    android:textStyle="bold"
+                                    android:gravity="center_horizontal"
+                                    android:text="13k"
                                     android:textAlignment="center"
-                                    android:gravity="center_horizontal"/>
+                                    android:textColor="@color/black"
+                                    android:textSize="18dp"
+                                    android:textStyle="bold" />
 
                                 <TextView
                                     android:id="@+id/tvFollowingNumber"
                                     android:layout_width="80dp"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginTop="30dp"
                                     android:layout_marginLeft="30dp"
+                                    android:layout_marginTop="30dp"
                                     android:layout_marginRight="30dp"
+                                    android:gravity="center_horizontal"
                                     android:text="103"
-                                    android:textSize="18dp"
-                                    android:textColor="@color/black"
-
-                                    android:textStyle="bold"
                                     android:textAlignment="center"
-                                    android:gravity="center_horizontal"/>
+
+                                    android:textColor="@color/black"
+                                    android:textSize="18dp"
+                                    android:textStyle="bold" />
                             </LinearLayout>
 
 
@@ -176,25 +176,25 @@
                                     android:id="@+id/tvViewsLabel"
                                     android:layout_width="80dp"
                                     android:layout_height="wrap_content"
-                                    android:text="Views"
-                                    android:textSize="15dp"
-                                    android:textColor="@color/black"
                                     android:layout_marginLeft="30dp"
                                     android:layout_marginRight="30dp"
+                                    android:gravity="center_horizontal"
+                                    android:text="Views"
                                     android:textAlignment="center"
-                                    android:gravity="center_horizontal" />
+                                    android:textColor="@color/black"
+                                    android:textSize="15dp" />
 
                                 <TextView
                                     android:id="@+id/tvFollowersLabel"
                                     android:layout_width="80dp"
                                     android:layout_height="wrap_content"
-                                    android:text="Followers"
-                                    android:textSize="15dp"
-                                    android:textColor="@color/black"
                                     android:layout_marginLeft="30dp"
                                     android:layout_marginRight="30dp"
+                                    android:gravity="center_horizontal"
+                                    android:text="Followers"
                                     android:textAlignment="center"
-                                    android:gravity="center_horizontal"/>
+                                    android:textColor="@color/black"
+                                    android:textSize="15dp" />
 
                                 <TextView
                                     android:id="@+id/tvFollowingLabel"
@@ -202,29 +202,30 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="30dp"
                                     android:layout_marginRight="30dp"
+                                    android:gravity="center_horizontal"
                                     android:text="Following"
-                                    android:textSize="15dp"
-                                    android:textColor="@color/black"
                                     android:textAlignment="center"
-                                    android:gravity="center_horizontal"/>
+                                    android:textColor="@color/black"
+                                    android:textSize="15dp" />
                             </LinearLayout>
 
                             <LinearLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                >
+                                android:layout_height="wrap_content">
+
                                 <com.google.android.material.tabs.TabLayout
+                                    android:id="@+id/tluploadLikedToolbar"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:id="@+id/tluploadLikedToolbar"
+                                    android:layout_marginTop="5dp"
                                     android:background="@color/white"
                                     app:tabSelectedTextColor="@color/wishroll_blue"
-                                    app:tabTextColor="@color/black"
                                     app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
-                                    android:layout_marginTop="5dp"
+                                    app:tabTextColor="@color/black"
 
 
                                     >
+
                                     <com.google.android.material.tabs.TabItem
                                         android:id="@+id/tiUploads"
                                         android:layout_width="wrap_content"
@@ -240,11 +241,9 @@
                                         android:id="@+id/tiLiked"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="Liked"
-                                        >
+                                        android:text="Liked">
 
                                     </com.google.android.material.tabs.TabItem>
-
 
 
                                 </com.google.android.material.tabs.TabLayout>
@@ -261,8 +260,7 @@
 
             </com.google.android.material.appbar.AppBarLayout>
 
-            <include layout="@layout/layout_center_viewpager"/>
-
+            <include layout="@layout/layout_center_viewpager" />
 
 
         </RelativeLayout>

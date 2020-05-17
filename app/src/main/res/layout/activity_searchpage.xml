@@ -16,13 +16,145 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/relLayout1">
+            android:background="@color/white"
+            android:id="@+id/relLayout1"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:id="@+id/relLayout2"
+                android:background="@color/white">
+
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/logo"
+                android:layout_marginLeft="10dp"
+                android:layout_gravity="center_vertical"
+                android:id="@+id/wishrollLogo"
+
+                >
 
 
 
 
-            <include layout="@layout/layout_top_tabs"
-                />
+
+            </ImageView>
+
+            <androidx.appcompat.widget.SearchView
+
+                android:layout_width="230dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="15dp"
+                android:layout_gravity="center_vertical"
+                android:id="@+id/svSearch"/>
+
+
+
+             <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/profilePicSearch"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/um_chile"
+                    app:civ_border_color="@color/wishroll_blue"
+                    app:civ_border_width="2.5dp"
+                    android:layout_gravity="center_vertical"
+
+                    />
+
+
+
+
+                <ImageView
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:src="@drawable/ic_send_24dp"
+                    android:background="@null"
+                    android:tint="@color/wishroll_blue"
+                    android:layout_marginLeft="15dp"
+                    android:layout_gravity="center_vertical"
+                    android:rotation="-45"
+                    android:layout_marginBottom="2dp"
+
+                    >
+
+                </ImageView>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/relLayout2"
+                >
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tluploadLikedToolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@color/white"
+                app:tabSelectedTextColor="@color/wishroll_blue"
+                app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
+                app:tabTextColor="@color/black"
+
+
+
+
+                >
+
+                <com.google.android.material.tabs.TabItem
+                    android:id="@+id/tiUploads"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Trending"
+
+
+
+                    >
+
+                </com.google.android.material.tabs.TabItem>
+
+                <com.google.android.material.tabs.TabItem
+                    android:id="@+id/tiLiked"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Feed">
+
+                </com.google.android.material.tabs.TabItem>
+
+
+            </com.google.android.material.tabs.TabLayout>
+
+
+
+
+            </LinearLayout>
+
+
+
+
+
+
 
 
 
@@ -33,37 +165,58 @@
         </RelativeLayout>
 
         <!-- Middle Section -->
+
+
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/relLayout2"
+            android:layout_height="200dp"
             android:layout_below="@id/relLayout1"
-           >
+            >
 
-            <include layout="@layout/layout_center_viewpager"/>
-
-            <androidx.recyclerview.widget.RecyclerView
+            <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/recyclerView"
-                android:orientation="vertical"
-                android:padding="5dp"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior"
-                android:layout_below="@+id/tabs">
+                android:scrollbarAlwaysDrawHorizontalTrack="true">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    >
 
 
+                </androidx.cardview.widget.CardView>
 
 
+            </ScrollView>
 
 
-            </androidx.recyclerview.widget.RecyclerView>
 
         </RelativeLayout>
 
+
         <!-- Bottom Navgation -->
-        <include layout="@layout/layout_bottom_navigation_view"/>
+
+
+
 
     </RelativeLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|bottom"
+        android:layout_marginBottom="15dp"
+        android:src="@drawable/ic_add_24dp"
+        app:fabCustomSize="80dp"
+        app:maxImageSize="32dp"
+
+        android:backgroundTint="@color/wishroll_blue"
+
+
+        >
+
+
+    </com.google.android.material.floatingactionbutton.FloatingActionButton>
 
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
