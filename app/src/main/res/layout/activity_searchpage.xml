@@ -13,6 +13,11 @@
         android:layout_height="match_parent">
 
         <!-- Top Toolbar -->
+        
+
+
+
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -31,7 +36,7 @@
             <ImageView
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:src="@drawable/logo"
+                android:src="@color/wishroll_blue"
                 android:layout_marginLeft="10dp"
                 android:layout_gravity="center_vertical"
                 android:id="@+id/wishrollLogo"
@@ -44,6 +49,7 @@
 
             </ImageView>
 
+
             <androidx.appcompat.widget.SearchView
 
                 android:layout_width="230dp"
@@ -54,16 +60,15 @@
 
 
 
-             <de.hdodenhof.circleimageview.CircleImageView
+             <ImageView
                     android:id="@+id/profilePicSearch"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:src="@drawable/um_chile"
-                    app:civ_border_color="@color/wishroll_blue"
-                    app:civ_border_width="2.5dp"
-                    android:layout_gravity="center_vertical"
+                    android:src="@color/wishroll_blue"
+                    android:layout_gravity="center_vertical" />
+                    <!-- app:civ_border_color="@color/wishroll_blue"
+                    app:civ_border_width="2.5dp" -->
 
-                    />
 
 
 
@@ -84,21 +89,11 @@
                 </ImageView>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             </LinearLayout>
+
+
+
+
 
 
             <LinearLayout
@@ -152,54 +147,20 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-        </RelativeLayout>
-
-        <!-- Middle Section -->
-
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_below="@id/relLayout1"
-            >
-
-            <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scrollbarAlwaysDrawHorizontalTrack="true">
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    >
-
-
-                </androidx.cardview.widget.CardView>
-
-
-            </ScrollView>
-
-
-
         </RelativeLayout>
 
 
-        <!-- Bottom Navgation -->
 
 
 
 
     </RelativeLayout>
+        <!-- Bottom Navgation -->
+
+
+
+
+
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:layout_width="wrap_content"
@@ -209,7 +170,7 @@
         android:src="@drawable/ic_add_24dp"
         app:fabCustomSize="80dp"
         app:maxImageSize="32dp"
-
+        app:elevation="0dp"
         android:backgroundTint="@color/wishroll_blue"
 
 

@@ -19,7 +19,7 @@ import co.WishRoll.R;
 
 
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener{
-    //asks for the new user's email.
+    //asks for the new user's email, checks if email is already in data base
 
     private static final String TAG = "RegisterActivity";
 

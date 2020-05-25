@@ -9,65 +9,108 @@
     tools:context=".Profile.ProfileActivity">
 
 
-    <RelativeLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
         <!-- Top Toolbar -->
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
+        <LinearLayout
             android:id="@+id/relLayout1"
-            android:background="@color/white">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:background="@color/white"
+            android:gravity="center_horizontal">
+
+            <ImageButton
+                android:id="@+id/ibSettings"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="130dp"
+                android:background="@drawable/ic_more_colored" />
 
 
+            <TextView
+                android:id="@+id/tvUsernameView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="username"
+                android:textColor="@color/black"
+                android:textSize="20dp"
+                android:textStyle="bold" />
 
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="130dp"
+                android:background="@drawable/ic_notification_colored" />
 
+        </LinearLayout>
 
-
-         </RelativeLayout>
 
         <!-- Middle Section -->
         <RelativeLayout
             android:id="@+id/relLayout2"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_below="@id/relLayout1"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginEnd="0dp"
-            android:layout_marginRight="0dp">
+            >
 
 
             <com.google.android.material.appbar.AppBarLayout
                 android:id="@+id/appBar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fitsSystemWindows="true"
-                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+                android:layout_height="350dp"
+                android:fitsSystemWindows="false"
+                >
 
                 <com.google.android.material.appbar.CollapsingToolbarLayout
                     android:id="@+id/collapsingToolBar"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="350dp"
                     android:background="@color/white"
-                    android:fitsSystemWindows="true"
+                    android:fitsSystemWindows="false"
                     app:contentScrim="@android:color/transparent"
                     app:expandedTitleMarginStart="48dp"
                     app:expandedTitleTextAppearance="@android:color/transparent"
                     app:layout_scrollFlags="scroll|exitUntilCollapsed"
                     app:titleEnabled="false">
 
-
                     <RelativeLayout
+                        android:id="@+id/relLayout3"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="match_parent"
+                        android:layout_below="@id/relLayout1">
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="350dp"
+                            android:layout_height="match_parent"
                             android:background="@color/white"
                             android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="150dp"
+                                android:layout_below="@id/relLayout1"
+                                android:gravity="center_horizontal"
+                                android:orientation="vertical">
+
+                                <ImageView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="150dp"
+                                    android:scaleType="centerCrop"
+                                    android:src="@drawable/um_chile" />
+
+
+                            </LinearLayout>
 
 
                             <de.hdodenhof.circleimageview.CircleImageView
@@ -75,18 +118,16 @@
                                 android:layout_width="120dp"
                                 android:layout_height="120dp"
                                 android:layout_gravity="center_horizontal"
-                                android:layout_marginTop="10dp"
-                                android:src="@drawable/um_chile"
+                                android:layout_marginTop="-90dp"
+                                android:src="@color/wishroll_blue"
                                 app:civ_border_color="@color/white"
                                 app:civ_border_width="0dp"
 
-                                >
+                                />
 
-
-                            </de.hdodenhof.circleimageview.CircleImageView>
 
                             <TextView
-                                android:id="@+id/fullNameProfileView"
+                                android:id="@+id/tvFullNameProfileView"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_horizontal"
@@ -98,8 +139,9 @@
 
                             </TextView>
 
+
                             <TextView
-                                android:id="@+id/bioProfileView"
+                                android:id="@+id/tvBioProfileView"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_horizontal"
@@ -209,48 +251,6 @@
                                     android:textSize="15dp" />
                             </LinearLayout>
 
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content">
-
-                                <com.google.android.material.tabs.TabLayout
-                                    android:id="@+id/tluploadLikedToolbar"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="5dp"
-                                    android:background="@color/white"
-                                    app:tabSelectedTextColor="@color/wishroll_blue"
-                                    app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
-                                    app:tabTextColor="@color/black"
-
-
-                                    >
-
-                                    <com.google.android.material.tabs.TabItem
-                                        android:id="@+id/tiUploads"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="Uploads"
-
-
-                                        >
-
-                                    </com.google.android.material.tabs.TabItem>
-
-                                    <com.google.android.material.tabs.TabItem
-                                        android:id="@+id/tiLiked"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="Liked">
-
-                                    </com.google.android.material.tabs.TabItem>
-
-
-                                </com.google.android.material.tabs.TabLayout>
-
-
-                            </LinearLayout>
-
 
                         </LinearLayout>
 
@@ -260,17 +260,82 @@
 
             </com.google.android.material.appbar.AppBarLayout>
 
-            <include layout="@layout/layout_center_viewpager" />
+
+
+
+
+
+
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tlTabLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@color/white"
+                app:tabIndicatorColor="@color/wishroll_blue"
+                app:tabSelectedTextColor="@color/wishroll_blue"
+                app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
+                app:tabTextColor="@color/black"
+                android:layout_below="@id/appBar"
+
+
+                >
+
+
+                <com.google.android.material.tabs.TabItem
+                    android:id="@+id/tiUploads"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:icon="@drawable/ic_uploads_colored">
+
+
+                </com.google.android.material.tabs.TabItem>
+
+                <com.google.android.material.tabs.TabItem
+                    android:id="@+id/tiLikes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:icon="@drawable/ic_likes_colored">
+
+                </com.google.android.material.tabs.TabItem>
+
+                <com.google.android.material.tabs.TabItem
+                    android:id="@+id/tiBookmarks"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:icon="@drawable/ic_bookmarks_colored">
+
+                </com.google.android.material.tabs.TabItem>
+
+
+            </com.google.android.material.tabs.TabLayout>
+
+
 
 
         </RelativeLayout>
 
+        <androidx.viewpager.widget.ViewPager
+            android:layout_below="@id/relLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/vpViewPager">
+
+
+
+
+        </androidx.viewpager.widget.ViewPager>
+
+
 
         <!-- Bottom Navgation -->
-        <include layout="@layout/layout_bottom_navigation_view"/>
 
 
     </RelativeLayout>
 
+    </ScrollView>
 
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

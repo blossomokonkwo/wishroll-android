@@ -9,16 +9,19 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import co.WishRoll.Models.User;
+import co.WishRoll.Models.UserLocalStore;
 import co.WishRoll.R;
 import co.WishRoll.Search.SearchActivity;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
-    //get users email/username and password verifies credentials
+    //gets already signed in user's email/username and password verifies credentials
 
 
     Button bLogin;
     TextView tvPrompt;
     EditText etPassword, etUsernameEmail;
+    UserLocalStore userLocalStore;
 
 
 
@@ -39,6 +42,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         String usernameSend = etUsernameEmail.getText().toString();
         String passwordSend = etPassword.getText().toString();
+        userLocalStore = new UserLocalStore(this);
 
         //extracted the values from the edit Text sequence, idk what but ready to send to the database
 
@@ -52,6 +56,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.bLogin:
                 //might need to add verification method here, more if else statements
                 //checking credentials against the database values etc
+
+                //if log in is successfull
+                User user = null;
+                userLocalStore.storeUserData(user);
+                userLocalStore.setUserLoggedIn(true);
 
 
 

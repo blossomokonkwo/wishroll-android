@@ -21,17 +21,10 @@ public class PasswordActivity extends AppCompatActivity implements View.OnClickL
     private static final String TAG = "PasswordActivity";
 
 
-
-
-
-
     Button bJoin;
     EditText etSetPassword, etConfirmPassword;
     ImageButton ibBackName;
     TextView tvTerms;
-
-
-
 
 
     @Override
@@ -44,23 +37,16 @@ public class PasswordActivity extends AppCompatActivity implements View.OnClickL
         etConfirmPassword = (EditText) findViewById(R.id.etConfirmPassword);
         ibBackName = (ImageButton) findViewById(R.id.ibBackName);
 
-        bJoin.setOnClickListener(this);
-        ibBackName.setOnClickListener(this);
-
-
-
-
-
-
-
 
     }
 
 
+    @Override
+    public void onClick(View v) {
 
 
-    public void onClick(View v){
-        switch (v.getId()){
+
+        switch(v.getId()) {
             case R.id.bJoin:
 
 
@@ -74,14 +60,24 @@ public class PasswordActivity extends AppCompatActivity implements View.OnClickL
                     flowToMain(passwordOne);
 
 
+
+
                 }else{
 
                     Toast.makeText(this, "Please confirm correct password", Toast.LENGTH_SHORT).show();
+                    //set some sort of an alert to the user, this one isn't working
+                    //Toast.makeText isn;t taking the Activity parameter for some reason I might
+                    //to use alert dialog
 
                 }
+
+
                 break;
+
             case R.id.ibBackName:
+
                 backNameFlow();
+
                 break;
         }
     }
@@ -89,28 +85,37 @@ public class PasswordActivity extends AppCompatActivity implements View.OnClickL
 
 
 
-    public void backNameFlow(){
-        Intent backName = new Intent(this, NameActivity.class);
-        startActivity(backName);
+
+
+
+
+
+        public void backNameFlow (){
+            Intent backName = new Intent(this, NameActivity.class);
+            startActivity(backName);
+        }
+
+        public void flowToMain (String password){
+
+            Intent mainFlow = new Intent (this, SearchActivity.class);
+
+            Intent intent = getIntent();
+
+            String fullName = intent.getStringExtra("fullName");
+            String username = intent.getStringExtra("username");
+            String email = intent.getStringExtra("email");
+
+            mainFlow.putExtra("password", password);
+            mainFlow.putExtra("username", username);
+            mainFlow.putExtra("fullName", fullName);
+            mainFlow.putExtra("email", email);
+
+            User registeredData = new User(email, username, fullName, password);
+            Log.d(TAG, "onClick: credentials of the registered user, please work lol aha "+ email + " " + username + " " + fullName + " " + password);
+
+            startActivity(mainFlow);
+
+
     }
 
-    public void flowToMain(String password){
-        Intent mainFlow = new Intent (this, SearchActivity.class);
-
-        Intent intent = getIntent();
-
-        String fullName = intent.getStringExtra("fullName");
-        String username = intent.getStringExtra("username");
-        String email = intent.getStringExtra("email");
-
-        mainFlow.putExtra("password", password);
-        mainFlow.putExtra("username", username);
-        mainFlow.putExtra("fullName", fullName);
-        mainFlow.putExtra("email", email);
-
-        User registeredData = new User(email, username, fullName, password);
-        Log.d(TAG, "onClick: credentials of the registered user, please work lol aha "+ email + " " + username + " " + fullName + " " + password);
-
-        startActivity(mainFlow);
-    }
 }

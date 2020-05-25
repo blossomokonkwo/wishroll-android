@@ -1,8 +1,6 @@
 package co.WishRoll.Search;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -13,7 +11,6 @@ import android.view.MenuItem;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
 import co.WishRoll.R;
-import co.WishRoll.Utils.BottomNavigationViewHelper;
 
 public class SearchActivity extends AppCompatActivity {
 
@@ -58,8 +55,8 @@ public class SearchActivity extends AppCompatActivity {
         //Bottom Navigation View Setup
         Log.d(TAG, "setupBottomNavigationView: setting up bottom navigation view");
         BottomNavigationViewEx bottomNavigationViewEx = (BottomNavigationViewEx) findViewById(R.id.bottomNavViewBar);
-        BottomNavigationViewHelper.setupBottomNavigationView(bottomNavigationViewEx);
-        BottomNavigationViewHelper.enableNavigation(mContext, bottomNavigationViewEx);
+        TopNavigationViewHelper.setupBottomNavigationView(bottomNavigationViewEx);
+        TopNavigationViewHelper.enableNavigation(mContext, bottomNavigationViewEx);
         Menu menu = bottomNavigationViewEx.getMenu();
         MenuItem menuItem = menu.getItem(ACTIVITY_NUM);
         menuItem.setChecked(true);
