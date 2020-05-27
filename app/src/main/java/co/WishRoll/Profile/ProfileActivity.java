@@ -3,6 +3,7 @@ package co.WishRoll.Profile;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -27,23 +28,26 @@ import java.util.List;
 
 import co.WishRoll.Models.User;
 import co.WishRoll.Models.UserLocalStore;
+import co.WishRoll.Notifications.NotificationActivity;
 import co.WishRoll.R;
+import co.WishRoll.Search.SearchActivity;
 import co.WishRoll.Signup.MainActivity;
 import co.WishRoll.Signup.RegisterActivity;
 
-public class ProfileActivity extends AppCompatActivity implements View.OnClickListener {
+public class ProfileActivity extends AppCompatActivity implements View.OnClickListener,
+        UploadsFragment.OnFragmentInteractionListener, BookmarksFragment.OnFragmentInteractionListener,
+        LikesFragment.OnFragmentInteractionListener
+{
+    //activity to display the user's profile
+
     private static final String TAG = "ProfileActivity";
-    private Context mContext = ProfileActivity.this;
-    private static final int ACTIVITY_NUM = 4;
 
-    ImageButton ibSettings;
-    UserLocalStore userLocalStore;
-    TextView tvUsernameView;
-    TextView tvViewsNumber, tvFollowersNumber, tvFollowingNumber, tvUserBio, tvUserFullName;
 
+
+    ImageButton ibSettings, ibNotifs, ibBackMain;
+    TextView tvViewsNumber, tvFollowersNumber, tvFollowingNumber, tvUserBio, tvUserFullName, tvUsernameView;
     private ViewPager viewPager;
     private TabLayout tabLayout;
-
     private UploadsFragment uploadsFragment;
     private LikesFragment likesFragment;
     private BookmarksFragment bookmarksFragment;
@@ -54,74 +58,96 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profilepage);
 
-        ibSettings = (ImageButton) findViewById(R.id.ibSettings);
 
+        ibSettings =  findViewById(R.id.ibSettings);
+        ibNotifs = findViewById(R.id.ibNotifications);
+        ibBackMain = findViewById(R.id.ibBackMain);
         tvUsernameView = findViewById(R.id.tvUsernameView);
-        tvViewsNumber = findViewById(R.id.tvViewsNumber);
-        tvFollowersNumber = findViewById(R.id.tvFollowersNumber);
-        tvFollowingNumber = findViewById(R.id.tvFollowingNumber);
-        tvUserBio = findViewById(R.id.tvBioProfileView);
-        tvUserFullName = findViewById(R.id.tvFullNameProfileView);
-
-
-        ibSettings.setOnClickListener(this);
-
-        Log.d(TAG, "onCreate: starting");
-        userLocalStore = new UserLocalStore(this);
-
+        tvViewsNumber = findViewById(R.id.tvViews);
+        tvFollowersNumber = findViewById(R.id.tvFollowers);
+        tvFollowingNumber = findViewById(R.id.tvFollowing);
+        tvUserBio = findViewById(R.id.tvBio);
+        tvUserFullName = findViewById(R.id.tvFullName);
         viewPager = findViewById(R.id.vpViewPager);
         tabLayout = findViewById(R.id.tlTabLayout);
-
 
         uploadsFragment = new UploadsFragment();
         likesFragment = new LikesFragment();
         bookmarksFragment = new BookmarksFragment();
 
+        ibSettings.setOnClickListener(this);
+        ibNotifs.setOnClickListener(this);
+        ibBackMain.setOnClickListener(this);
+
+        tabLayout.addTab(tabLayout.newTab().setText("Uploads"));
+        tabLayout.addTab(tabLayout.newTab().setText("Liked"));
+        tabLayout.addTab(tabLayout.newTab().setText("Bookmarked"));
+        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+
+        final PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
+        viewPager.setAdapter(pagerAdapter);
+        viewPager.setOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
+
+
+
+
+
+
+
+
+
+
+
 
     }
 
-    @Override
-    protected void onStart() {
-        //a way to authenticate the user, make sure user is logged in
-        super.onStart();
-
-        if (authenticate() == true) {
-            displayUserDetails();
-        } else {
-            startActivity(new Intent(this, MainActivity.class));
-        }
-
-
-    }
-
-    private boolean authenticate() {
-        //tells us if user is logged in or logged out
-        return userLocalStore.getUserLoggedIn();
-    }
-
-    private void displayUserDetails() {
-        //if authentification is correct, we display the user details like username, follow count, etc
-        User user = userLocalStore.getLoggedInUser();
-
-        tvUserFullName.setText(user.getFullName());
-        tvUsernameView.setText(user.getUsername());
-
-
-    }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.ibSettings:
-                Log.d(TAG, "onClick: logging out of account");
-                userLocalStore.clearUserData();
-                userLocalStore.setUserLoggedIn(false);
 
-                startActivity(new Intent(this, MainActivity.class));
+            case R.id.ibSettings:
+                Log.d(TAG, "onClick: entering the settings activity");
+
+                startActivity(new Intent(this, SettingsActivity.class));
+
+                break;
+
+            case R.id.ibNotifications:
+                Log.d(TAG, "onClick: entering the notifications activity");
+
+                startActivity(new Intent(this, NotificationActivity.class));
+
+            break;
+
+            case R.id.ibBackMain:
+                Log.d(TAG, "onClick: going back to the Search Activity");
+
+                startActivity(new Intent(this, SearchActivity.class));
 
                 break;
         }
     }
 
+    @Override
+    public void onFragmentInteraction(Uri uri) {
 
+    }
 }

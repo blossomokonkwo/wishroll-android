@@ -29,9 +29,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
 
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -50,9 +47,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
 
 
-
-
-
     }
 
     @Override
@@ -60,11 +54,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         switch (v.getId()){
             case R.id.bNext1:
 
-
-                //takes email entered and validates it
                 EditText etEmailSignup = (EditText) findViewById(R.id.etEmailSignup);
                 String email = etEmailSignup.getText().toString();
-
 
                 if(validateEmailForm(email)){
 

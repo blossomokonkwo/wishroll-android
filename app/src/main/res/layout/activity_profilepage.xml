@@ -9,9 +9,6 @@
     tools:context=".Profile.ProfileActivity">
 
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
 
     <RelativeLayout
@@ -30,12 +27,11 @@
             android:gravity="center_horizontal">
 
             <ImageButton
-                android:id="@+id/ibSettings"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="130dp"
-                android:background="@drawable/ic_more_colored" />
-
+                android:id="@+id/ibBackMain"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginRight="110dp"
+                android:background="@drawable/ic_back_colored" />
 
             <TextView
                 android:id="@+id/tvUsernameView"
@@ -48,12 +44,41 @@
                 android:textStyle="bold" />
 
             <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="130dp"
-                android:background="@drawable/ic_notification_colored" />
+                android:layout_gravity="center"
+                android:id="@+id/ibNotifications"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginLeft="80dp"
+                android:background="@drawable/ic_notification_colored"
+                />
+
+            <ImageButton
+                android:id="@+id/ibSettings"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/ic_more_colored"
+                android:layout_gravity="center"
+                />
 
         </LinearLayout>
+
+        <!-- Tab Layout text disappeared as soon as I added the scroll view +
+        extra relative layout, might need to change, ykw..-->
+
+        <!--
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/relLayout1">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+            -->
 
 
         <!-- Middle Section -->
@@ -62,20 +87,21 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/relLayout1"
+
             >
 
 
             <com.google.android.material.appbar.AppBarLayout
                 android:id="@+id/appBar"
                 android:layout_width="match_parent"
-                android:layout_height="350dp"
+                android:layout_height="370dp"
                 android:fitsSystemWindows="false"
                 >
 
                 <com.google.android.material.appbar.CollapsingToolbarLayout
                     android:id="@+id/collapsingToolBar"
                     android:layout_width="match_parent"
-                    android:layout_height="350dp"
+                    android:layout_height="370dp"
                     android:background="@color/white"
                     android:fitsSystemWindows="false"
                     app:contentScrim="@android:color/transparent"
@@ -104,6 +130,7 @@
                                 android:orientation="vertical">
 
                                 <ImageView
+                                    android:id="@+id/profileBanner"
                                     android:layout_width="match_parent"
                                     android:layout_height="150dp"
                                     android:scaleType="centerCrop"
@@ -127,7 +154,7 @@
 
 
                             <TextView
-                                android:id="@+id/tvFullNameProfileView"
+                                android:id="@+id/tvFullName"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_horizontal"
@@ -141,12 +168,12 @@
 
 
                             <TextView
-                                android:id="@+id/tvBioProfileView"
+                                android:id="@+id/tvBio"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_horizontal"
                                 android:layout_marginLeft="25dp"
-                                android:layout_marginTop="20dp"
+                                android:layout_marginTop="10dp"
                                 android:layout_marginRight="25dp"
                                 android:text="Whew Chile anyways Literally I want to write the longest thing I "
                                 android:textAlignment="center"
@@ -163,11 +190,11 @@
                                 >
 
                                 <TextView
-                                    android:id="@+id/tvViewsNumber"
+                                    android:id="@+id/tvViews"
                                     android:layout_width="80dp"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="30dp"
-                                    android:layout_marginTop="30dp"
+                                    android:layout_marginTop="20dp"
                                     android:layout_marginRight="30dp"
                                     android:gravity="center_horizontal"
                                     android:text="133"
@@ -177,11 +204,11 @@
                                     android:textStyle="bold" />
 
                                 <TextView
-                                    android:id="@+id/tvFollowersNumber"
+                                    android:id="@+id/tvFollowers"
                                     android:layout_width="80dp"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="30dp"
-                                    android:layout_marginTop="30dp"
+                                    android:layout_marginTop="20dp"
                                     android:layout_marginRight="30dp"
                                     android:gravity="center_horizontal"
                                     android:text="13k"
@@ -191,16 +218,15 @@
                                     android:textStyle="bold" />
 
                                 <TextView
-                                    android:id="@+id/tvFollowingNumber"
+                                    android:id="@+id/tvFollowing"
                                     android:layout_width="80dp"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="30dp"
-                                    android:layout_marginTop="30dp"
+                                    android:layout_marginTop="20dp"
                                     android:layout_marginRight="30dp"
                                     android:gravity="center_horizontal"
                                     android:text="103"
                                     android:textAlignment="center"
-
                                     android:textColor="@color/black"
                                     android:textSize="18dp"
                                     android:textStyle="bold" />
@@ -271,7 +297,7 @@
                 android:id="@+id/tlTabLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+
                 android:background="@color/white"
                 app:tabIndicatorColor="@color/wishroll_blue"
                 app:tabSelectedTextColor="@color/wishroll_blue"
@@ -282,12 +308,13 @@
 
                 >
 
+                <!--
 
                 <com.google.android.material.tabs.TabItem
                     android:id="@+id/tiUploads"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:icon="@drawable/ic_uploads_colored">
+                    android:text="Uploads">
 
 
                 </com.google.android.material.tabs.TabItem>
@@ -296,7 +323,7 @@
                     android:id="@+id/tiLikes"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:icon="@drawable/ic_likes_colored">
+                    android:text="Liked">
 
                 </com.google.android.material.tabs.TabItem>
 
@@ -304,10 +331,9 @@
                     android:id="@+id/tiBookmarks"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="Bookmarked">
 
-                    android:icon="@drawable/ic_bookmarks_colored">
-
-                </com.google.android.material.tabs.TabItem>
+                </com.google.android.material.tabs.TabItem> -->
 
 
             </com.google.android.material.tabs.TabLayout>
@@ -330,12 +356,15 @@
 
 
 
-        <!-- Bottom Navgation -->
+
+
+
+
 
 
     </RelativeLayout>
 
-    </ScrollView>
+
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

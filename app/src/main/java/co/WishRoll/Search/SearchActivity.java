@@ -17,13 +17,10 @@ import co.WishRoll.R;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class SearchActivity extends AppCompatActivity implements View.OnClickListener {
-//Images are repped as blocks, need to be factored in later with image caching, storage problems
-
-
+    //search bar, trending and home feed
 
     private static final String TAG = "SearchActivity";
-    private Context mContext = SearchActivity.this;
-    private static final int ACTIVITY_NUM = 0;
+
 
 
 
@@ -36,6 +33,9 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         ImageView profilePictureMain =  findViewById(R.id.profilePicSearch);
 
         profilePictureMain.setOnClickListener(this);
+
+
+
 
 
 

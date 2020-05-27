@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 public class UserLocalStore {
+    //local storage of the current user on their device
 
 
 
@@ -17,6 +18,7 @@ public class UserLocalStore {
     }
 
     public void storeUserData(User user){
+        //initially stores user data
             SharedPreferences.Editor spEditor = userLocalDatabase.edit();
             spEditor.putString("username", user.username);
             spEditor.putString("fullName", user.fullName);
@@ -31,6 +33,7 @@ public class UserLocalStore {
     }
 
     public User getLoggedInUser(){
+        //returns the user that has already been stored
             String username = userLocalDatabase.getString("username", "");
             String password = userLocalDatabase.getString("password", "");
             String email = userLocalDatabase.getString("email", "");
@@ -43,12 +46,14 @@ public class UserLocalStore {
     }
 
     public void setUserLoggedIn(boolean loggedIn){
+        //sets the status to loggen in
             SharedPreferences.Editor spEditor = userLocalDatabase.edit();
             spEditor.putBoolean("loggedIn", loggedIn);
             spEditor.commit();
     }
 
     public void clearUserData(){
+        //clears user from local storage, logs user out
             SharedPreferences.Editor spEditor = userLocalDatabase.edit();
             spEditor.clear();
             spEditor.commit();
@@ -57,7 +62,8 @@ public class UserLocalStore {
     }
 
     public boolean getUserLoggedIn(){
-        if(userLocalDatabase.getBoolean("loggedIn", false) == true){
+        //returns whether or not the userd is logged in
+        if(userLocalDatabase.getBoolean("loggedIn", false)){
             //if the user is logged in, return true
             return true;
         }else{

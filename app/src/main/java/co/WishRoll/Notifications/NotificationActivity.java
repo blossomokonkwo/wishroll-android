@@ -9,9 +9,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import co.WishRoll.R;
 
 public class NotificationActivity extends AppCompatActivity {
+    //activity to view notifications that the user gets
+
     private static final String TAG = "NotificationActivity";
-    private Context mContext = NotificationActivity.this;
-    private static final int ACTIVITY_NUM = 3;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

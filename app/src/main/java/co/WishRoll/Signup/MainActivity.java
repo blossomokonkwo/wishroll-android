@@ -8,9 +8,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
-import co.WishRoll.Models.User;
-import co.WishRoll.Models.UserLocalStore;
 import co.WishRoll.R;
 import co.WishRoll.Search.SearchActivity;
 
@@ -21,7 +18,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Button bLogin;
     TextView tvPrompt;
     EditText etPassword, etUsernameEmail;
-    UserLocalStore userLocalStore;
+
 
 
 
@@ -40,11 +37,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         tvPrompt.setOnClickListener(this);
         bLogin.setOnClickListener(this);
 
-        String usernameSend = etUsernameEmail.getText().toString();
-        String passwordSend = etPassword.getText().toString();
-        userLocalStore = new UserLocalStore(this);
 
-        //extracted the values from the edit Text sequence, idk what but ready to send to the database
+
+
+
 
 
     }
@@ -58,9 +54,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 //checking credentials against the database values etc
 
                 //if log in is successfull
-                User user = null;
-                userLocalStore.storeUserData(user);
-                userLocalStore.setUserLoggedIn(true);
+                //User user = null;
+                //userLocalStore.storeUserData(user);
+                //userLocalStore.setUserLoggedIn(true);
 
 
 
@@ -73,15 +69,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         }
     }
-
-
-
-
-
-
-
-
-
 
     public void openSignUpActivity(){
         Intent signUpFlow = new Intent(this, RegisterActivity.class);

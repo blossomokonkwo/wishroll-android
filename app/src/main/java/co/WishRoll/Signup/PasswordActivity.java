@@ -49,28 +49,18 @@ public class PasswordActivity extends AppCompatActivity implements View.OnClickL
         switch(v.getId()) {
             case R.id.bJoin:
 
-
                 String passwordOne = etSetPassword.getText().toString();
                 String passwordTwo = etConfirmPassword.getText().toString();
-
-
 
                 if((passwordOne.equals(passwordTwo)) && (!passwordOne.isEmpty() && !passwordTwo.isEmpty())) {
 
                     flowToMain(passwordOne);
 
-
-
-
                 }else{
 
                     Toast.makeText(this, "Please confirm correct password", Toast.LENGTH_SHORT).show();
-                    //set some sort of an alert to the user, this one isn't working
-                    //Toast.makeText isn;t taking the Activity parameter for some reason I might
-                    //to use alert dialog
 
                 }
-
 
                 break;
 

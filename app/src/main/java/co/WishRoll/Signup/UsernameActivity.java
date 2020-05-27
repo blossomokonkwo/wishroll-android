@@ -65,7 +65,6 @@ public class UsernameActivity extends AppCompatActivity implements View.OnClickL
 
                     openSetAge(username);
 
-
                 }else{
 
                     Toast.makeText(this, "Please enter a valid username", Toast.LENGTH_SHORT).show();
@@ -75,7 +74,9 @@ public class UsernameActivity extends AppCompatActivity implements View.OnClickL
                 break;
 
             case R.id.ibBackEmail:
+
                 openSetEmail();
+
                 break;
         }
 
@@ -106,9 +107,7 @@ public class UsernameActivity extends AppCompatActivity implements View.OnClickL
         Pattern usernamePat = Pattern.compile(usernameRegex, Pattern.CASE_INSENSITIVE);
         Matcher matcher = usernamePat.matcher(usernameInput);
 
-
         return matcher.find();
-
 
     }
 

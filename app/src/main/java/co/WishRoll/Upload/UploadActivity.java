@@ -9,9 +9,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import co.WishRoll.R;
 
 public class UploadActivity extends AppCompatActivity {
+    //user uploading pictures and videosto their profile
     private static final String TAG = "UploadActivity";
-    private Context mContext = UploadActivity.this;
-    private static final int ACTIVITY_NUM = 2;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
