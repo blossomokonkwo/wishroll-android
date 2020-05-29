@@ -11,57 +11,83 @@
 
 
 
+
+
+
+
+
+
+
+
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white">
 
         <!-- Top Toolbar -->
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/relLayout1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="15dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
             android:background="@color/white"
-            android:gravity="center_horizontal">
+            >
+
+            <TextView
+                android:id="@+id/tvUsernameProfileView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="30dp"
+               android:layout_centerInParent="true"
+                android:layout_centerVertical="true"
+                android:text="username"
+                android:textSize="20dp"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
+
+
 
             <ImageButton
                 android:id="@+id/ibBackMain"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_marginRight="110dp"
+                android:layout_marginLeft="10dp"
+                android:layout_centerVertical="true"
                 android:background="@drawable/ic_back_colored" />
 
-            <TextView
-                android:id="@+id/tvUsernameView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:text="username"
-                android:textColor="@color/black"
-                android:textSize="20dp"
-                android:textStyle="bold" />
+            <ImageButton
+                android:id="@+id/ibSettings"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginRight="10dp"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/ic_more_colored"
+                android:layout_centerInParent="true"
+                />
 
             <ImageButton
                 android:layout_gravity="center"
                 android:id="@+id/ibNotifications"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:layout_marginLeft="80dp"
+                android:layout_alignParentRight="true"
+                android:layout_toLeftOf="@id/ibSettings"
+                android:layout_marginRight="50dp"
+                android:layout_centerInParent="true"
                 android:background="@drawable/ic_notification_colored"
                 />
 
-            <ImageButton
-                android:id="@+id/ibSettings"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_marginLeft="10dp"
-                android:background="@drawable/ic_more_colored"
-                android:layout_gravity="center"
-                />
 
-        </LinearLayout>
+
+
+
+
+
+
+
+        </RelativeLayout>
 
         <!-- Tab Layout text disappeared as soon as I added the scroll view +
         extra relative layout, might need to change, ykw..-->
@@ -348,6 +374,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/vpViewPager">
+
+
 
 
 

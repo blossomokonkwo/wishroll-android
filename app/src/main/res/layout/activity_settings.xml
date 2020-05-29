@@ -7,45 +7,151 @@
     tools:context=".Profile.SettingsActivity">
 
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <LinearLayout
-        android:id="@+id/relLayout1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="15dp"
-        android:background="@color/white"
-        android:gravity="center_horizontal">
+
+        <RelativeLayout
+            android:id="@+id/relLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="15dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="30dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:text="Settings"
+                android:textSize="25dp"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
 
         <ImageButton
             android:id="@+id/ibBackProfile"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
             android:layout_marginLeft="30dp"
-            android:layout_marginRight="10dp"
-            android:layout_gravity="center"
-            android:background="@drawable/ic_back_colored" />
+            android:background="@drawable/ic_back_colored"
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginRight="80dp"
-            android:fontFamily="@font/nunito"
-            android:gravity="center"
-            android:text="Settings"
-            android:textColor="@color/black"
-            android:textSize="25dp"
-            android:textStyle="bold" />
+            />
 
 
-    </LinearLayout>
+
+
+
+
+
+        </RelativeLayout>
+
+
+
+
 
     <RelativeLayout
-        android:id="@+id/relLayout2"
+        android:id="@+id/relLayout3"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_below="@id/relLayout1"
+
+
 
         >
+        
+        <RelativeLayout
+            android:layout_marginTop="10dp"
+            android:id="@+id/relLayouta"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginBottom="10dp"
+            >
+
+            <TextView
+                android:id="@+id/tvContactUs"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="Contact Us"
+                android:textSize="20dp"
+                android:textColor="@color/black"
+                />
+
+
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/relLayoutb"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_below="@id/relLayouta"
+            android:layout_marginBottom="10dp"
+            >
+
+            <TextView
+                android:id="@+id/tvEditProfile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="Edit Profile"
+                android:textSize="20dp"
+                android:textColor="@color/black"
+                />
+
+
+
+
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/relLayoutc"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_below="@id/relLayoutb"
+            android:layout_marginBottom="10dp"
+            >
+
+            <TextView
+                android:id="@+id/tvPrivacyPolicy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="Privacy Policy"
+                android:textSize="20dp"
+                android:textColor="@color/black"
+                />
+
+
+
+
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/relLayoutd"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_below="@id/relLayoutc"
+            android:layout_marginBottom="10dp"
+            >
+
+            <TextView
+                android:id="@+id/tvLogout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="Logout"
+                android:textSize="20dp"
+                android:textColor="@color/red"
+                />
+
+
+
+
+        </RelativeLayout>
+
+
 
 
 
@@ -55,8 +161,7 @@
 
     </RelativeLayout>
 
-
-
+    </RelativeLayout>
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
