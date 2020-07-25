@@ -14,6 +14,10 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    android {
+        viewBinding.enabled = true
+    }
+
     buildTypes {
         release {
             //production build type
@@ -35,6 +39,7 @@ android {
 
 
     }
+
 
 }
 
