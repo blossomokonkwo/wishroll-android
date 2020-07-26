@@ -7,16 +7,19 @@ public class User extends Application {
 
 
     String username;
+    String email;
+    int age;
     int followersCount;
     int followingCount;
     int totalViewCount;
     String profilePictureURL;
+    String defaultProfileURL;
     boolean isVerified;
     boolean isFollowing;
     String fullName;
     String bio;
 
-    public User(String username){
+    public User(String username, String email, String password, int age){
         //constructor for an instance of the User class
 
 
