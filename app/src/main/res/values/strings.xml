@@ -5,19 +5,23 @@
     <string name="Password_label">Password</string>
     <string name="Username_label">Username</string>
     <string name="Login_label">Login</string>
-    <string name="email">Email</string>
+    <string name="email">What\'s your Email?</string>
     <string name="enter_email">Please enter your email</string>
-    <string name="set_username">Please enter your username</string>
+
+    <string name="set_username">Create a Username</string>
+    <string name="usernamehint">Please enter your username</string>
     <string name="already_have">Already have an account? Login here</string>
+
     <string name="next">Next</string>
     <string name="back_button">Back</string>
     <string name="new_prompt">New to the WishRoll Community? Signup here</string>
-    <string name="Age_Ask">What\'s Your Age?</string>
+    <string name="Age_Ask">When\'s Your Birthday?</string>
     <string name="age_warning">You must be 12 years or older to use WishRoll</string>
     <string name="age_month">Month</string>
     <string name="age_day">Day</string>
     <string name="age_year">Year</string>
-    <string name="full_name">Full Name</string>
+    <string name="full_name">What\'s your Name?</string>
+    <string name="gender">What\'s your Gender?</string>
     <string name="please_name">Please enter your full name</string>
     <string name="confirm_password">Confirm Password</string>
     <string name="eight">At least eight characters</string>

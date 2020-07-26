@@ -1,8 +1,10 @@
-package co.WishRoll;
+package co.WishRoll.Signup;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import co.WishRoll.R;
 
 public class SignupActivity extends AppCompatActivity {
 
