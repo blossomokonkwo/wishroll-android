@@ -33,7 +33,7 @@ android {
         }
 
         bTesting {
-            buildConfigField "String", 'BASE_URL', "\"https://wishroll-testing.herokuapp.com\""
+            buildConfigField "String", 'REGISTER_REQUEST_URL', "\"https://wishroll-testing.herokuapp.com\""
 
         }
 
