@@ -43,6 +43,7 @@ public class SignupActivity extends AppCompatActivity {
         final EditText etPasswordOne = findViewById(R.id.userPasswordOne);
         final EditText etPasswordTwo = findViewById(R.id.userPasswordTwo);
         final ProgressBar progressBar =  findViewById(R.id.progressBar);
+
         final FirebaseAuth fAuth;
         fAuth = FirebaseAuth.getInstance();
 

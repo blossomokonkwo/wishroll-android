@@ -7,13 +7,15 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.*;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 import co.WishRoll.Signup.SignupActivity;
 import co.WishRoll.databinding.ActivityWelcomeBinding;
 
 
 public class WelcomeActivity extends AppCompatActivity implements View.OnClickListener {
 
-    ActivityWelcomeBinding binding;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +28,14 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
 
         signup.setOnClickListener(this);
         login.setOnClickListener(this);
+
+        FirebaseAuth fAuth = FirebaseAuth.getInstance();
+        if(fAuth.getCurrentUser() != null){
+            startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
+        }
+
+
+
 
 
 

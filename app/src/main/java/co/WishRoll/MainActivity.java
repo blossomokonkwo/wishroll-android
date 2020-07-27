@@ -2,8 +2,12 @@ package co.WishRoll;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.*;
+
+import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -15,5 +19,17 @@ public class MainActivity extends AppCompatActivity {
         TextView displayWelcome = findViewById(R.id.tvWelcomeMessage);
         TextView displayName = findViewById(R.id.tvDisplayName);
         TextView displayEmail = findViewById(R.id.tvDisplayEmail);
+        Button bLogout = findViewById(R.id.bLogout);
     }
+
+
+
+    public void logout (View view){
+        FirebaseAuth.getInstance().signOut();
+        startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+        finish();
+    }
+
+
+
 }
