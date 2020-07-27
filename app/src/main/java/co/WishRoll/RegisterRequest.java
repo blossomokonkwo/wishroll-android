@@ -9,7 +9,7 @@ import java.util.*;
 public class RegisterRequest extends StringRequest {
     //makes request to register and get a reponse as a string
 
-    private static final String REGISTER_REQUEST_URL = "http://wishroll-test.000webhostapp.com/Register.php";
+    private static final String REGISTER_REQUEST_URL = "";
     private Map<String, String> params;
 
     public RegisterRequest(String email, String name, int age, String username, String password, Response.Listener<String> listener) {

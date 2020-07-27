@@ -216,7 +216,17 @@
                 android:textColor="@color/white"
                 android:textSize="@dimen/_17ssp"
                  />
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                android:visibility="invisible" />
         </LinearLayout>
+
+
 
 
 
