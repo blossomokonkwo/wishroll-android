@@ -32,6 +32,7 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
         FirebaseAuth fAuth = FirebaseAuth.getInstance();
         if(fAuth.getCurrentUser() != null){
             startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
+            finish();
         }
 
 
