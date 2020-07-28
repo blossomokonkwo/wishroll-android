@@ -4,11 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Signup.ProfileActivity"
+    tools:context=".ProfileActivity"
     >
 
 
-    <androidx.core.widget.NestedScrollView
+    <ScrollView
         android:id="@+id/nestedContent"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -16,10 +16,7 @@
         android:background="@color/white"
         android:scrollbars="none"
         android:scrollingCache="true"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-
-
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -27,6 +24,8 @@
             android:gravity="center_horizontal"
             android:orientation="vertical"
             android:background="@color/white">
+
+
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -39,7 +38,7 @@
                 android:src="@drawable/ic_chevron_left_white"
                 android:elevation="2dp"
                 android:layout_margin="10dp"
-                android:background="none"
+                android:background="@color/transparent"
                 android:layout_alignParentLeft="true"
 
 
@@ -51,7 +50,7 @@
                 android:src="@drawable/ic_more_horiz_24"
                 android:elevation="2dp"
                 android:layout_margin="10dp"
-                android:background="none"
+                android:background="@color/transparent"
                 android:layout_alignParentRight="true"/>
 
                 <ImageView
@@ -59,7 +58,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_160sdp"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/wishrollbanner" />
+                    android:src="@color/wishroll_blue" />
             </RelativeLayout>
 
 
@@ -169,31 +168,32 @@
                     android:text="Edit Profile"
                     android:textAllCaps="false"
                     android:textSize="@dimen/_12ssp"
-                    android:style="?android:attr/borderlessButtonStyle"
+                    style="?android:attr/borderlessButtonStyle"
+
 
                     />
 
             </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_marginTop="@dimen/_15sdp"
-            android:weightSum="3"
-            >
-
-            <TextView
-                android:id="@+id/viewsProfileView"
-                android:layout_width="@dimen/_20sdp"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="50.5K"
-                android:textSize="@dimen/_13ssp"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                android:textAlignment="center"
-                android:gravity="center_horizontal" />
+                android:gravity="center"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:weightSum="3"
+                >
+
+                <TextView
+                    android:id="@+id/viewsProfileView"
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="50.5K"
+                    android:textSize="@dimen/_13ssp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:textAlignment="center"
+                    android:gravity="center_horizontal" />
             <TextView
                 android:id="@+id/followerCountProfileView"
                 android:layout_width="@dimen/_20sdp"
@@ -218,7 +218,7 @@
                 android:gravity="center_horizontal"/>
 
 
-        </LinearLayout>
+             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -259,12 +259,41 @@
 
             </LinearLayout>
 
+            
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_400sdp"
+                android:background="@color/white"
+                android:orientation="vertical">
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tabLayoutProfileView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:tabMode="fixed"
+                    app:tabIndicatorColor="@color/black"
+                    app:tabGravity="fill"
+                    >
+
+                </com.google.android.material.tabs.TabLayout>
+
+
+
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/viewPagerProfileView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                </androidx.viewpager2.widget.ViewPager2>
+
+            </LinearLayout>
+
+
 
         </LinearLayout>
 
 
 
-    </androidx.core.widget.NestedScrollView>
+    </ScrollView>
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

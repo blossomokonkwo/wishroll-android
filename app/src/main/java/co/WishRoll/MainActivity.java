@@ -3,24 +3,20 @@ package co.WishRoll;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.*;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.mikhaellopez.circularimageview.CircularImageView;
 
-import co.WishRoll.Signup.ProfileActivity;
-import de.hdodenhof.circleimageview.CircleImageView;
-
 public class MainActivity extends AppCompatActivity {
-    CircularImageView profileThumbnail;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        CircularImageView profileThumbnail;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
