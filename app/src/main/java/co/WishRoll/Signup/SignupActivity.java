@@ -10,41 +10,51 @@ import android.util.Log;
 import android.view.View;
 import android.widget.*;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.toolbox.Volley;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
 import co.WishRoll.MainActivity;
 import co.WishRoll.R;
-import co.WishRoll.RegisterRequest;
 
 public class SignupActivity extends AppCompatActivity {
     private static final String TAG = "SignupActivity";
+    FirebaseFirestore firebaseFirestore;
+    String userID;
+    EditText etEmail;
+    EditText etFullName;
+    EditText etAge;
+    EditText etUsername;
+    EditText etPasswordOne;
+    EditText etPasswordTwo;
+    ProgressBar progressBar;
+    FirebaseAuth fAuth;
+    Button bSignup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
 
-        final EditText etEmail = findViewById(R.id.userEmail);
-        final EditText etFullName = findViewById(R.id.userFullName);
-        final EditText etAge = findViewById(R.id.userAge);
-        final EditText etUsername = findViewById(R.id.userUsername);
-        final EditText etPasswordOne = findViewById(R.id.userPasswordOne);
-        final EditText etPasswordTwo = findViewById(R.id.userPasswordTwo);
-        final ProgressBar progressBar =  findViewById(R.id.progressBar);
+        etEmail = findViewById(R.id.userEmail);
+        etFullName = findViewById(R.id.userFullName);
+        etAge = findViewById(R.id.userAge);
+        etUsername = findViewById(R.id.userUsername);
+        etPasswordOne = findViewById(R.id.userPasswordOne);
+        etPasswordTwo = findViewById(R.id.userPasswordTwo);
+        progressBar =  findViewById(R.id.progressBar);
 
-        final FirebaseAuth fAuth;
+        firebaseFirestore = FirebaseFirestore.getInstance();
+
         fAuth = FirebaseAuth.getInstance();
 
        /* if(fAuth.getCurrentUser() != null){
@@ -63,7 +73,8 @@ public class SignupActivity extends AppCompatActivity {
 
 
 
-        final Button bSignup = findViewById(R.id.bCreateAccount);
+        bSignup = findViewById(R.id.bCreateAccount);
+
         bSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -98,6 +109,20 @@ public class SignupActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if(task.isSuccessful()){
                                 Toast.makeText(SignupActivity.this, "Your account has been created", Toast.LENGTH_SHORT).show();
+                                userID = fAuth.getCurrentUser().getUid();
+                                DocumentReference documentReference = firebaseFirestore.collection("users").document(userID);
+                                Map<String, Object> user = new HashMap<>();
+                                user.put("fullName", name);
+                                user.put("email", email);
+                                user.put("username", username);
+                                user.put("password", password);
+                                user.put("age", age);
+                                documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        Log.d(TAG, "onSuccess: user created for " + userID);
+                                    }
+                                });
                                 startActivity(new Intent(SignupActivity.this, MainActivity.class));
                             }else{
                                 Toast.makeText(SignupActivity.this, "Something went wrong, please try again", Toast.LENGTH_SHORT).show();

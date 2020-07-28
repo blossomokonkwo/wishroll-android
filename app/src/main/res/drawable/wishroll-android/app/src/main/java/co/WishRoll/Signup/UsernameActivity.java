@@ -8,13 +8,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.Toast;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import co.WishRoll.Models.User;
 import co.WishRoll.R;
+import co.WishRoll.User;
 
 public class UsernameActivity extends AppCompatActivity implements View.OnClickListener {
 

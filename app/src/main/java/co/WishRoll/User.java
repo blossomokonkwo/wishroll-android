@@ -1,4 +1,4 @@
-package co.WishRoll.Signup;
+package co.WishRoll;
 
 import android.app.Application;
 

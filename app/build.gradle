@@ -11,6 +11,7 @@ android {
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -87,6 +88,6 @@ dependencies {
 
     //Google Services
     //classpath 'com.google.gms:google-services:4.3.3'
-
+    implementation 'com.android.support:multidex:1.0.3'
 
 }
