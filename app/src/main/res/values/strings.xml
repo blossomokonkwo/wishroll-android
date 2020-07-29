@@ -40,6 +40,15 @@
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
 
+    <!-- Edit Profile Activity-->
+    <string name="email_label">Email</string>
+    <string name="name_label">Name</string>
+    <string name="username_label">Username</string>
+    <string name="bio_label">Bio</string>
+    <string name="save_label">Save</string>
+    <string name="saved_dialog">Profile Updated</string>
+
+
     <!-- Bottom Sheet Slider Text-->
     <string name="contact_us">Contact Us</string>
     <string name="privacy_policy">Privacy Policy</string>
