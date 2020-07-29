@@ -57,6 +57,8 @@ public class ProfileActivity extends AppCompatActivity {
 
         usernameView = findViewById(R.id.usernameProfileView);
         fullNameView = findViewById(R.id.fullNameProfileView);
+        backProfileView = findViewById(R.id.backProfileView);
+        moreProfileView = findViewById(R.id.moreProfileView);
 
 
         Log.d(TAG, "onCreate: activity created, initalization of view pagers");
@@ -121,6 +123,17 @@ public class ProfileActivity extends AppCompatActivity {
                 startActivity(new Intent(ProfileActivity.this, MainActivity.class));
             }
         });
+
+        moreProfileView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO(intent to bottom slide up sheet)
+            }
+        });
+
+        bac
+
+
 
     }
 }
