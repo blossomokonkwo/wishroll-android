@@ -7,18 +7,37 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.lifecycle.Lifecycle;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+
+import javax.annotation.Nullable;
 
 import co.WishRoll.R;
 
 public class ProfileActivity extends AppCompatActivity {
 
     private static final String TAG = "PROFILE ACTIVITY";
+
+    FirebaseAuth fAuth;
+    FirebaseFirestore fStore;
+    TextView usernameView, fullNameView;
+    String userID;
+    FloatingActionButton floatingActionButton;
+    ImageButton backProfileView, moreProfileView;
 
 
 
@@ -28,6 +47,17 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+
+        floatingActionButton = findViewById(R.id.fabProfileView);
+
+        fAuth = FirebaseAuth.getInstance();
+        fStore = FirebaseFirestore.getInstance();
+
+        userID = fAuth.getCurrentUser().getUid();
+
+        usernameView = findViewById(R.id.usernameProfileView);
+        fullNameView = findViewById(R.id.fullNameProfileView);
+
 
         Log.d(TAG, "onCreate: activity created, initalization of view pagers");
 
@@ -72,6 +102,25 @@ public class ProfileActivity extends AppCompatActivity {
         Log.d(TAG, "before the tab layout mediator is attached");
         tabLayoutMediator.attach();
 
+
+        DocumentReference documentReference = fStore.collection("users").document(userID);
+        documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
+
+                usernameView.setText(documentSnapshot.getString("username"));
+                String rawUsername = usernameView.getText().toString();
+                usernameView.setText("@" + rawUsername);
+                fullNameView.setText(documentSnapshot.getString("fullName"));
+            }
+        });
+
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ProfileActivity.this, MainActivity.class));
+            }
+        });
 
     }
 }

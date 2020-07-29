@@ -275,7 +275,7 @@
                     app:tabIndicatorColor="@color/black"
                     app:tabGravity="fill"
                     app:tabIconTint="@color/grey"
-                    
+
                     />
 
                 <androidx.viewpager2.widget.ViewPager2
@@ -290,5 +290,28 @@
         </LinearLayout>
 
     </ScrollView>
+
+
+
+
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabProfileView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|bottom"
+            android:src="@drawable/ic_home"
+            android:background="@color/wishroll_blue"
+            android:layout_margin="16dp"
+            app:backgroundTint="@color/wishroll_blue"
+
+            />
+
+
+
+
+
+
+
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
