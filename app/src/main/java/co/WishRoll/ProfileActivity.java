@@ -10,10 +10,13 @@ import androidx.viewpager2.widget.ViewPager2;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
@@ -101,7 +104,7 @@ public class ProfileActivity extends AppCompatActivity {
 
             }
         });
-        Log.d(TAG, "before the tab layout mediator is attached");
+
         tabLayoutMediator.attach();
 
 
@@ -114,6 +117,7 @@ public class ProfileActivity extends AppCompatActivity {
                 String rawUsername = usernameView.getText().toString();
                 usernameView.setText("@" + rawUsername);
                 fullNameView.setText(documentSnapshot.getString("fullName"));
+
             }
         });
 
@@ -121,19 +125,75 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(ProfileActivity.this, MainActivity.class));
+                finish();
             }
         });
 
         moreProfileView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO(intent to bottom slide up sheet)
+               final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(
+                        ProfileActivity.this, R.style.BottomSheetDialogTheme
+                );
+
+                View bottomSheetView = LayoutInflater.from(getApplicationContext()).inflate(R.layout.layout_bottom_sheet,
+                        (LinearLayout)findViewById(R.id.bottomSheetContainer));
+
+                bottomSheetView.findViewById(R.id.contactProfileView).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        //TODO(intent to open email view)
+                        //add bottomSheetDialog.dismiss();
+                    }
+                });
+
+                bottomSheetView.findViewById(R.id.privacyProfileView).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        //TODO(show user privacy policy)
+                        //bottomSheetDialog.dismiss();
+                    }
+                });
+
+                bottomSheetView.findViewById(R.id.yourAccountProfileView).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        //TODO(show user account editing view)
+                        //bottomSheetDialog.dismiss();
+                    }
+                });
+
+                bottomSheetView.findViewById(R.id.logoutProfileView).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        bottomSheetDialog.dismiss();
+                        fAuth.getInstance().signOut();
+                        startActivity(new Intent(ProfileActivity.this, LoginActivity.class));
+                        //TODO(this crashes everytime it happens but we're going to leave it alone for now)
+                        finish();
+
+                    }
+
+                });
+
+
+                bottomSheetDialog.setContentView(bottomSheetView);
+                bottomSheetDialog.show();
             }
         });
 
-        bac
+        backProfileView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+
 
 
 
     }
+
+
 }

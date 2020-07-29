@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         profileThumbnail = findViewById(R.id.profileMain);
-        Button bLogout = findViewById(R.id.bLogout);
+
 
 
 
@@ -38,11 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    public void logout (View view){
-        FirebaseAuth.getInstance().signOut();
-        startActivity(new Intent(getApplicationContext(), LoginActivity.class));
-        finish();
-    }
+
 
 
 

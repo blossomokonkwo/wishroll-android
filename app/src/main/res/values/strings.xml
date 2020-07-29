@@ -1,19 +1,16 @@
 <resources>
-    <string name="app_name">WishRoll</string>
-    <string name="logo_description">WishRoll Logo</string>
+
+    <!-- Sign Up/Login Proceess-->
+
     <string name="UsernameEmail_label">Username or email</string>
     <string name="Password_label">Password</string>
     <string name="Username_label">Username</string>
     <string name="Login_label">Login</string>
     <string name="email">What\'s your Email?</string>
     <string name="enter_email">Please enter your email</string>
-
     <string name="set_username">Create a Username</string>
     <string name="usernamehint">Please enter your username</string>
     <string name="already_have">Already have an account? Login here</string>
-
-    <string name="next">Next</string>
-    <string name="back_button">Back</string>
     <string name="new_prompt">New to the WishRoll Community? Signup here</string>
     <string name="Age_Ask">What\'s Your Age?</string>
     <string name="create_account">Create Your Account</string>
@@ -30,18 +27,22 @@
     <string name="email_valid">Please enter a valid email</string>
     <string name="you_agree">By joining you agree to WishRoll\'s Terms of Service and Privacy Policy</string>
     <string name="Join">Join</string>
-    <string name="title_activity_main2">Main2Activity</string>
-    <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
-    <string name="previous">Previous</string>
     <string name="joinTheCommunity"><b>Join the Community</b></string>
     <string name="shortWelcome">Find reaction photos and videos, share them, create reaction videos and more</string>
     <string name="signup">Sign up</string>
 
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <!-- Globals/Use-Anywhere -->
+    <string name="next">Next</string>
+    <string name="back_button">Back</string>
+    <string name="app_name">WishRoll</string>
+    <string name="logo_description">WishRoll Logo</string>
+    <string name="previous">Previous</string>
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- Bottom Sheet Slider Text-->
+    <string name="contact_us">Contact Us</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="your_account">Your Account</string>
+    <string name="logout">Logout</string>
 </resources>

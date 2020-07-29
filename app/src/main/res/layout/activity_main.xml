@@ -17,13 +17,7 @@
             android:src="@drawable/logosmall"
             />
 
-        <Button
-            android:id="@+id/bLogout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="logout"
-            android:text="Logout"
-            />
+
     </LinearLayout>
 
 

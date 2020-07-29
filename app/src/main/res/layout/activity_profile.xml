@@ -33,11 +33,11 @@
 
                 <ImageButton
                     android:id="@+id/backProfileView"
-                    android:layout_width="@dimen/_20sdp"
-                    android:layout_height="@dimen/_20sdp"
+                    android:layout_width="@dimen/_40sdp"
+                    android:layout_height="@dimen/_40sdp"
                     android:src="@drawable/ic_chevron_left_white"
                     android:elevation="2dp"
-                    android:layout_margin="10dp"
+                    android:layout_margin="5dp"
                     android:background="@color/transparent"
                     android:layout_alignParentLeft="true"/>
 
@@ -274,7 +274,7 @@
                     app:tabMode="fixed"
                     app:tabIndicatorColor="@color/black"
                     app:tabGravity="fill"
-                    app:tabIconTint="@color/grey"
+                    app:tabIconTint="#e4e7ed"
 
                     />
 
