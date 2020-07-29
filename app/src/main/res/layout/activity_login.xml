@@ -36,6 +36,7 @@
         android:layout_height="@dimen/_40sdp"
         android:layout_marginTop="32dp"
         android:hint="@string/Password_label"
+        android:inputType="textPassword"
         android:textColor="@color/grey"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"

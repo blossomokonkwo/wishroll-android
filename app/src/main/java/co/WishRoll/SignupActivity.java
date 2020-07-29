@@ -1,4 +1,4 @@
-package co.WishRoll.Signup;
+package co.WishRoll;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,12 +23,13 @@ import java.util.Map;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
-import co.WishRoll.MainActivity;
-import co.WishRoll.R;
-
 public class SignupActivity extends AppCompatActivity {
-    private static final String TAG = "SignupActivity";
+
+    private static final String TAG = "SIGNUP ACTIVITY";
+
     FirebaseFirestore firebaseFirestore;
+    FirebaseAuth fAuth;
+
     String userID;
     EditText etEmail;
     EditText etFullName;
@@ -36,8 +37,8 @@ public class SignupActivity extends AppCompatActivity {
     EditText etUsername;
     EditText etPasswordOne;
     EditText etPasswordTwo;
+
     ProgressBar progressBar;
-    FirebaseAuth fAuth;
     Button bSignup;
 
     @Override
@@ -54,27 +55,9 @@ public class SignupActivity extends AppCompatActivity {
         progressBar =  findViewById(R.id.progressBar);
 
         firebaseFirestore = FirebaseFirestore.getInstance();
-
         fAuth = FirebaseAuth.getInstance();
 
-       /* if(fAuth.getCurrentUser() != null){
-            startActivity(new Intent(SignupActivity.this, MainActivity.class));
-            finish();
-        }*/
-
-
-
-
-
-
-
-
-
-
-
-
         bSignup = findViewById(R.id.bCreateAccount);
-
         bSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -92,71 +75,91 @@ public class SignupActivity extends AppCompatActivity {
 
 
                 if(!password.equals(password0)){
+
                     Toast.makeText(SignupActivity.this, "Please enter the correct password", Toast.LENGTH_LONG).show();
+
                 }else if(!emailIsVerified(email)){
+
                     Toast.makeText(SignupActivity.this, "Please enter a valid email", Toast.LENGTH_LONG).show();
+
                 }else if(!usernameIsValid(username)){
+
                     Toast.makeText(SignupActivity.this, "Please enter a valid username", Toast.LENGTH_LONG).show();
+
                 }else if(age < 12 ) {
+
                     Toast.makeText(SignupActivity.this, "You need to be 12 or older to use WishRoll", Toast.LENGTH_LONG).show();
+
                 }else if(TextUtils.isEmpty(email) || TextUtils.isEmpty(username) || TextUtils.isEmpty(password) || TextUtils.isEmpty(name)){
+
                     Toast.makeText(SignupActivity.this, "You missed a spot", Toast.LENGTH_LONG).show();
+
                 }else{
-                    //send values to the view model
+
                     progressBar.setVisibility(View.VISIBLE);
+
                     fAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
+
                             if(task.isSuccessful()){
+
                                 Toast.makeText(SignupActivity.this, "Your account has been created", Toast.LENGTH_SHORT).show();
+
                                 userID = fAuth.getCurrentUser().getUid();
                                 DocumentReference documentReference = firebaseFirestore.collection("users").document(userID);
+
                                 Map<String, Object> user = new HashMap<>();
                                 user.put("fullName", name);
                                 user.put("email", email);
                                 user.put("username", username);
                                 user.put("password", password);
                                 user.put("age", age);
+
                                 documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
                                         Log.d(TAG, "onSuccess: user created for " + userID);
                                     }
                                 });
+
                                 startActivity(new Intent(SignupActivity.this, MainActivity.class));
+
                             }else{
+
                                 Toast.makeText(SignupActivity.this, "Something went wrong, please try again", Toast.LENGTH_SHORT).show();
+
                             }
                         }
                     });
 
                 }
 
-
-
-
-
-
             }
+
         });
 
     }
 
     public static boolean emailIsVerified(String emailInput){
-
+        //checks if email entry is in correct email form
 
         String emailRegex = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$";
+
         Pattern emailPat = Pattern.compile(emailRegex, Pattern.CASE_INSENSITIVE);
+
         Matcher matcher = emailPat.matcher(emailInput);
 
         return matcher.find();
     }
 
     public boolean usernameIsValid(String usernameInput){
-
+        //Username Validation: no triple periods or underscores, no longer than 20 characters, no special characters
 
         String usernameRegex = "^[A-Z0-9]([._](?![._])|[a-z0-9]){1,20}[a-z0-9]$";
+
         Pattern usernamePat = Pattern.compile(usernameRegex, Pattern.CASE_INSENSITIVE);
+
         Matcher matcher = usernamePat.matcher(usernameInput);
 
         return matcher.find();

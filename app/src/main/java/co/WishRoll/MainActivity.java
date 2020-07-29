@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.*;
 
@@ -11,6 +12,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.mikhaellopez.circularimageview.CircularImageView;
 
 public class MainActivity extends AppCompatActivity {
+    private static final String TAG = "MAIN ACTIVITY";
 
 
 
@@ -23,11 +25,12 @@ public class MainActivity extends AppCompatActivity {
         profileThumbnail = findViewById(R.id.profileMain);
         Button bLogout = findViewById(R.id.bLogout);
 
-        //profileThumbnail.setImageURI(Uri.parse("https://i.stack.imgur.com/l60Hf.png"));
+
 
         profileThumbnail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d(TAG, "before navigating to the profile activity, where the crashes happen");
                 startActivity(new Intent(MainActivity.this, ProfileActivity.class));
             }
         });

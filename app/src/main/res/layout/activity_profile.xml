@@ -15,9 +15,10 @@
         android:clipToPadding="false"
         android:background="@color/white"
         android:scrollbars="none"
-        android:scrollingCache="true"
-        >
+        android:scrollingCache="true">
 
+
+        <!-- Full Page -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -25,44 +26,41 @@
             android:orientation="vertical"
             android:background="@color/white">
 
-
-
+            <!-- Profile Banner & Top Image Buttons -->
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-            <ImageButton
-                android:id="@+id/backProfileView"
-                android:layout_width="@dimen/_20sdp"
-                android:layout_height="@dimen/_20sdp"
-                android:src="@drawable/ic_chevron_left_white"
-                android:elevation="2dp"
-                android:layout_margin="10dp"
-                android:background="@color/transparent"
-                android:layout_alignParentLeft="true"
+                <ImageButton
+                    android:id="@+id/backProfileView"
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:src="@drawable/ic_chevron_left_white"
+                    android:elevation="2dp"
+                    android:layout_margin="10dp"
+                    android:background="@color/transparent"
+                    android:layout_alignParentLeft="true"/>
 
+                <ImageButton
+                    android:id="@+id/moreProfileView"
+                    android:layout_width="@dimen/_30sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:src="@drawable/ic_more_horiz_24"
+                    android:elevation="2dp"
+                    android:layout_margin="10dp"
+                    android:background="@color/transparent"
+                    android:layout_alignParentRight="true"/>
 
-                />
-            <ImageButton
-                android:id="@+id/moreProfileView"
-                android:layout_width="@dimen/_30sdp"
-                android:layout_height="@dimen/_20sdp"
-                android:src="@drawable/ic_more_horiz_24"
-                android:elevation="2dp"
-                android:layout_margin="10dp"
-                android:background="@color/transparent"
-                android:layout_alignParentRight="true"/>
+                    <ImageView
+                        android:id="@+id/bannerProfileView"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_160sdp"
+                        android:scaleType="centerCrop"
+                        android:src="@color/wishroll_blue" />
 
-                <ImageView
-                    android:id="@+id/bannerProfileView"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_160sdp"
-                    android:scaleType="centerCrop"
-                    android:src="@color/wishroll_blue" />
             </RelativeLayout>
 
-
-
+            <!-- Profile Picture -->
             <com.mikhaellopez.circularimageview.CircularImageView
                 android:id="@+id/profilePictureProfileView"
                 android:layout_width="@dimen/_90sdp"
@@ -74,14 +72,14 @@
                 app:civ_border_color="@color/white"
                 app:civ_border_width="4dp"
                 app:civ_shadow="true"
-                app:civ_shadow_radius="0" />
+                app:civ_shadow_radius="0"/>
 
+            <!-- Username, Score, and Emoji -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:background="@color/white">
-
 
                 <TextView
                     android:id="@+id/usernameProfileView"
@@ -91,6 +89,7 @@
                     android:textColor="@color/wishroll_blue"
                     android:textSize="@dimen/_11ssp"
                     android:layout_gravity="center"/>
+
                 <ImageView
                     android:layout_marginLeft="@dimen/_5sdp"
                     android:layout_marginTop="@dimen/_2sdp"
@@ -98,6 +97,7 @@
                     android:layout_height="@dimen/_3sdp"
                     android:src="@drawable/ic_dot_black"
                     android:layout_gravity="center"/>
+
                 <TextView
                     android:layout_marginLeft="@dimen/_5sdp"
                     android:id="@+id/scoreProfileView"
@@ -108,6 +108,8 @@
                     android:textColor="@color/black"
                     android:textSize="@dimen/_10ssp"
                     android:layout_gravity="center"/>
+
+
                 <ImageView
                     android:id="@+id/emojiProfileView"
                     android:layout_marginLeft="@dimen/_3sdp"
@@ -118,27 +120,28 @@
 
             </LinearLayout>
 
+            <!-- Full Name/Display Name -->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                >
+                android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/fullNameProfileView"
-                android:gravity="center"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Bloss"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                android:textSize="@dimen/_14ssp"/>
+
+                <TextView
+                    android:id="@+id/fullNameProfileView"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Bloss"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/_14ssp"/>
 
             </LinearLayout>
 
+            <!-- User's Bio -->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                >
+                android:layout_height="wrap_content">
 
                 <TextView
                     android:layout_marginTop="@dimen/_2sdp"
@@ -153,12 +156,12 @@
 
             </LinearLayout>
 
+            <!-- Edit Profile, Follow, or Following Button -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:layout_marginTop="@dimen/_5sdp"
-                >
+                android:layout_marginTop="@dimen/_5sdp">
 
                 <Button
                     android:id="@+id/mainButtonProfileView"
@@ -168,20 +171,17 @@
                     android:text="Edit Profile"
                     android:textAllCaps="false"
                     android:textSize="@dimen/_12ssp"
-                    style="?android:attr/borderlessButtonStyle"
-
-
-                    />
+                    style="?android:attr/borderlessButtonStyle"/>
 
             </LinearLayout>
 
+            <!-- User Views, Followers, and Following Count -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:layout_marginTop="@dimen/_15sdp"
-                android:weightSum="3"
-                >
+                android:weightSum="3">
 
                 <TextView
                     android:id="@+id/viewsProfileView"
@@ -194,32 +194,34 @@
                     android:textStyle="bold"
                     android:textAlignment="center"
                     android:gravity="center_horizontal" />
-            <TextView
-                android:id="@+id/followerCountProfileView"
-                android:layout_width="@dimen/_20sdp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="286"
-                android:textSize="@dimen/_13ssp"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                android:textAlignment="center"
-                android:gravity="center_horizontal"/>
-            <TextView
-                android:id="@+id/followingCountProfileView"
-                android:layout_width="@dimen/_20sdp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="11"
-                android:textSize="@dimen/_13ssp"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                android:textAlignment="center"
-                android:gravity="center_horizontal"/>
 
+                <TextView
+                    android:id="@+id/followerCountProfileView"
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="286"
+                    android:textSize="@dimen/_13ssp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:textAlignment="center"
+                    android:gravity="center_horizontal"/>
 
-             </LinearLayout>
+                <TextView
+                    android:id="@+id/followingCountProfileView"
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="11"
+                    android:textSize="@dimen/_13ssp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:textAlignment="center"
+                    android:gravity="center_horizontal"/>
 
+            </LinearLayout>
+
+            <!-- Statistics Labels -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -256,15 +258,15 @@
                     android:textAlignment="center"
                     android:gravity="center_horizontal"/>
 
-
             </LinearLayout>
 
-            
+            <!-- TabLayout and View Pager 2 -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_400sdp"
                 android:background="@color/white"
                 android:orientation="vertical">
+
                 <com.google.android.material.tabs.TabLayout
                     android:id="@+id/tabLayoutProfileView"
                     android:layout_width="match_parent"
@@ -272,11 +274,9 @@
                     app:tabMode="fixed"
                     app:tabIndicatorColor="@color/black"
                     app:tabGravity="fill"
-                    >
-
-                </com.google.android.material.tabs.TabLayout>
-
-
+                    app:tabIconTint="@color/grey"
+                    
+                    />
 
                 <androidx.viewpager2.widget.ViewPager2
                     android:id="@+id/viewPagerProfileView"
@@ -287,13 +287,8 @@
 
             </LinearLayout>
 
-
-
         </LinearLayout>
 
-
-
     </ScrollView>
-
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
