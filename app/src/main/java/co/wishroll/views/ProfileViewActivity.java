@@ -31,7 +31,7 @@ public class ProfileViewActivity extends AppCompatActivity {
 
     private static final String TAG = "PROFILE ACTIVITY";
     private ActivityProfileviewBinding activityProfileViewBinding;
-    
+
 
     TextView usernameView, fullNameView;
     String userID;
