@@ -1,10 +1,9 @@
-package co.WishRoll;
+package co.wishroll.views;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.lifecycle.Lifecycle;
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Intent;
@@ -20,23 +19,20 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 
-import javax.annotation.Nullable;
+import co.wishroll.R;
+import co.wishroll.databinding.ActivityProfileviewBinding;
+import co.wishroll.model.User;
+import co.wishroll.utilities.ViewPagerAdapter;
+import co.wishroll.viewmodel.UserViewModel;
 
-import co.WishRoll.R;
 
-public class ProfileActivity extends AppCompatActivity {
+public class ProfileViewActivity extends AppCompatActivity {
 
     private static final String TAG = "PROFILE ACTIVITY";
+    private ActivityProfileviewBinding activityProfileViewBinding;
+    
 
-    FirebaseAuth fAuth;
-    FirebaseFirestore fStore;
     TextView usernameView, fullNameView;
     String userID;
     FloatingActionButton floatingActionButton;
@@ -46,25 +42,25 @@ public class ProfileActivity extends AppCompatActivity {
 
 
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile);
+        setContentView(R.layout.activity_profileview);
+
+
+        User user = new User("blossomokonkwo1@gmail.com" , "Blossom", 19, "blossomok", "okonkwo1");
+        UserViewModel userViewModel = new UserViewModel(user);
+        activityProfileViewBinding = DataBindingUtil.setContentView(this, R.layout.activity_profileview);
+        activityProfileViewBinding.setUserViewModel(userViewModel);
 
         floatingActionButton = findViewById(R.id.fabProfileView);
-
-        fAuth = FirebaseAuth.getInstance();
-        fStore = FirebaseFirestore.getInstance();
-
-        userID = fAuth.getCurrentUser().getUid();
-
-        usernameView = findViewById(R.id.usernameProfileView);
-        fullNameView = findViewById(R.id.fullNameProfileView);
         backProfileView = findViewById(R.id.backProfileView);
         moreProfileView = findViewById(R.id.moreProfileView);
 
 
-        Log.d(TAG, "onCreate: activity created, initalization of view pagers");
+
 
 
         ViewPager2 viewPager2 = findViewById(R.id.viewPagerProfileView);
@@ -108,23 +104,12 @@ public class ProfileActivity extends AppCompatActivity {
         tabLayoutMediator.attach();
 
 
-        DocumentReference documentReference = fStore.collection("users").document(userID);
-        documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
-            @Override
-            public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
 
-                usernameView.setText(documentSnapshot.getString("username"));
-                String rawUsername = usernameView.getText().toString();
-                usernameView.setText("@" + rawUsername);
-                fullNameView.setText(documentSnapshot.getString("fullName"));
-
-            }
-        });
 
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(ProfileActivity.this, MainActivity.class));
+                startActivity(new Intent(ProfileViewActivity.this, MainActivity.class));
                 finish();
             }
         });
@@ -133,7 +118,7 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(
-                        ProfileActivity.this, R.style.BottomSheetDialogTheme
+                        ProfileViewActivity.this, R.style.BottomSheetDialogTheme
                 );
 
                 View bottomSheetView = LayoutInflater.from(getApplicationContext()).inflate(R.layout.layout_bottom_sheet,
@@ -158,8 +143,10 @@ public class ProfileActivity extends AppCompatActivity {
                 bottomSheetView.findViewById(R.id.yourAccountProfileView).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        //TODO(show user account editing view)
-                        //bottomSheetDialog.dismiss();
+
+                        startActivity(new Intent(ProfileViewActivity.this, EditProfileActivity.class));
+                        bottomSheetDialog.dismiss();
+
                     }
                 });
 
@@ -167,8 +154,7 @@ public class ProfileActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         bottomSheetDialog.dismiss();
-                        fAuth.getInstance().signOut();
-                        startActivity(new Intent(ProfileActivity.this, LoginActivity.class));
+                        startActivity(new Intent(ProfileViewActivity.this, LoginActivity.class));
                         //TODO(this crashes everytime it happens but we're going to leave it alone for now)
                         finish();
 
@@ -179,7 +165,9 @@ public class ProfileActivity extends AppCompatActivity {
 
                 bottomSheetDialog.setContentView(bottomSheetView);
                 bottomSheetDialog.show();
+
             }
+
         });
 
         backProfileView.setOnClickListener(new View.OnClickListener() {
@@ -194,6 +182,7 @@ public class ProfileActivity extends AppCompatActivity {
 
 
     }
+
 
 
 }

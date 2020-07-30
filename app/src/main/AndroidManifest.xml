@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="co.WishRoll">
+    package="co.wishroll">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -11,15 +11,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".EditProfileActivity"></activity>
-        <activity android:name=".ProfileActivity" />
+        <activity android:name="co.wishroll.views.EditProfileActivity"></activity>
+        <activity android:name="co.wishroll.views.ProfileViewActivity" />
         <activity
-            android:name=".MainActivity"
+            android:name="co.wishroll.views.MainActivity"
             android:launchMode="singleTask" />
-        <activity android:name=".SignupActivity" />
-        <activity android:name=".LoginActivity" />
+        <activity android:name="co.wishroll.views.SignupActivity" />
+        <activity android:name="co.wishroll.views.LoginActivity" />
         <activity
-            android:name=".SplashScreen"
+            android:name="co.wishroll.views.SplashScreen"
             android:theme="@style/splashscreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,7 +28,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".WelcomeActivity"
+            android:name="co.wishroll.views.WelcomeActivity"
             android:theme="@style/AppTheme" />
     </application>
 

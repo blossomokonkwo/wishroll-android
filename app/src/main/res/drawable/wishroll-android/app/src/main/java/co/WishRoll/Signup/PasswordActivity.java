@@ -1,4 +1,4 @@
-package co.WishRoll.Signup;
+package co.wishroll.Signup;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,8 +11,8 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import co.WishRoll.R;
-import co.WishRoll.Search.SearchActivity;
+import co.wishroll.R;
+import co.wishroll.Search.SearchActivity;
 
 public class PasswordActivity extends AppCompatActivity implements View.OnClickListener {
 

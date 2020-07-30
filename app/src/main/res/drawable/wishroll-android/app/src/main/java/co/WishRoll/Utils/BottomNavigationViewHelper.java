@@ -1,4 +1,4 @@
-package co.WishRoll.Utils;
+package co.wishroll.Utils;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,12 +10,12 @@ import androidx.annotation.NonNull;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
-import co.WishRoll.R;
-import co.WishRoll.Home.HomeActivity;
-import co.WishRoll.Notifications.NotificationActivity;
-import co.WishRoll.Profile.ProfileActivity;
-import co.WishRoll.Search.SearchActivity;
-import co.WishRoll.Upload.UploadActivity;
+import co.wishroll.R;
+import co.wishroll.Home.HomeActivity;
+import co.wishroll.Notifications.NotificationActivity;
+import co.wishroll.Profile.ProfileActivity;
+import co.wishroll.Search.SearchActivity;
+import co.wishroll.Upload.UploadActivity;
 
 public class BottomNavigationViewHelper {
 

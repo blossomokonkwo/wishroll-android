@@ -1,4 +1,4 @@
-package co.WishRoll.Signup;
+package co.wishroll.Signup;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,9 +9,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
-import co.WishRoll.Models.User;
-import co.WishRoll.R;
-import co.WishRoll.User;
+import co.wishroll.Models.User;
+import co.wishroll.R;
+import co.wishroll.model.User;
 
 public class UsernameActivity extends AppCompatActivity implements View.OnClickListener {
 

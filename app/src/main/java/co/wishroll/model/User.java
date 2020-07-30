@@ -1,26 +1,45 @@
-package co.WishRoll;
+package co.wishroll.model;
 
 import android.app.Application;
+import android.widget.ImageView;
+
+import co.wishroll.R;
 
 public class User extends Application {
 
 
 
-    String username;
-    String email;
-    int age;
-    int followersCount;
-    int followingCount;
-    int totalViewCount;
-    String profilePictureURL;
-    String defaultProfileURL;
-    boolean isVerified;
-    boolean isFollowing;
-    String fullName;
-    String bio;
+    public String username;
+    public String email;
+    public int age;
+    public String password;
+    public int followersCount;
+    public int followingCount;
+    public int totalViewCount;
+    public String profilePictureURL;
+    public String defaultProfilePictureURL;
+    public boolean isVerified;
+    public boolean isFollowing;
+    public String fullName;
+    public String bio;
+    public Integer wishRollScore;
 
-    public User(String username, String email, String password, int age){
+    public User(String email, String fullName, int age, String username, String password){
         //constructor for an instance of the User class
+        this.username = username;
+        this.email = email;
+        this.fullName = fullName;
+        this.age = age;
+        this.password = password;
+        followersCount = 0;
+        followingCount = 0;
+        totalViewCount = 0;
+        isVerified = false;
+        wishRollScore = 0;
+        bio = "";
+
+
+
 
 
     }
@@ -86,10 +105,10 @@ public class User extends Application {
 
 
     public boolean isVerified() {
-        //checks if user is verified or not
+        //TODO(check if user is verified in the databse)
 
 
-        return isVerified;
+        return false;
     }
 
 
@@ -182,6 +201,14 @@ public class User extends Application {
         //convert all to lowercase and replace spaces with underscores
 
         this.username = username;
+    }
+
+    public Integer getWishRollScore() {
+        return wishRollScore;
+    }
+
+    public void setWishRollScore(Integer wishRollScore) {
+        this.wishRollScore = wishRollScore;
     }
 }
 

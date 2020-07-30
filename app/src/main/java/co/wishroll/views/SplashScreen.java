@@ -1,4 +1,4 @@
-package co.WishRoll;
+package co.wishroll.views;
 
 import android.content.Intent;
 import android.os.Bundle;

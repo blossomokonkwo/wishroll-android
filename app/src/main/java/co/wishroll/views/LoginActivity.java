@@ -1,6 +1,5 @@
-package co.WishRoll;
+package co.wishroll.views;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -8,10 +7,7 @@ import android.view.View;
 import android.widget.*;
 import android.content.*;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
+import co.wishroll.R;
 
 
 public class LoginActivity extends AppCompatActivity {
@@ -27,8 +23,7 @@ public class LoginActivity extends AppCompatActivity {
         final EditText password = findViewById(R.id.etPasswordEntry);
 
         Button bLogin = findViewById(R.id.bLogin1);
-        final ProgressBar progressBarLogin = findViewById(R.id.progressBarLogin);
-        final FirebaseAuth fAuth = FirebaseAuth.getInstance();
+        ProgressBar progressBarLogin = findViewById(R.id.progressBarLogin);
         TextView tvSignUp = (TextView) findViewById(R.id.newSignUp);
 
 
@@ -55,28 +50,16 @@ public class LoginActivity extends AppCompatActivity {
                 String emailEntry = emailUsername.getText().toString().trim();
                 String passwordEntry = password.getText().toString();
 
-                progressBarLogin.setVisibility(View.VISIBLE);
+                //progressBarLogin.setVisibility(View.VISIBLE);
+                // if(task.isSuccessful()){
+                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                //Toast.makeText(LoginActivity.this, "Error" + task.getException(), Toast.LENGTH_LONG).show();
 
-                fAuth.signInWithEmailAndPassword(emailEntry, passwordEntry).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-
-                        if(task.isSuccessful()){
-
-                            Toast.makeText(LoginActivity.this, "Logged in Successfully", Toast.LENGTH_LONG).show();
-
-                            startActivity(new Intent(LoginActivity.this, MainActivity.class));
-
-                        }else{
-
-                            Toast.makeText(LoginActivity.this, "Error" + task.getException(), Toast.LENGTH_LONG).show();
-
-                        }
-                    }
-                });
 
             }
         });
+
+
 
     }
 

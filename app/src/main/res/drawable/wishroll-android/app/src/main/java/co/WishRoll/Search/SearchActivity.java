@@ -1,4 +1,4 @@
-package co.WishRoll.Search;
+package co.wishroll.Search;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,7 +10,7 @@ import android.view.MenuItem;
 
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
-import co.WishRoll.R;
+import co.wishroll.R;
 
 public class SearchActivity extends AppCompatActivity {
 

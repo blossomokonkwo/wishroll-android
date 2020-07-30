@@ -1,4 +1,4 @@
-package co.WishRoll;
+package co.wishroll.views;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,10 +6,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.*;
 
-import com.google.firebase.auth.FirebaseAuth;
 import com.mikhaellopez.circularimageview.CircularImageView;
+
+import co.wishroll.R;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MAIN ACTIVITY";
@@ -30,8 +30,8 @@ public class MainActivity extends AppCompatActivity {
         profileThumbnail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(TAG, "before navigating to the profile activity, where the crashes happen");
-                startActivity(new Intent(MainActivity.this, ProfileActivity.class));
+                Log.d(TAG, "before navigating to the profile activity");
+                startActivity(new Intent(MainActivity.this, ProfileViewActivity.class));
             }
         });
     }

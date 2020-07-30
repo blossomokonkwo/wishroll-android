@@ -1,4 +1,4 @@
-package co.WishRoll.Signup;
+package co.wishroll.Signup;
 
 import androidx.appcompat.app.AppCompatActivity;
 import java.util.regex.Matcher;
@@ -12,8 +12,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import co.WishRoll.Models.User;
-import co.WishRoll.R;
+import co.wishroll.Models.User;
+import co.wishroll.R;
 
 //This activity is the first page in the RegisterActivity sequence. It asks for the users email and validates.
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener{

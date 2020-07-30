@@ -1,4 +1,4 @@
-package co.WishRoll;
+package co.wishroll;
 
 import android.content.Context;
 

@@ -1,4 +1,4 @@
-package co.WishRoll.Profile;
+package co.wishroll.Profile;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -10,10 +10,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
-import co.WishRoll.R;
+import co.wishroll.R;
 
 public class ProfileActivity extends AppCompatActivity {
-    private static final String TAG = "ProfileActivity";
+    private static final String TAG = "ProfileViewActivity";
     private Context mContext = ProfileActivity.this;
     private static final int ACTIVITY_NUM = 4;
 

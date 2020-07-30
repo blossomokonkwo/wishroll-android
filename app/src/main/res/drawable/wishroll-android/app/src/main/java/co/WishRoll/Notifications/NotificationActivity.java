@@ -1,4 +1,4 @@
-package co.WishRoll.Notifications;
+package co.wishroll.Notifications;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
-import co.WishRoll.R;
+import co.wishroll.R;
 
 public class NotificationActivity extends AppCompatActivity {
     private static final String TAG = "NotificationActivity";

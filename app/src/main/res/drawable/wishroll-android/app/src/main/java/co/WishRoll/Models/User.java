@@ -1,4 +1,4 @@
-package co.WishRoll.Models;
+package co.wishroll.Models;
 
 import android.widget.Toast;
 

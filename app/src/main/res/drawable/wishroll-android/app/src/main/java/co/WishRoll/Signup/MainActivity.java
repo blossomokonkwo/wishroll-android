@@ -1,4 +1,4 @@
-package co.WishRoll.Signup;
+package co.wishroll.Signup;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,8 +9,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import co.WishRoll.R;
-import co.WishRoll.Search.SearchActivity;
+import co.wishroll.R;
+import co.wishroll.Search.SearchActivity;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
     Button bLogin;

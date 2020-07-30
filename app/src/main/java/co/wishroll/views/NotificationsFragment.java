@@ -1,4 +1,4 @@
-package co.WishRoll;
+package co.wishroll.views;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,17 +9,19 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-public class LikesFragment extends Fragment {
+import co.wishroll.R;
+
+public class NotificationsFragment extends Fragment {
     View view;
 
-    public LikesFragment() {
+    public NotificationsFragment() {
 
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_likes, container, false);
+        view = inflater.inflate(R.layout.fragment_notifications, container, false);
         return view;
     }
 

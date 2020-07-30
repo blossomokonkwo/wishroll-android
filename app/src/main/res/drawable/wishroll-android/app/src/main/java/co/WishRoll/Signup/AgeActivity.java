@@ -1,4 +1,4 @@
-package co.WishRoll.Signup;
+package co.wishroll.Signup;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,7 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
-import co.WishRoll.R;
+import co.wishroll.R;
 
 public class AgeActivity extends AppCompatActivity implements View.OnClickListener {
 

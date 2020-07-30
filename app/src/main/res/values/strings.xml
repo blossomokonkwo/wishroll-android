@@ -54,4 +54,7 @@
     <string name="privacy_policy">Privacy Policy</string>
     <string name="your_account">Your Account</string>
     <string name="logout">Logout</string>
+
+    <!-- Formatted Strings -->
+    <string name="usernameWithAt">\@%s</string>
 </resources>

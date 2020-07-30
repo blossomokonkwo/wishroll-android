@@ -1,4 +1,4 @@
-package co.WishRoll;
+package co.wishroll.utilities;
 
 import androidx.annotation.NonNull;
 
@@ -6,8 +6,10 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import java.util.ArrayList;
-import java.util.List;
+import co.wishroll.views.BookmarksFragment;
+import co.wishroll.views.LikesFragment;
+import co.wishroll.views.NotificationsFragment;
+import co.wishroll.views.UploadsFragment;
 
 public class ViewPagerAdapter extends FragmentStateAdapter {
 

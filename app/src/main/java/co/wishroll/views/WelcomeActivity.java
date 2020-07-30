@@ -1,4 +1,4 @@
-package co.WishRoll;
+package co.wishroll.views;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.*;
 
-import com.google.firebase.auth.FirebaseAuth;
+import co.wishroll.R;
 
 
 public class WelcomeActivity extends AppCompatActivity implements View.OnClickListener {
@@ -26,10 +26,9 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
         signup.setOnClickListener(this);
         login.setOnClickListener(this);
 
-        FirebaseAuth fAuth = FirebaseAuth.getInstance();
 
-        if(fAuth.getCurrentUser() != null){
-            //checks if user us logged in
+
+        if(loggedIn("test")){
             startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
             finish();
         }
@@ -59,5 +58,10 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
 
 
 
+    }
+
+    public boolean loggedIn(String test){
+        //tester method
+        return true;
     }
 }

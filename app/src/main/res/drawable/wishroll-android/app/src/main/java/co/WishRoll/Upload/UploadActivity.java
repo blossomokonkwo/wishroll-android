@@ -1,4 +1,4 @@
-package co.WishRoll.Upload;
+package co.wishroll.Upload;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
-import co.WishRoll.R;
+import co.wishroll.R;
 
 public class UploadActivity extends AppCompatActivity {
     private static final String TAG = "UploadActivity";
