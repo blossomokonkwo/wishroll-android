@@ -22,6 +22,7 @@ public class UserViewModel extends ViewModel {
     private User user;
 
 
+
     public UserViewModel(User user) {
         this.username = user.username;
         this.email = user.email;
