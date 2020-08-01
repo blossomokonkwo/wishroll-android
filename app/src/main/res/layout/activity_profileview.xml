@@ -278,11 +278,13 @@
             <!-- TabLayout and View Pager 2 -->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_400sdp"
+                android:layout_height="wrap_content"
                 android:background="@color/white"
                 android:orientation="vertical">
 
                 <com.google.android.material.tabs.TabLayout
+                    app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
+                    app:tabSelectedTextColor="@color/black"
                     android:id="@+id/tabLayoutProfileView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -296,7 +298,7 @@
                 <androidx.viewpager2.widget.ViewPager2
                     android:id="@+id/viewPagerProfileView"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="900dp">
 
                 </androidx.viewpager2.widget.ViewPager2>
 

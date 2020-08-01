@@ -2,9 +2,9 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="@dimen/_80sdp"
     android:orientation="horizontal"
-    android:paddingBottom="@dimen/_7sdp"
+    android:paddingBottom="@dimen/_1sdp"
     android:paddingLeft="@dimen/_10sdp"
     android:paddingRight="@dimen/_4sdp"
 
@@ -24,8 +24,8 @@
             android:id="@+id/notificationProfilePicture"
             android:layout_marginTop="@dimen/_10sdp"
             android:layout_marginRight="@dimen/_5sdp"
-            android:layout_width="@dimen/_50sdp"
-            android:layout_height="@dimen/_50sdp"
+            android:layout_width="@dimen/_35sdp"
+            android:layout_height="@dimen/_35sdp"
             android:src="@drawable/defaultprofile"
             />
 
@@ -43,7 +43,7 @@
                 android:id="@+id/notificationUsername"
                 android:layout_marginBottom="@dimen/_10sdp"
                 android:textColor="@color/black"
-                android:textSize="@dimen/_13sdp"
+                android:textSize="@dimen/_11sdp"
                 android:textStyle="bold"/>
             <LinearLayout
 
@@ -53,16 +53,16 @@
                 android:gravity="center_vertical">
 
                 <TextView
-                    android:id="@+id/notificationAction"
+                    android:id="@+id/notificationDescription"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/_10sdp"
+                    android:textSize="@dimen/_9sdp"
                     android:text="potatochips shared your post!"
                     android:textColor="@color/black"/>
 
                 <TextView
-                    android:id="@+id/notificationTimesStamp"
-                    android:textSize="@dimen/_10sdp"
+                    android:id="@+id/notificationTimeAgo"
+                    android:textSize="@dimen/_9sdp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="34 minutes ago"/>
@@ -84,14 +84,17 @@
 
     <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+
+
         >
         <ImageView
             android:layout_alignParentRight="true"
-            android:id="@+id/notificationThumnail"
-            android:layout_width="@dimen/_65sdp"
+            android:id="@+id/notificationThumbnail"
+            android:layout_width="@dimen/_60sdp"
             android:layout_height="@dimen/_80sdp"
-            android:src="@color/black"
+            android:src="@drawable/reaction_picture"
+            android:scaleType="centerCrop"
             >
 
         </ImageView>

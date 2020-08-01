@@ -3,7 +3,6 @@ package co.wishroll.views;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Intent;
@@ -23,7 +22,7 @@ import com.google.android.material.tabs.TabLayoutMediator;
 import co.wishroll.R;
 import co.wishroll.databinding.ActivityProfileviewBinding;
 import co.wishroll.model.User;
-import co.wishroll.utilities.ViewPagerAdapter;
+import co.wishroll.utilities.ProfileViewPagerAdapter;
 import co.wishroll.viewmodel.UserViewModel;
 
 
@@ -35,7 +34,7 @@ public class ProfileViewActivity extends AppCompatActivity {
 
     TextView usernameView, fullNameView;
     String userID;
-    FloatingActionButton floatingActionButton;
+    FloatingActionButton fabHome;
     ImageButton backProfileView, moreProfileView;
 
 
@@ -55,7 +54,7 @@ public class ProfileViewActivity extends AppCompatActivity {
         activityProfileViewBinding = DataBindingUtil.setContentView(this, R.layout.activity_profileview);
         activityProfileViewBinding.setUserViewModel(userViewModel);
 
-        floatingActionButton = findViewById(R.id.fabProfileView);
+        fabHome = findViewById(R.id.fabProfileView);
         backProfileView = findViewById(R.id.backProfileView);
         moreProfileView = findViewById(R.id.moreProfileView);
 
@@ -64,7 +63,7 @@ public class ProfileViewActivity extends AppCompatActivity {
 
 
         ViewPager2 viewPager2 = findViewById(R.id.viewPagerProfileView);
-        viewPager2.setAdapter(new ViewPagerAdapter(this));
+        viewPager2.setAdapter(new ProfileViewPagerAdapter(this));
 
         TabLayout tabLayout = findViewById(R.id.tabLayoutProfileView);
         TabLayoutMediator tabLayoutMediator = new TabLayoutMediator(
@@ -106,7 +105,7 @@ public class ProfileViewActivity extends AppCompatActivity {
 
 
 
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+        fabHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(ProfileViewActivity.this, MainActivity.class));

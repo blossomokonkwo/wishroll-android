@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".views.SearchActivity">
+
+
+
+            <!-- Full Page -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:background="@color/white">
+
+
+                <!-- Profile Banner & Top Image Buttons -->
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+                    <LinearLayout
+                        android:id="@+id/searchLinear"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/_70sdp"
+                        android:gravity="center_vertical"
+                        android:layout_marginRight="@dimen/_10sdp"
+                        android:layout_marginLeft="@dimen/_10sdp"
+                        android:layout_weight="1">
+
+                            <EditText
+                                android:id="@+id/etSearchBarView"
+                                android:layout_alignParentLeft="true"
+                                android:layout_width="match_parent"
+                                android:hint="Search WishRoll..."
+                                android:drawableLeft="@drawable/ic_search"
+                                android:paddingLeft="@dimen/_8sdp"
+                                android:textColorHint="@color/dark_grey"
+                                android:layout_height="@dimen/_33sdp"
+                                android:layout_centerVertical="true"
+                                android:background="@drawable/search_button_style"
+                                />
+
+                    </LinearLayout>
+                    <TextView
+                        android:id="@+id/cancelButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="Cancel"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_13sdp"
+                        android:layout_marginRight="@dimen/_15sdp"
+                        android:gravity="center_vertical"
+                        android:layout_toRightOf="@id/searchLinear">
+
+                    </TextView>
+                </LinearLayout>
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:orientation="vertical">
+
+                    <com.google.android.material.tabs.TabLayout
+                        app:tabSelectedTextColor="@color/black"
+                        app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
+                        android:id="@+id/tabLayoutSearchView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:tabMode="fixed"
+                        app:tabIndicatorColor="@color/black"
+                        app:tabGravity="fill"
+                        app:tabIconTint="#e4e7ed"
+
+                        />
+                </LinearLayout>
+
+                    <ScrollView
+                        android:id="@+id/nestedContent"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:clipToPadding="false"
+                        android:background="@color/white"
+                        android:scrollbars="none"
+                        android:scrollingCache="true">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:orientation="vertical">
+
+                        <androidx.viewpager2.widget.ViewPager2
+                            android:id="@+id/viewPagerSearchView"
+                            android:layout_width="match_parent"
+                            android:layout_height="900dp">
+
+                        </androidx.viewpager2.widget.ViewPager2>
+
+                    </LinearLayout>
+                </ScrollView>
+
+
+
+
+
+
+                </LinearLayout>
+
+
+
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</layout>

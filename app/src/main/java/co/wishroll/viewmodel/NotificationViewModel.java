@@ -21,7 +21,7 @@ public class NotificationViewModel extends ViewModel {
         this.timeAgo = notification.timeAgo;
         this.actionPhrase = notification.actionPhrase;
         this.imageThumbnailURL = notification.imageThumbnailURL;
-        //TODO(time ago, URL, and action phrase are all things that need to be checked with the database to know for sure what they are so we'll leave that preset)
+        //TODO(time ago, URL, and action phrase are all things that need to be given through the API to know for sure what they are so we'll leave that preset)
     }
 
     public User getUser() {
@@ -40,5 +40,27 @@ public class NotificationViewModel extends ViewModel {
         this.notificationDescription = notificationDescription;
     }
 
+    public Notification getNotification() {
+        return notification;
+    }
 
+    public void setNotification(Notification notification) {
+        this.notification = notification;
+    }
+
+    public String getTimeAgo() {
+        return timeAgo;
+    }
+
+    public void setTimeAgo(String timeAgo) {
+        this.timeAgo = timeAgo;
+    }
+
+    public String getActionPhrase() {
+        return actionPhrase;
+    }
+
+    public void setActionPhrase(String actionPhrase) {
+        this.actionPhrase = actionPhrase;
+    }
 }

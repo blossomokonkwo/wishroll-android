@@ -1,21 +1,20 @@
 package co.wishroll.utilities;
 
 import androidx.annotation.NonNull;
-
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import co.wishroll.views.BookmarksFragment;
-import co.wishroll.views.LikesFragment;
-import co.wishroll.views.NotificationsFragment;
-import co.wishroll.views.UploadsFragment;
+import co.wishroll.views.FeedFragment;
+import co.wishroll.views.MessagesFragment;
+import co.wishroll.views.TrendingFragment;
 
-public class ViewPagerAdapter extends FragmentStateAdapter {
+
+public class MainViewPagerAdapter extends FragmentStateAdapter {
 
     private static final String TAG = "VIEW PAGER ADAPTER";
 
-    public ViewPagerAdapter(@NonNull FragmentActivity fragmentActivity) {
+    public MainViewPagerAdapter(@NonNull FragmentActivity fragmentActivity) {
         super(fragmentActivity);
     }
 
@@ -28,13 +27,11 @@ public class ViewPagerAdapter extends FragmentStateAdapter {
 
         switch (position) {
             case 0:
-                return new UploadsFragment();
+                return new TrendingFragment();
             case 1:
-                return new LikesFragment();
-            case 2:
-                return new BookmarksFragment();
+                return new MessagesFragment();
             default:
-                return new NotificationsFragment();
+                return new FeedFragment();
         }
 
 
@@ -43,7 +40,7 @@ public class ViewPagerAdapter extends FragmentStateAdapter {
     @Override
     public int getItemCount() {
 
-        return 4;
+        return 3;
 
     }
 
