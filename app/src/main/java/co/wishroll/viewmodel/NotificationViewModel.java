@@ -15,6 +15,7 @@ public class NotificationViewModel extends ViewModel {
     String notificationDescription;
 
     public NotificationViewModel(Notification notification) {
+        //TODO(this would actually hold the list of notifications)
         this.notification = notification;
         this.user = notification.user;
         this.notificationDescription = notification.notificationDescription;

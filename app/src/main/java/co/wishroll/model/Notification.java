@@ -13,7 +13,7 @@ public class Notification {
 
     public Notification() {
         //TODO(for now, skinnier version)
-        //preset values for actionPhrase & timeago, and yes, thumbnail
+        //preset values for actionPhrase & timeago, and yes, thumbnail which is in the recyclerviewpager
         this.user = user;
         timeAgo = "35 minutes ago";
         actionPhrase = "liked your post!";
