@@ -1,7 +1,6 @@
 package co.wishroll.utilities;
 
 import android.content.Context;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,15 +12,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import co.wishroll.R;
+import co.wishroll.model.Post;
 
-import co.wishroll.viewmodel.PostViewModel;
+public class FeedGridRecyclerViewAdapter extends RecyclerView.Adapter<FeedGridRecyclerViewAdapter.GridViewHolder> {
 
-public class GridRecyclerViewAdapter extends RecyclerView.Adapter<GridRecyclerViewAdapter.GridViewHolder> {
-    //universal gridrecyclerview for all the grid layouts in wishroll
     private Context mContext;
-    List<PostViewModel> mData;
+    List<Post> mData;
 
-    public GridRecyclerViewAdapter(Context mContext, List<PostViewModel> mData) {
+    public FeedGridRecyclerViewAdapter(Context mContext, List<Post> mData) {
         this.mContext = mContext;
         this.mData = mData;
     }

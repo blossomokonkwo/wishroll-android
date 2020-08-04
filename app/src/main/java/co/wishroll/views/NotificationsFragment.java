@@ -17,14 +17,13 @@ import java.util.List;
 import co.wishroll.R;
 import co.wishroll.model.Notification;
 import co.wishroll.utilities.NotificationRecyclerViewAdapter;
-import co.wishroll.viewmodel.NotificationViewModel;
 
 public class NotificationsFragment extends Fragment {
 
     View view;
 
     private RecyclerView myRecyclerView;
-    private List<NotificationViewModel> notificationsList;
+    private List<Notification> notificationsList;
 
     public NotificationsFragment() {
 
@@ -49,10 +48,10 @@ public class NotificationsFragment extends Fragment {
 
         //TODO(Right now we have to create the users but I'm sure they will be fetched through requests very soon)
         Notification basicNotification = new Notification();
-        NotificationViewModel basicNotificationVM = new NotificationViewModel(basicNotification);
+
 
         for(int i = 0; i < 200; i++){
-            notificationsList.add(basicNotificationVM);
+            notificationsList.add(basicNotification);
         }
 
 

@@ -1,29 +1,76 @@
 package co.wishroll.views;
 
 import android.os.Bundle;
+
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import co.wishroll.R;
+import co.wishroll.model.Post;
+import co.wishroll.utilities.FeedGridRecyclerViewAdapter;
+import co.wishroll.utilities.LikesGridRecyclerViewAdapter;
+import co.wishroll.utilities.TrendingGridRecyclerViewAdapter;
+import co.wishroll.viewmodel.TrendingGridViewModel;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
+import java.util.ArrayList;
+import java.util.List;
 
-import co.wishroll.R;
 
 public class LikesFragment extends Fragment {
+
     View view;
+    private RecyclerView myRecyclerView;
+    private List<Post> postGrid;
+
+
 
     public LikesFragment() {
-
+        // Required empty public constructor
     }
 
-    @Nullable
+
+
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_likes, container, false);
-        return view;
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+
+        postGrid = new ArrayList<>();
+
+        //TODO(Right now we have to create the users but I'm sure they will be fetched through requests very soon)
+        Post basicPost = new Post();
+
+
+        for(int i = 0; i < 200; i++){
+            postGrid.add(basicPost);
+        }
+
+
+
+
     }
 
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
 
+
+        view = inflater.inflate(R.layout.fragment_likes, container, false);
+        myRecyclerView = (RecyclerView) view.findViewById(R.id.likesRecyclerView);
+
+        LikesGridRecyclerViewAdapter likesRecyclerViewAdapter = new LikesGridRecyclerViewAdapter(getContext(), postGrid);
+        myRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 3));
+        myRecyclerView.setAdapter(likesRecyclerViewAdapter);
+        return view;
+
+
+
+    }
 }

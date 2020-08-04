@@ -13,14 +13,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import co.wishroll.R;
-import co.wishroll.viewmodel.NotificationViewModel;
+import co.wishroll.model.Notification;
 
 public class NotificationRecyclerViewAdapter extends RecyclerView.Adapter<NotificationRecyclerViewAdapter.MyViewHolder> {
 
     Context mContext;
-    List<NotificationViewModel> mData;
+    List<Notification> mData;
 
-    public NotificationRecyclerViewAdapter(Context mContext, List<NotificationViewModel> mData) {
+    public NotificationRecyclerViewAdapter(Context mContext, List<Notification> mData) {
         //TODO(if anything goes wrong, change NotificationViewModel to Notification but i doubt that would be the problem because the view model wraps the model
         //I took in a view model instead because I wanted to be able to use data binding and observable fields in the notifications fragment, i see the adpter as just, quite frankly
         // a utility to get things in order i don't think it should mess with any mvvm functionality. Yeah, it for sure shouldn't mess with any functionality as long as it wraps
