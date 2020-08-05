@@ -2,10 +2,16 @@ package co.wishroll.views;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.TestLooperManager;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import co.wishroll.R;
 
@@ -21,6 +27,10 @@ public class ContactActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact);
 
+
+        emailSubject = findViewById(R.id.emailSubject);
+        emailBody = findViewById(R.id.emailBody);
+
         Button sendEmail = findViewById(R.id.bSendEmail);
 
         sendEmail.setOnClickListener(new View.OnClickListener() {
@@ -30,12 +40,40 @@ public class ContactActivity extends AppCompatActivity {
             }
         });
 
+        ImageView backButton = findViewById(R.id.backContact);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
 
     }
 
 
     private void openEmail(){
-        //https://www.youtube.com/watch?v=tZ2YEw6SoBU @ 8:42
+
+
+        String [] recepients = {"great@wishroll.co"};
+        String subject = emailSubject.getText().toString();
+        String message = emailBody.getText().toString();
+
+
+        if(TextUtils.isEmpty(subject) || TextUtils.isEmpty(message)){
+            Toast.makeText(ContactActivity.this, "You missed a spot", Toast.LENGTH_LONG).show();
+        }else{
+
+
+            Intent intent = new Intent(Intent.ACTION_SEND);
+            intent.putExtra(Intent.EXTRA_EMAIL, recepients);
+            intent.putExtra(Intent.EXTRA_SUBJECT, subject);
+            intent.putExtra(Intent.EXTRA_TEXT, message);
+
+            intent.setType("message/rfc822");
+            startActivity(Intent.createChooser(intent, "Choose and Email App:"));
+
+        }
 
     }
 }

@@ -126,8 +126,8 @@ public class ProfileViewActivity extends AppCompatActivity {
                 bottomSheetView.findViewById(R.id.contactProfileView).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        //TODO(intent to open email view)
-                        //add bottomSheetDialog.dismiss();
+                        startActivity(new Intent(ProfileViewActivity.this, ContactActivity.class));
+                        bottomSheetDialog.dismiss();
                     }
                 });
 
@@ -152,10 +152,10 @@ public class ProfileViewActivity extends AppCompatActivity {
                 bottomSheetView.findViewById(R.id.logoutProfileView).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        bottomSheetDialog.dismiss();
-                        startActivity(new Intent(ProfileViewActivity.this, LoginActivity.class));
+                        //bottomSheetDialog.dismiss();
+                        //startActivity(new Intent(ProfileViewActivity.this, LoginActivity.class));
                         //TODO(this crashes everytime it happens but we're going to leave it alone for now)
-                        finish();
+                        //finish();
 
                     }
 
