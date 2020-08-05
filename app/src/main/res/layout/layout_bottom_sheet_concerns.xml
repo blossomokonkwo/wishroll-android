@@ -190,7 +190,7 @@
         android:gravity="center"
         >
 
-        <TextView
+        <CheckedTextView
             android:id="@+id/concern_6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -214,14 +214,14 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         >
 
-        <TextView
+        <CheckedTextView
             android:id="@+id/concern_7"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/concern_7"
-            android:gravity="center"
             android:layout_marginTop="@dimen/_10sdp"
             android:layout_marginBottom="@dimen/_10sdp"
             android:textStyle="bold"
@@ -241,19 +241,21 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         >
 
-        <TextView
+        <CheckedTextView
+
             android:id="@+id/concern_8"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/concern_8"
-            android:gravity="center"
             android:layout_marginTop="@dimen/_10sdp"
             android:layout_marginBottom="@dimen/_10sdp"
             android:textStyle="bold"
             android:textSize="@dimen/_15sdp"
             android:textColor="@color/black"
+            android:checkMark="@drawable/ic_checkmark"
             />
 
     </LinearLayout>
