@@ -1,10 +1,12 @@
 package co.wishroll.utilities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,6 +15,7 @@ import java.util.List;
 
 import co.wishroll.R;
 import co.wishroll.model.Post;
+import co.wishroll.views.ImageActivity;
 
 public class GridRecyclerViewAdapter extends RecyclerView.Adapter<GridRecyclerViewAdapter.GridViewHolder> {
 
@@ -27,9 +30,11 @@ public class GridRecyclerViewAdapter extends RecyclerView.Adapter<GridRecyclerVi
     @NonNull
     @Override
     public GridViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
         View view;
         LayoutInflater mInflater = LayoutInflater.from(mContext);
         view = mInflater.inflate(R.layout.post_grid_item, parent, false);
+
 
         return new GridViewHolder(view);
     }
@@ -42,6 +47,16 @@ public class GridRecyclerViewAdapter extends RecyclerView.Adapter<GridRecyclerVi
         //}else{
             holder.videoFlag.setVisibility(View.INVISIBLE);
         //}
+        holder.postItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO(check if video or image/gif)
+                Intent i = new Intent(mContext, ImageActivity.class);
+                //put extras maybe
+                mContext.startActivity(i);
+
+            }
+        });
 
     }
 
@@ -51,11 +66,13 @@ public class GridRecyclerViewAdapter extends RecyclerView.Adapter<GridRecyclerVi
     }
 
     public static class GridViewHolder extends RecyclerView.ViewHolder{
+        LinearLayout postItem;
         ImageView mediaThumbnail;
         ImageView videoFlag;
 
         public GridViewHolder(@NonNull View itemView) {
             super(itemView);
+            postItem = (LinearLayout) itemView.findViewById(R.id.postItem);
             mediaThumbnail = (ImageView) itemView.findViewById(R.id.mediaThumbnail);
             videoFlag = (ImageView) itemView.findViewById(R.id.videoFlag);
         }

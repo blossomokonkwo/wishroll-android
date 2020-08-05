@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.CheckedTextView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -34,6 +35,7 @@ public class ImageActivity extends AppCompatActivity {
         });
 
         moreButton = findViewById(R.id.moreImageView);
+
         moreButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -61,6 +63,56 @@ public class ImageActivity extends AppCompatActivity {
                                 concerns.dismiss();
                             }
                         });
+
+
+
+                        /*bottomSheetConcernView.findViewById(R.id.concernChecking).setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                switch (v.getId()){
+                                    case (R.id.concern_1):
+                                        CheckedTextView concern = findViewById(R.id.concern_1);
+                                        concern.toggle();
+                                        break;
+
+                                    case (R.id.concern_2):
+                                        CheckedTextView concern2 = findViewById(R.id.concern_2);
+                                        concern2.toggle();
+                                        break;
+
+                                    case (R.id.concern_3):
+                                        CheckedTextView concern3 = findViewById(R.id.concern_3);
+                                        concern3.toggle();
+                                        break;
+
+                                    case (R.id.concern_4):
+                                        CheckedTextView concern4 = findViewById(R.id.concern_4);
+                                        concern4.toggle();
+                                        break;
+
+                                    case (R.id.concern_5):
+                                        CheckedTextView concern5 = findViewById(R.id.concern_5);
+                                        concern5.toggle();
+                                        break;
+
+                                    case (R.id.concern_6):
+                                        CheckedTextView concern6 = findViewById(R.id.concern_6);
+                                        concern6.toggle();
+                                        break;
+                                    case (R.id.concern_7):
+                                        CheckedTextView concern7 = findViewById(R.id.concern_7);
+                                        concern7.toggle();
+                                        break;
+                                    case (R.id.concern_8):
+                                        CheckedTextView concern8 = findViewById(R.id.concern_8);
+                                        concern8.toggle();
+                                        break;
+                                    default:
+
+                                        break;
+                                }
+                            }
+                        });*/
 
 
                     }
