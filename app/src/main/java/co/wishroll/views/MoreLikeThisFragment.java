@@ -1,24 +1,23 @@
 package co.wishroll.views;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import co.wishroll.R;
 import co.wishroll.model.Post;
 import co.wishroll.utilities.GridRecyclerViewAdapter;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
-import java.util.ArrayList;
-import java.util.List;
-
-
-public class FeedFragment extends Fragment {
+public class MoreLikeThisFragment extends Fragment {
 
     View view;
     private RecyclerView myRecyclerView;
@@ -26,7 +25,7 @@ public class FeedFragment extends Fragment {
 
 
 
-    public FeedFragment() {
+    public MoreLikeThisFragment() {
         // Required empty public constructor
     }
 
@@ -58,12 +57,12 @@ public class FeedFragment extends Fragment {
         // Inflate the layout for this fragment
 
 
-        view = inflater.inflate(R.layout.fragment_feed, container, false);
-        myRecyclerView = (RecyclerView) view.findViewById(R.id.feedRecyclerView);
+        view = inflater.inflate(R.layout.fragment_morelikethis, container, false);
+        myRecyclerView = (RecyclerView) view.findViewById(R.id.moreLikeThisRecyclerView);
 
-        GridRecyclerViewAdapter feedRecyclerViewAdapter = new GridRecyclerViewAdapter(getContext(), postGrid);
+        GridRecyclerViewAdapter mltRecyclerViewAdapter = new GridRecyclerViewAdapter(getContext(), postGrid);
         myRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 3));
-        myRecyclerView.setAdapter(feedRecyclerViewAdapter);
+        myRecyclerView.setAdapter(mltRecyclerViewAdapter);
         return view;
 
 

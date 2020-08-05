@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import co.wishroll.R;
 import co.wishroll.model.Post;
-import co.wishroll.utilities.TrendingGridRecyclerViewAdapter;
+import co.wishroll.utilities.GridRecyclerViewAdapter;
 import co.wishroll.viewmodel.TrendingGridViewModel;
 
 import android.view.LayoutInflater;
@@ -65,7 +65,7 @@ public class TrendingFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_trending, container, false);
         myRecyclerView = (RecyclerView) view.findViewById(R.id.trendingRecyclerView);
 
-        TrendingGridRecyclerViewAdapter gridRecyclerViewAdapter = new TrendingGridRecyclerViewAdapter(getContext(), postGrid);
+        GridRecyclerViewAdapter gridRecyclerViewAdapter = new GridRecyclerViewAdapter(getContext(), postGrid);
         myRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 3));
         myRecyclerView.setAdapter(gridRecyclerViewAdapter);
         return view;

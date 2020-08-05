@@ -3,16 +3,12 @@ package co.wishroll.views;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import co.wishroll.R;
 import co.wishroll.model.Post;
-import co.wishroll.utilities.FeedGridRecyclerViewAdapter;
-import co.wishroll.utilities.LikesGridRecyclerViewAdapter;
-import co.wishroll.utilities.TrendingGridRecyclerViewAdapter;
-import co.wishroll.viewmodel.TrendingGridViewModel;
+import co.wishroll.utilities.GridRecyclerViewAdapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -65,7 +61,7 @@ public class LikesFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_likes, container, false);
         myRecyclerView = (RecyclerView) view.findViewById(R.id.likesRecyclerView);
 
-        LikesGridRecyclerViewAdapter likesRecyclerViewAdapter = new LikesGridRecyclerViewAdapter(getContext(), postGrid);
+        GridRecyclerViewAdapter likesRecyclerViewAdapter = new GridRecyclerViewAdapter(getContext(), postGrid);
         myRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 3));
         myRecyclerView.setAdapter(likesRecyclerViewAdapter);
         return view;

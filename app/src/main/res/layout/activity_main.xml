@@ -121,6 +121,7 @@
         android:layout_height="@dimen/_60sdp"
         app:fabCustomSize="@dimen/_60sdp"
         android:src="@drawable/ic_add"
+        style="?borderlessButtonStyle"
         android:background="@color/wishroll_blue"
         android:layout_margin="16dp"
         app:backgroundTint="@color/wishroll_blue"

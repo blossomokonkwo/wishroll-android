@@ -35,7 +35,14 @@ public class MainActivity extends AppCompatActivity {
         EditText searchBarFake = findViewById(R.id.etSearchBarMain);
 
         profileThumbnail = findViewById(R.id.profileMain);
-        final FloatingActionButton fabUpload = findViewById(R.id.fabUpload);
+        FloatingActionButton fabUpload = findViewById(R.id.fabUpload);
+
+        fabUpload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, UploadActivity.class));
+            }
+        });
 
 
 

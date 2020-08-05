@@ -14,12 +14,12 @@ import java.util.List;
 import co.wishroll.R;
 import co.wishroll.model.Post;
 
-public class FeedGridRecyclerViewAdapter extends RecyclerView.Adapter<FeedGridRecyclerViewAdapter.GridViewHolder> {
+public class GridRecyclerViewAdapter extends RecyclerView.Adapter<GridRecyclerViewAdapter.GridViewHolder> {
 
     private Context mContext;
     List<Post> mData;
 
-    public FeedGridRecyclerViewAdapter(Context mContext, List<Post> mData) {
+    public GridRecyclerViewAdapter(Context mContext, List<Post> mData) {
         this.mContext = mContext;
         this.mData = mData;
     }

@@ -11,7 +11,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".views.ContactActivity"></activity>
+        <activity android:name=".views.UploadActivity"></activity>
+        <activity android:name=".views.Followers" />
+        <activity android:name=".views.Following" />
+        <activity android:name=".views.ImageActivity" />
+        <activity android:name=".views.ContactActivity" />
         <activity
             android:name=".views.SearchActivity"
             android:windowSoftInputMode="stateVisible" />
