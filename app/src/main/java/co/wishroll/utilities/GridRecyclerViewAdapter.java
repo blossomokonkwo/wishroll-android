@@ -11,6 +11,8 @@ import android.widget.LinearLayout;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.blogspot.atifsoftwares.animatoolib.Animatoo;
+
 import java.util.List;
 
 import co.wishroll.R;
@@ -42,18 +44,20 @@ public class GridRecyclerViewAdapter extends RecyclerView.Adapter<GridRecyclerVi
     @Override
     public void onBindViewHolder(@NonNull GridViewHolder holder, int position) {
         holder.mediaThumbnail.setImageResource(R.drawable.reaction_picture);
-        //if(mData.get(position).mediaExtension == "mp4" || mData.get(position).mediaExtension == "mov" ){
-            holder.videoFlag.setImageResource(R.drawable.ic_play);
-        //}else{
+        holder.videoFlag.setImageResource(R.drawable.ic_play);
+        if(position % 2 == 0){
             holder.videoFlag.setVisibility(View.INVISIBLE);
-        //}
+        }else{
+            holder.videoFlag.setVisibility(View.VISIBLE);
+        }
         holder.postItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //TODO(check if video or image/gif)
-                Intent i = new Intent(mContext, ImageActivity.class);
+                Intent i = new Intent(mContext, ImageActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 //put extras maybe
                 mContext.startActivity(i);
+
 
             }
         });

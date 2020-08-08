@@ -12,11 +12,13 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import co.wishroll.R;
 
 public class ImageActivity extends AppCompatActivity {
 
+    FloatingActionButton fabHome;
     ImageView backButton;
     ImageView moreButton;
 
@@ -25,6 +27,15 @@ public class ImageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image);
 
+        fabHome = findViewById(R.id.fabImageView);
+
+        fabHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ImageActivity.this, MainActivity.class));
+                finish();
+            }
+        });
         backButton = findViewById(R.id.backImageView);
 
         backButton.setOnClickListener(new View.OnClickListener() {

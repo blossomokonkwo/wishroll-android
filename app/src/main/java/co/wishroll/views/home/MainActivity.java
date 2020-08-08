@@ -2,7 +2,6 @@ package co.wishroll.views;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Intent;
@@ -18,7 +17,7 @@ import com.mikhaellopez.circularimageview.CircularImageView;
 
 import co.wishroll.R;
 import co.wishroll.utilities.MainViewPagerAdapter;
-import co.wishroll.utilities.ProfileViewPagerAdapter;
+import co.wishroll.views.profile.ProfileViewActivity;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MAIN ACTIVITY";

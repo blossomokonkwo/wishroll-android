@@ -1,6 +1,7 @@
 package co.wishroll.utilities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,8 @@ import java.util.List;
 
 import co.wishroll.R;
 import co.wishroll.model.Notification;
+import co.wishroll.views.ImageActivity;
+import co.wishroll.views.profile.ProfileViewActivity;
 
 public class NotificationRecyclerViewAdapter extends RecyclerView.Adapter<NotificationRecyclerViewAdapter.MyViewHolder> {
 
@@ -48,7 +51,27 @@ public class NotificationRecyclerViewAdapter extends RecyclerView.Adapter<Notifi
 
         //TODO(very skinny code right here)
         holder.notifProfilePicture.setImageResource(R.drawable.defaultprofile);
-        holder.notifImageThumbnail.setImageResource(R.drawable.reaction_picture);
+        holder.notifMediaThumbnail.setImageResource(R.drawable.reaction_picture);
+
+        holder.notifMediaThumbnail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO(check if video or image/gif)
+                Intent i = new Intent(mContext, ImageActivity.class);
+                //put extras maybe
+                mContext.startActivity(i);
+            }
+        });
+
+        holder.notifUsername.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent j = new Intent(mContext, ProfileViewActivity.class);
+                mContext.startActivity(j);
+
+                //put extras maybe
+            }
+        });
 
     }
 
@@ -63,7 +86,7 @@ public class NotificationRecyclerViewAdapter extends RecyclerView.Adapter<Notifi
         private TextView notifDescription;
         private TextView notifTimeAgo;
         ImageView notifProfilePicture;
-        ImageView notifImageThumbnail;
+        ImageView notifMediaThumbnail;
 
         //TODO(add profile picture and picture thumbnail)
 
@@ -74,7 +97,7 @@ public class NotificationRecyclerViewAdapter extends RecyclerView.Adapter<Notifi
             notifDescription = (TextView) itemView.findViewById(R.id.notificationDescription);
             notifTimeAgo = (TextView) itemView.findViewById(R.id.notificationTimeAgo);
             notifProfilePicture = (ImageView) itemView.findViewById(R.id.notificationProfilePicture);
-            notifImageThumbnail = (ImageView) itemView.findViewById(R.id.notificationThumbnail);
+            notifMediaThumbnail = (ImageView) itemView.findViewById(R.id.notificationThumbnail);
         }
     }
 }

@@ -6,10 +6,10 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import co.wishroll.views.BookmarksFragment;
-import co.wishroll.views.LikesFragment;
-import co.wishroll.views.NotificationsFragment;
-import co.wishroll.views.UploadsFragment;
+import co.wishroll.views.profile.BookmarksFragment;
+import co.wishroll.views.profile.LikesFragment;
+import co.wishroll.views.profile.NotificationsFragment;
+import co.wishroll.views.profile.UploadsFragment;
 
 public class ProfileViewPagerAdapter extends FragmentStateAdapter {
 
