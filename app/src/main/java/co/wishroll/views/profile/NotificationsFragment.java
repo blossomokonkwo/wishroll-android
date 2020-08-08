@@ -1,4 +1,4 @@
-package co.wishroll.views;
+package co.wishroll.views.profile;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import co.wishroll.R;
-import co.wishroll.model.Notification;
+import co.wishroll.entities.Notification;
 import co.wishroll.utilities.NotificationRecyclerViewAdapter;
 
 public class NotificationsFragment extends Fragment {

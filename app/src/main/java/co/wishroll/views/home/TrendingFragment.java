@@ -1,4 +1,4 @@
-package co.wishroll.views;
+package co.wishroll.views.home;
 
 import android.os.Bundle;
 
@@ -8,9 +8,9 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import co.wishroll.R;
-import co.wishroll.model.Post;
+import co.wishroll.entities.Post;
 import co.wishroll.utilities.GridRecyclerViewAdapter;
-import co.wishroll.viewmodel.TrendingGridViewModel;
+import co.wishroll.viewmodel.TrendingViewModel;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,7 +23,7 @@ import java.util.List;
 public class TrendingFragment extends Fragment {
 
     View view;
-    TrendingGridViewModel trendingGridViewModel;
+    TrendingViewModel trendingViewModel;
     private RecyclerView myRecyclerView;
     private List<Post> postGrid;
 
@@ -50,8 +50,8 @@ public class TrendingFragment extends Fragment {
             postGrid.add(basicPost);
         }
 
-        trendingGridViewModel = new ViewModelProvider(this).get(TrendingGridViewModel.class);
-        //trendingGridViewModel.
+        trendingViewModel = new ViewModelProvider(this).get(TrendingViewModel.class);
+        //trendingViewModel.
 
 
     }

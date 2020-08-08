@@ -6,13 +6,12 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 
-import co.wishroll.views.PostsFragment;
-import co.wishroll.views.ProfilesFragment;
+import co.wishroll.views.home.PostsFragment;
+import co.wishroll.views.home.ProfilesFragment;
 
 
 public class SearchViewPagerAdapter extends FragmentStateAdapter {
 
-    private static final String TAG = "SEARCH VIEW PAGER ADAPTER";
 
     public SearchViewPagerAdapter(@NonNull FragmentActivity fragmentActivity) {
         super(fragmentActivity);

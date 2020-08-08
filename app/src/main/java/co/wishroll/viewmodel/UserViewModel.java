@@ -1,11 +1,16 @@
 package co.wishroll.viewmodel;
 
-import androidx.lifecycle.LiveData;
+import android.app.Application;
+
+import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.ViewModel;
 
-import co.wishroll.model.User;
+import co.wishroll.entities.User;
 
 public class UserViewModel extends ViewModel {
+    //ViewModel for the User class
+    //represents the user class
 
     public String username;
     public String email;
@@ -24,6 +29,7 @@ public class UserViewModel extends ViewModel {
 
 
     public UserViewModel(User user) {
+
         this.username = user.username;
         this.email = user.email;
         this.fullName = user.fullName;

@@ -1,4 +1,4 @@
-package co.wishroll.views;
+package co.wishroll.views.profile;
 
 import android.os.Bundle;
 
@@ -7,7 +7,8 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import co.wishroll.R;
-import co.wishroll.model.Post;
+import co.wishroll.entities.Post;
+import co.wishroll.utilities.Constants;
 import co.wishroll.utilities.GridRecyclerViewAdapter;
 
 import android.view.LayoutInflater;
@@ -35,6 +36,7 @@ public class UploadsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
 
 
         postGrid = new ArrayList<>();

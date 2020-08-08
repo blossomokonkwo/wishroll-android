@@ -1,4 +1,4 @@
-package co.wishroll.model;
+package co.wishroll.entities;
 
 import androidx.annotation.Nullable;
 

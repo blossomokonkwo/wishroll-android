@@ -1,4 +1,4 @@
-package co.wishroll.views;
+package co.wishroll.views.home;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,6 +17,7 @@ import com.mikhaellopez.circularimageview.CircularImageView;
 
 import co.wishroll.R;
 import co.wishroll.utilities.MainViewPagerAdapter;
+import co.wishroll.views.upload.UploadActivity;
 import co.wishroll.views.profile.ProfileViewActivity;
 
 public class MainActivity extends AppCompatActivity {

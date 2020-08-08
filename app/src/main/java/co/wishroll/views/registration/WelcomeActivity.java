@@ -1,4 +1,4 @@
-package co.wishroll.views;
+package co.wishroll.views.registration;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.*;
 
 import co.wishroll.R;
+import co.wishroll.views.home.MainActivity;
 
 
 public class WelcomeActivity extends AppCompatActivity implements View.OnClickListener {

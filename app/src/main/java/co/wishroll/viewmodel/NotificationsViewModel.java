@@ -1,10 +1,17 @@
 package co.wishroll.viewmodel;
 
+import android.app.Application;
+
+import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.ViewModel;
 
-public class NotificationsListViewModel extends ViewModel {
-    //get information from repostitory concerning what notifications to show
-    //populate repository
-    //dictates what happens when a notification on the list is clicked
-    //has instances of notification view model and populates each one to display in notification fragment
+
+public class NotificationsViewModel extends ViewModel {
+    public NotificationsViewModel() {
+
+    }
+
+    //ViewModel for the Notification Fragment of the Profile Page View, only current user can see their own
+    //fetches notifications and displays them in a list form
 }

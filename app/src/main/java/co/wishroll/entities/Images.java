@@ -2,7 +2,7 @@ package co.wishroll.entities;
 
 import java.util.ArrayList;
 
-public class Post {
+public class Images extends Post {
 
     public User user;
     public String caption;
@@ -20,21 +20,27 @@ public class Post {
     public ArrayList<Comment> commentsSection;
     public String timeAgo;
 
-    public Post() {
-        this.user = new User("blossomokonkwo1@gmail.com", "blossom", 19, "potatochips", "okonkwo1");
-        this.caption = "Just testing this out.";
-        this.mediaExtension = "mp4";
+    public Images(User user, String caption, String mediaExtension,
+                  String thumbnailURL, String mediaURL, String numViews,
+                  String numLikes, String numBookmarks, String numShares,
+                  ArrayList<User> whoShared, ArrayList<User> whoLiked,
+                  ArrayList<User> whoBookmarked, String numComments,
+                  ArrayList<Comment> commentsSection, String timeAgo) {
+
+        this.user = user;
+        this.caption = caption;
+        this.mediaExtension = mediaExtension;
         this.thumbnailURL = thumbnailURL;
         this.mediaURL = mediaURL;
-        this.numViews = "0";
-        this.numLikes = "0";
-        this.numBookmarks = "0";
-        this.numShares = "0";
+        this.numViews = numViews;
+        this.numLikes = numLikes;
+        this.numBookmarks = numBookmarks;
+        this.numShares = numShares;
         this.whoShared = whoShared;
         this.whoLiked = whoLiked;
         this.whoBookmarked = whoBookmarked;
-        this.numComments = "0";
+        this.numComments = numComments;
         this.commentsSection = commentsSection;
-        this.timeAgo = "35 minutes ago";
+        this.timeAgo = timeAgo;
     }
 }

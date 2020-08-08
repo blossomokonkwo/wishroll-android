@@ -11,7 +11,7 @@ import android.widget.ImageButton;
 
 import co.wishroll.Models.User;
 import co.wishroll.R;
-import co.wishroll.model.User;
+import co.wishroll.entities.User;
 
 public class UsernameActivity extends AppCompatActivity implements View.OnClickListener {
 

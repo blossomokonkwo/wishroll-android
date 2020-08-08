@@ -1,4 +1,4 @@
-package co.wishroll.views;
+package co.wishroll.views.profile;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -7,7 +7,6 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,9 +22,12 @@ import com.google.android.material.tabs.TabLayoutMediator;
 
 import co.wishroll.R;
 import co.wishroll.databinding.ActivityProfileviewBinding;
-import co.wishroll.model.User;
+import co.wishroll.entities.User;
 import co.wishroll.utilities.ProfileViewPagerAdapter;
 import co.wishroll.viewmodel.UserViewModel;
+import co.wishroll.views.reusables.Followers;
+import co.wishroll.views.reusables.Following;
+import co.wishroll.views.home.MainActivity;
 
 
 public class ProfileViewActivity extends AppCompatActivity {

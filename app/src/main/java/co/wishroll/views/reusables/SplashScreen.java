@@ -1,10 +1,12 @@
-package co.wishroll.views;
+package co.wishroll.views.reusables;
 
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import co.wishroll.views.registration.WelcomeActivity;
 
 public class SplashScreen extends AppCompatActivity {
     @Override

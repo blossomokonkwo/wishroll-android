@@ -1,4 +1,4 @@
-package co.wishroll.views;
+package co.wishroll.views.reusables;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -15,10 +15,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import co.wishroll.R;
-import co.wishroll.model.Notification;
-import co.wishroll.model.User;
-import co.wishroll.utilities.NotificationRecyclerViewAdapter;
+import co.wishroll.entities.User;
 import co.wishroll.utilities.UserListRecyclerViewAdapter;
+import co.wishroll.views.home.MainActivity;
 
 public class Following extends AppCompatActivity {
 

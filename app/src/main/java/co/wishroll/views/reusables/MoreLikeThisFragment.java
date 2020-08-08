@@ -1,4 +1,4 @@
-package co.wishroll.views;
+package co.wishroll.views.reusables;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import co.wishroll.R;
-import co.wishroll.model.Post;
+import co.wishroll.entities.Post;
 import co.wishroll.utilities.GridRecyclerViewAdapter;
 
 

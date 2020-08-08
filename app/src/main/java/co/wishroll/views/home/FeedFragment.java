@@ -1,4 +1,4 @@
-package co.wishroll.views;
+package co.wishroll.views.home;
 
 import android.os.Bundle;
 
@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import co.wishroll.R;
-import co.wishroll.model.Post;
+import co.wishroll.entities.Post;
 import co.wishroll.utilities.GridRecyclerViewAdapter;
 
 import android.view.LayoutInflater;

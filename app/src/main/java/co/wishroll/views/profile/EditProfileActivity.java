@@ -1,4 +1,4 @@
-package co.wishroll.views;
+package co.wishroll.views.profile;
 
 import androidx.appcompat.app.AppCompatActivity;
 

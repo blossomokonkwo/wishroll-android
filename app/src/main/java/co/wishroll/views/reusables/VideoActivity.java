@@ -1,4 +1,4 @@
-package co.wishroll.views.upload;
+package co.wishroll.views.reusables;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,11 +6,11 @@ import android.os.Bundle;
 
 import co.wishroll.R;
 
-public class UploadActivity extends AppCompatActivity {
+public class VideoActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_upload);
+        setContentView(R.layout.activity_video);
     }
 }

@@ -1,4 +1,4 @@
-package co.wishroll.views;
+package co.wishroll.views.reusables;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.CheckedTextView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -15,6 +14,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import co.wishroll.R;
+import co.wishroll.views.home.MainActivity;
 
 public class ImageActivity extends AppCompatActivity {
 

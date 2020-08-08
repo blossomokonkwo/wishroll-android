@@ -1,4 +1,5 @@
-package co.wishroll.model;
+package co.wishroll.entities;
+
 
 public class Comment {
     User user;

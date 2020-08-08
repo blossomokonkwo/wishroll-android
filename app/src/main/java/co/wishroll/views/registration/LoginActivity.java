@@ -1,4 +1,4 @@
-package co.wishroll.views;
+package co.wishroll.views.registration;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,6 +8,7 @@ import android.widget.*;
 import android.content.*;
 
 import co.wishroll.R;
+import co.wishroll.views.home.MainActivity;
 
 
 public class LoginActivity extends AppCompatActivity {

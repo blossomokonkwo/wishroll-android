@@ -1,11 +1,7 @@
-package co.wishroll.model;
+package co.wishroll.entities;
 
-import android.app.Application;
-import android.widget.ImageView;
 
-import co.wishroll.R;
-
-public class User extends Application {
+public class User {
 
 
 

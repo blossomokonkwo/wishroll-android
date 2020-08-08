@@ -5,9 +5,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import co.wishroll.views.FeedFragment;
-import co.wishroll.views.MessagesFragment;
-import co.wishroll.views.TrendingFragment;
+import co.wishroll.views.home.FeedFragment;
+import co.wishroll.views.home.MessagesFragment;
+import co.wishroll.views.home.TrendingFragment;
 
 
 public class MainViewPagerAdapter extends FragmentStateAdapter {

@@ -6,7 +6,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="co.wishroll.views.BookmarksFragment">
+        tools:context="co.wishroll.views.profile.BookmarksFragment">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/bookmarksRecyclerView"

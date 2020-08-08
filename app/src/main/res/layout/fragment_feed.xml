@@ -6,7 +6,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="co.wishroll.views.FeedFragment">
+        tools:context="co.wishroll.views.home.FeedFragment">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/feedRecyclerView"

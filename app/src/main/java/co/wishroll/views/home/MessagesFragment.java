@@ -1,4 +1,4 @@
-package co.wishroll.views;
+package co.wishroll.views.home;
 
 import android.os.Bundle;
 
