@@ -28,8 +28,8 @@ public class MainViewPagerAdapter extends FragmentStateAdapter {
         switch (position) {
             case 0:
                 return new TrendingFragment();
-            case 1:
-                return new MessagesFragment();
+            /*case 1:
+                return new MessagesFragment();*/
             default:
                 return new FeedFragment();
         }
@@ -40,7 +40,8 @@ public class MainViewPagerAdapter extends FragmentStateAdapter {
     @Override
     public int getItemCount() {
 
-        return 3;
+        return 2;
+        //changed to 2 from three because of the exclusion of messages tab
 
     }
 

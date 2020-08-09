@@ -101,7 +101,8 @@
 
 
 
-                <ImageButton
+                <!--<ImageButton
+                    COMMENTS SECTION
                     android:id="@+id/commentImageView"
                     android:layout_width="@dimen/_26sdp"
                     android:layout_height="@dimen/_26sdp"
@@ -111,7 +112,8 @@
                     android:background="@drawable/circle_button"
                     android:layout_toLeftOf="@id/shareImageView"
 
-                    />
+                    />-->
+
                 <ImageButton
                     android:id="@+id/shareImageView"
                     android:layout_width="@dimen/_26sdp"
@@ -137,22 +139,90 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
+
+                <!--<TextView
+                    COMMENTS SECTION
+                    android:text="15"
+                    android:textAlignment="center"
+                    android:id="@+id/commentCountImageView"
+                    android:layout_width="@dimen/_26sdp"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_comment"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_centerInParent="true"
+                    android:layout_toLeftOf="@id/shareCountImageView"
+                    android:gravity="center_horizontal" />-->
+
+                <TextView
+                    android:text="15"
+                    android:id="@+id/shareCountImageView"
+                    android:layout_width="@dimen/_26sdp"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_down_arrow"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_toLeftOf="@id/bookmarkCountImageView"
+                    android:gravity="center_horizontal"
+                    />
+
+                <TextView
+                    android:text="15"
+                    android:id="@+id/bookmarkCountImageView"
+                    android:layout_width="@dimen/_26sdp"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_bookmark_white"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:gravity="center_horizontal"
+                    android:layout_alignParentRight="true"/>
+
+            </RelativeLayout>
+
+
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+
                 <com.mikhaellopez.circularimageview.CircularImageView
                     android:id="@+id/profilePicImageView"
                     android:layout_width="@dimen/_50sdp"
+                    app:civ_border="false"
+                    android:layout_marginLeft="@dimen/_6sdp"
                     android:layout_height="@dimen/_50sdp"
                     android:src="@drawable/reaction_picture"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:layout_toRightOf="@id/profilePicImageView"
+                    android:layout_centerVertical="true">
+
                 <TextView
                     android:id="@+id/usernameImageView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="blossom"
-                    android:layout_toRightOf="@id/profilePicImageView"
-                    android:layout_centerVertical="true"
                     android:textStyle="bold"
                     android:textColor="@color/black"
-                    android:layout_marginLeft="@dimen/_5sdp"
+
                     android:textSize="@dimen/_13sdp"/>
+
+                    <TextView
+                        android:textColor="@color/black"
+                        android:id="@+id/postCaption"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="So yeah this is my caption">
+
+                    </TextView>
+                </LinearLayout>
 
                 <TextView
                     android:layout_width="wrap_content"

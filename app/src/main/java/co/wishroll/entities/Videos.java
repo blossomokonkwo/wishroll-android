@@ -20,27 +20,29 @@ public class Videos extends Post {
     public ArrayList<Comment> commentsSection;
     public String timeAgo;
 
-    public Videos(User user, String caption, String mediaExtension,
+  /*  public Videos(User user, String caption,
                   String thumbnailURL, String mediaURL, String numViews,
                   String numLikes, String numBookmarks, String numShares,
                   ArrayList<User> whoShared, ArrayList<User> whoLiked,
                   ArrayList<User> whoBookmarked, String numComments,
-                  ArrayList<Comment> commentsSection, String timeAgo) {
+                  ArrayList<Comment> commentsSection, String timeAgo) {*/
 
-        this.user = user;
-        this.caption = caption;
-        this.mediaExtension = mediaExtension;
+  public Videos(){
+
+        this.user = new User("blossomokonkwo1@gmail.com", "blossom", 19, "potatochips", "okonkwo1");
+        this.caption = "Hi this is a post, Im so excited";
         this.thumbnailURL = thumbnailURL;
-        this.mediaURL = mediaURL;
-        this.numViews = numViews;
-        this.numLikes = numLikes;
-        this.numBookmarks = numBookmarks;
-        this.numShares = numShares;
+        this.mediaURL = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4";
+        this.numViews = "78";
+        this.numLikes = "98";
+        this.numBookmarks = "98";
+        this.numShares = "90";
         this.whoShared = whoShared;
         this.whoLiked = whoLiked;
         this.whoBookmarked = whoBookmarked;
-        this.numComments = numComments;
+        this.numComments = "54";
         this.commentsSection = commentsSection;
-        this.timeAgo = timeAgo;
+        this.timeAgo = "56 minutes ago";
+
     }
 }

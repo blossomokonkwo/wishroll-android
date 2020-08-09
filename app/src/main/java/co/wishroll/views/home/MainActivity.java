@@ -80,11 +80,11 @@ public class MainActivity extends AppCompatActivity {
 
                         break;}
 
-                    case 1:{
+                   /* case 1:{
 
                         tab.setText("Messages");
 
-                        break;}
+                        break;}*/
 
                     default: {
                         tab.setText("Feed");

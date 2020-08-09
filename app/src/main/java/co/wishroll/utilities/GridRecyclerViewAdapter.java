@@ -16,6 +16,7 @@ import java.util.List;
 import co.wishroll.R;
 import co.wishroll.entities.Post;
 import co.wishroll.views.reusables.ImageActivity;
+import co.wishroll.views.reusables.VideoActivity;
 
 public class GridRecyclerViewAdapter extends RecyclerView.Adapter<GridRecyclerViewAdapter.GridViewHolder> {
 
@@ -41,24 +42,44 @@ public class GridRecyclerViewAdapter extends RecyclerView.Adapter<GridRecyclerVi
     public void onBindViewHolder(@NonNull GridViewHolder holder, int position) {
 
         holder.mediaThumbnail.setImageResource(R.drawable.reaction_picture);
-        holder.videoFlag.setImageResource(R.drawable.ic_play);
+        holder.videoFlag.setImageResource(R.drawable.ic_play_white);
 
         //imitation
         if(position % 2 == 0){
             holder.videoFlag.setVisibility(View.INVISIBLE);
         }else{
             holder.videoFlag.setVisibility(View.VISIBLE);
+
         }
 
-        holder.postItem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //TODO(check if video or image/gif)
-                Intent i = new Intent(mContext, ImageActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                //put extras maybe
-                mContext.startActivity(i);
-            }
-        });
+        //imitation
+        if(position % 2 == 0) {
+            holder.postItem.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //TODO(check if video or image/gif)
+
+                    Intent i = new Intent(mContext, ImageActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                    //put extras maybe
+                    mContext.startActivity(i);
+                }
+            });
+        }else{
+            holder.postItem.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //TODO(check if video or image/gif)
+
+                    Intent i = new Intent(mContext, VideoActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                    //put extras maybe
+                    mContext.startActivity(i);
+                }
+            });
+
+        }
+
+
+
 
     }
 
