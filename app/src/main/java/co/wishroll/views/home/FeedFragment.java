@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import co.wishroll.R;
-import co.wishroll.entities.Post;
+import co.wishroll.models.datamodels.Post;
 import co.wishroll.utilities.GridRecyclerViewAdapter;
 
 import android.view.LayoutInflater;

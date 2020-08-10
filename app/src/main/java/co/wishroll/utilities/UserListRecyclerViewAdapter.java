@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import co.wishroll.R;
-import co.wishroll.entities.User;
+import co.wishroll.models.datamodels.User;
 
 public class UserListRecyclerViewAdapter extends RecyclerView.Adapter<UserListRecyclerViewAdapter.MyViewHolder> {
 
@@ -42,8 +42,10 @@ public class UserListRecyclerViewAdapter extends RecyclerView.Adapter<UserListRe
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
-        holder.fullnameListView.setText(mData.get(position).getFullName());
-        holder.usernameListView. setText(mData.get(position).getUsername());
+        holder.fullnameListView.setText("blossom okonkwo filler");
+        holder.usernameListView. setText("blossomfiller");
+        /*holder.fullnameListView.setText(mData.get(position).getFullName());
+        holder.usernameListView. setText(mData.get(position).getUsername());*/
 
 
         //imitation code

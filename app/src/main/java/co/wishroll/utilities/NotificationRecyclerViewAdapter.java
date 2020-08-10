@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import co.wishroll.R;
-import co.wishroll.entities.Notification;
+import co.wishroll.models.datamodels.Notification;
 import co.wishroll.views.reusables.ImageActivity;
 import co.wishroll.views.profile.ProfileViewActivity;
 
@@ -46,7 +46,8 @@ public class NotificationRecyclerViewAdapter extends RecyclerView.Adapter<Notifi
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
-        holder.notifUsername.setText(mData.get(position).getUser().getUsername());
+        //holder.notifUsername.setText(mData.get(position).getUser().getUsername());
+        holder.notifUsername.setText("blossomfiller");
         holder.notifDescription. setText(mData.get(position).getNotificationDescription());
         holder.notifTimeAgo.setText(mData.get(position).getTimeAgo());
 

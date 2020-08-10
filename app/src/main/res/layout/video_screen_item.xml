@@ -131,13 +131,12 @@
                 android:layout_marginRight="10dp"
                 android:layout_centerInParent="true"
                 android:background="@color/transparent"
-                android:layout_toLeftOf="@id/shareVideoView"
+                android:layout_toLeftOf="@id/commentVideoView"
 
                 />
 
-            <!--<ImageButton
-                COMMENTS SECTION
-                android:id="@+id/commentImageView"
+            <ImageButton
+                android:id="@+id/commentVideoView"
                 android:layout_width="@dimen/_26sdp"
                 android:layout_height="@dimen/_26sdp"
                 android:src="@drawable/ic_comment"
@@ -145,9 +144,9 @@
                 android:layout_marginRight="10dp"
                 android:layout_centerInParent="true"
                 android:background="@drawable/circle_button"
-                android:layout_toLeftOf="@id/shareImageView"
+                android:layout_toLeftOf="@id/shareVideoView"
 
-                />-->
+                />
 
             <ImageButton
                 android:id="@+id/shareVideoView"
@@ -192,23 +191,23 @@
                 android:src="@drawable/ic_comment"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:layout_toLeftOf="@id/shareCountVideoView"
+                android:layout_toLeftOf="@id/commentCountVideoView"
                 android:gravity="center_horizontal" />
 
-            <!--<TextView
-                COMMENTS SECTION COUNTER
+            <TextView
+
                 android:text="15"
                 android:textSize="@dimen/_10sdp"
                 android:textColor="@color/white"
                 android:textAlignment="center"
-                android:id="@+id/commentCountImageView"
+                android:id="@+id/commentCountVideoView"
                 android:layout_width="@dimen/_26sdp"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_comment"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:layout_toLeftOf="@id/shareCountImageView"
-                android:gravity="center_horizontal" />-->
+                android:layout_toLeftOf="@id/shareCountVideoView"
+                android:gravity="center_horizontal" />
 
             <TextView
                 android:text="15"

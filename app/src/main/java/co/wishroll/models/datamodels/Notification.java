@@ -1,11 +1,11 @@
-package co.wishroll.entities;
+package co.wishroll.models.datamodels;
 
 import androidx.annotation.Nullable;
 
 public class Notification {
 
 
-    public User user = new User("blossomokonkwo1@gmail.com", "blossom", 19, "potatochips", "okonkwo1");
+    public User user = new User("blossom", 1, false);
     public String timeAgo;
     public String imageThumbnailURL;
     public String actionPhrase;
@@ -17,7 +17,7 @@ public class Notification {
         this.user = user;
         timeAgo = "35 minutes ago";
         actionPhrase = "liked your post!";
-        notificationDescription = user.username + " " + actionPhrase;
+        notificationDescription = "blossom liked your post!";
 
     }
 
@@ -28,7 +28,7 @@ public class Notification {
     public void setNotificationDescription() {
         //Form: potatochips liked your post!
         //TODO(sort of written with the intent that nothing is being fetched from the API rn, atm, at this present moment)
-        this.notificationDescription = this.user.username + " " + this.actionPhrase + "!";
+        this.notificationDescription = "blossom liked your post!";
     }
 
     public String getTimeAgo() {

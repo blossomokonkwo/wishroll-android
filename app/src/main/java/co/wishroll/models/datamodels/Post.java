@@ -1,8 +1,9 @@
-package co.wishroll.entities;
+package co.wishroll.models.datamodels;
 
 import java.util.ArrayList;
 
 public class Post {
+
     public String user_id;
     public User user;
     public String caption;
@@ -21,7 +22,7 @@ public class Post {
     public String timeAgo;
 
     public Post() {
-        this.user = new User("blossomokonkwo1@gmail.com", "blossom", 19, "potatochips", "okonkwo1");
+
         this.caption = "Just testing this out.";
         this.mediaExtension = "mp4";
         this.thumbnailURL = thumbnailURL;

@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import co.wishroll.R;
-import co.wishroll.entities.User;
+import co.wishroll.models.datamodels.User;
 import co.wishroll.utilities.UserListRecyclerViewAdapter;
 import co.wishroll.views.home.MainActivity;
 
@@ -36,8 +36,7 @@ public class Following extends AppCompatActivity {
         followingList= new ArrayList<>();
 
         //TODO(Right now we have to create the users but I'm sure they will be fetched through requests very soon)
-        User userWhoFollows = new User("blossom@gmail.com", "blossom is coo", 19,
-                "blossomokonkwo","princess");
+        User userWhoFollows = new User("blossomfiller", 1, false);
 
         for(int i = 0; i < 200; i++) {
             followingList.add(userWhoFollows);

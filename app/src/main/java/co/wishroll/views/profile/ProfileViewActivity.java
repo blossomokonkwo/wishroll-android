@@ -22,7 +22,7 @@ import com.google.android.material.tabs.TabLayoutMediator;
 
 import co.wishroll.R;
 import co.wishroll.databinding.ActivityProfileviewBinding;
-import co.wishroll.entities.User;
+import co.wishroll.models.datamodels.User;
 import co.wishroll.utilities.ProfileViewPagerAdapter;
 import co.wishroll.viewmodel.UserViewModel;
 import co.wishroll.views.reusables.Followers;
@@ -54,7 +54,7 @@ public class ProfileViewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profileview);
 
 
-        User user = new User("blossomokonkwo1@gmail.com" , "Blossom", 19, "blossomok", "okonkwo1");
+        User user = new User("blossomfiller" , 1, false);
         UserViewModel userViewModel = new UserViewModel(user);
         activityProfileViewBinding = DataBindingUtil.setContentView(this, R.layout.activity_profileview);
         activityProfileViewBinding.setUserViewModel(userViewModel);

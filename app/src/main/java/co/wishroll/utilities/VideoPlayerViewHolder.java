@@ -14,18 +14,18 @@ import com.bumptech.glide.RequestManager;
 import com.mikhaellopez.circularimageview.CircularImageView;
 
 import co.wishroll.R;
-import co.wishroll.entities.Videos;
+import co.wishroll.models.datamodels.Videos;
 
 public class VideoPlayerViewHolder extends RecyclerView.ViewHolder{
 
     FrameLayout mediaContainer;
     CircularImageView profilePicture;
-    TextView username, timeAgo, numLikes, numBookmarks, numShares, videoCaption, numViews;
+    TextView username, timeAgo, numLikes, numComments, numBookmarks, numShares, videoCaption, numViews;
     ImageView videoThumbnail;
     ProgressBar progressBar;
     View parent;
     RequestManager requestManager;
-    ImageButton likeButton, shareButton, bookmarkButton;
+    ImageButton likeButton, shareButton, bookmarkButton, commentButton;
 
     public VideoPlayerViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -45,6 +45,9 @@ public class VideoPlayerViewHolder extends RecyclerView.ViewHolder{
         likeButton = itemView.findViewById(R.id.likeVideoView);
         shareButton = itemView.findViewById(R.id.shareVideoView);
         bookmarkButton = itemView.findViewById(R.id.bookmarkVideoView);
+        commentButton = itemView.findViewById(R.id.commentVideoView);
+        numComments = itemView.findViewById(R.id.commentCountVideoView);
+
         //videoThumbnail = itemView.findViewById(R.id.); where do I find this?
 
 

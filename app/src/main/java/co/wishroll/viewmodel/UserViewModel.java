@@ -1,19 +1,14 @@
 package co.wishroll.viewmodel;
 
-import android.app.Application;
-
-import androidx.annotation.NonNull;
-import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.ViewModel;
 
-import co.wishroll.entities.User;
+import co.wishroll.models.datamodels.User;
 
 public class UserViewModel extends ViewModel {
     //ViewModel for the User class
     //represents the user class
 
     public String username;
-    public String email;
     public String followersCount;
     public String followingCount;
     public String totalViewCount;
@@ -30,17 +25,7 @@ public class UserViewModel extends ViewModel {
 
     public UserViewModel(User user) {
 
-        this.username = user.username;
-        this.email = user.email;
-        this.fullName = user.fullName;
-        this.bio = user.bio;
-        this.user = user;
-        this.wishRollScore = user.wishRollScore.toString();
-        this.profilePictureURL = user.profilePictureURL;
-        this.isVerified = user.isVerified;
-        this.followersCount = user.followersCount + "";
-        this.followingCount = user.followingCount + "";
-        this.totalViewCount = user.totalViewCount + "";
+
 
 
     }

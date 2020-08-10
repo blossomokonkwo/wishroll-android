@@ -1,4 +1,4 @@
-package co.wishroll.entities;
+package co.wishroll.models.datamodels;
 
 import java.util.ArrayList;
 
@@ -30,7 +30,7 @@ public class Videos extends Post {
 
   public Videos(){
 
-        this.user = new User("blossomokonkwo1@gmail.com", "blossom", 19, "potatochips", "okonkwo1");
+
         this.caption = "Hi this is a post, Im so excited";
         this.thumbnailURL = thumbnailURL;
         this.mediaURL = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4";

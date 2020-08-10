@@ -1,4 +1,4 @@
-package co.wishroll.entities;
+package co.wishroll.models.datamodels;
 
 
 public class Comment {

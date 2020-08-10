@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import co.wishroll.R;
-import co.wishroll.entities.Post;
+import co.wishroll.models.datamodels.Post;
 import co.wishroll.utilities.GridRecyclerViewAdapter;
 
 
