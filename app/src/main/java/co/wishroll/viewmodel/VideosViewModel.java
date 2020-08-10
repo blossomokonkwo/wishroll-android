@@ -6,8 +6,8 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.ViewModel;
 
-public class PostViewModel extends ViewModel {
-    public PostViewModel() {
+public class VideosViewModel extends ViewModel {
+    public VideosViewModel() {
 
     }
 

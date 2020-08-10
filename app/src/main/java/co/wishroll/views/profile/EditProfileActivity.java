@@ -21,9 +21,9 @@ public class EditProfileActivity extends AppCompatActivity {
     private static final String TAG = "EditProfileActivity";
 
 
-    ImageButton backButton, editBannerButton;
-    CircularImageView editProfilePicture;
-    Button saveButton;
+    private ImageButton backButton, editBannerButton;
+    private CircularImageView editProfilePicture;
+    private Button saveButton;
     EditText editEmail, editUsername, editName, editBio;
 
     @Override

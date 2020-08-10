@@ -68,6 +68,7 @@ public class GridRecyclerViewAdapter extends RecyclerView.Adapter<GridRecyclerVi
             holder.postItem.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
                     //TODO(check if video or image/gif)
 
                     Intent i = new Intent(mContext, VideoActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);

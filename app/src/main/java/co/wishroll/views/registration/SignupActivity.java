@@ -27,7 +27,7 @@ public class SignupActivity extends AppCompatActivity {
     EditText etUsername;
     EditText etPasswordOne;
     EditText etPasswordTwo;
-    ProgressBar progressBar;
+    private ProgressBar progressBar;
     Button bSignup;
 
     @Override

@@ -18,9 +18,9 @@ import co.wishroll.views.home.MainActivity;
 
 public class ImageActivity extends AppCompatActivity {
 
-    FloatingActionButton fabHome;
-    ImageView backButton;
-    ImageView moreButton;
+    private FloatingActionButton fabHome;
+    private ImageView backButton;
+    private ImageView moreButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

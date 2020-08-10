@@ -37,10 +37,10 @@ public class ProfileViewActivity extends AppCompatActivity {
 
 
     TextView usernameView, fullNameView;
-    FloatingActionButton fabHome;
+    private FloatingActionButton fabHome;
     ImageButton backProfileView, moreProfileView;
     Button bMainButton;
-    TextView followingList, followersList;
+    private TextView followingList, followersList;
 
 
 

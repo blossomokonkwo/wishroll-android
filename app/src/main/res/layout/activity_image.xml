@@ -6,8 +6,8 @@
 
     <data>
         <variable
-            name="PostViewModel"
-            type="co.wishroll.viewmodel.PostViewModel" />
+            name="VideosViewModel"
+            type="co.wishroll.viewmodel.VideosViewModel" />
     </data>
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"

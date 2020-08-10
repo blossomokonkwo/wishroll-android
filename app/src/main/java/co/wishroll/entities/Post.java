@@ -3,7 +3,7 @@ package co.wishroll.entities;
 import java.util.ArrayList;
 
 public class Post {
-
+    public String user_id;
     public User user;
     public String caption;
     public String mediaExtension;

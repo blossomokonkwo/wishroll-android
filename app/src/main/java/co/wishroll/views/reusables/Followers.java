@@ -24,8 +24,8 @@ public class Followers extends AppCompatActivity {
 
     private RecyclerView myRecyclerView;
     private List<User> followersList;
-    FloatingActionButton fabHome;
-    ImageButton backButton;
+    private FloatingActionButton fabHome;
+    private ImageButton backButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

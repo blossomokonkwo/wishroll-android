@@ -17,16 +17,20 @@
         android:scaleType="center"
         android:id="@+id/media_container">
 
+        <ProgressBar
+            android:id="@+id/videoProgressBar"
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="@dimen/_50sdp"
+            android:layout_gravity="center">
+
+        </ProgressBar>
+
+
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-
-
-
-
-
-
 
 
 
@@ -66,7 +70,7 @@
 
                 <TextView
                     android:textColor="@color/white"
-                    android:id="@+id/postCaption"
+                    android:id="@+id/videoCaption"
                     android:textSize="@dimen/_10sdp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -76,6 +80,7 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/timeAgoVideoView"
                 android:textColor="@color/white"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -118,7 +123,7 @@
                 android:textSize="@dimen/_12sdp"/>
 
             <ImageButton
-                android:id="@+id/likesImageView"
+                android:id="@+id/likeVideoView"
                 android:layout_width="@dimen/_26sdp"
                 android:layout_height="@dimen/_26sdp"
                 android:src="@drawable/ic_like"
@@ -126,7 +131,7 @@
                 android:layout_marginRight="10dp"
                 android:layout_centerInParent="true"
                 android:background="@color/transparent"
-                android:layout_toLeftOf="@id/shareImageView"
+                android:layout_toLeftOf="@id/shareVideoView"
 
                 />
 
@@ -145,19 +150,19 @@
                 />-->
 
             <ImageButton
-                android:id="@+id/shareImageView"
+                android:id="@+id/shareVideoView"
                 android:layout_width="@dimen/_26sdp"
                 android:layout_height="@dimen/_26sdp"
                 android:src="@drawable/ic_down_arrow"
                 android:elevation="2dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:layout_toLeftOf="@id/bookmarkImageView"
+                android:layout_toLeftOf="@id/bookmarkVideoView"
                 android:background="@drawable/circle_button"
                 />
 
             <ImageButton
-                android:id="@+id/bookmarkImageView"
+                android:id="@+id/bookmarkVideoView"
                 android:layout_width="@dimen/_26sdp"
                 android:layout_height="@dimen/_26sdp"
                 android:src="@drawable/ic_bookmark_white"
@@ -187,7 +192,7 @@
                 android:src="@drawable/ic_comment"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:layout_toLeftOf="@id/shareCountImageView"
+                android:layout_toLeftOf="@id/shareCountVideoView"
                 android:gravity="center_horizontal" />
 
             <!--<TextView
@@ -209,20 +214,20 @@
                 android:text="15"
                 android:textSize="@dimen/_10sdp"
                 android:textColor="@color/white"
-                android:id="@+id/shareCountImageView"
+                android:id="@+id/shareCountVideoView"
                 android:layout_width="@dimen/_26sdp"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_down_arrow"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:layout_toLeftOf="@id/bookmarkCountImageView"
+                android:layout_toLeftOf="@id/bookmarkCountVideoView"
                 android:gravity="center_horizontal"
                 />
 
             <TextView
                 android:text="15"
                 android:textSize="@dimen/_10sdp"
-                android:id="@+id/bookmarkCountImageView"
+                android:id="@+id/bookmarkCountVideoView"
                 android:textColor="@color/white"
                 android:layout_width="@dimen/_26sdp"
                 android:layout_height="wrap_content"
