@@ -2,12 +2,14 @@ package co.wishroll.views.registration;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.*;
 
+import java.util.Calendar;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
@@ -23,12 +25,14 @@ public class SignupActivity extends AppCompatActivity {
 
     EditText etEmail;
     EditText etFullName;
-    EditText etAge;
+    EditText birthDate;
     EditText etUsername;
     EditText etPasswordOne;
     EditText etPasswordTwo;
     private ProgressBar progressBar;
     Button bSignup;
+    DatePickerDialog datePickerDialog;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,11 +41,29 @@ public class SignupActivity extends AppCompatActivity {
 
         etEmail = findViewById(R.id.userEmail);
         etFullName = findViewById(R.id.userFullName);
-        etAge = findViewById(R.id.userAge);
+        birthDate = findViewById(R.id.selectBirthdate);
         etUsername = findViewById(R.id.userUsername);
         etPasswordOne = findViewById(R.id.userPasswordOne);
         etPasswordTwo = findViewById(R.id.userPasswordTwo);
         progressBar = findViewById(R.id.progressBar);
+
+        birthDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar calendar = Calendar.getInstance();
+                final int year = calendar.get(calendar.YEAR);
+                final int day = calendar.get(calendar.DAY_OF_MONTH);
+                final int month = calendar.get(calendar.MONTH);
+                datePickerDialog = new DatePickerDialog(SignupActivity.this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        birthDate.setText(year + "-" + month + "-" + day);
+
+                    }
+                }, year, month, day);
+                datePickerDialog.show();
+            }
+        });
 
 
         bSignup = findViewById(R.id.bCreateAccount);
@@ -52,10 +74,14 @@ public class SignupActivity extends AppCompatActivity {
 
                 final String email = etEmail.getText().toString().trim();
                 final String name = etFullName.getText().toString();
-                final int age = Integer.parseInt(etAge.getText().toString());
+                final String birth_date = birthDate.getText().toString();
                 final String username = formatUsername(etUsername);
                 final String password = etPasswordOne.getText().toString();
                 final String password0 = etPasswordTwo.getText().toString();
+
+
+
+
 
 
                 if (!password.equals(password0)) {
@@ -70,7 +96,7 @@ public class SignupActivity extends AppCompatActivity {
 
                     Toast.makeText(SignupActivity.this, "Please enter a valid username", Toast.LENGTH_LONG).show();
 
-                } else if (age < 12) {
+                } else if (1 < 12) {
 
                     Toast.makeText(SignupActivity.this, "You need to be 12 or older to use WishRoll", Toast.LENGTH_LONG).show();
 

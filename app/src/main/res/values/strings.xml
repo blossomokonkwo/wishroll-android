@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Sign Up/Login Proceess-->
-
+    <string name="select_birthdate">Select Birthday</string>
     <string name="UsernameEmail_label">Username or email</string>
     <string name="Password_label">Password</string>
     <string name="Username_label">Username</string>

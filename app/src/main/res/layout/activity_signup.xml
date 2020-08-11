@@ -97,16 +97,23 @@
                 android:textSize="@dimen/_16ssp" />
 
             <EditText
-                android:id="@+id/userAge"
-                android:inputType="number"
-                android:layout_width="@dimen/_250sdp"
-                android:layout_height="wrap_content"/>
+                android:focusable="false"
+                android:layout_marginTop="@dimen/_3sdp"
+                android:id="@+id/selectBirthdate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColorHint="@color/electric_blue"
+                android:hint="@string/select_birthdate"
+                android:textColor="@color/electric_blue"
+                android:textSize="@dimen/_16ssp" />
+
+
 
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/electric_blue"
+                android:textColor="@color/grey"
                 android:text="@string/age_warning"/>
 
         </LinearLayout>

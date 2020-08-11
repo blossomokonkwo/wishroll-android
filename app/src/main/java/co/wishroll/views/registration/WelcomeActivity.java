@@ -63,6 +63,6 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
 
     public boolean loggedIn(String test){
         //tester method
-        return true;
+        return false;
     }
 }
