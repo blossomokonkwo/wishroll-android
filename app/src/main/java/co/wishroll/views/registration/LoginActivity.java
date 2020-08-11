@@ -9,7 +9,7 @@ import android.content.*;
 
 import co.wishroll.R;
 import co.wishroll.views.home.MainActivity;
-
+import co.wishroll.databinding.ActivityLoginBinding;
 
 public class LoginActivity extends AppCompatActivity {
 

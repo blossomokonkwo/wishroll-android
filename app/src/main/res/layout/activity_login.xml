@@ -5,7 +5,7 @@
     <data>
 
         <variable
-            name="viewmodel"
+            name="authviewmodel"
             type="co.wishroll.viewmodel.AuthViewModel" />
     </data>
 
@@ -29,7 +29,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:text="@={viewmodel.usermail}"
+        android:text="@={authviewmodel.usermail}"
         android:id="@+id/etEmailUsername"
         android:layout_width="@dimen/_200sdp"
         android:layout_height="@dimen/_40sdp"

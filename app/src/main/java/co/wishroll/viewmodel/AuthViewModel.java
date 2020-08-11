@@ -11,7 +11,7 @@ import java.util.Date;
 public class AuthViewModel extends ViewModel {
     //for logging in and signing up
 
-    String usermail;
+    public String usermail;
 
     String email;
 
