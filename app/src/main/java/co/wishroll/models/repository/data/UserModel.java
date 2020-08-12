@@ -6,6 +6,7 @@ import com.google.gson.annotations.SerializedName;
 import java.net.URL;
 
 public class UserModel {
+    //model for the response data gotten from the WishRoll Api
 
     @SerializedName("id")
     @Expose

@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -52,7 +51,6 @@ public class LoginActivity extends AppCompatActivity implements AuthListener {
         final EditText password = findViewById(R.id.etPasswordEntry);
 
         Button bLogin = findViewById(R.id.bLogin1);
-        ProgressBar progressBarLogin = findViewById(R.id.progressBarLogin);
         TextView tvSignUp = (TextView) findViewById(R.id.newSignUp);
 
 
@@ -112,6 +110,7 @@ public class LoginActivity extends AppCompatActivity implements AuthListener {
 
     @Override
     public void onStarted() {
+
         Toast.makeText(this, "Login Started", Toast.LENGTH_SHORT).show();
 
 
@@ -119,6 +118,7 @@ public class LoginActivity extends AppCompatActivity implements AuthListener {
 
     @Override
     public void onSuccess() {
+
         Toast.makeText(this, "Login Success", Toast.LENGTH_SHORT).show();
 
     }
