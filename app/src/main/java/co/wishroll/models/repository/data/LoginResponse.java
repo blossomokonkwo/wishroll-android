@@ -1,4 +1,4 @@
-package co.wishroll.models.datamodels;
+package co.wishroll.models.repository.data;
 
 
 import androidx.annotation.Nullable;
@@ -8,6 +8,8 @@ import com.google.gson.annotations.SerializedName;
 
 import java.net.URL;
 import java.util.Date;
+
+import co.wishroll.models.datamodels.User;
 
 public class LoginResponse {
     //maps the data given by a login POST request
@@ -51,7 +53,8 @@ public class LoginResponse {
     @SerializedName("avatar")
     private String avatar;
 
-    
+
+
 
 
 
