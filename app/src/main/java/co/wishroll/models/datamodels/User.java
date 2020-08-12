@@ -3,31 +3,31 @@ package co.wishroll.models.datamodels;
 
 import androidx.annotation.Nullable;
 
-import java.net.URI;
-import java.net.URL;
 import java.util.Date;
 
 public class User {
+    //for viewage and representation on views
 
 
     private String username;
 
     @Nullable
-    private int numFollowers;
+    private Integer numFollowers;
 
     @Nullable
-    private int numFollowing;
+    private Integer numFollowing;
 
     @Nullable
-    private int viewCount;
+    private Integer viewCount;
 
     @Nullable
-    private URL avatar;
+    private String avatar;
+
 
     private int id;
 
     @Nullable
-    private URL profileBackgroundUrl;
+    private String profileBackgroundUrl;
 
 
     private boolean verified;
@@ -39,10 +39,10 @@ public class User {
     private String name;
 
     @Nullable
-    private String bio;
+    private String bio = "";
 
     @Nullable
-    private int wishrollScore;
+    private Integer wishrollScore;
 
     @Nullable
     private Date createdAt;
@@ -53,6 +53,15 @@ public class User {
         this.id = id;
         this.verified = verified;
     }
+
+
+
+
+
+
+
+
+
 
 
 }

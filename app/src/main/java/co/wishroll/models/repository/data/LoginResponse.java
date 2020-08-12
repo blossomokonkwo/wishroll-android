@@ -1,57 +1,56 @@
 package co.wishroll.models.repository.data;
 
 
-import androidx.annotation.Nullable;
-
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-
-import java.net.URL;
-import java.util.Date;
 
 import co.wishroll.models.datamodels.User;
 
 public class LoginResponse {
     //maps the data given by a login POST request
 
-    @Expose
     @SerializedName("user")
+    @Expose
     private User user;
 
-
+    @SerializedName("access_token")
     @Expose
-    @SerializedName("id")
-    private String user_id;
+    private AccessToken accessToken;
 
-    @Expose
-    @SerializedName("username")
-    private String username;
+    /**
+     * No args constructor for use in serialization
+     */
+    public LoginResponse() {
+    }
 
-    @Nullable
-    @Expose
-    @SerializedName("bio")
-    private String bio;
+    /**
+     * @param accessToken
+     * @param user
+     */
+    public LoginResponse(User user, AccessToken accessToken) {
+        super();
+        this.user = user;
+        this.accessToken = accessToken;
+    }
 
-    @Nullable
-    @Expose
-    @SerializedName("profile_background_url")
-    private String profile_background_url;
+    public User getUser() {
+        return user;
+    }
 
-    @Expose
-    @SerializedName("verified")
-    private boolean verified;
+    public void setUser(User user) {
+        this.user = user;
+    }
 
-    @Expose
-    @SerializedName("email")
-    private String email;
+    public AccessToken getAccessToken() {
+        return accessToken;
+    }
 
-    @Expose
-    @SerializedName("name")
-    private String name;
+    public void setAccessToken(AccessToken accessToken) {
+        this.accessToken = accessToken;
+    }
 
-    @Expose
-    @SerializedName("avatar")
-    private String avatar;
+
+
 
 
 
