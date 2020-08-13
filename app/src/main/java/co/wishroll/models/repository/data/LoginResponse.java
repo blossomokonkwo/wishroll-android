@@ -4,18 +4,20 @@ package co.wishroll.models.repository.data;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import co.wishroll.models.datamodels.User;
-
 public class LoginResponse {
     //maps the data given by a login POST request
 
     @SerializedName("user")
     @Expose
-    private User user;
+    private UserModel userModel;
 
     @SerializedName("access_token")
     @Expose
     private AccessToken accessToken;
+
+    @SerializedName("error")
+    @Expose
+    private String errorMessage;
 
     /**
      * No args constructor for use in serialization
@@ -25,20 +27,28 @@ public class LoginResponse {
 
     /**
      * @param accessToken
-     * @param user
+     * @param userModel
      */
-    public LoginResponse(User user, AccessToken accessToken) {
+    public LoginResponse(UserModel userModel, AccessToken accessToken) {
         super();
-        this.user = user;
+        this.userModel = userModel;
         this.accessToken = accessToken;
     }
 
-    public User getUser() {
-        return user;
+    public String getErrorMessage() {
+        return errorMessage;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setErrorMessage(String errorMessage) {
+        this.errorMessage = errorMessage;
+    }
+
+    public UserModel getUser() {
+        return userModel;
+    }
+
+    public void setUser(UserModel userModel) {
+        this.userModel = userModel;
     }
 
     public AccessToken getAccessToken() {

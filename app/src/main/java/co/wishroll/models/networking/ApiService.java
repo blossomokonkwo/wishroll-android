@@ -43,6 +43,9 @@ public class  ApiService {
         return retrofitInstance;
     }
 
-    WishRollApi wishRollApi = ApiService.getRetrofitInstance().create(WishRollApi.class);
+    public static WishRollApi wishRollApi = ApiService.getRetrofitInstance().create(WishRollApi.class);
 
+    public WishRollApi getWishRollApi() {
+        return wishRollApi;
+    }
 }

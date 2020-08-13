@@ -19,5 +19,19 @@ public class LoginRequest {
         this.password = password;
     }
 
+    public String getAccessCredential() {
+        return accessCredential;
+    }
 
+    public void setAccessCredential(String accessCredential) {
+        this.accessCredential = accessCredential;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }

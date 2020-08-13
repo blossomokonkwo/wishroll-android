@@ -16,7 +16,6 @@ import co.wishroll.R;
 import co.wishroll.databinding.ActivityLoginBinding;
 import co.wishroll.utilities.AuthListener;
 import co.wishroll.viewmodel.AuthViewModel;
-import co.wishroll.views.home.MainActivity;
 
 public class LoginActivity extends AppCompatActivity implements AuthListener {
 
@@ -85,24 +84,6 @@ public class LoginActivity extends AppCompatActivity implements AuthListener {
             }
         });
 
-
-
-        bLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //authenticates data
-
-                String emailEntry = emailUsername.getText().toString().trim();
-                String passwordEntry = password.getText().toString();
-
-                //progressBarLogin.setVisibility(View.VISIBLE);
-                // if(task.isSuccessful()){
-                startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                //Toast.makeText(LoginActivity.this, "Error" + task.getException(), Toast.LENGTH_LONG).show();
-
-
-            }
-        });
 
 
 

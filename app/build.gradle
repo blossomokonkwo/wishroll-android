@@ -22,6 +22,7 @@ android {
 
 
     buildTypes {
+
         release {
             //production build type
 
@@ -31,11 +32,13 @@ android {
         }
 
         development {
+
             buildConfigField "String", 'BASE_URL', "\"http://localhost:3000\""
 
         }
 
         bTesting {
+
             buildConfigField "String", 'REGISTER_REQUEST_URL', "\"https://wishroll-testing.herokuapp.com\""
 
         }
