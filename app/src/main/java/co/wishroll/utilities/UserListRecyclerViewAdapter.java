@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import co.wishroll.R;
-import co.wishroll.models.datamodels.User;
+import co.wishroll.models.domainmodels.User;
 
 public class UserListRecyclerViewAdapter extends RecyclerView.Adapter<UserListRecyclerViewAdapter.MyViewHolder> {
 

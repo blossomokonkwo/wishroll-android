@@ -1,11 +1,8 @@
 package co.wishroll.views.registration;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,6 +21,9 @@ public class LoginActivity extends AppCompatActivity implements AuthListener {
     ActivityLoginBinding activityLoginBinding;
     AuthViewModel authViewModel;
 
+    Button login;
+    EditText emailUser, password;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,64 +38,28 @@ public class LoginActivity extends AppCompatActivity implements AuthListener {
 
 
 
+        emailUser = findViewById(R.id.etEmailUsername);
+        password = findViewById(R.id.etPasswordEntry);
 
 
 
-
-
-
-
-
-        final EditText emailUsername = findViewById(R.id.etEmailUsername);
-        final EditText password = findViewById(R.id.etPasswordEntry);
-
-        Button bLogin = findViewById(R.id.bLogin1);
-        TextView tvSignUp = (TextView) findViewById(R.id.newSignUp);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        tvSignUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent openSignUp = new Intent(LoginActivity.this, SignupActivity.class);
-
-                LoginActivity.this.startActivity(openSignUp);
-
-            }
-        });
 
 
 
 
     }
 
-    @Override
-    public void onStarted() {
-
-        Toast.makeText(this, "Login Started", Toast.LENGTH_SHORT).show();
 
 
-    }
+
+
+
+   @Override
+   public void onStarted() {
+    Toast.makeText(this, "Login Started", Toast.LENGTH_SHORT).show();
+
+
+}
 
     @Override
     public void onSuccess() {
@@ -106,7 +70,12 @@ public class LoginActivity extends AppCompatActivity implements AuthListener {
 
     @Override
     public void onFailure(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+       Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
 
     }
+
+    @Override
+    public void sendMessage(String message){
+       Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+   }
 }

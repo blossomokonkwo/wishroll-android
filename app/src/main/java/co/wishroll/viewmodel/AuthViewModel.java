@@ -1,77 +1,138 @@
 package co.wishroll.viewmodel;
 
-import android.util.Log;
+import android.content.Intent;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.Toast;
 
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-import co.wishroll.models.repository.UserRepository;
-import co.wishroll.models.repository.data.LoginRequest;
-import co.wishroll.models.repository.data.LoginResponse;
-import co.wishroll.models.repository.data.SignupResponse;
+import co.wishroll.models.repository.AuthRepository;
+import co.wishroll.models.repository.datamodels.LoginRequest;
+import co.wishroll.models.repository.datamodels.LoginResponse;
+import co.wishroll.models.repository.datamodels.SignupRequest;
+import co.wishroll.models.repository.datamodels.SignupResponse;
 import co.wishroll.utilities.AuthListener;
+import co.wishroll.views.registration.SignupActivity;
+
+
 
 public class AuthViewModel extends ViewModel {
 
 
-    private static final String TAG = "AuthViewModel";
-    //for logging in and signing up
+    public String accessCredential = "";
+    public String passwordCredential = "";
+    LoginResponse loginAnswer;
+    SignupRequest signupRequest;
+    LoginRequest loginRequest;
 
-    UserRepository userRepository = UserRepository.getInstance();
-    private MutableLiveData<LoginResponse> mldLoginResponse = new MutableLiveData<>();
-    private MutableLiveData<SignupResponse> mldSignupResponse = new MutableLiveData<>();
-
-
-
-    public String usermail = "";
-
-    String email;
-
-    String password = "";
-
-    String username;
-
-    Date birth_date;
-
-    String name = null;
+    AuthRepository authRepository = AuthRepository.getInstance();
 
     public AuthListener authListener = null;
 
-    public void onLoginButtonPressed(View view){
-        authListener.onStarted();
+    //Signup Procees
+    public String signupEmail;
+    public String signupName;
+    public String signupBirthdate;
+    public String signupUsername;
+    public String signupPassword;
+    public String signupPasswordTwo;
 
-       if(usermail.isEmpty() && password.isEmpty()){ //
-            //TODO(display an error message in the activity)
-            authListener.onFailure("Please enter your username or email and password");
 
 
-            return;
-        }
 
-      mldLoginResponse =  userRepository.loginUser(new LoginRequest(usermail, password));
 
-       if(mldLoginResponse == null){
-           Log.d(TAG, "onLoginButtonPressed: your credentials are wrong");
-           authListener.onFailure("Please enter a valid username or email");
-           //error message, bro you don't have the right credentials
-       }else{
-           //successfull login process
+   public void onLoginButtonPressed(View view){
+
+      if(accessCredential.isEmpty() || passwordCredential.isEmpty()){
+          authListener.sendMessage("Please enter a valid username or password.");
        }
 
+      loginRequest = new LoginRequest(accessCredential.trim(), passwordCredential);
+      loginAnswer = authRepository.loginUser(loginRequest);
 
-        // else, if both are entered, now take it to the REST API.if flow of control comes outside if statement, it is considered a success
 
 
+
+    }
+
+    public void onSignupButtonPressed(View view){
+        Intent openSignUp = new Intent(view.getContext(), SignupActivity.class);
+        view.getContext().startActivity(openSignUp);
+
+    }
+
+    public void onSignupPressed(View view){
+
+       String ageYear = signupBirthdate.charAt(7) + "";
+
+        if (TextUtils.isEmpty(signupEmail) || TextUtils.isEmpty(signupUsername) || TextUtils.isEmpty(signupPassword) || TextUtils.isEmpty(signupName)) {
+
+            Toast.makeText(view.getContext(), "You missed a spot", Toast.LENGTH_LONG).show();
+
+
+        } else if (!emailIsVerified(signupEmail)) {
+
+            Toast.makeText(view.getContext(), "Please enter a valid email", Toast.LENGTH_LONG).show();
+
+        } else if (!usernameIsValid(signupUsername)) {
+
+            Toast.makeText(view.getContext(), "Please enter a valid username", Toast.LENGTH_LONG).show();
+
+        } else if (signupBirthdate.charAt(3) < 12) {
+
+            Toast.makeText(view.getContext(), "You need to be 12 or older to use WishRoll", Toast.LENGTH_LONG).show();
+
+        } else if(!signupPassword.equals(signupPasswordTwo)) {
+
+            Toast.makeText(view.getContext(), "Please enter the correct password", Toast.LENGTH_LONG).show();
+
+        } else  {
+            authListener.sendMessage("Login Starting, Welcome to WishRoll");
+            signupRequest = new SignupRequest(signupName, signupUsername, signupPassword, signupEmail, signupBirthdate);
+            SignupResponse signupAnswer = authRepository.signupUser(signupRequest);
+
+
+        }
 
 
     }
 
-    public void onSignupButtonPressed(){
+
+    public boolean emailIsVerified(String emailInput) {
+        //checks if email entry is in correct email form
+
+        String emailRegex = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$";
+
+        Pattern emailPat = Pattern.compile(emailRegex, Pattern.CASE_INSENSITIVE);
+
+        Matcher matcher = emailPat.matcher(emailInput);
+
+        return matcher.find();
+    }
+
+    public boolean usernameIsValid(String usernameInput) {
+        //Username Validation: no triple periods or underscores, no longer than 20 characters, no special characters
+
+        String usernameRegex = "^[A-Z0-9]([._](?![._])|[a-z0-9]){1,20}[a-z0-9]$";
+
+        Pattern usernamePat = Pattern.compile(usernameRegex, Pattern.CASE_INSENSITIVE);
+
+        Matcher matcher = usernamePat.matcher(usernameInput);
+
+        return matcher.find();
 
     }
+
+    public String formatUsername(String username) {
+
+        return username.toLowerCase().replace(' ', '_');
+    }
+
+
 
 
 }

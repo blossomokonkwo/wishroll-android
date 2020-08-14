@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import co.wishroll.R;
-import co.wishroll.models.datamodels.User;
+import co.wishroll.models.domainmodels.User;
 import co.wishroll.utilities.UserListRecyclerViewAdapter;
 import co.wishroll.views.home.MainActivity;
 

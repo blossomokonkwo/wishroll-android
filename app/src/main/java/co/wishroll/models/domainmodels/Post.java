@@ -1,4 +1,4 @@
-package co.wishroll.models.datamodels;
+package co.wishroll.models.domainmodels;
 
 import java.util.ArrayList;
 

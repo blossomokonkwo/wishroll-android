@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import co.wishroll.R;
-import co.wishroll.models.datamodels.Videos;
+import co.wishroll.models.domainmodels.Videos;
 import co.wishroll.utilities.VideoRecyclerViewAdapter;
 
 public class VideoActivity extends AppCompatActivity {

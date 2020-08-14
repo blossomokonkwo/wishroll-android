@@ -1,4 +1,4 @@
-package co.wishroll.models.repository.data;
+package co.wishroll.models.repository.datamodels;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -27,8 +27,6 @@ public class SignupRequest {
         this.birthday = birthday;
     }
 
-    public SignupRequest() {
-    }
 
     public String getName() {
         return name;

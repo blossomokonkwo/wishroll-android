@@ -1,4 +1,4 @@
-package co.wishroll.models.repository.data;
+package co.wishroll.models.repository.datamodels;
 
 
 import com.google.gson.annotations.Expose;
@@ -15,9 +15,7 @@ public class LoginResponse {
     @Expose
     private AccessToken accessToken;
 
-    @SerializedName("error")
-    @Expose
-    private String errorMessage;
+
 
     /**
      * No args constructor for use in serialization
@@ -30,18 +28,11 @@ public class LoginResponse {
      * @param userModel
      */
     public LoginResponse(UserModel userModel, AccessToken accessToken) {
-        super();
         this.userModel = userModel;
         this.accessToken = accessToken;
     }
 
-    public String getErrorMessage() {
-        return errorMessage;
-    }
-
-    public void setErrorMessage(String errorMessage) {
-        this.errorMessage = errorMessage;
-    }
+   
 
     public UserModel getUser() {
         return userModel;

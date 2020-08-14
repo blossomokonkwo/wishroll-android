@@ -28,8 +28,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
+
     <EditText
-        android:text="@={authviewmodel.usermail}"
+        android:text="@={authviewmodel.accessCredential}"
         android:id="@+id/etEmailUsername"
         android:layout_width="@dimen/_200sdp"
         android:layout_height="@dimen/_40sdp"
@@ -41,7 +43,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
+
     <EditText
+        android:text="@={authviewmodel.passwordCredential}"
         android:id="@+id/etPasswordEntry"
         android:layout_width="@dimen/_200sdp"
         android:layout_height="@dimen/_40sdp"
@@ -53,6 +57,8 @@
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etEmailUsername" />
+
+
 
     <Button
         android:onClick="@{authviewmodel::onLoginButtonPressed}"
@@ -69,7 +75,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etPasswordEntry" />
 
+
+
+
     <TextView
+        android:onClick="@{authviewmodel::onSignupButtonPressed}"
         android:id="@+id/newSignUp"
         android:layout_width="250dp"
         android:layout_height="wrap_content"

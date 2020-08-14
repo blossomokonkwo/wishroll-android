@@ -2,7 +2,7 @@ package co.wishroll.viewmodel;
 
 import androidx.lifecycle.ViewModel;
 
-import co.wishroll.models.datamodels.User;
+import co.wishroll.models.domainmodels.User;
 
 public class UserViewModel extends ViewModel {
     //ViewModel for the User class

@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import co.wishroll.R;
-import co.wishroll.models.datamodels.Videos;
+import co.wishroll.models.domainmodels.Videos;
 
 public class VideoRecyclerViewAdapter extends RecyclerView.Adapter<VideoRecyclerViewAdapter.VideoViewHolder> {
 

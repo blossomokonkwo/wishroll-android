@@ -1,4 +1,4 @@
-package co.wishroll.models.repository.data;
+package co.wishroll.models.repository.datamodels;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

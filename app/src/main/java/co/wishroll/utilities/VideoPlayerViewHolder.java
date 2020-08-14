@@ -14,7 +14,7 @@ import com.bumptech.glide.RequestManager;
 import com.mikhaellopez.circularimageview.CircularImageView;
 
 import co.wishroll.R;
-import co.wishroll.models.datamodels.Videos;
+import co.wishroll.models.domainmodels.Videos;
 
 public class VideoPlayerViewHolder extends RecyclerView.ViewHolder{
 

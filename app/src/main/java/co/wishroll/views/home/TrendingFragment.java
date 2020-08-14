@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import co.wishroll.R;
-import co.wishroll.models.datamodels.Post;
+import co.wishroll.models.domainmodels.Post;
 import co.wishroll.utilities.GridRecyclerViewAdapter;
 import co.wishroll.viewmodel.TrendingViewModel;
 

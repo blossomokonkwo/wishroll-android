@@ -1,4 +1,4 @@
-package co.wishroll.models.repository.data;
+package co.wishroll.models.repository.datamodels;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -45,8 +45,7 @@ public class UserModel {
     @Expose
     private URL avatar;
 
-    public UserModel() {
-    }
+
 
     /**
      *
@@ -61,7 +60,7 @@ public class UserModel {
      * @param username
      */
 
-    public UserModel(Integer id, String username, String bio, URL profileBackgroundUrl, Boolean verified, String email, String name, String createdAt, URL avatar) {
+    public UserModel(int id, String username, String bio, URL profileBackgroundUrl, Boolean verified, String email, String name, String createdAt, URL avatar) {
         super();
         this.id = id;
         this.username = username;
@@ -74,11 +73,35 @@ public class UserModel {
         this.avatar = avatar;
     }
 
-    public Integer getId() {
+    public UserModel(int id, String username, String bio, Boolean verified, String email, String name, String createdAt) {
+        super();
+        this.id = id;
+        this.username = username;
+        this.bio = bio;
+        this.verified = verified;
+        this.email = email;
+        this.name = name;
+        this.createdAt = createdAt;
+
+    }
+
+    public UserModel(int id, String username, Boolean verified, String email, String name, String createdAt) {
+        super();
+        this.id = id;
+        this.username = username;
+        this.bio = bio;
+        this.verified = verified;
+        this.email = email;
+        this.name = name;
+        this.createdAt = createdAt;
+
+    }
+
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 

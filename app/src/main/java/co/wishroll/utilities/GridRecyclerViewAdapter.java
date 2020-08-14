@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import co.wishroll.R;
-import co.wishroll.models.datamodels.Post;
+import co.wishroll.models.domainmodels.Post;
 import co.wishroll.views.reusables.ImageActivity;
 import co.wishroll.views.reusables.VideoActivity;
 
