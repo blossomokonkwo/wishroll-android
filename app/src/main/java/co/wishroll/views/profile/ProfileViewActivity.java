@@ -23,7 +23,7 @@ import com.google.android.material.tabs.TabLayoutMediator;
 import co.wishroll.R;
 import co.wishroll.databinding.ActivityProfileviewBinding;
 import co.wishroll.models.domainmodels.User;
-import co.wishroll.utilities.ProfileViewPagerAdapter;
+import co.wishroll.views.tools.ProfileViewPagerAdapter;
 import co.wishroll.viewmodel.UserViewModel;
 import co.wishroll.views.reusables.Followers;
 import co.wishroll.views.reusables.Following;

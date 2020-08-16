@@ -19,6 +19,7 @@ public class LoginActivity extends AppCompatActivity implements AuthListener {
 
     private static final String TAG = "LOGIN ACTIVITY";
     ActivityLoginBinding activityLoginBinding;
+
     AuthViewModel authViewModel;
 
     Button login;
@@ -27,6 +28,7 @@ public class LoginActivity extends AppCompatActivity implements AuthListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.activity_login);
 
@@ -77,5 +79,10 @@ public class LoginActivity extends AppCompatActivity implements AuthListener {
     @Override
     public void sendMessage(String message){
        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+   }
+
+   @Override
+    public void errorMessage(String message){
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
    }
 }

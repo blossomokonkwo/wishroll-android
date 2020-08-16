@@ -16,7 +16,7 @@ import com.google.android.material.tabs.TabLayoutMediator;
 import com.mikhaellopez.circularimageview.CircularImageView;
 
 import co.wishroll.R;
-import co.wishroll.utilities.MainViewPagerAdapter;
+import co.wishroll.views.tools.MainViewPagerAdapter;
 import co.wishroll.views.upload.UploadActivity;
 import co.wishroll.views.profile.ProfileViewActivity;
 

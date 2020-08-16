@@ -8,6 +8,7 @@ import android.net.NetworkInfo;
 public class WishRollApplication extends Application {
     //class that starts when application starts
     //retrieves whether or not the network is connected
+    //holds ApplicationGraph that Dagger uses to provide dependencies
     
 
     private static WishRollApplication instance;

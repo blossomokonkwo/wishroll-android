@@ -15,6 +15,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
+
 public class AuthRepository {
 
 
@@ -23,6 +24,7 @@ public class AuthRepository {
     private static AuthRepository authRepository;
     
 
+    private int statusCode;
 
     public static AuthRepository getInstance(){
         if (authRepository == null){
@@ -40,31 +42,62 @@ public class AuthRepository {
         Retrofit retrofitInstance = RetrofitInstance.getRetrofitInstance();
         wishRollApi = retrofitInstance.create(WishRollApi.class);
         LoginResponse loginResponse = null;
+        statusCode = 0;
+
 
 
 
     }
 
+    public int getStatusCode() {
+        return statusCode;
+    }
 
-
-  public LoginResponse loginUser(final LoginRequest loginRequest) {
+    public LoginResponse loginUser(final LoginRequest loginRequest) {
 
       wishRollApi.loginUser(loginRequest).enqueue(new Callback<LoginResponse>() {
            @Override
            public void onResponse( Call<LoginResponse> call, Response<LoginResponse> response) {
+               switch (response.code()){
+                   case 100:
+                       //Informational: means request has been received and process is continuing
+                       statusCode = 100;
+                       break;
+                   case 200:
+                       //Success: request has been successfully received, understood and accepted
 
-               if(response.isSuccessful()) {
+                       loginResponse = response.body();
+                       Log.d(TAG, "onResponse: just set the response body to equal a Login Response class, hopefully it isn't null: ACCESS TOKEN " + loginResponse.getAccessToken().getAccess());
+                       UserModel userx = loginResponse.getUser();
+                       AccessToken accessTokenx = loginResponse.getAccessToken();
 
+                       statusCode = 200;
+                       break;
+                   case 300:
+                       //Redirection: further action must be taken to complete the request
+                       statusCode = 300;
+                       break;
+                   case 400:
+                       //Client Error: request contains incorrect syntax of cannot be fulfilled
+                       statusCode = 400;
+                       break;
+                   case 401:
+                       //Unauthorized: wrong credentials
+                       statusCode = 401;
+                       break;
+                   case 404:
+                       statusCode = 404;
 
-                   loginResponse = response.body();
-                   Log.d(TAG, "onResponse: just set the response body to equal a Login Response class, hopefully it isn't null: ACCESS TOKEN " + loginResponse.getAccessToken().getAccess());
-                   UserModel userx = loginResponse.getUser();
-                   AccessToken accessTokenx = loginResponse.getAccessToken();
+                       //Not found: requested resource couldn't be found but may be available in the future
+                       break;
+                   case 500:
+                       statusCode = 500;
+                       //Server Error: server failed to fulfill an apparently valid request
+                   default:
+                       statusCode = response.code();
                }
 
-            }
-
-
+           }
 
             @Override
             public void onFailure(Call<LoginResponse> call, Throwable t) {

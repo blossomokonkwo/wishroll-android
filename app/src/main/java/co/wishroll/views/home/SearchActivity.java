@@ -14,7 +14,7 @@ import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
 import co.wishroll.R;
-import co.wishroll.utilities.SearchViewPagerAdapter;
+import co.wishroll.views.tools.SearchViewPagerAdapter;
 
 public class SearchActivity extends AppCompatActivity {
 

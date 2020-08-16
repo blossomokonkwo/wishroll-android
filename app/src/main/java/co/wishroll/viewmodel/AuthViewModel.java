@@ -3,7 +3,6 @@ package co.wishroll.viewmodel;
 import android.content.Intent;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.lifecycle.ViewModel;
 
@@ -35,7 +34,7 @@ public class AuthViewModel extends ViewModel {
 
     //Signup Procees
     public String signupEmail;
-    public String signupName;
+    public String signupName = "";
     public String signupBirthdate;
     public String signupUsername;
     public String signupPassword;
@@ -45,21 +44,27 @@ public class AuthViewModel extends ViewModel {
 
 
 
-   public void onLoginButtonPressed(View view){
+   public void onLoginButtonPressed(){
+
 
       if(accessCredential.isEmpty() || passwordCredential.isEmpty()){
           authListener.sendMessage("Please enter a valid username or password.");
-       }
+       }else {
+          loginRequest = new LoginRequest(accessCredential.trim(), passwordCredential);
+          loginAnswer = authRepository.loginUser(loginRequest);
+        }
 
-      loginRequest = new LoginRequest(accessCredential.trim(), passwordCredential);
-      loginAnswer = authRepository.loginUser(loginRequest);
+      if(authRepository.getStatusCode() == 200){
 
+      }
 
 
 
     }
 
+
     public void onSignupButtonPressed(View view){
+       //when user already has an account
         Intent openSignUp = new Intent(view.getContext(), SignupActivity.class);
         view.getContext().startActivity(openSignUp);
 
@@ -70,27 +75,29 @@ public class AuthViewModel extends ViewModel {
        String ageYear = signupBirthdate.charAt(7) + "";
 
         if (TextUtils.isEmpty(signupEmail) || TextUtils.isEmpty(signupUsername) || TextUtils.isEmpty(signupPassword) || TextUtils.isEmpty(signupName)) {
+            //checks if any mandatory fields are null
 
-            Toast.makeText(view.getContext(), "You missed a spot", Toast.LENGTH_LONG).show();
-
+            authListener.sendMessage("You missed a spot");
 
         } else if (!emailIsVerified(signupEmail)) {
-
-            Toast.makeText(view.getContext(), "Please enter a valid email", Toast.LENGTH_LONG).show();
+            //checks if email is in proper email form  TODO(another method to check if email is taken in the database)
+            authListener.sendMessage("Please enter a valid email");
 
         } else if (!usernameIsValid(signupUsername)) {
-
-            Toast.makeText(view.getContext(), "Please enter a valid username", Toast.LENGTH_LONG).show();
+            //checks if the format of the username is proper
+            authListener.sendMessage("Please enter a valid username");
 
         } else if (signupBirthdate.charAt(3) < 12) {
-
-            Toast.makeText(view.getContext(), "You need to be 12 or older to use WishRoll", Toast.LENGTH_LONG).show();
+            //checks if the user is older than 12
+            authListener.sendMessage("You need to be 12 or older to use WishRoll");
 
         } else if(!signupPassword.equals(signupPasswordTwo)) {
-
-            Toast.makeText(view.getContext(), "Please enter the correct password", Toast.LENGTH_LONG).show();
+            //checks if both passwords match each other
+            authListener.sendMessage("Please enter the correct password");
 
         } else  {
+            //sends signup request to the server, formats username, trims what needs to be trimmed
+
             authListener.sendMessage("Login Starting, Welcome to WishRoll");
             signupRequest = new SignupRequest(signupName, signupUsername, signupPassword, signupEmail, signupBirthdate);
             SignupResponse signupAnswer = authRepository.signupUser(signupRequest);

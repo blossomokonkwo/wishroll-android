@@ -1,4 +1,4 @@
-package co.wishroll.utilities;
+package co.wishroll.views.tools;
 
 public class VideoPlayerRecyclerView {
 }

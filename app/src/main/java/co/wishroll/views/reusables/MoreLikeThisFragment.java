@@ -14,7 +14,7 @@ import java.util.List;
 
 import co.wishroll.R;
 import co.wishroll.models.domainmodels.Post;
-import co.wishroll.utilities.GridRecyclerViewAdapter;
+import co.wishroll.views.tools.GridRecyclerViewAdapter;
 
 
 public class MoreLikeThisFragment extends Fragment {

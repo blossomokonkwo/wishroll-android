@@ -16,7 +16,7 @@ import java.util.List;
 
 import co.wishroll.R;
 import co.wishroll.models.domainmodels.User;
-import co.wishroll.utilities.UserListRecyclerViewAdapter;
+import co.wishroll.views.tools.UserListRecyclerViewAdapter;
 import co.wishroll.views.home.MainActivity;
 
 public class Following extends AppCompatActivity {

@@ -6,6 +6,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -89,21 +90,30 @@ public class SignupActivity extends AppCompatActivity implements AuthListener {
 
     @Override
     public void onStarted() {
-
+        Toast.makeText(this, "Signup started", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onSuccess() {
+        Toast.makeText(this, "Signup successful", Toast.LENGTH_SHORT).show();
 
     }
 
     @Override
     public void onFailure(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
 
     }
 
     @Override
     public void sendMessage(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+
+    }
+
+    @Override
+    public void errorMessage(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
 
     }
 }

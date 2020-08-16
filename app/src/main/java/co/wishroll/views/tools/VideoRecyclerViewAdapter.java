@@ -1,4 +1,4 @@
-package co.wishroll.utilities;
+package co.wishroll.views.tools;
 
 import android.content.Context;
 import android.view.LayoutInflater;

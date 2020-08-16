@@ -16,7 +16,7 @@ import java.util.List;
 
 import co.wishroll.R;
 import co.wishroll.models.domainmodels.Notification;
-import co.wishroll.utilities.NotificationRecyclerViewAdapter;
+import co.wishroll.views.tools.NotificationRecyclerViewAdapter;
 
 public class NotificationsFragment extends Fragment {
 
