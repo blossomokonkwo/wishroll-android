@@ -39,7 +39,7 @@ public class VideoActivity extends AppCompatActivity {
             }
         });
 
-        recyclerView = (RecyclerView)  findViewById(R.id.videoRecyclerView);
+        recyclerView = findViewById(R.id.videoRecyclerView);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);

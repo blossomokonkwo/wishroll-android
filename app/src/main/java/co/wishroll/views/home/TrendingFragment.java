@@ -63,7 +63,7 @@ public class TrendingFragment extends Fragment {
 
 
         view = inflater.inflate(R.layout.fragment_trending, container, false);
-        myRecyclerView = (RecyclerView) view.findViewById(R.id.trendingRecyclerView);
+        myRecyclerView = view.findViewById(R.id.trendingRecyclerView);
 
         GridRecyclerViewAdapter gridRecyclerViewAdapter = new GridRecyclerViewAdapter(getContext(), postGrid);
         myRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 3));

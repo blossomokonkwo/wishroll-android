@@ -59,7 +59,7 @@ public class BookmarksFragment extends Fragment {
 
 
         view = inflater.inflate(R.layout.fragment_bookmarks, container, false);
-        myRecyclerView = (RecyclerView) view.findViewById(R.id.bookmarksRecyclerView);
+        myRecyclerView = view.findViewById(R.id.bookmarksRecyclerView);
 
         GridRecyclerViewAdapter bookmarksRecyclerViewAdapter = new GridRecyclerViewAdapter(getContext(), postGrid);
         myRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 3));

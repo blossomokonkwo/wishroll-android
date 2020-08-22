@@ -59,7 +59,7 @@ public class LikesFragment extends Fragment {
 
 
         view = inflater.inflate(R.layout.fragment_likes, container, false);
-        myRecyclerView = (RecyclerView) view.findViewById(R.id.likesRecyclerView);
+        myRecyclerView = view.findViewById(R.id.likesRecyclerView);
 
         GridRecyclerViewAdapter likesRecyclerViewAdapter = new GridRecyclerViewAdapter(getContext(), postGrid);
         myRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 3));

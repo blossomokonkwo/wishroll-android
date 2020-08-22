@@ -144,7 +144,7 @@ public class ProfileViewActivity extends AppCompatActivity {
                 );
 
                 View bottomSheetView = LayoutInflater.from(getApplicationContext()).inflate(R.layout.layout_bottom_sheet,
-                        (LinearLayout)findViewById(R.id.bottomSheetContainer));
+                        findViewById(R.id.bottomSheetContainer));
 
                 bottomSheetView.findViewById(R.id.contactProfileView).setOnClickListener(new View.OnClickListener() {
                     @Override

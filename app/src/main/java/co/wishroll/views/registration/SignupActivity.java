@@ -57,9 +57,9 @@ public class SignupActivity extends AppCompatActivity implements AuthListener {
 
         birthDate.setOnClickListener(v -> {
             Calendar calendar = Calendar.getInstance();
-            final int year = calendar.get(calendar.YEAR);
-            final int day = calendar.get(calendar.DAY_OF_MONTH);
-            final int month = calendar.get(calendar.MONTH);
+            final int year = calendar.get(Calendar.YEAR);
+            final int day = calendar.get(Calendar.DAY_OF_MONTH);
+            final int month = calendar.get(Calendar.MONTH);
             datePickerDialog = new DatePickerDialog(SignupActivity.this, new DatePickerDialog.OnDateSetListener() {
                 @Override
                 public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {

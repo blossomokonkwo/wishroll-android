@@ -95,11 +95,11 @@ public class NotificationRecyclerViewAdapter extends RecyclerView.Adapter<Notifi
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            notifUsername = (TextView) itemView.findViewById(R.id.notificationUsername);
-            notifDescription = (TextView) itemView.findViewById(R.id.notificationDescription);
-            notifTimeAgo = (TextView) itemView.findViewById(R.id.notificationTimeAgo);
-            notifProfilePicture = (ImageView) itemView.findViewById(R.id.notificationProfilePicture);
-            notifMediaThumbnail = (ImageView) itemView.findViewById(R.id.notificationThumbnail);
+            notifUsername = itemView.findViewById(R.id.notificationUsername);
+            notifDescription = itemView.findViewById(R.id.notificationDescription);
+            notifTimeAgo = itemView.findViewById(R.id.notificationTimeAgo);
+            notifProfilePicture = itemView.findViewById(R.id.notificationProfilePicture);
+            notifMediaThumbnail = itemView.findViewById(R.id.notificationThumbnail);
         }
     }
 }

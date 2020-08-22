@@ -42,7 +42,7 @@ public class Following extends AppCompatActivity {
             followingList.add(userWhoFollows);
         }
 
-        myRecyclerView = (RecyclerView) this.findViewById(R.id.followingRecyclerView);
+        myRecyclerView = this.findViewById(R.id.followingRecyclerView);
         UserListRecyclerViewAdapter userListRecyclerViewAdapter = new UserListRecyclerViewAdapter(this, followingList);
         myRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         myRecyclerView.setAdapter(userListRecyclerViewAdapter);

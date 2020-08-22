@@ -59,7 +59,7 @@ public class FeedFragment extends Fragment {
 
 
         view = inflater.inflate(R.layout.fragment_feed, container, false);
-        myRecyclerView = (RecyclerView) view.findViewById(R.id.feedRecyclerView);
+        myRecyclerView = view.findViewById(R.id.feedRecyclerView);
 
         GridRecyclerViewAdapter feedRecyclerViewAdapter = new GridRecyclerViewAdapter(getContext(), postGrid);
         myRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 3));

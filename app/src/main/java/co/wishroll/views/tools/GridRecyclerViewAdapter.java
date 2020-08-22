@@ -97,9 +97,9 @@ public class GridRecyclerViewAdapter extends RecyclerView.Adapter<GridRecyclerVi
 
         public GridViewHolder(@NonNull View itemView) {
             super(itemView);
-            postItem = (LinearLayout) itemView.findViewById(R.id.postItem);
-            mediaThumbnail = (ImageView) itemView.findViewById(R.id.mediaThumbnail);
-            videoFlag = (ImageView) itemView.findViewById(R.id.videoFlag);
+            postItem = itemView.findViewById(R.id.postItem);
+            mediaThumbnail = itemView.findViewById(R.id.mediaThumbnail);
+            videoFlag = itemView.findViewById(R.id.videoFlag);
         }
     }
 

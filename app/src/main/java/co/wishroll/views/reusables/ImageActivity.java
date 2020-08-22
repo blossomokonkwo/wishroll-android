@@ -56,7 +56,7 @@ public class ImageActivity extends AppCompatActivity {
                         );
 
                         final View bottomSheetConcernView = LayoutInflater.from(getApplicationContext()).inflate(R.layout.layout_bottom_sheet_concerns,
-                                (LinearLayout)findViewById(R.id.bottomSheetConcernsContainer));
+                                findViewById(R.id.bottomSheetConcernsContainer));
 
                         bottomSheetConcernView.findViewById(R.id.reportConcernButton).setOnClickListener(new View.OnClickListener() {
                             @Override

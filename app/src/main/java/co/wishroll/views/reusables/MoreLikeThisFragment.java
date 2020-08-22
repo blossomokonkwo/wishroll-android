@@ -58,7 +58,7 @@ public class MoreLikeThisFragment extends Fragment {
 
 
         view = inflater.inflate(R.layout.fragment_morelikethis, container, false);
-        myRecyclerView = (RecyclerView) view.findViewById(R.id.moreLikeThisRecyclerView);
+        myRecyclerView = view.findViewById(R.id.moreLikeThisRecyclerView);
 
         GridRecyclerViewAdapter mltRecyclerViewAdapter = new GridRecyclerViewAdapter(getContext(), postGrid);
         myRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 3));

@@ -60,7 +60,7 @@ public class UploadsFragment extends Fragment {
 
 
         view = inflater.inflate(R.layout.fragment_uploads, container, false);
-        myRecyclerView = (RecyclerView) view.findViewById(R.id.uploadsRecyclerView);
+        myRecyclerView = view.findViewById(R.id.uploadsRecyclerView);
 
         GridRecyclerViewAdapter uploadsRecyclerViewAdapter = new GridRecyclerViewAdapter(getContext(), postGrid);
         myRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 3));
