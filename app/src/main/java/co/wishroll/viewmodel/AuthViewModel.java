@@ -17,6 +17,7 @@ import co.wishroll.models.repository.datamodels.SignupResponse;
 import co.wishroll.utilities.AuthListener;
 import co.wishroll.views.registration.SignupActivity;
 
+import static co.wishroll.WishRollApplication.applicationGraph;
 
 
 public class AuthViewModel extends ViewModel {
@@ -28,7 +29,10 @@ public class AuthViewModel extends ViewModel {
     SignupRequest signupRequest;
     LoginRequest loginRequest;
 
-    AuthRepository authRepository = AuthRepository.getInstance();
+
+
+
+    AuthRepository authRepository = applicationGraph.authRepository();
 
     public AuthListener authListener = null;
 

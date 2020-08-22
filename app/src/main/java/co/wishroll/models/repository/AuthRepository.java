@@ -2,6 +2,9 @@ package co.wishroll.models.repository;
 
 import android.util.Log;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 import co.wishroll.models.networking.RetrofitInstance;
 import co.wishroll.models.networking.WishRollApi;
 import co.wishroll.models.repository.datamodels.AccessToken;
@@ -15,7 +18,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-
+@Singleton
 public class AuthRepository {
 
 
@@ -26,25 +29,17 @@ public class AuthRepository {
 
     private int statusCode;
 
-    public static AuthRepository getInstance(){
-        if (authRepository == null){
-            authRepository = new AuthRepository();
-        }
-        return authRepository;
-    }
-
     private WishRollApi wishRollApi;
 
     LoginResponse loginResponse;
     SignupResponse signupResponse;
 
+    @Inject
     public AuthRepository() {
         Retrofit retrofitInstance = RetrofitInstance.getRetrofitInstance();
         wishRollApi = retrofitInstance.create(WishRollApi.class);
         LoginResponse loginResponse = null;
         statusCode = 0;
-
-
 
 
     }

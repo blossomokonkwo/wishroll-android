@@ -19,6 +19,7 @@ import co.wishroll.databinding.ActivitySignupBinding;
 import co.wishroll.utilities.AuthListener;
 import co.wishroll.viewmodel.AuthViewModel;
 
+
 public class SignupActivity extends AppCompatActivity implements AuthListener {
 
     private static final String TAG = "SIGNUP ACTIVITY";

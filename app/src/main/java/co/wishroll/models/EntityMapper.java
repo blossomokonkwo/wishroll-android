@@ -7,8 +7,7 @@ public interface EntityMapper {
 
 
 
-     //Exchanging the two different types of Users in this project
+     //User
      User fromNetToDomain(UserModel userModel);
-
      UserModel fromDomainToNet(User user);
 }

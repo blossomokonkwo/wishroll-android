@@ -5,13 +5,18 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
+
+
 public class WishRollApplication extends Application {
     //class that starts when application starts
     //retrieves whether or not the network is connected
     //holds ApplicationGraph that Dagger uses to provide dependencies
-    
+
 
     private static WishRollApplication instance;
+    public static ApplicationGraph applicationGraph = DaggerApplicationGraph.create();
+
+
 
     @Override
     public void onCreate() {

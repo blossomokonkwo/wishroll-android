@@ -1,8 +1,9 @@
 apply plugin: 'com.android.application'
 
 
+
 android {
-    compileSdkVersion 29
+    compileSdkVersion 30
     buildToolsVersion "29.0.3"
 
     dataBinding {
@@ -17,7 +18,7 @@ android {
     defaultConfig {
         applicationId "co.WishRoll"
         minSdkVersion 26
-        targetSdkVersion 29
+        targetSdkVersion 30
         versionCode 1
         versionName "1.0"
         multiDexEnabled true
@@ -74,14 +75,14 @@ dependencies {
     implementation 'com.intuit.ssp:ssp-android:1.0.6'
 
     //Design Library for Coordinator Layout and Toolbars
-    implementation 'com.android.support:appcompat-v7:29.0.0'
-    implementation 'com.android.support:design:29.0.0'
+    implementation 'com.android.support:appcompat-v7:30.0.0'
+    implementation 'com.android.support:design:30.0.0'
 
     //Bottom Navigation View Ex Library
     implementation 'com.github.ittianyu:BottomNavigationViewEx:2.0.4'
 
     //Recylcer View
-    implementation 'com.android.support:recyclerview-v7:29.0.0'
+    implementation 'com.android.support:recyclerview-v7:30.0.0'
     implementation "androidx.recyclerview:recyclerview-selection:1.1.0-rc01"
     implementation "androidx.recyclerview:recyclerview:1.1.0"
 
@@ -114,6 +115,13 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+
+    //Dagger Dependency
+    implementation 'com.google.dagger:dagger:2.28.3'
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.28.3'
+
+    //Android Encryption
+    implementation "androidx.security:security-crypto:1.1.0-alpha02"
 
 
 

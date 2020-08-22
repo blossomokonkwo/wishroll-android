@@ -14,11 +14,13 @@ import co.wishroll.databinding.ActivityLoginBinding;
 import co.wishroll.utilities.AuthListener;
 import co.wishroll.viewmodel.AuthViewModel;
 
+
 public class LoginActivity extends AppCompatActivity implements AuthListener {
 
 
     private static final String TAG = "LOGIN ACTIVITY";
     ActivityLoginBinding activityLoginBinding;
+
 
     AuthViewModel authViewModel;
 
