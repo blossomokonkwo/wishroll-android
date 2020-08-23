@@ -12,5 +12,7 @@ public interface AuthListener {
 
     void errorMessage(String message);
 
+    void statusGetter(int statusCode);
+
 
 }

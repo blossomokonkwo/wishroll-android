@@ -117,4 +117,9 @@ public class SignupActivity extends AppCompatActivity implements AuthListener {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
 
     }
+
+    @Override
+    public void statusGetter(int statusCode) {
+
+    }
 }

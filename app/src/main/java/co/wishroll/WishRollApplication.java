@@ -13,23 +13,24 @@ public class WishRollApplication extends Application {
     //retrieves whether or not the network is connected
     //holds ApplicationGraph that Dagger uses to provide dependencies
 
-
+    private static Context mContext;
     private static WishRollApplication instance;
-
     public static ApplicationGraph applicationGraph = DaggerApplicationGraph.create();
 
 
+    public static Context getContext() {
+        //  return instance.getApplicationContext();
+        return mContext;
+    }
 
     @Override
     public void onCreate() {
         super.onCreate();
-
-        if(instance == null){
-            instance = this;
-        }
-
-
+        //  instance = this;
+        mContext = getApplicationContext();
     }
+
+
 
     public static WishRollApplication getInstance(){ return instance; }
 

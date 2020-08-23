@@ -7,7 +7,7 @@ import android.content.SharedPreferences;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import co.wishroll.models.domainmodels.User;
+import co.wishroll.WishRollApplication;
 import co.wishroll.models.repository.datamodels.AccessToken;
 import co.wishroll.models.repository.datamodels.UserModel;
 import co.wishroll.utilities.Encryption;
@@ -23,7 +23,6 @@ public class SessionManagement extends Application {
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     String SHARED_PREF_NAME = "session";
-    public static User currentClient;
     Encryption encryption = Encryption.getDefault("Key", "chile", new byte[16]);
     public static String token;
 
@@ -32,7 +31,7 @@ public class SessionManagement extends Application {
 
     @Inject
     public SessionManagement(){
-        sharedPreferences = getApplicationContext().getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        sharedPreferences = WishRollApplication.getContext().getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
 
 
@@ -57,8 +56,9 @@ public class SessionManagement extends Application {
         return token;
     }
 
-    public static User getCurrentClient() {
-        return currentClient;
+    public int getCurrentUserId() {
+
+        return sharedPreferences.getInt("id", 0);
     }
 
     public void clearSession(){
