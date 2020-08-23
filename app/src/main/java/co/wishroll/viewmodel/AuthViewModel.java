@@ -32,6 +32,7 @@ public class AuthViewModel extends ViewModel {
 
 
 
+
     AuthRepository authRepository = applicationGraph.authRepository();
 
     public AuthListener authListener = null;
@@ -50,17 +51,18 @@ public class AuthViewModel extends ViewModel {
 
    public void onLoginButtonPressed(){
 
-
       if(accessCredential.isEmpty() || passwordCredential.isEmpty()){
           authListener.sendMessage("Please enter a valid username or password.");
        }else {
           loginRequest = new LoginRequest(accessCredential.trim(), passwordCredential);
           loginAnswer = authRepository.loginUser(loginRequest);
-        }
-
-      if(authRepository.getStatusCode() == 200){
-
       }
+
+          if (authRepository.getStatusCode() == 200) {
+                
+
+          }
+
 
 
 

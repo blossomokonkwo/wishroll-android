@@ -5,9 +5,12 @@ import co.wishroll.models.repository.datamodels.UserModel;
 
 public class NetworkMapper implements EntityMapper{
 
+
+
     @Override
-    public User fromNetToDomain(UserModel userModel) {
-        return null;
+    public  User fromNetToDomain(UserModel userModel) {
+        User user = new User(userModel.getUsername(), userModel.getId(), userModel.getVerified());
+        return user;
     }
 
     @Override

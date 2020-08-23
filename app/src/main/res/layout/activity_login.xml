@@ -61,7 +61,7 @@
 
 
     <Button
-        android:onClick="@{authviewmodel::onLoginButtonPressed}"
+        android:onClick="@{() -> authviewmodel.onLoginButtonPressed()}"
         android:id="@+id/bLogin1"
         android:layout_width="@dimen/_230sdp"
         android:layout_height="@dimen/_40sdp"

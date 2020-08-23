@@ -60,6 +60,17 @@ public class UserModel {
      * @param username
      */
 
+    public UserModel(){
+
+    }
+
+    public UserModel(String username, int id, boolean verified){
+        super();
+        this.id = id;
+        this.username = username;
+        this.verified = verified;
+
+    }
     public UserModel(int id, String username, String bio, URL profileBackgroundUrl, Boolean verified, String email, String name, String createdAt, URL avatar) {
         super();
         this.id = id;

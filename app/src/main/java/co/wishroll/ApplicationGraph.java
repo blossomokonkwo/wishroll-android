@@ -4,6 +4,7 @@ import javax.inject.Singleton;
 
 import co.wishroll.models.networking.RetrofitInstance;
 import co.wishroll.models.repository.AuthRepository;
+import co.wishroll.models.repository.local.SessionManagement;
 import dagger.Component;
 
 @Singleton
@@ -11,5 +12,10 @@ import dagger.Component;
 public interface ApplicationGraph {
 
      AuthRepository authRepository();
+
+     SessionManagement sessionManagement();
+
+
+
 
 }

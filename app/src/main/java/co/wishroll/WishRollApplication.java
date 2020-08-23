@@ -7,6 +7,7 @@ import android.net.NetworkInfo;
 
 
 
+
 public class WishRollApplication extends Application {
     //class that starts when application starts
     //retrieves whether or not the network is connected
@@ -14,6 +15,7 @@ public class WishRollApplication extends Application {
 
 
     private static WishRollApplication instance;
+
     public static ApplicationGraph applicationGraph = DaggerApplicationGraph.create();
 
 
@@ -25,6 +27,8 @@ public class WishRollApplication extends Application {
         if(instance == null){
             instance = this;
         }
+
+
     }
 
     public static WishRollApplication getInstance(){ return instance; }
@@ -39,4 +43,7 @@ public class WishRollApplication extends Application {
         return activeNetwork != null &&
                 activeNetwork.isConnectedOrConnecting();
     }
+
+
+
 }
