@@ -21,7 +21,7 @@ public class SignupRequest {
 
     public SignupRequest(String name, String username, String password, String email, String birthday) {
         this.name = name;
-        this.username = username;
+        this.username = formatUsername(username);
         this.password = password;
         this.email = email;
         this.birthday = birthday;
@@ -66,5 +66,9 @@ public class SignupRequest {
 
     public void setBirthday(String birthday) {
         this.birthday = birthday;
+    }
+
+    public String formatUsername(String username) {
+        return username.toLowerCase().replace(' ', '_');
     }
 }

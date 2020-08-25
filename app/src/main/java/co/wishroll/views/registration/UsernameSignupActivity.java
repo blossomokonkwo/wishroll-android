@@ -3,7 +3,6 @@ package co.wishroll.views.registration;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -13,24 +12,21 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
 import co.wishroll.R;
-import co.wishroll.databinding.ActivitySignupBinding;
+import co.wishroll.databinding.ActivityUsernamesignupBinding;
 import co.wishroll.utilities.AuthListener;
 import co.wishroll.viewmodel.SignupViewModel;
 import co.wishroll.views.home.MainActivity;
 
 
-public class SignupActivity extends AppCompatActivity implements AuthListener {
+public class UsernameSignupActivity extends AppCompatActivity implements AuthListener {
 
     private static final String TAG = "SIGNUP ACTIVITY";
-    ActivitySignupBinding activitySignupBinding;
+    ActivityUsernamesignupBinding usernamesignupBinding;
     SignupViewModel signupViewModel;
 
 
-
-
     ProgressBar progressBarSignup;
-    Button bSignup;
-    ImageButton backEmail;
+    ImageButton backUsername;
 
 
 
@@ -39,20 +35,19 @@ public class SignupActivity extends AppCompatActivity implements AuthListener {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.activity_signup);
 
-        activitySignupBinding = DataBindingUtil.setContentView(SignupActivity.this, R.layout.activity_signup);
+        usernamesignupBinding = DataBindingUtil.setContentView(UsernameSignupActivity.this, R.layout.activity_usernamesignup);
         signupViewModel = new ViewModelProvider(this).get(SignupViewModel.class);
-        activitySignupBinding.setSignupviewmodel(signupViewModel);
+        usernamesignupBinding.setSignupviewmodel(signupViewModel);
         signupViewModel.authListenerSign = this;
 
-        bSignup = findViewById(R.id.bCreateAccount);
+        backUsername = findViewById(R.id.backUsername);
 
         progressBarSignup = findViewById(R.id.progressBarSignup);
-        backEmail = findViewById(R.id.backEmail);
 
-        backEmail.setOnClickListener(new View.OnClickListener() {
+        backUsername.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(SignupActivity.this, LoginActivity.class));
+                startActivity(new Intent(UsernameSignupActivity.this, AgeSignupActivity.class));
                 finish();
             }
         });
@@ -121,7 +116,7 @@ public class SignupActivity extends AppCompatActivity implements AuthListener {
                 break;
 
             case 200:
-                Intent intent = new Intent(SignupActivity.this, MainActivity.class);
+                Intent intent = new Intent(UsernameSignupActivity.this, MainActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK| Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
 

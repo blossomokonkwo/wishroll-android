@@ -15,7 +15,7 @@ import androidx.lifecycle.ViewModelProvider;
 import co.wishroll.R;
 import co.wishroll.databinding.ActivityLoginBinding;
 import co.wishroll.utilities.AuthListener;
-import co.wishroll.viewmodel.AuthViewModel;
+import co.wishroll.viewmodel.LoginViewModel;
 import co.wishroll.views.home.MainActivity;
 
 
@@ -26,7 +26,7 @@ public class LoginActivity extends AppCompatActivity implements AuthListener {
     ActivityLoginBinding activityLoginBinding;
 
 
-    AuthViewModel authViewModel;
+    LoginViewModel loginViewModel;
 
     TextView signupInstead;
     ProgressBar progressBar;
@@ -39,14 +39,13 @@ public class LoginActivity extends AppCompatActivity implements AuthListener {
         super.onCreate(savedInstanceState);
 
         activityLoginBinding = DataBindingUtil.setContentView(LoginActivity.this, R.layout.activity_login);
-        authViewModel = new ViewModelProvider(this).get(AuthViewModel.class);
-        activityLoginBinding.setAuthviewmodel(authViewModel);
-        authViewModel.authListener = this;
+        loginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
+        activityLoginBinding.setLoginviewmodel(loginViewModel);
+        loginViewModel.authListener = this;
         progressBar = findViewById(R.id.progressBarLogin);
         signupInstead = findViewById(R.id.newSignUp);
 
-        emailUser = findViewById(R.id.etEmailUsername);
-        password = findViewById(R.id.etPasswordEntry);
+
 
 
         signupInstead.setOnClickListener(new View.OnClickListener() {
@@ -101,16 +100,19 @@ public class LoginActivity extends AppCompatActivity implements AuthListener {
 
     @Override
     public void statusGetter(int statusCode) {
-        progressBar.setVisibility(View.INVISIBLE);
+
         switch(statusCode){
-            
+
             case 100:
             Toast.makeText(this, "Please try again.", Toast.LENGTH_SHORT).show();
             break;
 
             case 200:
                 Intent intent = new Intent(this, MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK| Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
+
+                progressBar.setVisibility(View.INVISIBLE);
             break;
 
             case 404:
@@ -126,7 +128,7 @@ public class LoginActivity extends AppCompatActivity implements AuthListener {
                 break;
 
             default:
-                Toast.makeText(this, "There was an error, please try again", Toast.LENGTH_SHORT).show();
+                progressBar.setVisibility(View.VISIBLE);
                 break;
 
         }

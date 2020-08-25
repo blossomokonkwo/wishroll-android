@@ -5,8 +5,8 @@
     <data>
 
         <variable
-            name="authviewmodel"
-            type="co.wishroll.viewmodel.AuthViewModel" />
+            name="loginviewmodel"
+            type="co.wishroll.viewmodel.LoginViewModel" />
     </data>
 
 
@@ -31,7 +31,7 @@
 
 
     <EditText
-        android:text="@={authviewmodel.accessCredential}"
+        android:text="@={loginviewmodel.accessCredential}"
         android:id="@+id/etEmailUsername"
         android:layout_width="@dimen/_200sdp"
         android:layout_height="@dimen/_40sdp"
@@ -45,7 +45,7 @@
 
 
     <EditText
-        android:text="@={authviewmodel.passwordCredential}"
+        android:text="@={loginviewmodel.passwordCredential}"
         android:id="@+id/etPasswordEntry"
         android:layout_width="@dimen/_200sdp"
         android:layout_height="@dimen/_40sdp"
@@ -61,7 +61,7 @@
 
 
     <Button
-        android:onClick="@{() -> authviewmodel.onLoginButtonPressed()}"
+        android:onClick="@{() -> loginviewmodel.onLoginButtonPressed()}"
         android:id="@+id/bLogin1"
         android:layout_width="@dimen/_230sdp"
         android:layout_height="@dimen/_40sdp"

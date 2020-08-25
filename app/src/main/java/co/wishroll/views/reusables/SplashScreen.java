@@ -16,7 +16,6 @@ public class SplashScreen extends AppCompatActivity {
         //in the future
         //check sharedPreferences if the user is logged in => open home or open login/signup page
 
-
             startActivity(new Intent(this, WelcomeActivity.class));
             finish();
 

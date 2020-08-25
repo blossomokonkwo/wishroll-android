@@ -1,18 +1,28 @@
 package co.wishroll.views.registration;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-import android.widget.*;
+import android.widget.Button;
+import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import javax.inject.Inject;
 
 import co.wishroll.R;
+import co.wishroll.models.repository.local.SessionManagement;
 import co.wishroll.views.home.MainActivity;
+
+import static co.wishroll.WishRollApplication.applicationGraph;
 
 
 public class WelcomeActivity extends AppCompatActivity implements View.OnClickListener {
     private static final String TAG = "WELCOME ACTIVITY";
+
+    @Inject
+    SessionManagement sessionManagement = applicationGraph.sessionManagement();
 
 
 
@@ -29,9 +39,16 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
 
 
 
-        if(loggedIn("test")){
+
+
+
+        //if(loggedIn(sessionManagement.getCurrentUserId())){
+        if(loggedIn(0)){
+            Log.d(TAG, "WelcomeActivity: CURRENT USER ID  " + sessionManagement.getCurrentUserId() );
             startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
             finish();
+        }else{
+
         }
 
 
@@ -61,8 +78,8 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
 
     }
 
-    public boolean loggedIn(String test){
-        //tester method
-        return false;
+    public boolean loggedIn(int id){
+        return id != 0;
+
     }
 }

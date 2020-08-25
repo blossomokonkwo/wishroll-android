@@ -15,6 +15,7 @@ public class SignupResponse {
         private AccessToken accessToken;
 
 
+
         public SignupResponse() {
         }
 

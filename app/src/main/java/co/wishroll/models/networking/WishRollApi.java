@@ -1,14 +1,15 @@
 package co.wishroll.models.networking;
 
+import co.wishroll.models.repository.datamodels.EValidationRequest;
 import co.wishroll.models.repository.datamodels.LoginRequest;
 import co.wishroll.models.repository.datamodels.LoginResponse;
 import co.wishroll.models.repository.datamodels.SignupRequest;
 import co.wishroll.models.repository.datamodels.SignupResponse;
+import co.wishroll.models.repository.datamodels.UValidationRequest;
+import co.wishroll.models.repository.datamodels.ValidationResponse;
 import retrofit2.Call;
 import retrofit2.http.Body;
-import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
-import retrofit2.http.Path;
 
 public interface WishRollApi {
     //all wishroll api methods and calls
@@ -21,13 +22,13 @@ public interface WishRollApi {
     @POST("signup")
     Call<SignupResponse> signupUser(@Body SignupRequest signupRequest);
 
-    @FormUrlEncoded
-    @POST("signup/{username}")
-    Call<String> validateUsername(@Path("username") String username );
 
-    @FormUrlEncoded
-    @POST("signup/{email}")
-    Call<String> validateEmail(@Path("email") String email);
+    @POST("signup/username")
+    Call<ValidationResponse> validateUsername(@Body UValidationRequest uValidationRequest);
+
+
+    @POST("signup/email")
+    Call<ValidationResponse> validateEmail(@Body EValidationRequest eValidationRequest);
 
 
 

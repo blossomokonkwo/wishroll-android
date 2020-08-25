@@ -3,6 +3,7 @@ package co.wishroll.models.repository.local;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -14,6 +15,7 @@ import co.wishroll.utilities.Encryption;
 
 @Singleton
 public class SessionManagement extends Application {
+    private static final String TAG = "SessionManagement";
     //stores current user information
     //wipes current user information on log out
     //stores authentication token of user
@@ -39,8 +41,26 @@ public class SessionManagement extends Application {
     }
 
     public void saveSession(UserModel userModel, AccessToken accessToken){
+
         editor.putInt("id", userModel.getId());
+        Log.d(TAG, "saveSession: CURRENT USER ID: " + userModel.getId());
+
+        editor.putString("username", userModel.getUsername());
+        Log.d(TAG, "saveSession: CURRENT USERNAME: " + userModel.getUsername());
+
+        editor.putString("bio", userModel.getBio());
+        Log.d(TAG, "saveSession: CURRENT BIO: " + userModel.getBio());
+
+        editor.putString("name", userModel.getName());
+        Log.d(TAG, "saveSession: CURRENT NAME: " + userModel.getName());
+
+        editor.putString("email", userModel.getEmail());
+        Log.d(TAG, "saveSession: CURRENT EMAIL: " + userModel.getEmail());
+
+        Log.d(TAG, "saveSession: ORIGINAL TOKEN: " + accessToken.getAccess());
         editor.putString("token", encryption.encryptOrNull(accessToken.getAccess()));
+        Log.d(TAG, "saveSession: ENCRYPTED TOKEN: " + encryption.encryptOrNull(accessToken.getAccess()));
+
         editor.commit();
 
 
@@ -52,6 +72,7 @@ public class SessionManagement extends Application {
     }
 
     public String getToken() {
+        Log.d(TAG, "getToken: DECRYPTED TOKEN: " + encryption.decryptOrNull(sharedPreferences.getString("token", null)));
          token = encryption.decryptOrNull(sharedPreferences.getString("token", null));
         return token;
     }
@@ -62,6 +83,9 @@ public class SessionManagement extends Application {
     }
 
     public void clearSession(){
+        editor.remove("id");
+        editor.remove("token");
+        editor.commit();
 
     }
 }
