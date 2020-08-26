@@ -24,8 +24,6 @@ public class LoginActivity extends AppCompatActivity implements AuthListener {
 
     private static final String TAG = "LOGIN ACTIVITY";
     ActivityLoginBinding activityLoginBinding;
-
-
     LoginViewModel loginViewModel;
 
     TextView signupInstead;

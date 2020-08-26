@@ -16,7 +16,6 @@ import co.wishroll.R;
 import co.wishroll.databinding.ActivitySignupBinding;
 import co.wishroll.utilities.AuthListener;
 import co.wishroll.viewmodel.SignupViewModel;
-import co.wishroll.views.home.MainActivity;
 
 
 public class SignupActivity extends AppCompatActivity implements AuthListener {
@@ -114,37 +113,13 @@ public class SignupActivity extends AppCompatActivity implements AuthListener {
     @Override
     public void statusGetter(int statusCode) {
 
-        switch(statusCode){
+            if(statusCode == 400) {
+                Toast.makeText(this, "This email is linked with another account", Toast.LENGTH_SHORT).show();
+            }else{
+                startActivity(new Intent(SignupActivity.this, NameSignupActivity.class));
 
-            case 100:
-                Toast.makeText(this, "Please try again.", Toast.LENGTH_SHORT).show();
-                break;
+            }
 
-            case 200:
-                Intent intent = new Intent(SignupActivity.this, MainActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK| Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-
-                //progressBarSignup.setVisibility(View.INVISIBLE);
-                break;
-
-            case 404:
-                Toast.makeText(this, "Not Found", Toast.LENGTH_SHORT).show();
-                break;
-
-            case 401:
-                Toast.makeText(this, "You entered the wrong credentials, please try again", Toast.LENGTH_SHORT).show();
-                break;
-
-            case 400:
-                Toast.makeText(this, "The email or username you have entered is taken", Toast.LENGTH_SHORT).show();
-                break;
-
-            default:
-                //progressBarSignup.setVisibility(View.VISIBLE);
-                break;
-
-        }
 
     }
 }

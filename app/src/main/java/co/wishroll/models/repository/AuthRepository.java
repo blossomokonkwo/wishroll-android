@@ -10,9 +10,8 @@ import co.wishroll.models.networking.WishRollApi;
 import co.wishroll.models.repository.datamodels.AccessToken;
 import co.wishroll.models.repository.datamodels.EValidationRequest;
 import co.wishroll.models.repository.datamodels.LoginRequest;
-import co.wishroll.models.repository.datamodels.LoginResponse;
+import co.wishroll.models.repository.datamodels.AuthResponse;
 import co.wishroll.models.repository.datamodels.SignupRequest;
-import co.wishroll.models.repository.datamodels.SignupResponse;
 import co.wishroll.models.repository.datamodels.UValidationRequest;
 import co.wishroll.models.repository.datamodels.UserModel;
 import co.wishroll.models.repository.datamodels.ValidationResponse;
@@ -37,8 +36,8 @@ public class AuthRepository {
 
     private WishRollApi wishRollApi;
 
-    LoginResponse loginResponse;
-    SignupResponse signupResponse;
+    AuthResponse authResponse;
+
 
     ValidationResponse validationResponseUsername;
     ValidationResponse validationResponseEmail;
@@ -48,7 +47,7 @@ public class AuthRepository {
     public AuthRepository() {
         Retrofit retrofitInstance = RetrofitInstance.getRetrofitInstance();
         wishRollApi = retrofitInstance.create(WishRollApi.class);
-        LoginResponse loginResponse = null;
+        AuthResponse authResponse = null;
 
 
 
@@ -58,19 +57,20 @@ public class AuthRepository {
         return statusCode;
     }
 
-    public LoginResponse loginUser(final LoginRequest loginRequest) {
+    public AuthResponse loginUser(final LoginRequest loginRequest) {
 
-      wishRollApi.loginUser(loginRequest).enqueue(new Callback<LoginResponse>() {
+      wishRollApi.loginUser(loginRequest).enqueue(new Callback<AuthResponse>() {
            @Override
-           public void onResponse( Call<LoginResponse> call, Response<LoginResponse> response) {
+           public void onResponse(Call<AuthResponse> call, Response<AuthResponse> response) {
                switch (response.code()){
                    case 100:
                        statusCode = 100;
                        break;
                    case 200:
-                       loginResponse = response.body();
-                       Log.d(TAG, "onResponse: ACCESS TOKEN " + loginResponse.getAccessToken().getAccess());
-                       welcomeUser(loginResponse.getUserModel(), loginResponse.getAccessToken());
+                       authResponse = response.body();
+
+                       Log.d(TAG, "onResponse: ACCESS TOKEN " + authResponse.getAccessToken().getAccess());
+                       welcomeUser(authResponse.getUserModel(), authResponse.getAccessToken());
 
                        statusCode = 200;
                        break;
@@ -95,7 +95,7 @@ public class AuthRepository {
            }
 
             @Override
-            public void onFailure(Call<LoginResponse> call, Throwable t) {
+            public void onFailure(Call<AuthResponse> call, Throwable t) {
                 Log.e(TAG, t.toString());
                t.printStackTrace();
                 Log.d(TAG, "onFailure: loginRequest FAILED");
@@ -103,7 +103,7 @@ public class AuthRepository {
             }
         });
 
-        return loginResponse;
+        return authResponse;
 
 
 
@@ -112,13 +112,13 @@ public class AuthRepository {
 
 
 
-    public SignupResponse signupUser(final SignupRequest signupRequest) {
+    public AuthResponse signupUser(final SignupRequest signupRequest) {
 
         Log.d(TAG, "signupUser Method of AuthRepository");
 
-        wishRollApi.signupUser(signupRequest).enqueue(new Callback<SignupResponse>() {
+        wishRollApi.signupUser(signupRequest).enqueue(new Callback<AuthResponse>() {
             @Override
-            public void onResponse( Call<SignupResponse> call, Response<SignupResponse> response) {
+            public void onResponse(Call<AuthResponse> call, Response<AuthResponse> response) {
 
                 if(response.isSuccessful()) {
 
@@ -127,9 +127,9 @@ public class AuthRepository {
                                 statusCode = 100;
                                 break;
                             case 200:
-                                signupResponse = response.body();
-                                Log.d(TAG, "onResponse: ACCESS TOKEN " + signupResponse.getAccessToken().getAccess());
-                                welcomeUser(signupResponse.getUserModel(), signupResponse.getAccessToken());
+                                authResponse = response.body();
+                                Log.d(TAG, "onResponse: ACCESS TOKEN " + authResponse.getAccessToken().getAccess());
+                                welcomeUser(authResponse.getUserModel(), authResponse.getAccessToken());
                                 statusCode = 200;
                                 break;
                             case 300:
@@ -154,7 +154,7 @@ public class AuthRepository {
             }
 
             @Override
-            public void onFailure(Call<SignupResponse> call, Throwable t) {
+            public void onFailure(Call<AuthResponse> call, Throwable t) {
                 Log.e(TAG, t.toString());
                 t.printStackTrace();
                 Log.d(TAG, "onFailure: signupFailed.");
@@ -162,7 +162,7 @@ public class AuthRepository {
 
         });
 
-        return signupResponse;
+        return authResponse;
 
     }
 

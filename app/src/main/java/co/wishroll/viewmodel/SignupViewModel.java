@@ -10,9 +10,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import co.wishroll.models.repository.AuthRepository;
+import co.wishroll.models.repository.datamodels.AuthResponse;
 import co.wishroll.models.repository.datamodels.EValidationRequest;
 import co.wishroll.models.repository.datamodels.SignupRequest;
-import co.wishroll.models.repository.datamodels.SignupResponse;
 import co.wishroll.models.repository.datamodels.UValidationRequest;
 import co.wishroll.models.repository.datamodels.ValidationResponse;
 import co.wishroll.utilities.AuthListener;
@@ -22,6 +22,7 @@ import static co.wishroll.WishRollApplication.applicationGraph;
 
 public class SignupViewModel extends ViewModel {
     private static final String TAG = "Signup View Model";
+
 
     AuthRepository authRepository = applicationGraph.authRepository();
     public AuthListener authListenerSign = null;
@@ -35,8 +36,9 @@ public class SignupViewModel extends ViewModel {
     public String signupPassword = "";
     public String signupPasswordTwo = "";
 
-    SignupRequest signupRequest;
-    SignupResponse signupResponse;
+    SignupRequest signupRequest = new SignupRequest();
+    AuthResponse signupResponse;
+
     EValidationRequest eValidationRequest;
     UValidationRequest uValidationRequest;
     ValidationResponse validationResponse;
@@ -59,10 +61,15 @@ public class SignupViewModel extends ViewModel {
 
         } else if(emailAvailable(signupEmail) == 400){
             //this works but neeeeds livedata and rxjava
-            Log.d(TAG, "onSignupPressed: this email is linked with another account");
-
-            Log.d(TAG, "onSignupPressed: this email is linked with another account PERIOD");
+            authListenerSign.statusGetter(400);
+        }else if(emailAvailable(signupEmail) == 200){
+            authListenerSign.statusGetter(200);
+            signupRequest.setEmail(signupEmail);
         }
+
+
+
+
 
 
 
@@ -70,7 +77,7 @@ public class SignupViewModel extends ViewModel {
     }
 
     public void onNextName(){
-
+        Log.d(TAG, "onNextName: LETS SEE IF YOU'RE A SNITCH " + signupRequest.getEmail());
         if(TextUtils.isEmpty(signupName)){
             authListenerSign.onFailure("Please enter your name");
         }
@@ -119,7 +126,7 @@ public class SignupViewModel extends ViewModel {
 
 
             signupBirthdate = formatBirthdate(month, day, year);
-            signupRequest = new SignupRequest(signupName.trim(), signupUsername, signupPassword, signupEmail.trim(), signupBirthdate);
+
             signupResponse = authRepository.signupUser(signupRequest);
 
         authListenerSign.statusGetter(authRepository.getStatusCode());
@@ -132,7 +139,6 @@ public class SignupViewModel extends ViewModel {
 
     private int usernameAvailable(String signupUsername) {
         int statusCode;
-        Log.d(TAG, "onSignupPressed: PERFECT GOING DOWN USERNAME METHOD");
         uValidationRequest = new UValidationRequest(signupUsername);
         validationResponse =  authRepository.checkUsername(uValidationRequest);
         statusCode = authRepository.getStatusCode();
@@ -143,15 +149,15 @@ public class SignupViewModel extends ViewModel {
 
     private int emailAvailable(String signupEmail) {
         int statusCode;
-        Log.d(TAG, "onSignupPressed: PERFECT GOING DOWN EMAIL METHOD");
+
         eValidationRequest = new EValidationRequest(signupEmail);
-        Log.d(TAG, "onSignupPressed: forming of the class");
+
         validationResponse =  authRepository.checkEmail(eValidationRequest);
         statusCode = authRepository.getStatusCode();
-        if(statusCode == 400) {
+        /*if(statusCode == 400) {
             authListenerSign.sendMessage("This email is linked with another account");
-        }
-        Log.d(TAG, "onSignupPressed: request is done YOOOO " + statusCode);
+        }*/
+
 
 
 

@@ -19,7 +19,11 @@ public class SignupRequest {
     @SerializedName("birth_date")
     String birthday;
 
+    public SignupRequest() {
+    }
+
     public SignupRequest(String name, String username, String password, String email, String birthday) {
+        super();
         this.name = name;
         this.username = formatUsername(username);
         this.password = password;

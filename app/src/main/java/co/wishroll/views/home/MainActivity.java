@@ -1,14 +1,17 @@
 package co.wishroll.views.home;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager2.widget.ViewPager2;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
@@ -16,12 +19,16 @@ import com.google.android.material.tabs.TabLayoutMediator;
 import com.mikhaellopez.circularimageview.CircularImageView;
 
 import co.wishroll.R;
+import co.wishroll.databinding.ActivityMainBinding;
+import co.wishroll.viewmodel.MainViewModel;
+import co.wishroll.views.profile.ProfileViewActivity;
 import co.wishroll.views.tools.MainViewPagerAdapter;
 import co.wishroll.views.upload.UploadActivity;
-import co.wishroll.views.profile.ProfileViewActivity;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MAIN ACTIVITY";
+    ActivityMainBinding activityMainBinding;
+    MainViewModel mainViewModel;
 
 
 
@@ -30,11 +37,17 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         CircularImageView profileThumbnail;
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        //setContentView(R.layout.activity_main);
 
+
+
+        activityMainBinding = DataBindingUtil.setContentView(MainActivity.this, R.layout.activity_main);
+        mainViewModel = new ViewModelProvider(this).get(MainViewModel.class);
+        activityMainBinding.setMainviewmodel(mainViewModel);
+        //mainViewModel.authListener = this;
         EditText searchBarFake = findViewById(R.id.etSearchBarMain);
-
         profileThumbnail = findViewById(R.id.profileMain);
+
         FloatingActionButton fabUpload = findViewById(R.id.fabUpload);
 
         fabUpload.setOnClickListener(new View.OnClickListener() {

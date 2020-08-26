@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel;
 
 import co.wishroll.models.repository.AuthRepository;
 import co.wishroll.models.repository.datamodels.LoginRequest;
-import co.wishroll.models.repository.datamodels.LoginResponse;
+import co.wishroll.models.repository.datamodels.AuthResponse;
 import co.wishroll.utilities.AuthListener;
 
 import static co.wishroll.WishRollApplication.applicationGraph;
@@ -20,7 +20,7 @@ public class LoginViewModel extends ViewModel {
     //Login Process
     public String accessCredential = "";
     public String passwordCredential = "";
-    LoginResponse loginAnswer;
+    AuthResponse loginResponse;
     LoginRequest loginRequest;
 
 
@@ -35,7 +35,7 @@ public class LoginViewModel extends ViewModel {
 
        }else {
           loginRequest = new LoginRequest(accessCredential.trim(), passwordCredential);
-          loginAnswer = authRepository.loginUser(loginRequest);
+          loginResponse = authRepository.loginUser(loginRequest);
           authListener.statusGetter(authRepository.getStatusCode());
           authListener.onSuccess();
       }
