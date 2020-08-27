@@ -134,9 +134,9 @@ public class SignupViewModel extends ViewModel {
         }else if(usernameAvailable(signupUsername) == 200){
             SignupRequest.setUsername(signupUsername);
             SignupRequest.setPassword(signupPassword);
-            Log.d(TAG, "onNextEmail: asc values: " + SignupRequest.getEmail() + " " + SignupRequest.getName() + " " + SignupRequest.getBirthday() + " " + SignupRequest.getUsername() + SignupRequest.getPassword());
+            Log.d(TAG, "onNextEmail: asc values: " + SignupRequest.getEmail() + " " + SignupRequest.getName() + " " + SignupRequest.getBirthday() + " " + SignupRequest.getUsername() + " " + SignupRequest.getPassword());
 
-            //authRepository.signupUser(SignupRequest.getInstance());
+            authRepository.signupUser(SignupRequest.getInstance());
             authListenerSign.statusGetter(authRepository.getStatusCode());
 
         }

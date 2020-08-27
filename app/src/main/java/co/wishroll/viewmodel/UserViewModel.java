@@ -25,8 +25,5 @@ public class UserViewModel extends ViewModel {
 
     public UserViewModel(User user) {
 
-
-
-
     }
 }

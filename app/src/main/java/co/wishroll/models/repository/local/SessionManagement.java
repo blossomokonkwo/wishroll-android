@@ -84,8 +84,26 @@ public class SessionManagement extends Application {
 
     public void clearSession(){
         editor.remove("id");
+        editor.remove("username");
+        editor.remove("bio");
+        editor.remove("name");
+        editor.remove("email");
         editor.remove("token");
         editor.commit();
+
+        //editor.clear();
+
+
+
+    }
+
+    public void checkLogout(){
+        Log.d(TAG, "saveSession: REMOVED CURRENT USER ID: " + sharedPreferences.getInt("id", 0));
+        Log.d(TAG, "saveSession: REMOVED CURRENT USERNAME: " + sharedPreferences.getString("username", ""));
+        Log.d(TAG, "saveSession: REMOVED CURRENT BIO: " + sharedPreferences.getString("bio", ""));
+        Log.d(TAG, "saveSession: REMOVED CURRENT NAME: " + sharedPreferences.getString("name", ""));
+        Log.d(TAG, "saveSession: REMOVED CURRENT EMAIL: " + sharedPreferences.getString("email", ""));
+        Log.d(TAG, "saveSession: REMOVED ENCRYPTED TOKEN: " + sharedPreferences.getString("token", ""));
 
     }
 }

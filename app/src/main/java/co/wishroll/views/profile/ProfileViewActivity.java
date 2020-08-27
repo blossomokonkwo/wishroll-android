@@ -1,10 +1,5 @@
 package co.wishroll.views.profile;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
-import androidx.viewpager2.widget.ViewPager2;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,8 +7,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -23,11 +22,15 @@ import com.google.android.material.tabs.TabLayoutMediator;
 import co.wishroll.R;
 import co.wishroll.databinding.ActivityProfileviewBinding;
 import co.wishroll.models.domainmodels.User;
-import co.wishroll.views.tools.ProfileViewPagerAdapter;
+import co.wishroll.models.repository.local.SessionManagement;
 import co.wishroll.viewmodel.UserViewModel;
+import co.wishroll.views.home.MainActivity;
+import co.wishroll.views.registration.LoginActivity;
 import co.wishroll.views.reusables.Followers;
 import co.wishroll.views.reusables.Following;
-import co.wishroll.views.home.MainActivity;
+import co.wishroll.views.tools.ProfileViewPagerAdapter;
+
+import static co.wishroll.WishRollApplication.applicationGraph;
 
 
 public class ProfileViewActivity extends AppCompatActivity {
@@ -41,6 +44,7 @@ public class ProfileViewActivity extends AppCompatActivity {
     ImageButton backProfileView, moreProfileView;
     Button bMainButton;
     private TextView followingList, followersList;
+    SessionManagement sessionManagement = applicationGraph.sessionManagement();
 
 
 
@@ -175,10 +179,12 @@ public class ProfileViewActivity extends AppCompatActivity {
                 bottomSheetView.findViewById(R.id.logoutProfileView).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        //bottomSheetDialog.dismiss();
-                        //startActivity(new Intent(ProfileViewActivity.this, LoginActivity.class));
-                        //TODO(this crashes everytime it happens but we're going to leave it alone for now)
-                        //finish();
+                        sessionManagement.clearSession();
+                        sessionManagement.checkLogout();
+                        bottomSheetDialog.dismiss();
+                        startActivity(new Intent(ProfileViewActivity.this, LoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK| Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                        //TODO(this crashes everytime it happens but we're going to leave it alone for now) --> added to this but we'll see how it works rn bruv
+                        finish();
 
                     }
 

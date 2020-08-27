@@ -119,9 +119,6 @@ public class AuthRepository {
         wishRollApi.signupUser(signupRequest).enqueue(new Callback<AuthResponse>() {
             @Override
             public void onResponse(Call<AuthResponse> call, Response<AuthResponse> response) {
-
-                if(response.isSuccessful()) {
-
                         switch (response.code()) {
                             case 100:
                                 statusCode = 100;
@@ -150,7 +147,7 @@ public class AuthRepository {
                             default:
                                 statusCode = response.code();
                         }
-                }
+
             }
 
             @Override
@@ -167,6 +164,7 @@ public class AuthRepository {
     }
 
     public void welcomeUser(UserModel userModel, AccessToken accessToken) {
+        Log.d(TAG, "welcomeUser: yeooo is this thing on?");
         sessionManagement.saveSession(userModel, accessToken);
 
     }
@@ -210,7 +208,6 @@ public class AuthRepository {
 
             @Override
             public void onFailure(Call<ValidationResponse> call, Throwable t) {
-                Log.d(TAG, "onResponse: StatusCode " + statusCode);
                 Log.e(TAG, t.toString());
                 t.printStackTrace();
                 Log.d(TAG, "onFailure: check email failed");
