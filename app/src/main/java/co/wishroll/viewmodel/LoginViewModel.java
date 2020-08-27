@@ -11,6 +11,7 @@ import static co.wishroll.WishRollApplication.applicationGraph;
 
 
 public class LoginViewModel extends ViewModel {
+
     private static final String TAG = "Login View Model";
 
     AuthRepository authRepository = applicationGraph.authRepository();

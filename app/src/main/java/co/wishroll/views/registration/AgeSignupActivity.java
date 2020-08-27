@@ -15,7 +15,6 @@ import co.wishroll.R;
 import co.wishroll.databinding.ActivityAgesignupBinding;
 import co.wishroll.utilities.AuthListener;
 import co.wishroll.viewmodel.SignupViewModel;
-import co.wishroll.views.home.MainActivity;
 
 
 public class AgeSignupActivity extends AppCompatActivity implements AuthListener {
@@ -118,7 +117,7 @@ public class AgeSignupActivity extends AppCompatActivity implements AuthListener
                 break;
 
             case 200:
-                Intent intent = new Intent(AgeSignupActivity.this, MainActivity.class);
+                Intent intent = new Intent(AgeSignupActivity.this, UsernameSignupActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK| Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
 

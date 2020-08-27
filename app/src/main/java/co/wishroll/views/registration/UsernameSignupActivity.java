@@ -119,7 +119,6 @@ public class UsernameSignupActivity extends AppCompatActivity implements AuthLis
                 Intent intent = new Intent(UsernameSignupActivity.this, MainActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK| Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
-
                 //progressBarSignup.setVisibility(View.INVISIBLE);
                 break;
 

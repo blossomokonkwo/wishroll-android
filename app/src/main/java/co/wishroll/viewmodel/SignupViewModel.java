@@ -36,7 +36,7 @@ public class SignupViewModel extends ViewModel {
     public String signupPassword = "";
     public String signupPasswordTwo = "";
 
-    SignupRequest signupRequest;
+    SignupRequest signupRequest = SignupRequest.getInstance();
     AuthResponse signupResponse;
 
     EValidationRequest eValidationRequest;
@@ -63,8 +63,10 @@ public class SignupViewModel extends ViewModel {
             //this works but neeeeds livedata and rxjava
             authListenerSign.statusGetter(400);
         }else if(emailAvailable(signupEmail) == 200){
+
             authListenerSign.statusGetter(200);
-            signupRequest.setEmail(signupEmail);
+            SignupRequest.setEmail(signupEmail);
+            Log.d(TAG, "onNextEmail: asc values: " + SignupRequest.getEmail());
         }
 
 
@@ -77,18 +79,32 @@ public class SignupViewModel extends ViewModel {
     }
 
     public void onNextName(){
-        Log.d(TAG, "onNextName: LETS SEE IF YOU'RE A SNITCH " + signupRequest.getEmail());
+        //Log.d(TAG, "onNextName: LETS SEE IF YOU'RE A SNITCH " + SignupRequest.getEmail());
+
         if(TextUtils.isEmpty(signupName)){
             authListenerSign.onFailure("Please enter your name");
+
+        }else{
+            SignupRequest.setName(signupName);
+            authListenerSign.statusGetter(200);
+            Log.d(TAG, "onNextEmail: asc values: " + SignupRequest.getEmail() + " " + SignupRequest.getName()) ;
         }
 
     }
 
     public void onNextAge(){
+
         if((TextUtils.isEmpty(year) || TextUtils.isEmpty(month) || TextUtils.isEmpty(day)) || !ageClean(month, day, year)){
-            authListenerSign.onFailure("Please enter a correct birthday " + month + " " + day + " " + year + "   yeo " + formatBirthdate(month, day, year));
+            authListenerSign.onFailure("Please enter a correct birthday");
+
         }else if(!ofAge(month, day, year)){
             authListenerSign.onFailure("You need to be 12 or older to use WishRoll");
+
+        }else{
+
+            SignupRequest.setBirthday(formatBirthdate(month, day, year));
+            authListenerSign.statusGetter(200);
+            Log.d(TAG, "onNextEmail: asc values: " + SignupRequest.getEmail() + " " + SignupRequest.getName() + " " + SignupRequest.getBirthday()) ;
         }
 
         //move onto the next page, save credennies
@@ -101,35 +117,37 @@ public class SignupViewModel extends ViewModel {
 
        authListenerSign.onStarted();
 
-        if (TextUtils.isEmpty(signupUsername) || TextUtils.isEmpty(signupPassword) ||
+        if(TextUtils.isEmpty(signupUsername) || TextUtils.isEmpty(signupPassword) ||
                 TextUtils.isEmpty(signupPasswordTwo)) {
             authListenerSign.onFailure("Please enter a username and password");
 
-        }
-
-        if (!usernameIsValid(signupUsername)) {
+        }else if (!usernameIsValid(signupUsername)) {
             authListenerSign.onFailure("Please enter a valid username");
 
-        }
-
-        if(!signupPassword.equals(signupPasswordTwo)) {
+        }else if(!signupPassword.equals(signupPasswordTwo)) {
             authListenerSign.onFailure("Please enter the correct password");
 
-        }
-
-        if(usernameAvailable(signupUsername) == 400 ) {
-            Log.d(TAG, "onSignupPressed: PERFECT GOING DOWN USERNAME");
+        }else if(usernameAvailable(signupUsername) == 400 ) {
             authListenerSign.onFailure("This username is taken");
 
+
+        }else if(usernameAvailable(signupUsername) == 200){
+            SignupRequest.setUsername(signupUsername);
+            SignupRequest.setPassword(signupPassword);
+            Log.d(TAG, "onNextEmail: asc values: " + SignupRequest.getEmail() + " " + SignupRequest.getName() + " " + SignupRequest.getBirthday() + " " + SignupRequest.getUsername() + SignupRequest.getPassword());
+
+            //authRepository.signupUser(SignupRequest.getInstance());
+            authListenerSign.statusGetter(authRepository.getStatusCode());
+
         }
 
 
 
-            signupBirthdate = formatBirthdate(month, day, year);
 
-            signupResponse = authRepository.signupUser(signupRequest);
 
-        authListenerSign.statusGetter(authRepository.getStatusCode());
+
+
+
 
 
 
@@ -154,11 +172,10 @@ public class SignupViewModel extends ViewModel {
 
         validationResponse =  authRepository.checkEmail(eValidationRequest);
         statusCode = authRepository.getStatusCode();
+
         /*if(statusCode == 400) {
             authListenerSign.sendMessage("This email is linked with another account");
         }*/
-
-
 
 
         return statusCode;

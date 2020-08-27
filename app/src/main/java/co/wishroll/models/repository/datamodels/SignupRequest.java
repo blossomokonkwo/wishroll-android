@@ -2,6 +2,7 @@ package co.wishroll.models.repository.datamodels;
 
 import com.google.gson.annotations.SerializedName;
 
+
 public class SignupRequest {
 
     static SignupRequest signupRequest;
@@ -23,6 +24,7 @@ public class SignupRequest {
     static String birthday;
 
 
+
     public static SignupRequest getInstance()
     {
         if (signupRequest == null)
@@ -32,7 +34,6 @@ public class SignupRequest {
     }
 
     public SignupRequest() {
-
     }
 
 
@@ -50,40 +51,40 @@ public class SignupRequest {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public static void setName(String names) {
+        name = names;
     }
 
     public static String getUsername() {
         return username;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public static void setUsername(String usernames) {
+        username = usernames;
     }
 
     public static String getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public static void setPassword(String passwords) {
+        password = passwords;
     }
 
     public static String getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public static void setEmail(String emails) {
+        email = emails;
     }
 
     public static String getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(String birthday) {
-        this.birthday = birthday;
+    public static void setBirthday(String birthdays) {
+        birthday = birthdays;
     }
 
     public static String formatUsername(String username) {
