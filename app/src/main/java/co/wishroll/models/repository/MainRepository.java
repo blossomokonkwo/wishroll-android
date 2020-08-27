@@ -15,6 +15,7 @@ public class MainRepository {
 
     SessionManagement sessionManagement = applicationGraph.sessionManagement();
     private static final String TAG = "MainRepository";
+    //loads the trending page
 
     private static MainRepository mainRepository;
 

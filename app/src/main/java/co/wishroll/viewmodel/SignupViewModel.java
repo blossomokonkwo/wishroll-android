@@ -36,7 +36,7 @@ public class SignupViewModel extends ViewModel {
     public String signupPassword = "";
     public String signupPasswordTwo = "";
 
-    SignupRequest signupRequest = new SignupRequest();
+    SignupRequest signupRequest;
     AuthResponse signupResponse;
 
     EValidationRequest eValidationRequest;

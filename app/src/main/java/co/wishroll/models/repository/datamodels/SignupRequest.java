@@ -4,35 +4,49 @@ import com.google.gson.annotations.SerializedName;
 
 public class SignupRequest {
 
+    static SignupRequest signupRequest;
+
+
     @SerializedName("name")
-    String name;
+    static String name;
 
     @SerializedName("username")
-    String username;
+    static String username;
 
     @SerializedName("password")
-    String password;
+    static String password;
 
     @SerializedName("email")
-    String email;
+    static String email;
 
     @SerializedName("birth_date")
-    String birthday;
+    static String birthday;
 
-    public SignupRequest() {
+
+    public static SignupRequest getInstance()
+    {
+        if (signupRequest == null)
+            signupRequest = new SignupRequest();
+
+        return signupRequest;
     }
 
-    public SignupRequest(String name, String username, String password, String email, String birthday) {
+    public SignupRequest() {
+
+    }
+
+
+    /*public SignupRequest(String name, String username, String password, String email, String birthday) {
         super();
         this.name = name;
         this.username = formatUsername(username);
         this.password = password;
         this.email = email;
         this.birthday = birthday;
-    }
+    }*/
 
 
-    public String getName() {
+    public static String getName() {
         return name;
     }
 
@@ -40,7 +54,7 @@ public class SignupRequest {
         this.name = name;
     }
 
-    public String getUsername() {
+    public static String getUsername() {
         return username;
     }
 
@@ -48,7 +62,7 @@ public class SignupRequest {
         this.username = username;
     }
 
-    public String getPassword() {
+    public static String getPassword() {
         return password;
     }
 
@@ -56,7 +70,7 @@ public class SignupRequest {
         this.password = password;
     }
 
-    public String getEmail() {
+    public static String getEmail() {
         return email;
     }
 
@@ -64,7 +78,7 @@ public class SignupRequest {
         this.email = email;
     }
 
-    public String getBirthday() {
+    public static String getBirthday() {
         return birthday;
     }
 
@@ -72,7 +86,7 @@ public class SignupRequest {
         this.birthday = birthday;
     }
 
-    public String formatUsername(String username) {
+    public static String formatUsername(String username) {
         return username.toLowerCase().replace(' ', '_');
     }
 }
