@@ -3,6 +3,9 @@ package co.wishroll.viewmodel;
 import android.text.TextUtils;
 import android.util.Log;
 
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MediatorLiveData;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
 
 import java.util.Calendar;
@@ -16,6 +19,7 @@ import co.wishroll.models.repository.datamodels.SignupRequest;
 import co.wishroll.models.repository.datamodels.UValidationRequest;
 import co.wishroll.models.repository.datamodels.ValidationResponse;
 import co.wishroll.utilities.AuthListener;
+import co.wishroll.utilities.AuthResource;
 
 import static co.wishroll.WishRollApplication.applicationGraph;
 
@@ -26,6 +30,8 @@ public class SignupViewModel extends ViewModel {
 
     AuthRepository authRepository = applicationGraph.authRepository();
     public AuthListener authListenerSign = null;
+    MediatorLiveData<AuthResource<AuthResponse>> authResponseMediatorLiveData = new MediatorLiveData<>();
+
 
 
 
@@ -79,7 +85,6 @@ public class SignupViewModel extends ViewModel {
     }
 
     public void onNextName(){
-        //Log.d(TAG, "onNextName: LETS SEE IF YOU'RE A SNITCH " + SignupRequest.getEmail());
 
         if(TextUtils.isEmpty(signupName)){
             authListenerSign.onFailure("Please enter your name");
@@ -107,7 +112,6 @@ public class SignupViewModel extends ViewModel {
             Log.d(TAG, "onNextEmail: asc values: " + SignupRequest.getEmail() + " " + SignupRequest.getName() + " " + SignupRequest.getBirthday()) ;
         }
 
-        //move onto the next page, save credennies
 
     }
 
@@ -136,22 +140,37 @@ public class SignupViewModel extends ViewModel {
             SignupRequest.setPassword(signupPassword);
             Log.d(TAG, "onNextEmail: asc values: " + SignupRequest.getEmail() + " " + SignupRequest.getName() + " " + SignupRequest.getBirthday() + " " + SignupRequest.getUsername() + " " + SignupRequest.getPassword());
 
-            authRepository.signupUser(SignupRequest.getInstance());
-            authListenerSign.statusGetter(authRepository.getStatusCode());
+
+            authenticateUserSignup(SignupRequest.getInstance());
 
         }
 
-
-
-
-
-
-
-
-
-
-
     }
+
+    public void authenticateUserSignup(SignupRequest signupRequest){
+
+        authResponseMediatorLiveData.setValue(AuthResource.loading((AuthResponse)null));
+
+        final LiveData<AuthResource<AuthResponse>> source = authRepository.signupUser(signupRequest);
+
+        authResponseMediatorLiveData.addSource(source, new Observer<AuthResource<AuthResponse>>() {
+            @Override
+            public void onChanged(AuthResource<AuthResponse> authResponse) {
+                authResponseMediatorLiveData.setValue(authResponse);
+
+                authResponseMediatorLiveData.removeSource(source);
+
+            }
+        });
+    }
+
+
+    public LiveData<AuthResource<AuthResponse>> observeSignupUser(){
+        return authResponseMediatorLiveData;
+    }
+
+
+
 
 
 

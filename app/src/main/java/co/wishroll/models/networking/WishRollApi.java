@@ -6,6 +6,7 @@ import co.wishroll.models.repository.datamodels.LoginRequest;
 import co.wishroll.models.repository.datamodels.SignupRequest;
 import co.wishroll.models.repository.datamodels.UValidationRequest;
 import co.wishroll.models.repository.datamodels.ValidationResponse;
+import io.reactivex.Flowable;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
@@ -16,10 +17,10 @@ public interface WishRollApi {
 
 
     @POST("login")
-    Call<AuthResponse> loginUser(@Body LoginRequest loginRequest);
+    Flowable<AuthResponse> loginUser(@Body LoginRequest loginRequest);
 
     @POST("signup")
-    Call<AuthResponse> signupUser(@Body SignupRequest signupRequest);
+    Flowable<AuthResponse> signupUser(@Body SignupRequest signupRequest);
 
 
     @POST("signup/username")
@@ -28,6 +29,8 @@ public interface WishRollApi {
 
     @POST("signup/email")
     Call<ValidationResponse> validateEmail(@Body EValidationRequest eValidationRequest);
+
+
 
     /*@GET("users/{id}")
     Call<UserResponse> getUser((@Path "id") int id );*/

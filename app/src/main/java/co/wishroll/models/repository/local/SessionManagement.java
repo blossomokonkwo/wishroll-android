@@ -91,7 +91,7 @@ public class SessionManagement extends Application {
         editor.remove("token");
         editor.commit();
 
-        //editor.clear();
+
 
 
 

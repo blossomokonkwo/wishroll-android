@@ -2,6 +2,7 @@ package co.wishroll.views.registration;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -10,11 +11,14 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import co.wishroll.R;
 import co.wishroll.databinding.ActivityLoginBinding;
+import co.wishroll.models.repository.datamodels.AuthResponse;
 import co.wishroll.utilities.AuthListener;
+import co.wishroll.utilities.AuthResource;
 import co.wishroll.viewmodel.LoginViewModel;
 import co.wishroll.views.home.MainActivity;
 
@@ -33,7 +37,6 @@ public class LoginActivity extends AppCompatActivity implements AuthListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
 
         activityLoginBinding = DataBindingUtil.setContentView(LoginActivity.this, R.layout.activity_login);
@@ -42,6 +45,12 @@ public class LoginActivity extends AppCompatActivity implements AuthListener {
         loginViewModel.authListener = this;
         progressBar = findViewById(R.id.progressBarLogin);
         signupInstead = findViewById(R.id.newSignUp);
+
+
+
+
+
+
 
 
 
@@ -55,11 +64,64 @@ public class LoginActivity extends AppCompatActivity implements AuthListener {
             }
         });
 
+        subscribeObservers();
+
+
 
 
 
     }
 
+    private void subscribeObservers(){
+        loginViewModel.observeSignupUser().observe(this, new Observer<AuthResource<AuthResponse>>() {
+            @Override
+            public void onChanged(AuthResource<AuthResponse> authResponseAuthResource) {
+                if(authResponseAuthResource != null){
+
+                    AuthResponse response = authResponseAuthResource.data;
+                    switch (authResponseAuthResource.status){
+                        case LOADING: {
+                            showProgressBar(true);
+                            break;
+                        }
+                        case ERROR:{
+                            Toast.makeText(LoginActivity.this, "Please enter the correct credentials", Toast.LENGTH_SHORT).show();
+                            showProgressBar(false);
+                            break;
+
+                        }
+
+                        case AUTHENTICATED:{
+                            showProgressBar(false);
+                            Log.d(TAG, "onChanged: login successful why is this showing either way???");
+                            statusGetter(200);
+                            break;
+                        }
+
+                        case NOT_AUTHENTICATED:{
+                            Toast.makeText(LoginActivity.this, "Please enter the correct credentials sis", Toast.LENGTH_SHORT).show();
+                            showProgressBar(false);
+                            break;
+
+                        }
+
+
+
+                    }
+                }
+            }
+        });
+
+
+    }
+
+    private void showProgressBar(boolean isVisible){
+        if(isVisible){
+            progressBar.setVisibility(View.VISIBLE);
+        }else{
+            progressBar.setVisibility(View.GONE);
+        }
+    }
 
 
 
@@ -109,8 +171,6 @@ public class LoginActivity extends AppCompatActivity implements AuthListener {
                 Intent intent = new Intent(this, MainActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK| Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
-
-                progressBar.setVisibility(View.INVISIBLE);
             break;
 
             case 404:

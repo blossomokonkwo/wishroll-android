@@ -36,6 +36,11 @@ public class MainRepository {
 
     }
 
+    //get current user profile picture
+    //attach both fragments idk mane
+    //seperate class for loading images?
+
+
 
 
     }

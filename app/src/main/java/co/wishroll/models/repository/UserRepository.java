@@ -16,8 +16,6 @@ public class UserRepository {
     SessionManagement sessionManagement = applicationGraph.sessionManagement();
     private static final String TAG = "UserRepository";
 
-    //displays things about users
-
     private static UserRepository mainRepository;
 
 
@@ -35,6 +33,10 @@ public class UserRepository {
 
 
     }
+
+
+
+
 
 
 

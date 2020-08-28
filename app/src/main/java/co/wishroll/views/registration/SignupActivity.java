@@ -2,6 +2,7 @@ package co.wishroll.views.registration;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -10,11 +11,14 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import co.wishroll.R;
 import co.wishroll.databinding.ActivitySignupBinding;
+import co.wishroll.models.repository.datamodels.AuthResponse;
 import co.wishroll.utilities.AuthListener;
+import co.wishroll.utilities.AuthResource;
 import co.wishroll.viewmodel.SignupViewModel;
 
 
@@ -56,6 +60,7 @@ public class SignupActivity extends AppCompatActivity implements AuthListener {
             }
         });
 
+        subscribeObservers();
 
 
 
@@ -66,11 +71,57 @@ public class SignupActivity extends AppCompatActivity implements AuthListener {
 
 
 
+    }
+
+    private void subscribeObservers(){
+        signupViewModel.observeSignupUser().observe(this, new Observer<AuthResource<AuthResponse>>() {
+            @Override
+            public void onChanged(AuthResource<AuthResponse> authResponseAuthResource) {
+                if(authResponseAuthResource != null){
+
+                    AuthResponse response = authResponseAuthResource.data;
+                    switch (authResponseAuthResource.status){
+                        case LOADING: {
+                            showProgressBar(true);
+                            break;
+                        }
+                        case ERROR:{
+                            Toast.makeText(SignupActivity.this, "Please enter the correct credentials", Toast.LENGTH_SHORT).show();
+                            showProgressBar(false);
+                            break;
+
+                        }
+
+                        case AUTHENTICATED:{
+                            showProgressBar(false);
+                            Log.d(TAG, "onChanged: login successful why is this showing either way???");
+                            statusGetter(200);
+                            break;
+                        }
+
+                        case NOT_AUTHENTICATED:{
+                            Toast.makeText(SignupActivity.this, "Please enter the correct credentials ", Toast.LENGTH_SHORT).show();
+                            showProgressBar(false);
+                            break;
+
+                        }
 
 
 
+                    }
+                }
+            }
+        });
 
 
+    }
+
+    private void showProgressBar(boolean isVisible){
+        if(isVisible){
+            progressBarSignup.setVisibility(View.VISIBLE);
+        }else{
+            progressBarSignup.setVisibility(View.GONE);
+        }
     }
 
 
