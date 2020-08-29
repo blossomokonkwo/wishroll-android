@@ -93,7 +93,7 @@ public class LoginActivity extends AppCompatActivity implements AuthListener {
 
                         case AUTHENTICATED:{
                             showProgressBar(false);
-                            Log.d(TAG, "onChanged: login successful why is this showing either way???");
+                            Log.d(TAG, "onChanged: login successful");
                             statusGetter(200);
                             break;
                         }

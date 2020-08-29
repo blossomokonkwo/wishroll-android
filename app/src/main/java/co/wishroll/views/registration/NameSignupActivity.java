@@ -24,11 +24,6 @@ public class NameSignupActivity extends AppCompatActivity implements AuthListene
     SignupViewModel signupViewModel;
 
 
-
-
-
-
-
     ProgressBar progressBarName;
     ImageButton backName;
 
@@ -75,7 +70,13 @@ public class NameSignupActivity extends AppCompatActivity implements AuthListene
     }
 
 
-
+    private void showNameProgressBar(boolean isVisible){
+        if(isVisible){
+            progressBarName.setVisibility(View.VISIBLE);
+        }else{
+            progressBarName.setVisibility(View.GONE);
+        }
+    }
 
 
 

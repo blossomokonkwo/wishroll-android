@@ -31,9 +31,8 @@ public interface WishRollApi {
     Call<ValidationResponse> validateEmail(@Body EValidationRequest eValidationRequest);
 
 
-
-    /*@GET("users/{id}")
-    Call<UserResponse> getUser((@Path "id") int id );*/
+    //@GET("users/{id}")
+   // Call<UserResponse> getUser((@Path "id") );
 
 
 

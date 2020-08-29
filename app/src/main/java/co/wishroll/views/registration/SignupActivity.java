@@ -11,14 +11,11 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import co.wishroll.R;
 import co.wishroll.databinding.ActivitySignupBinding;
-import co.wishroll.models.repository.datamodels.AuthResponse;
 import co.wishroll.utilities.AuthListener;
-import co.wishroll.utilities.AuthResource;
 import co.wishroll.viewmodel.SignupViewModel;
 
 
@@ -31,7 +28,7 @@ public class SignupActivity extends AppCompatActivity implements AuthListener {
 
 
 
-    ProgressBar progressBarSignup;
+    ProgressBar progressBarEmail;
     Button bSignup;
     ImageButton backEmail;
 
@@ -49,7 +46,9 @@ public class SignupActivity extends AppCompatActivity implements AuthListener {
 
         bSignup = findViewById(R.id.bCreateAccount);
 
-        progressBarSignup = findViewById(R.id.progressBarSignup);
+        progressBarEmail = findViewById(R.id.progressBarEmail);
+
+
         backEmail = findViewById(R.id.backEmail);
 
         backEmail.setOnClickListener(new View.OnClickListener() {
@@ -60,7 +59,10 @@ public class SignupActivity extends AppCompatActivity implements AuthListener {
             }
         });
 
-        subscribeObservers();
+
+
+
+
 
 
 
@@ -73,86 +75,39 @@ public class SignupActivity extends AppCompatActivity implements AuthListener {
 
     }
 
-    private void subscribeObservers(){
-        signupViewModel.observeSignupUser().observe(this, new Observer<AuthResource<AuthResponse>>() {
-            @Override
-            public void onChanged(AuthResource<AuthResponse> authResponseAuthResource) {
-                if(authResponseAuthResource != null){
-
-                    AuthResponse response = authResponseAuthResource.data;
-                    switch (authResponseAuthResource.status){
-                        case LOADING: {
-                            showProgressBar(true);
-                            break;
-                        }
-                        case ERROR:{
-                            Toast.makeText(SignupActivity.this, "Please enter the correct credentials", Toast.LENGTH_SHORT).show();
-                            showProgressBar(false);
-                            break;
-
-                        }
-
-                        case AUTHENTICATED:{
-                            showProgressBar(false);
-                            Log.d(TAG, "onChanged: login successful why is this showing either way???");
-                            statusGetter(200);
-                            break;
-                        }
-
-                        case NOT_AUTHENTICATED:{
-                            Toast.makeText(SignupActivity.this, "Please enter the correct credentials ", Toast.LENGTH_SHORT).show();
-                            showProgressBar(false);
-                            break;
-
-                        }
 
 
 
-                    }
-                }
-            }
-        });
 
 
-    }
 
-    private void showProgressBar(boolean isVisible){
+
+    private void showEmailProgressBar(boolean isVisible){
         if(isVisible){
-            progressBarSignup.setVisibility(View.VISIBLE);
+            progressBarEmail.setVisibility(View.VISIBLE);
         }else{
-            progressBarSignup.setVisibility(View.GONE);
+            progressBarEmail.setVisibility(View.GONE);
         }
     }
 
-
-
-
-
-
     @Override
     public void onStarted() {
-        //progressBarSignup.setVisibility(View.VISIBLE);
-        //Toast.makeText(this, "Signup started", Toast.LENGTH_SHORT).show();
+
     }
 
     @Override
     public void onSuccess() {
-        //progressBarSignup.setVisibility(View.INVISIBLE);
-        //Toast.makeText(this, "Signup successful", Toast.LENGTH_SHORT).show();
 
     }
 
     @Override
     public void onFailure(String message) {
-        //progressBarSignup.setVisibility(View.GONE);
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
-
     }
 
     @Override
     public void sendMessage(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
-
     }
 
     @Override
@@ -163,14 +118,12 @@ public class SignupActivity extends AppCompatActivity implements AuthListener {
 
     @Override
     public void statusGetter(int statusCode) {
-
             if(statusCode == 400) {
+                Log.d(TAG, "statusGetter: showing the taken message");
                 Toast.makeText(this, "This email is linked with another account", Toast.LENGTH_SHORT).show();
             }else{
+                Log.d(TAG, "statusGetter: on our way to the next activity");
                 startActivity(new Intent(SignupActivity.this, NameSignupActivity.class));
-
             }
-
-
     }
 }

@@ -32,19 +32,13 @@ import static co.wishroll.WishRollApplication.applicationGraph;
 @Singleton
 public class AuthRepository {
 
-    SessionManagement sessionManagement = applicationGraph.sessionManagement();
     private static final String TAG = "AuthRepository";
 
+    SessionManagement sessionManagement = applicationGraph.sessionManagement();
     private static AuthRepository authRepository;
-    
-
-    private static int statusCode;
-
+    public static int statusCode;
     private WishRollApi wishRollApi;
-
     AuthResponse authResponse;
-
-
     ValidationResponse validationResponseUsername;
     ValidationResponse validationResponseEmail;
 
@@ -54,8 +48,6 @@ public class AuthRepository {
         Retrofit retrofitInstance = RetrofitInstance.getRetrofitInstance();
         wishRollApi = retrofitInstance.create(WishRollApi.class);
         AuthResponse authResponse = null;
-
-
 
     }
 
@@ -67,57 +59,6 @@ public class AuthRepository {
         return statusCode;
     }
 
-    /*public AuthResponse loginUser(final LoginRequest loginRequest) {
-
-      wishRollApi.loginUser(loginRequest).enqueue(new Callback<AuthResponse>() {
-           @Override
-           public void onResponse(Call<AuthResponse> call, Response<AuthResponse> response) {
-               switch (response.code()){
-                   case 100:
-                       statusCode = 100;
-                       break;
-                   case 200:
-                       authResponse = response.body();
-
-                       Log.d(TAG, "onResponse: ACCESS TOKEN " + authResponse.getAccessToken().getAccess());
-                       welcomeUser(authResponse.getUserModel(), authResponse.getAccessToken());
-
-                       statusCode = 200;
-                       break;
-                   case 300:
-                       statusCode = 300;
-                       break;
-                   case 400:
-                       statusCode = 400;
-                       break;
-                   case 401:
-                       statusCode = 401;
-                       break;
-                   case 404:
-                       statusCode = 404;
-                       break;
-                   case 500:
-                       statusCode = 500;
-                   default:
-                       statusCode = response.code();
-               }
-
-           }
-
-            @Override
-            public void onFailure(Call<AuthResponse> call, Throwable t) {
-                Log.e(TAG, t.toString());
-               t.printStackTrace();
-                Log.d(TAG, "onFailure: loginRequest FAILED");
-
-            }
-        });
-
-        return authResponse;
-
-
-
-    }*/
 
     public LiveData<AuthResource<AuthResponse>> loginUser(final LoginRequest loginRequest){
         final LiveData<AuthResource<AuthResponse>> source = LiveDataReactiveStreams.fromPublisher(
@@ -152,12 +93,6 @@ public class AuthRepository {
 
         return source;
     }
-
-
-
-
-
-
 
     public LiveData<AuthResource<AuthResponse>> signupUser(final SignupRequest signupRequest) {
         final LiveData<AuthResource<AuthResponse>> source = LiveDataReactiveStreams.fromPublisher(
@@ -194,49 +129,29 @@ public class AuthRepository {
 
     }
 
-
-
-
-
     public void welcomeUser(UserModel userModel, AccessToken accessToken) {
-        Log.d(TAG, "welcomeUser: yeooo is this thing on?");
+        Log.d(TAG, "welcomeUser: saving user to sharedPreferences");
         sessionManagement.saveSession(userModel, accessToken);
 
     }
 
-
-    public ValidationResponse checkUsername(final UValidationRequest uValidationRequest){
+    public int checkUsername(String username){
+        UValidationRequest uValidationRequest = new UValidationRequest(username);
 
         wishRollApi.validateUsername(uValidationRequest).enqueue(new Callback<ValidationResponse>() {
             @Override
             public void onResponse(Call<ValidationResponse> call, Response<ValidationResponse> response) {
+                if(response.code() == 400){
+                    statusCode = 400;
+                    return;
 
-                    statusCode = response.code();
-
-
-            }
-
-            @Override
-            public void onFailure(Call<ValidationResponse> call, Throwable t) {
-                Log.e(TAG, t.toString());
-                t.printStackTrace();
-                Log.d(TAG, "onFailure: check username failed");
-            }
-        });
-
-        return validationResponseUsername;
-
-
-
-    }
-
-
-    public ValidationResponse checkEmail(EValidationRequest eValidationRequest){
-        wishRollApi.validateEmail(eValidationRequest).enqueue(new Callback<ValidationResponse>() {
-            @Override
-            public void onResponse(Call<ValidationResponse> call, Response<ValidationResponse> response) {
-                statusCode = response.code();
+                }else if(response.code() == 200){
+                    statusCode = 200;
+                    return;
+                }
                 Log.d(TAG, "onResponse: Status Code" + statusCode);
+
+
             }
             @Override
             public void onFailure(Call<ValidationResponse> call, Throwable t) {
@@ -245,7 +160,44 @@ public class AuthRepository {
                 Log.d(TAG, "onFailure: check email failed");
             }
         });
-        return validationResponseEmail;
+        return statusCode;
+
+    }
+
+
+    public int checkEmail(String email){
+
+        EValidationRequest eValidationRequest = new EValidationRequest();
+        eValidationRequest.setEmail(email);
+         wishRollApi.validateEmail(eValidationRequest).enqueue(new Callback<ValidationResponse>() {
+            @Override
+            public void onResponse(Call<ValidationResponse> call, Response<ValidationResponse> response) {
+                if(response.code() == 400){
+                    statusCode = 400;
+                    Log.d(TAG, "onResponse: this failed this email is  taken " + statusCode);
+                    //validationResponseEmail = new ValidationResponse();
+                    //validationResponseEmail.setErrorMessage("400");
+                    return;
+
+                }else if(response.code() == 200){
+                    statusCode = 200;
+                    Log.d(TAG, "onResponse: this succeeded this email is not taken " + statusCode);
+                    //validationResponseEmail = new ValidationResponse();
+                    //validationResponseEmail.setErrorMessage("200");
+                    return;
+                }
+                Log.d(TAG, "onResponse: Status Code after the if statement of the response code assignment " + statusCode);
+            }
+            @Override
+            public void onFailure(Call<ValidationResponse> call, Throwable t) {
+                Log.e(TAG, t.toString());
+                t.printStackTrace();
+                Log.d(TAG, "onFailure: check email failed");
+            }
+        });
+
+        Log.d(TAG, "checkEmail: this is the status of the call " + statusCode);
+        return statusCode;
     }
 
 

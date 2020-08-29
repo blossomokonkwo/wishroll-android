@@ -10,6 +10,7 @@ public class ValidationResponse {
     public String errorMessage;
 
     public ValidationResponse() {
+        this.errorMessage = null;
     }
 
     public ValidationResponse(String errorMessage) {
@@ -19,5 +20,9 @@ public class ValidationResponse {
 
     public String getErrorMessage() {
         return errorMessage;
+    }
+
+    public void setErrorMessage(String errorMessage) {
+        this.errorMessage = errorMessage;
     }
 }

@@ -35,6 +35,8 @@ public class SignupViewModel extends ViewModel {
 
 
 
+
+
     //Signup Procees
     public String signupEmail = "";
     public String signupName = "";
@@ -62,26 +64,29 @@ public class SignupViewModel extends ViewModel {
 
     public void onNextEmail(){
 
+        Log.d(TAG, "onNextEmail: in the on next email entering for the first time");
         if (TextUtils.isEmpty(signupEmail) || !emailIsVerified(signupEmail)){
             authListenerSign.onFailure("Please enter a valid email");
+            Log.d(TAG, "onNextEmail: this person did not enter value");
 
-        } else if(emailAvailable(signupEmail) == 400){
-            //this works but neeeeds livedata and rxjava
-            authListenerSign.statusGetter(400);
-        }else if(emailAvailable(signupEmail) == 200){
+        } else{
+            authRepository.checkEmail(signupEmail.toLowerCase());
 
-            authListenerSign.statusGetter(200);
-            SignupRequest.setEmail(signupEmail);
-            Log.d(TAG, "onNextEmail: asc values: " + SignupRequest.getEmail());
+
+            switch(authRepository.getStatusCode()){
+                case 400:
+                    Log.d(TAG, "onNextEmail: this person entered an email that is taken");
+                    authListenerSign.statusGetter(400);
+                    break;
+                case 200:
+                    Log.d(TAG, "onNextEmail: at the 200 status code swithc case");
+                    SignupRequest.setEmail(signupEmail.toLowerCase());
+                    authListenerSign.statusGetter(200);
+                    Log.d(TAG, "onNextEmail: asc values: " + SignupRequest.getEmail());
+                    break;
+
+            }
         }
-
-
-
-
-
-
-
-
     }
 
     public void onNextName(){
@@ -130,29 +135,27 @@ public class SignupViewModel extends ViewModel {
 
         }else if(!signupPassword.equals(signupPasswordTwo)) {
             authListenerSign.onFailure("Please enter the correct password");
-
-        }else if(usernameAvailable(signupUsername) == 400 ) {
+            
+        }else if(authRepository.checkUsername(signupUsername) == 400){
             authListenerSign.onFailure("This username is taken");
 
 
-        }else if(usernameAvailable(signupUsername) == 200){
+        }else if(authRepository.checkUsername(signupUsername) == 200){
             SignupRequest.setUsername(signupUsername);
             SignupRequest.setPassword(signupPassword);
+
             Log.d(TAG, "onNextEmail: asc values: " + SignupRequest.getEmail() + " " + SignupRequest.getName() + " " + SignupRequest.getBirthday() + " " + SignupRequest.getUsername() + " " + SignupRequest.getPassword());
-
-
             authenticateUserSignup(SignupRequest.getInstance());
 
         }
 
     }
 
+
     public void authenticateUserSignup(SignupRequest signupRequest){
 
         authResponseMediatorLiveData.setValue(AuthResource.loading((AuthResponse)null));
-
         final LiveData<AuthResource<AuthResponse>> source = authRepository.signupUser(signupRequest);
-
         authResponseMediatorLiveData.addSource(source, new Observer<AuthResource<AuthResponse>>() {
             @Override
             public void onChanged(AuthResource<AuthResponse> authResponse) {
@@ -164,42 +167,52 @@ public class SignupViewModel extends ViewModel {
         });
     }
 
-
     public LiveData<AuthResource<AuthResponse>> observeSignupUser(){
         return authResponseMediatorLiveData;
     }
 
 
-
-
-
-
     private int usernameAvailable(String signupUsername) {
         int statusCode;
         uValidationRequest = new UValidationRequest(signupUsername);
-        validationResponse =  authRepository.checkUsername(uValidationRequest);
+        //validationResponse =  authRepository.checkUsername(uValidationRequest);
         statusCode = authRepository.getStatusCode();
 
         return statusCode;
 
     }
 
-    private int emailAvailable(String signupEmail) {
+
+
+
+
+
+    /*private int emailAvailable(String signupEmail) {
+        Log.d(TAG, "emailAvailable: about to check if the email is taken");
         int statusCode;
 
         eValidationRequest = new EValidationRequest(signupEmail);
+        Log.d(TAG, "emailAvailable: just made a validation request object");
+        //validationResponse =  ;
+        //statusCode = validationResponse
+        Log.d(TAG, "emailAvailable: this is the status code I got " + statusCode);
 
-        validationResponse =  authRepository.checkEmail(eValidationRequest);
-        statusCode = authRepository.getStatusCode();
-
-        /*if(statusCode == 400) {
+        *//*if(statusCode == 400) {
             authListenerSign.sendMessage("This email is linked with another account");
-        }*/
+        }*//*
 
 
         return statusCode;
 
-    }
+
+    }*/
+
+
+
+
+
+
+
 
 
     public boolean emailIsVerified(String emailInput) {

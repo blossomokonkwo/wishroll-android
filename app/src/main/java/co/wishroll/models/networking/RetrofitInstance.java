@@ -38,9 +38,6 @@ public class RetrofitInstance {
 
 
 
-
- //ADD HEADERS TO EACH INNER REQUEST
-
     @Singleton
     @Provides
     public static Retrofit getRetrofitInstance() {
@@ -59,9 +56,7 @@ public class RetrofitInstance {
                 .build();
 
         if(retrofitInstance == null){
-
             gson = new GsonBuilder().setLenient().create();
-
             retrofitInstance = new Retrofit.Builder()
                     .baseUrl(API_BASE_URL)
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
@@ -70,19 +65,10 @@ public class RetrofitInstance {
                     .build();
 
             return retrofitInstance;
-
         }
-
         return retrofitInstance;
     }
 
-
-
-    /*public static WishRollApi wishRollApi = RetrofitInstance.getRetrofitInstance().create(WishRollApi.class);
-
-    public static WishRollApi getWishRollApi() {
-        return wishRollApi;
-    }*/
 
     public static boolean isUserLoggedIn(){
         if(sessionManagement.getCurrentUserId() != 0 && sessionManagement.getToken() != null){
