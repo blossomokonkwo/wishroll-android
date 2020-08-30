@@ -3,13 +3,15 @@ package co.wishroll.models.networking;
 import co.wishroll.models.repository.datamodels.AuthResponse;
 import co.wishroll.models.repository.datamodels.EValidationRequest;
 import co.wishroll.models.repository.datamodels.LoginRequest;
-import co.wishroll.models.repository.datamodels.SignupRequest;
+import co.wishroll.models.repository.datamodels.SignupRequestMany;
 import co.wishroll.models.repository.datamodels.UValidationRequest;
-import co.wishroll.models.repository.datamodels.ValidationResponse;
+import co.wishroll.models.repository.datamodels.UserModel;
 import io.reactivex.Flowable;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 
 public interface WishRollApi {
     //all wishroll api methods and calls
@@ -20,19 +22,16 @@ public interface WishRollApi {
     Flowable<AuthResponse> loginUser(@Body LoginRequest loginRequest);
 
     @POST("signup")
-    Flowable<AuthResponse> signupUser(@Body SignupRequest signupRequest);
-
-
-    @POST("signup/username")
-    Call<ValidationResponse> validateUsername(@Body UValidationRequest uValidationRequest);
-
+    Call<AuthResponse> signupUser(@Body SignupRequestMany signupRequestMany);
 
     @POST("signup/email")
-    Call<ValidationResponse> validateEmail(@Body EValidationRequest eValidationRequest);
+    Call<AuthResponse> validateEmail(@Body EValidationRequest eValidationRequest);
 
+    @POST("signup/username")
+    Call<AuthResponse> validateUsername(@Body UValidationRequest uValidationRequest);
 
-    //@GET("users/{id}")
-   // Call<UserResponse> getUser((@Path "id") );
+    @GET("users/{id}")
+    Flowable<UserModel> getUser(@Path ("id") int id);
 
 
 

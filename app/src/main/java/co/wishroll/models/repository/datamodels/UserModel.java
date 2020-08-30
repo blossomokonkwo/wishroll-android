@@ -3,8 +3,6 @@ package co.wishroll.models.repository.datamodels;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.net.URL;
-
 public class UserModel {
     //model for the response data gotten from the WishRoll Api
 
@@ -23,7 +21,7 @@ public class UserModel {
 
     @SerializedName("profile_background_url")
     @Expose
-    private URL profileBackgroundUrl;
+    private String profileBackgroundUrl;
 
     @SerializedName("verified")
     @Expose
@@ -43,22 +41,11 @@ public class UserModel {
 
     @SerializedName("avatar")
     @Expose
-    private URL avatar;
+    private String avatar;
 
 
 
-    /**
-     *
-     * @param createdAt
-     * @param verified
-     * @param name
-     * @param bio
-     * @param id
-     * @param profileBackgroundUrl
-     * @param avatar
-     * @param email
-     * @param username
-     */
+
 
     public UserModel(){
 
@@ -71,7 +58,7 @@ public class UserModel {
         this.verified = verified;
 
     }
-    public UserModel(int id, String username, String bio, URL profileBackgroundUrl, Boolean verified, String email, String name, String createdAt, URL avatar) {
+    public UserModel(int id, String username, String bio, String profileBackgroundUrl, Boolean verified, String email, String name, String createdAt, String avatar) {
         super();
         this.id = id;
         this.username = username;
@@ -132,11 +119,11 @@ public class UserModel {
         this.bio = bio;
     }
 
-    public URL getProfileBackgroundUrl() {
+    public String getProfileBackgroundUrl() {
         return profileBackgroundUrl;
     }
 
-    public void setProfileBackgroundUrl(URL profileBackgroundUrl) {
+    public void setProfileBackgroundUrl(String profileBackgroundUrl) {
         this.profileBackgroundUrl = profileBackgroundUrl;
     }
 
@@ -172,11 +159,11 @@ public class UserModel {
         this.createdAt = createdAt;
     }
 
-    public URL getAvatar() {
+    public String getAvatar() {
         return avatar;
     }
 
-    public void setAvatar(URL avatar) {
+    public void setAvatar(String avatar) {
         this.avatar = avatar;
     }
 

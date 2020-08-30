@@ -36,6 +36,16 @@ public class UserRepository {
 
 
 
+    //public LiveData<StateData<UserModel>> getUserModel(int id){
+        //final LiveData<StateData<UserModel>> source = LiveDataReactiveStreams.fromPublisher(
+               // wishRollApi.getUser(id)
+
+
+
+
+        //return source;
+    //}
+
 
 
 

@@ -9,10 +9,11 @@ import android.widget.EditText;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
@@ -20,35 +21,41 @@ import com.mikhaellopez.circularimageview.CircularImageView;
 
 import co.wishroll.R;
 import co.wishroll.databinding.ActivityMainBinding;
+import co.wishroll.models.repository.local.SessionManagement;
 import co.wishroll.viewmodel.MainViewModel;
 import co.wishroll.views.profile.ProfileViewActivity;
 import co.wishroll.views.tools.MainViewPagerAdapter;
 import co.wishroll.views.upload.UploadActivity;
 
+import static co.wishroll.WishRollApplication.applicationGraph;
+
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MAIN ACTIVITY";
     ActivityMainBinding activityMainBinding;
     MainViewModel mainViewModel;
-
+    SessionManagement sessionManagement = applicationGraph.sessionManagement();
+    CircularImageView profileThumbnail;
+    FloatingActionButton fabUpload;
+    EditText searchBarFake;
 
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        CircularImageView profileThumbnail;
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_main);
-
-
-
         activityMainBinding = DataBindingUtil.setContentView(MainActivity.this, R.layout.activity_main);
         mainViewModel = new ViewModelProvider(this).get(MainViewModel.class);
         activityMainBinding.setMainviewmodel(mainViewModel);
-        //mainViewModel.authListener = this;
-        EditText searchBarFake = findViewById(R.id.etSearchBarMain);
+
+        fabUpload = findViewById(R.id.fabUpload);
+        searchBarFake = findViewById(R.id.etSearchBarMain);
         profileThumbnail = findViewById(R.id.profileMain);
 
-        FloatingActionButton fabUpload = findViewById(R.id.fabUpload);
+
+
+
+
+
 
         fabUpload.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,7 +70,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "before navigating to the profile activity");
-                startActivity(new Intent(MainActivity.this, ProfileViewActivity.class));
+                Intent intent = new Intent(MainActivity.this, ProfileViewActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -109,6 +117,19 @@ public class MainActivity extends AppCompatActivity {
         });
 
         tabLayoutMediator.attach();
+
+        loadProfileCircle();
+    }
+
+    public void loadProfileCircle(){
+        RequestOptions options = new RequestOptions()
+                .centerCrop()
+                .placeholder(R.drawable.defaultprofile)
+                .error(R.drawable.defaultprofile);
+
+
+
+        Glide.with(MainActivity.this).load(sessionManagement.getAvatarURL()).apply(options).into(profileThumbnail);
     }
 
 

@@ -1,19 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-
-
-
-        <data>
-
-            <variable
-                name="signupviewmodel"
-                type="co.wishroll.viewmodel.SignupViewModel" />
-        </data>
 
 <ScrollView
-
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".views.registration.UsernameSignupActivity"
@@ -40,12 +30,11 @@
                 android:layout_centerInParent="true"
                 android:text="@string/create_account"/>
 
-            <ImageButton
-                android:id="@+id/backUsername"
+            <Button
+                android:id="@+id/backButtonUsername"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:src="@drawable/ic_chevron_left_24"
-                android:background="@color/transparent"
+                android:background="@drawable/ic_chevron_left_24"
                 android:layout_alignParentStart="true"
                 android:layout_marginStart="@dimen/_10sdp"/>
 
@@ -68,7 +57,6 @@
                 android:textColor="@color/black"/>
 
             <EditText
-                android:text="@={signupviewmodel.signupUsername}"
                 android:id="@+id/userUsername"
                 android:layout_width="@dimen/_250sdp"
                 android:layout_height="wrap_content"
@@ -76,74 +64,7 @@
 
         </LinearLayout>
 
-        <!-- First Password -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="30dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="30dp"
-            android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/Password_label"
-                android:textSize="@dimen/_16ssp"
-                android:textColor="@color/black"/>
-            <EditText
-                android:text="@={signupviewmodel.signupPassword}"
-                android:id="@+id/userPasswordOne"
-                android:layout_width="@dimen/_250sdp"
-                android:inputType="textPassword"
-                android:layout_height="wrap_content"
-                android:hint="@string/eight"/>
-
-        </LinearLayout>
-
-        <!-- Confirm Password -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="30dp"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/confirm_password"
-                android:textSize="@dimen/_16ssp"
-                android:textColor="@color/black"/>
-
-            <EditText
-                android:text="@={signupviewmodel.signupPasswordTwo}"
-                android:inputType="textPassword"
-                android:id="@+id/userPasswordTwo"
-                android:layout_width="@dimen/_250sdp"
-                android:layout_height="wrap_content"
-                android:hint="@string/retype_label"/>
-
-        </LinearLayout>
-
-        <!-- Terms of Service -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_margin="20dp"
-            android:layout_marginBottom="20dp">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/electric_blue"
-                android:text="@string/you_agree"
-                android:textAlignment="center"
-                android:gravity="center_horizontal" />
-
-        </LinearLayout>
 
         <!-- Sign Up Button wuth Extra Buffer & Progress Bar -->
         <LinearLayout
@@ -153,13 +74,12 @@
             android:layout_margin="10dp">
 
             <Button
-                android:onClick="@{() -> signupviewmodel.onSignupPressed()}"
-                android:id="@+id/bCreateAccount"
+                android:id="@+id/bUsernameNext"
                 android:layout_gravity="center_horizontal"
                 android:layout_width="@dimen/_230sdp"
                 android:layout_height="@dimen/_40sdp"
                 android:background="@drawable/blue_button"
-                android:text="@string/signup"
+                android:text="@string/next"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_17ssp"/>
@@ -177,4 +97,3 @@
     </LinearLayout>
 
 </ScrollView>
-</layout>

@@ -51,6 +51,15 @@ public class SessionManagement extends Application {
         editor.putString("bio", userModel.getBio());
         Log.d(TAG, "saveSession: CURRENT BIO: " + userModel.getBio());
 
+        if( userModel.getAvatar() != null) {
+            editor.putString("avatar", userModel.getAvatar());
+            Log.d(TAG, "saveSession: CURRENT AVATAR URL STRING: " + userModel.getAvatar().toString());
+        }else{
+            editor.putString("avatar", "");
+
+        }
+
+
         editor.putString("name", userModel.getName());
         Log.d(TAG, "saveSession: CURRENT NAME: " + userModel.getName());
 
@@ -66,9 +75,24 @@ public class SessionManagement extends Application {
 
     }
 
-    public int getSession(){
+    public String getEmail(){
+        return sharedPreferences.getString("email", "");
+    }
 
-        return -1;
+    public String getAvatarURL(){
+        return sharedPreferences.getString("avatar", "");
+    }
+
+    public String getUsername(){
+        return sharedPreferences.getString("username", "");
+    }
+
+    public String getBio(){
+        return sharedPreferences.getString("bio", "");
+    }
+
+    public String getName(){
+        return sharedPreferences.getString("name", "");
     }
 
     public String getToken() {
@@ -86,6 +110,7 @@ public class SessionManagement extends Application {
         editor.remove("id");
         editor.remove("username");
         editor.remove("bio");
+        editor.remove("avatar");
         editor.remove("name");
         editor.remove("email");
         editor.remove("token");

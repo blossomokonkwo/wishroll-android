@@ -2,53 +2,111 @@ package co.wishroll.views.registration;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageButton;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import co.wishroll.R;
-import co.wishroll.databinding.ActivityUsernamesignupBinding;
+import co.wishroll.models.networking.RetrofitInstance;
+import co.wishroll.models.networking.WishRollApi;
 import co.wishroll.models.repository.datamodels.AuthResponse;
+import co.wishroll.models.repository.datamodels.SignupRequest;
+import co.wishroll.models.repository.datamodels.UValidationRequest;
 import co.wishroll.utilities.AuthListener;
-import co.wishroll.utilities.AuthResource;
-import co.wishroll.viewmodel.SignupViewModel;
-import co.wishroll.views.home.MainActivity;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 
 public class UsernameSignupActivity extends AppCompatActivity implements AuthListener {
 
     private static final String TAG = "SIGNUP ACTIVITY";
-    ActivityUsernamesignupBinding usernamesignupBinding;
-    SignupViewModel signupViewModel;
+    Retrofit retrofitInstance = RetrofitInstance.getRetrofitInstance();
+    WishRollApi wishRollApi = retrofitInstance.create(WishRollApi.class);
 
 
+
+    Button nextUsername;
     ProgressBar progressBarSignup;
-    ImageButton backUsername;
+    Button bBackUsername;
+    EditText etUsername;
 
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_signup);
+        setContentView(R.layout.activity_usernamesignup);
 
-        usernamesignupBinding = DataBindingUtil.setContentView(UsernameSignupActivity.this, R.layout.activity_usernamesignup);
-        signupViewModel = new ViewModelProvider(this).get(SignupViewModel.class);
-        usernamesignupBinding.setSignupviewmodel(signupViewModel);
-        signupViewModel.authListenerSign = this;
-
-        backUsername = findViewById(R.id.backUsername);
-
+        bBackUsername = (Button) findViewById(R.id.backButtonUsername);
         progressBarSignup = findViewById(R.id.progressBarSignup);
+        etUsername = findViewById(R.id.userUsername);
 
-        backUsername.setOnClickListener(new View.OnClickListener() {
+        nextUsername = findViewById(R.id.bUsernameNext);
+
+
+
+        nextUsername.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showSignupProgressBar(true);
+
+
+                if(TextUtils.isEmpty(etUsername.getText().toString())) {
+                    onFailure("Please enter a username");
+
+                }else if (!usernameIsValid(etUsername.getText().toString())) {
+                   onFailure("Please enter a valid username");
+
+                }else {
+
+
+                    UValidationRequest uValidationRequest = new UValidationRequest(etUsername.getText().toString());
+
+                    wishRollApi.validateUsername(uValidationRequest).enqueue(new Callback<AuthResponse>() {
+                        @Override
+                        public void onResponse(Call<AuthResponse> call, Response<AuthResponse> response) {
+                            if(response.code() == 200){
+                                SignupRequest.setUsername(etUsername.getText().toString());
+
+                                Log.d(TAG, "onNextEmail: asc values: " + SignupRequest.getEmail() + " " + SignupRequest.getName() + " " +
+                                        SignupRequest.getBirthday() + " " + SignupRequest.getUsername());
+                                statusGetter(200);
+                            }else if(response.code() == 400){
+                                showSignupProgressBar(false);
+
+
+                                sendMessage("This username is linked to another account");
+                            }
+                        }
+                        @Override
+                        public void onFailure(Call<AuthResponse> call, Throwable t) {
+                                t.printStackTrace();
+                        }
+                    });
+
+
+
+
+
+                }
+
+
+
+            }
+        });
+
+        bBackUsername.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(UsernameSignupActivity.this, AgeSignupActivity.class));
@@ -58,8 +116,6 @@ public class UsernameSignupActivity extends AppCompatActivity implements AuthLis
 
 
 
-        subscribeSignupObservers();
-
 
 
 
@@ -71,50 +127,9 @@ public class UsernameSignupActivity extends AppCompatActivity implements AuthLis
     }
 
 
-    private void subscribeSignupObservers(){
-        Log.d(TAG, "subscribeSignupObservers: in here going down and under");
-        signupViewModel.observeSignupUser().observe(this, new Observer<AuthResource<AuthResponse>>() {
-            @Override
-            public void onChanged(AuthResource<AuthResponse> authResponseAuthResource) {
-                if(authResponseAuthResource != null){
-
-                    AuthResponse response = authResponseAuthResource.data;
-                    switch (authResponseAuthResource.status){
-                        case LOADING: {
-                            showSignupProgressBar(true);
-                            break;
-                        }
-                        case ERROR:{
-                            Log.d(TAG, "onChanged: somethings else went wrong, might have been network error, idk cuz username is checked");
-                            Toast.makeText(UsernameSignupActivity.this, "Please enter the correct credentials", Toast.LENGTH_SHORT).show();
-                            showSignupProgressBar(false);
-                            break;
-
-                        }
-
-                        case AUTHENTICATED:{
-                            showSignupProgressBar(false);
-                            Log.d(TAG, "onChanged: if you see this, nesting them worked!! lol");
-                            statusGetter(200);
-                            break;
-                        }
-
-                        case NOT_AUTHENTICATED:{
-                            Toast.makeText(UsernameSignupActivity.this, "Please enter the correct credentials ", Toast.LENGTH_SHORT).show();
-                            showSignupProgressBar(false);
-                            break;
-
-                        }
 
 
 
-                    }
-                }
-            }
-        });
-
-
-    }
 
 
     private void showSignupProgressBar(boolean isVisible){
@@ -123,6 +138,15 @@ public class UsernameSignupActivity extends AppCompatActivity implements AuthLis
         }else{
             progressBarSignup.setVisibility(View.GONE);
         }
+    }
+
+    public boolean usernameIsValid(String usernameInput) {
+        //Username Validation: no ... or ___ , < 20 char
+        String usernameRegex = "^[a-z0-9]([._](?![._])|[a-z0-9]){1,20}[a-z0-9]$";
+        Pattern usernamePat = Pattern.compile(usernameRegex, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = usernamePat.matcher(usernameInput);
+        return matcher.find();
+
     }
 
     @Override
@@ -164,7 +188,7 @@ public class UsernameSignupActivity extends AppCompatActivity implements AuthLis
                 break;
 
             case 200:
-                Intent intent = new Intent(UsernameSignupActivity.this, MainActivity.class);
+                Intent intent = new Intent(UsernameSignupActivity.this, PasswordSignupActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK| Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 break;

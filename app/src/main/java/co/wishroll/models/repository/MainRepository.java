@@ -23,7 +23,7 @@ public class MainRepository {
     private static int statusCode;
 
     private WishRollApi wishRollApi;
-    //loads profile picture of current user
+
 
 
 
@@ -36,9 +36,6 @@ public class MainRepository {
 
     }
 
-    //get current user profile picture
-    //attach both fragments idk mane
-    //seperate class for loading images?
 
 
 

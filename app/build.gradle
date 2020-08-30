@@ -125,8 +125,8 @@ dependencies {
 
     //RxJava and RxAndroid
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
-    implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
-    implementation 'io.reactivex.rxjava3:rxjava:3.0.6'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.0'
+    implementation 'io.reactivex.rxjava2:rxjava:2.0.6'
 
     //Converting Observables to LiveData
     implementation "androidx.lifecycle:lifecycle-reactivestreams:2.2.0"

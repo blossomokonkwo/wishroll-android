@@ -2,30 +2,35 @@ package co.wishroll.views.registration;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.ViewModelProvider;
+
+import java.util.Calendar;
 
 import co.wishroll.R;
-import co.wishroll.databinding.ActivityAgesignupBinding;
+import co.wishroll.models.repository.datamodels.SignupRequest;
 import co.wishroll.utilities.AuthListener;
-import co.wishroll.viewmodel.SignupViewModel;
 
 
 public class AgeSignupActivity extends AppCompatActivity implements AuthListener {
 
     private static final String TAG = "SIGNUP ACTIVITY";
-    ActivityAgesignupBinding activityAgesignupBinding;
-    SignupViewModel signupViewModel;
+    public String year;
+    public String month;
+    public String day;
 
 
 
-
+    EditText etMonth, etDay, etYear;
+    Button nextAgeButton;
     ProgressBar progressBarAge;
     ImageButton backAge;
 
@@ -34,22 +39,50 @@ public class AgeSignupActivity extends AppCompatActivity implements AuthListener
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_signup);
-
-        activityAgesignupBinding = DataBindingUtil.setContentView(AgeSignupActivity.this, R.layout.activity_agesignup);
-        signupViewModel = new ViewModelProvider(this).get(SignupViewModel.class);
-        activityAgesignupBinding.setSignupviewmodel(signupViewModel);
-        signupViewModel.authListenerSign = this;
+        setContentView(R.layout.activity_agesignup);
+        etMonth = findViewById(R.id.etMonth);
+        etDay = findViewById(R.id.etDay);
+        etYear = findViewById(R.id.etYear);
 
 
+
+
+        nextAgeButton = findViewById(R.id.bNextBirthday);
         progressBarAge = findViewById(R.id.progressBarAge);
         backAge = findViewById(R.id.backAge);
+
+
 
         backAge.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(AgeSignupActivity.this, NameSignupActivity.class));
                 finish();
+            }
+        });
+
+
+
+        nextAgeButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+
+                year = etYear.getText().toString();
+                month = etMonth.getText().toString();
+                day = etMonth.getText().toString();
+
+                if((TextUtils.isEmpty(year) || TextUtils.isEmpty(month) || TextUtils.isEmpty(day)) || !ageClean(month, day, year)){
+                    onFailure("Please enter a correct birthday");
+
+                }else if(!ofAge(month, day, year)){
+                    onFailure("You need to be 12 or older to use WishRoll");
+
+                }else{
+                    SignupRequest.setBirthday(formatBirthdate(month, day, year));
+                    statusGetter(200);
+                    Log.d(TAG, "onNextEmail: asc values: " + SignupRequest.getEmail() + " " + SignupRequest.getName() + " " + SignupRequest.getBirthday()) ;
+                }
             }
         });
 
@@ -68,8 +101,80 @@ public class AgeSignupActivity extends AppCompatActivity implements AuthListener
 
 
 
+
+
+
+
+
     }
 
+
+    public String formatBirthdate(String month, String day, String year){
+        int monthNum = Integer.parseInt(month);
+        int dayNum = Integer.parseInt(day);
+
+
+        String dbMonth;
+        String dbDay;
+
+        if(monthNum <= 9) {
+            dbMonth = "0" + monthNum;
+        }else{
+            dbMonth = month;
+        }
+
+
+        if(dayNum <= 9){
+            dbDay = "0" + dayNum;
+        }else{
+            dbDay = day;
+        }
+
+
+        return year + "-" + dbMonth + "-" + dbDay;
+    }
+
+    public boolean ofAge(String month, String day, String year){
+        int monthNum = Integer.parseInt(month);
+        int dayNum = Integer.parseInt(day);
+        int yearNum = Integer.parseInt(year);
+
+        final Calendar c = Calendar.getInstance();
+        int mMonth = c.get(Calendar.MONTH);
+        int mDay = c.get(Calendar.DAY_OF_MONTH);
+        int mYear = c.get(Calendar.YEAR);
+
+        int birth = (monthNum * 10) + (dayNum) + (yearNum * 100);
+        int rightNow = (mMonth * 10) + (mDay) + (mYear * 100);
+        int twelve = 1200;
+        int age = rightNow - birth;
+
+
+        return (age >= twelve);
+
+
+
+
+    }
+
+    public boolean ageClean(String month, String day, String year){
+        int monthNum = Integer.parseInt(month);
+        int dayNum = Integer.parseInt(day);
+        int yearNum = Integer.parseInt(year);
+
+        final Calendar c = Calendar.getInstance();
+        int mYear = c.get(Calendar.YEAR);
+
+        if(monthNum > 12 || dayNum > 31 || yearNum >= mYear || monthNum == 0 || dayNum == 0 || yearNum == 0){
+            return false;
+
+        }else{
+            return true;
+
+        }
+
+
+    }
 
 
 
@@ -77,14 +182,12 @@ public class AgeSignupActivity extends AppCompatActivity implements AuthListener
 
     @Override
     public void onStarted() {
-        //progressBarSignup.setVisibility(View.VISIBLE);
-        //Toast.makeText(this, "Signup started", Toast.LENGTH_SHORT).show();
+
     }
 
     @Override
     public void onSuccess() {
-        //progressBarSignup.setVisibility(View.INVISIBLE);
-        //Toast.makeText(this, "Signup successful", Toast.LENGTH_SHORT).show();
+
 
     }
 

@@ -21,9 +21,9 @@ import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
 import co.wishroll.R;
-import co.wishroll.databinding.ActivityProfileviewBinding;
+import co.wishroll.databinding.ActivityOtherprofileviewBinding;
 import co.wishroll.models.repository.local.SessionManagement;
-import co.wishroll.viewmodel.ProfileViewModel;
+import co.wishroll.viewmodel.OtherProfileViewModel;
 import co.wishroll.views.home.MainActivity;
 import co.wishroll.views.registration.LoginActivity;
 import co.wishroll.views.reusables.Followers;
@@ -33,11 +33,11 @@ import co.wishroll.views.tools.ProfileViewPagerAdapter;
 import static co.wishroll.WishRollApplication.applicationGraph;
 
 
-public class ProfileViewActivity extends AppCompatActivity {
+public class OtherProfileViewActivity extends AppCompatActivity {
 
     private static final String TAG = "PROFILE ACTIVITY";
-    private ActivityProfileviewBinding activityProfileViewBinding;
-    ProfileViewModel profileViewModel;
+    private ActivityOtherprofileviewBinding activityOtherprofileviewBinding;
+    OtherProfileViewModel otherProfileViewModel;
 
 
     TextView usernameView, fullNameView;
@@ -56,17 +56,13 @@ public class ProfileViewActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        activityProfileViewBinding = DataBindingUtil.setContentView(this, R.layout.activity_profileview);
-        profileViewModel = new ViewModelProvider(this).get(ProfileViewModel.class);
-        activityProfileViewBinding.setProfileViewModel(profileViewModel);
 
+        Intent intent = getIntent();
 
-
-
-
-
-
-
+        String username = intent.getStringExtra("username");
+        activityOtherprofileviewBinding = DataBindingUtil.setContentView(this, R.layout.activity_otherprofileview);
+        otherProfileViewModel = new ViewModelProvider(this).get(OtherProfileViewModel.class);
+        activityOtherprofileviewBinding.setOtherProfileViewModel(otherProfileViewModel);
 
 
         fabHome = findViewById(R.id.fabProfileView);
@@ -79,14 +75,14 @@ public class ProfileViewActivity extends AppCompatActivity {
         followingList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(ProfileViewActivity.this, Following.class));
+                startActivity(new Intent(OtherProfileViewActivity.this, Following.class));
             }
         });
 
         followersList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(ProfileViewActivity.this, Followers.class));
+                startActivity(new Intent(OtherProfileViewActivity.this, Followers.class));
 
             }
         });
@@ -141,7 +137,7 @@ public class ProfileViewActivity extends AppCompatActivity {
         fabHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(ProfileViewActivity.this, MainActivity.class));
+                startActivity(new Intent(OtherProfileViewActivity.this, MainActivity.class));
                 finish();
             }
         });
@@ -150,7 +146,7 @@ public class ProfileViewActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(
-                        ProfileViewActivity.this, R.style.BottomSheetDialogTheme
+                        OtherProfileViewActivity.this, R.style.BottomSheetDialogTheme
                 );
 
                 View bottomSheetView = LayoutInflater.from(getApplicationContext()).inflate(R.layout.layout_bottom_sheet,
@@ -159,7 +155,7 @@ public class ProfileViewActivity extends AppCompatActivity {
                 bottomSheetView.findViewById(R.id.contactProfileView).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        startActivity(new Intent(ProfileViewActivity.this, ContactActivity.class));
+                        startActivity(new Intent(OtherProfileViewActivity.this, ContactActivity.class));
                         bottomSheetDialog.dismiss();
                     }
                 });
@@ -176,7 +172,7 @@ public class ProfileViewActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
 
-                        startActivity(new Intent(ProfileViewActivity.this, EditProfileActivity.class));
+                        startActivity(new Intent(OtherProfileViewActivity.this, EditProfileActivity.class));
                         bottomSheetDialog.dismiss();
 
                     }
@@ -188,7 +184,7 @@ public class ProfileViewActivity extends AppCompatActivity {
                         sessionManagement.clearSession();
                         sessionManagement.checkLogout();
                         bottomSheetDialog.dismiss();
-                        startActivity(new Intent(ProfileViewActivity.this, LoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK| Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                        startActivity(new Intent(OtherProfileViewActivity.this, LoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK| Intent.FLAG_ACTIVITY_CLEAR_TOP));
                         //TODO(this crashes everytime it happens but we're going to leave it alone for now) --> added to this but we'll see how it works rn bruv
                         finish();
 
@@ -214,7 +210,7 @@ public class ProfileViewActivity extends AppCompatActivity {
         bMainButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(ProfileViewActivity.this, EditProfileActivity.class));
+                startActivity(new Intent(OtherProfileViewActivity.this, EditProfileActivity.class));
             }
         });
 

@@ -2,53 +2,68 @@ package co.wishroll.views.registration;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.ViewModelProvider;
 
 import co.wishroll.R;
-import co.wishroll.databinding.ActivityNamesignupBinding;
+import co.wishroll.models.repository.datamodels.SignupRequest;
 import co.wishroll.utilities.AuthListener;
-import co.wishroll.viewmodel.SignupViewModel;
 
 
 public class NameSignupActivity extends AppCompatActivity implements AuthListener {
 
     private static final String TAG = "SIGNUP ACTIVITY";
-    ActivityNamesignupBinding namesignupBinding;
-    SignupViewModel signupViewModel;
 
 
+    EditText etName;
     ProgressBar progressBarName;
     ImageButton backName;
+    Button nextName;
 
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_signup);
-
-        namesignupBinding = DataBindingUtil.setContentView(NameSignupActivity.this, R.layout.activity_namesignup);
-        signupViewModel = new ViewModelProvider(this).get(SignupViewModel.class);
-        namesignupBinding.setSignupviewmodel(signupViewModel);
-        signupViewModel.authListenerSign = this;
+        setContentView(R.layout.activity_namesignup);
 
 
-
+        etName = findViewById(R.id.userFullName);
         progressBarName = findViewById(R.id.progressBarName);
         backName = findViewById(R.id.backName);
+        nextName = findViewById(R.id.bNextName);
 
         backName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(NameSignupActivity.this, SignupActivity.class));
                 finish();
+            }
+        });
+
+
+        nextName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showNameProgressBar(true);
+                if(TextUtils.isEmpty(etName.getText().toString())){
+                    showNameProgressBar(false);
+                    onFailure("Please enter your name");
+
+                }else{
+                    showNameProgressBar(false);
+                    SignupRequest.setName(etName.getText().toString());
+                    statusGetter(200);
+                    Log.d(TAG, "onNextEmail: asc values: " + SignupRequest.getEmail() + " " + SignupRequest.getName()) ;
+                }
             }
         });
 
@@ -82,14 +97,11 @@ public class NameSignupActivity extends AppCompatActivity implements AuthListene
 
     @Override
     public void onStarted() {
-        //progressBarSignup.setVisibility(View.VISIBLE);
-        //Toast.makeText(this, "Signup started", Toast.LENGTH_SHORT).show();
+
     }
 
     @Override
     public void onSuccess() {
-        //progressBarSignup.setVisibility(View.INVISIBLE);
-        //Toast.makeText(this, "Signup successful", Toast.LENGTH_SHORT).show();
 
     }
 

@@ -6,8 +6,8 @@
 
     <data>
         <variable
-            name="UserViewModel"
-            type="co.wishroll.viewmodel.UserViewModel" />
+            name="ProfileViewModel"
+            type="co.wishroll.viewmodel.ProfileViewModel" />
     </data>
 
 <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -100,7 +100,7 @@
                     android:id="@+id/usernameProfileView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{@string/usernameWithAt(UserViewModel.username)}"
+                    android:text=""
                     android:textColor="@color/wishroll_blue"
                     android:textSize="@dimen/_11ssp"
                     android:layout_gravity="center"/>
@@ -119,7 +119,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_1sdp"
-                    android:text="@{UserViewModel.wishRollScore}"
+                    android:text=""
                     android:textColor="@color/black"
                     android:textSize="@dimen/_10ssp"
                     android:layout_gravity="center"/>
@@ -146,7 +146,7 @@
                     android:gravity="center"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@{UserViewModel.fullName}"
+                    android:text=""
                     android:textColor="@color/black"
                     android:textStyle="bold"
                     android:textSize="@dimen/_14ssp"/>
@@ -166,7 +166,7 @@
                     android:textAlignment="center"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@{UserViewModel.bio}"
+                    android:text=""
                     android:textColor="@color/black"
                     android:textSize="@dimen/_10ssp"/>
 
@@ -204,7 +204,7 @@
                     android:layout_width="@dimen/_20sdp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@{UserViewModel.totalViewCount}"
+                    android:text=""
                     android:textSize="@dimen/_13ssp"
                     android:textColor="@color/black"
                     android:textStyle="bold"
@@ -216,7 +216,7 @@
                     android:layout_width="@dimen/_20sdp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@{UserViewModel.followersCount}"
+                    android:text=""
                     android:textSize="@dimen/_13ssp"
                     android:textColor="@color/black"
                     android:textStyle="bold"
@@ -228,7 +228,7 @@
                     android:layout_width="@dimen/_20sdp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@{UserViewModel.followingCount}"
+                    android:text=""
                     android:textSize="@dimen/_13ssp"
                     android:textColor="@color/black"
                     android:textStyle="bold"
