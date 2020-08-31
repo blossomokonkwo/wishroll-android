@@ -2,7 +2,6 @@ package co.wishroll.views.registration;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -19,7 +18,6 @@ import co.wishroll.utilities.AuthListener;
 
 
 public class NameSignupActivity extends AppCompatActivity implements AuthListener {
-
     private static final String TAG = "SIGNUP ACTIVITY";
 
 
@@ -41,6 +39,7 @@ public class NameSignupActivity extends AppCompatActivity implements AuthListene
         backName = findViewById(R.id.backName);
         nextName = findViewById(R.id.bNextName);
 
+
         backName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -53,17 +52,9 @@ public class NameSignupActivity extends AppCompatActivity implements AuthListene
         nextName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showNameProgressBar(true);
-                if(TextUtils.isEmpty(etName.getText().toString())){
-                    showNameProgressBar(false);
-                    onFailure("Please enter your name");
-
-                }else{
-                    showNameProgressBar(false);
                     SignupRequest.setName(etName.getText().toString());
                     statusGetter(200);
-                    Log.d(TAG, "onNextEmail: asc values: " + SignupRequest.getEmail() + " " + SignupRequest.getName()) ;
-                }
+                    Log.d(TAG, "onNextEmail: asc values: " + SignupRequest.getEmail() + " " + SignupRequest.getName());
             }
         });
 

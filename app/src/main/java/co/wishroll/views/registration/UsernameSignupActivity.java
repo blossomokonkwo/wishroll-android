@@ -71,17 +71,18 @@ public class UsernameSignupActivity extends AppCompatActivity implements AuthLis
                 }else {
 
 
-                    UValidationRequest uValidationRequest = new UValidationRequest(etUsername.getText().toString());
+                    UValidationRequest uValidationRequest = new UValidationRequest(formatUsername(etUsername.getText().toString()));
 
                     wishRollApi.validateUsername(uValidationRequest).enqueue(new Callback<AuthResponse>() {
                         @Override
                         public void onResponse(Call<AuthResponse> call, Response<AuthResponse> response) {
                             if(response.code() == 200){
-                                SignupRequest.setUsername(etUsername.getText().toString());
+                                SignupRequest.setUsername(formatUsername(etUsername.getText().toString()));
 
                                 Log.d(TAG, "onNextEmail: asc values: " + SignupRequest.getEmail() + " " + SignupRequest.getName() + " " +
                                         SignupRequest.getBirthday() + " " + SignupRequest.getUsername());
                                 statusGetter(200);
+                                
                             }else if(response.code() == 400){
                                 showSignupProgressBar(false);
 
@@ -130,7 +131,9 @@ public class UsernameSignupActivity extends AppCompatActivity implements AuthLis
 
 
 
-
+    public static String formatUsername(String username) {
+        return username.toLowerCase().replace(' ', '_');
+    }
 
     private void showSignupProgressBar(boolean isVisible){
         if(isVisible){

@@ -23,6 +23,9 @@ public class SignupRequest {
     @SerializedName("birth_date")
     static String birthday;
 
+    @SerializedName("gender")
+    static int gender;
+
 
 
     public static SignupRequest getInstance()
@@ -46,6 +49,13 @@ public class SignupRequest {
         this.birthday = birthday;
     }*/
 
+    public static int getGender() {
+        return gender;
+    }
+
+    public static void setGender(int gender) {
+        SignupRequest.gender = gender;
+    }
 
     public static String getName() {
         return name;
@@ -87,7 +97,5 @@ public class SignupRequest {
         birthday = birthdays;
     }
 
-    public static String formatUsername(String username) {
-        return username.toLowerCase().replace(' ', '_');
-    }
+
 }

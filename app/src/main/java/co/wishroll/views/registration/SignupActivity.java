@@ -127,8 +127,8 @@ public class SignupActivity extends AppCompatActivity implements AuthListener {
 
 
     public boolean emailIsVerified(String emailInput) {
-        //checks if email entry is in correct email form  easy regex: ^(.+)@(.+)$
-        String emailRegex = "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$";
+        //checks if email entry is in correct email form  easy regex: ^(.+)@(.+)$  "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$"
+        String emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}";
         Pattern emailPat = Pattern.compile(emailRegex, Pattern.CASE_INSENSITIVE);
         Matcher matcher = emailPat.matcher(emailInput);
         return matcher.find();

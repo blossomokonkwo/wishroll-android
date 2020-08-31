@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,6 +28,9 @@ public class AgeSignupActivity extends AppCompatActivity implements AuthListener
     public String year;
     public String month;
     public String day;
+    RadioGroup radioGroupGender;
+    RadioButton radioButtonGender;
+
 
 
 
@@ -33,6 +38,7 @@ public class AgeSignupActivity extends AppCompatActivity implements AuthListener
     Button nextAgeButton;
     ProgressBar progressBarAge;
     ImageButton backAge;
+    int genderNum;
 
 
 
@@ -51,6 +57,9 @@ public class AgeSignupActivity extends AppCompatActivity implements AuthListener
         progressBarAge = findViewById(R.id.progressBarAge);
         backAge = findViewById(R.id.backAge);
 
+        radioGroupGender = findViewById(R.id.rgGender);
+
+
 
 
         backAge.setOnClickListener(new View.OnClickListener() {
@@ -64,13 +73,13 @@ public class AgeSignupActivity extends AppCompatActivity implements AuthListener
 
 
         nextAgeButton.setOnClickListener(new View.OnClickListener() {
-
+            //Male 0 Female 1 PNA 2 ints
             @Override
             public void onClick(View view) {
 
                 year = etYear.getText().toString();
                 month = etMonth.getText().toString();
-                day = etMonth.getText().toString();
+                day = etDay.getText().toString();
 
                 if((TextUtils.isEmpty(year) || TextUtils.isEmpty(month) || TextUtils.isEmpty(day)) || !ageClean(month, day, year)){
                     onFailure("Please enter a correct birthday");
@@ -79,22 +88,29 @@ public class AgeSignupActivity extends AppCompatActivity implements AuthListener
                     onFailure("You need to be 12 or older to use WishRoll");
 
                 }else{
+
+                    int radioId = radioGroupGender.getCheckedRadioButtonId();
+                    Log.d(TAG, "checkButton: THIS IS WHAT THIS LOOKS LIKE " + radioId);
+
+                    switch (radioGroupGender.getCheckedRadioButtonId()){
+                        case (R.id.rbMale):
+                            genderNum = 0;
+                            break;
+                        case (R.id.rbFemale):
+                            genderNum = 1;
+                            break;
+                        case (R.id.rbPrefer):
+                            genderNum = 2;
+                            break;
+                    }
+
+                    SignupRequest.setGender(genderNum);
                     SignupRequest.setBirthday(formatBirthdate(month, day, year));
                     statusGetter(200);
-                    Log.d(TAG, "onNextEmail: asc values: " + SignupRequest.getEmail() + " " + SignupRequest.getName() + " " + SignupRequest.getBirthday()) ;
+                    Log.d(TAG, "onNextEmail: asc values: " + SignupRequest.getEmail() + " " + SignupRequest.getName() + " " + SignupRequest.getBirthday() + " " + SignupRequest.getGender()) ;
                 }
             }
         });
-
-
-
-
-
-
-
-
-
-
 
 
 
