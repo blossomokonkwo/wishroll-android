@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         activityMainBinding = DataBindingUtil.setContentView(MainActivity.this, R.layout.activity_main);
         mainViewModel = new ViewModelProvider(this).get(MainViewModel.class);
@@ -97,6 +98,7 @@ public class MainActivity extends AppCompatActivity {
                 switch (position){
 
                     case 0:{
+
                         tab.setText("Trending");
 
                         break;}
@@ -108,7 +110,9 @@ public class MainActivity extends AppCompatActivity {
                         break;}*/
 
                     default: {
+
                         tab.setText("Feed");
+
                         break;
                     }
                 }
@@ -126,9 +130,6 @@ public class MainActivity extends AppCompatActivity {
                 .centerCrop()
                 .placeholder(R.drawable.defaultprofile)
                 .error(R.drawable.defaultprofile);
-
-
-
         Glide.with(MainActivity.this).load(sessionManagement.getAvatarURL()).apply(options).into(profileThumbnail);
     }
 
