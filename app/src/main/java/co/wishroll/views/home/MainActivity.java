@@ -1,6 +1,9 @@
 package co.wishroll.views.home;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -25,7 +28,6 @@ import co.wishroll.models.repository.local.SessionManagement;
 import co.wishroll.viewmodel.MainViewModel;
 import co.wishroll.views.profile.ProfileViewActivity;
 import co.wishroll.views.tools.MainViewPagerAdapter;
-import co.wishroll.views.upload.UploadActivity;
 
 import static co.wishroll.WishRollApplication.applicationGraph;
 
@@ -37,6 +39,9 @@ public class MainActivity extends AppCompatActivity {
     CircularImageView profileThumbnail;
     FloatingActionButton fabUpload;
     EditText searchBarFake;
+    private static final int PERMISSION_CODE = 1001;
+    private static final int IMAGE_PICK_CODE = 1000;
+
 
 
 
@@ -60,8 +65,24 @@ public class MainActivity extends AppCompatActivity {
 
         fabUpload.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, UploadActivity.class));
+            public void onClick(View v){
+
+
+                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M ){
+                    if(checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED){
+                        String[] permissions ={Manifest.permission.READ_EXTERNAL_STORAGE};
+                        requestPermissions(permissions, PERMISSION_CODE);
+
+                    }else{
+
+                    }
+
+                }else{
+                    goToGallery();
+                }
+
+
+
             }
         });
 
@@ -125,6 +146,15 @@ public class MainActivity extends AppCompatActivity {
         loadProfileCircle();
     }
 
+    public void goToGallery(){
+        Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        intent.setType("image/* video/*");
+        startActivityForResult(intent, IMAGE_PICK_CODE);
+
+    }
+
+
+
     public void loadProfileCircle(){
         RequestOptions options = new RequestOptions()
                 .centerCrop()
@@ -133,10 +163,16 @@ public class MainActivity extends AppCompatActivity {
         Glide.with(MainActivity.this).load(sessionManagement.getAvatarURL()).apply(options).into(profileThumbnail);
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode){
+            case PERMISSION_CODE:
+                if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                    goToGallery();
+                }else{
 
-
-
-
-
-
+                }
+                break;
+        }
+    }
 }
