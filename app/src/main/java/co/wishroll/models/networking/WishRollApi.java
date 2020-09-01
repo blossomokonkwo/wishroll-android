@@ -10,6 +10,7 @@ import io.reactivex.Flowable;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 
@@ -32,6 +33,16 @@ public interface WishRollApi {
 
     @GET("users/{id}")
     Flowable<UserModel> getUser(@Path ("id") int id);
+
+
+    @PATCH("users/{id}")
+    Call<AuthResponse> updateUserDetails(@Body UserModel userModel, @Path ("id") int id);
+    //not sure what to send in the body to be honest
+
+
+
+
+
 
 
 

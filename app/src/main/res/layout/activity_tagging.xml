@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context="co.wishroll.views.upload.TaggingActivity">
+
+    <RelativeLayout
+        android:id="@+id/taggingNavigation"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="@dimen/_10sdp"
+        >
+
+        <TextView
+        android:id="@+id/taggingBack"
+        android:layout_alignParentStart="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/back"
+        android:textSize="@dimen/_16sdp"
+        android:textColor="@color/black"
+        android:layout_marginStart="@dimen/_10sdp"
+        />
+
+        <TextView
+            android:id="@+id/shareButton"
+            android:layout_alignParentEnd="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/share"
+            android:textSize="@dimen/_16sdp"
+            android:textColor="@color/wishroll_blue"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:textStyle="bold"
+            />
+
+
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/smallLine1"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/light_grey"
+        android:layout_below="@id/taggingNavigation"/>
+
+    <RelativeLayout
+        android:layout_margin="@dimen/_10sdp"
+        android:id="@+id/captionArea"
+        android:layout_below="@id/smallLine1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        
+
+
+        <EditText
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:textAlignment="viewStart"
+            android:layout_width="wrap_content"
+            android:background="#FFFFFF"
+            android:maxLength="100"
+            android:textSize="@dimen/_14ssp"
+            android:layout_height="wrap_content"
+            android:hint="@string/whats_on_your_mind"
+            android:layout_marginRight="@dimen/_5sdp"
+            />
+
+        <ImageView
+            android:maxHeight="@dimen/_100sdp"
+            android:maxWidth="@dimen/_100sdp"
+            android:layout_width="@dimen/_100sdp"
+            android:layout_height="@dimen/_100sdp"
+            android:src="@color/wishroll_blue"
+            android:layout_alignParentEnd="true"/>
+
+
+
+       
+
+
+
+    </RelativeLayout>
+    <View
+        android:id="@+id/smallLine2"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/light_grey"
+        android:layout_below="@id/captionArea"/>
+
+
+    <RelativeLayout
+        android:layout_margin="@dimen/_10sdp"
+        android:id="@+id/taggingArea"
+        android:layout_below="@id/smallLine2"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_150sdp"
+        android:orientation="horizontal"
+        >
+
+
+
+        <EditText
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:textAlignment="viewStart"
+            android:layout_width="wrap_content"
+            android:background="#FFFFFF"
+            android:textColor="@color/wishroll_blue"
+            android:textSize="@dimen/_14ssp"
+            android:layout_height="wrap_content"
+            android:hint="@string/tags_required"
+            android:layout_marginEnd="@dimen/_5sdp"
+            />
+
+        <ImageButton
+            android:id="@+id/taggingInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:src="@drawable/ic_information"
+            android:background="@color/transparent"/>
+
+
+
+
+
+
+
+
+
+    </RelativeLayout>
+
+
+
+
+
+</RelativeLayout>

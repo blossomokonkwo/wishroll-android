@@ -38,6 +38,8 @@
     <string name="YYYY">YYYY</string>
 
     <!-- Globals/Use-Anywhere -->
+    <string name="back">Back</string>
+    <string name="share">Share</string>
     <string name="cancel">Cancel</string>
     <string name="report">Report</string>
     <string name="settings">Settings</string>
@@ -89,4 +91,11 @@
     <string name="concern_6">Violent or graphic content</string>
     <string name="concern_7">Spamor repetitive content</string>
     <string name="concern_8">Other</string>
+
+    <!-- Upload -->
+    <string name="whats_on_your_mind">What\'s on your mind?</string>
+    <string name="tags">Tags</string>
+    <string name="tags_required">Tags (required)</string>
+
+
 </resources>

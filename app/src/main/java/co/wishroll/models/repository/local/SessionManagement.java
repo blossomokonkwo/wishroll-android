@@ -37,7 +37,6 @@ public class SessionManagement extends Application {
         editor = sharedPreferences.edit();
 
 
-
     }
 
     public void saveSession(UserModel userModel, AccessToken accessToken){
@@ -53,12 +52,18 @@ public class SessionManagement extends Application {
 
         if( userModel.getAvatar() != null) {
             editor.putString("avatar", userModel.getAvatar());
-            Log.d(TAG, "saveSession: CURRENT AVATAR URL STRING: " + userModel.getAvatar().toString());
+            Log.d(TAG, "saveSession: CURRENT AVATAR URL STRING: " + userModel.getAvatar());
         }else{
             editor.putString("avatar", "");
-
         }
 
+        if( userModel.getProfileBackgroundUrl() != null) {
+            editor.putString("background_url", userModel.getProfileBackgroundUrl());
+            Log.d(TAG, "saveSession: CURRENT BACKGROUND URL STRING: " + userModel.getProfileBackgroundUrl());
+        }else{
+            editor.putString("background_url", "");
+
+        }
 
         editor.putString("name", userModel.getName());
         Log.d(TAG, "saveSession: CURRENT NAME: " + userModel.getName());
@@ -75,12 +80,54 @@ public class SessionManagement extends Application {
 
     }
 
+    public void updateSession(UserModel userModel){
+
+
+        editor.putString("username", userModel.getUsername());
+        Log.d(TAG, "updateSession: UPDATED USERNAME: " + userModel.getUsername());
+
+        editor.putString("bio", userModel.getBio());
+        Log.d(TAG, "updateSession: UPDATED BIO: " + userModel.getBio());
+
+        if(userModel.getAvatar() != null) {
+            editor.putString("avatar", userModel.getAvatar());
+            Log.d(TAG, "updateSession: UPDATED AVATAR URL STRING: " + userModel.getAvatar().toString());
+        }else{
+            editor.putString("avatar", "");
+
+        }
+
+        if( userModel.getProfileBackgroundUrl() != null) {
+            editor.putString("background_url", userModel.getProfileBackgroundUrl());
+            Log.d(TAG, "updateSession: UPDATED BACKGROUND URL STRING: " + userModel.getProfileBackgroundUrl());
+        }else{
+            editor.putString("background_url", "");
+
+        }
+
+
+        editor.putString("name", userModel.getName());
+        Log.d(TAG, "updateSession: UPDATED NAME: " + userModel.getName());
+
+        editor.putString("email", userModel.getEmail());
+        Log.d(TAG, "updateSession: UPDATED EMAIL: " + userModel.getEmail());
+
+
+        editor.commit();
+
+
+    }
+
     public String getEmail(){
         return sharedPreferences.getString("email", "");
     }
 
     public String getAvatarURL(){
         return sharedPreferences.getString("avatar", "");
+    }
+
+    public String getBackgroundURL(){
+        return sharedPreferences.getString("background_url", "");
     }
 
     public String getUsername(){

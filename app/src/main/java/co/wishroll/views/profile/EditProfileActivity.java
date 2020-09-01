@@ -1,7 +1,5 @@
 package co.wishroll.views.profile;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -10,15 +8,21 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.mikhaellopez.circularimageview.CircularImageView;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import co.wishroll.R;
+import co.wishroll.models.repository.local.SessionManagement;
+
+import static co.wishroll.WishRollApplication.applicationGraph;
 
 public class EditProfileActivity extends AppCompatActivity {
     private static final String TAG = "EditProfileActivity";
+    SessionManagement sessionManagement = applicationGraph.sessionManagement();
 
 
     private ImageButton backButton, editBannerButton;
@@ -40,10 +44,14 @@ public class EditProfileActivity extends AppCompatActivity {
         editName = findViewById(R.id.nameEdit);
         editBio = findViewById(R.id.bioEdit);
 
-        final String newEmail = editEmail.getText().toString().trim();
-        final String newUsername = formatUsername(editUsername);
-        final String newBio = editBio.getText().toString();
-        final String newName = editName.getText().toString();
+        editEmail.setText(sessionManagement.getEmail());
+        editUsername.setText(sessionManagement.getUsername());
+        editName.setText(sessionManagement.getName());
+        editBio.setText(sessionManagement.getBio());
+
+
+
+
 
 
 
@@ -60,12 +68,23 @@ public class EditProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                final String newEmail = editEmail.getText().toString().trim();
+                final String newUsername = formatUsername(editUsername);
+                final String newBio = editBio.getText().toString();
+                final String newName = editName.getText().toString();
+
                 if(TextUtils.isEmpty(newName) || TextUtils.isEmpty(newUsername) || TextUtils.isEmpty(newEmail)){
                     Toast.makeText(EditProfileActivity.this, "You missed a spot", Toast.LENGTH_LONG).show();
+
                 }else if(!usernameIsValid(newUsername)){
                     Toast.makeText(EditProfileActivity.this, "Please enter a valid username", Toast.LENGTH_LONG).show();
+
                 }else if(!emailIsVerified(newEmail)){
                     Toast.makeText(EditProfileActivity.this, "Please enter a valid email", Toast.LENGTH_LONG).show();
+
+                }else{
+                    //sessionManagement.updateSession();
+                    //PATCH and return to edit profile activity
                 }
 
             }
