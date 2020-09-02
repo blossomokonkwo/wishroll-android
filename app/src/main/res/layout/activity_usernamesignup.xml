@@ -61,6 +61,11 @@
                 android:layout_width="@dimen/_250sdp"
                 android:layout_height="wrap_content"
                 android:hint="@string/usernamehint"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/grey"
+                android:text="@string/username_valid"/>
 
         </LinearLayout>
 

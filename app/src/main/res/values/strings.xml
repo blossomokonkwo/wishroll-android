@@ -36,6 +36,7 @@
     <string name="MM">MM</string>
     <string name="DD">DD</string>
     <string name="YYYY">YYYY</string>
+    <string name="username_valid">No three periods(.) or underscores(_) in a row.</string>
 
     <!-- Globals/Use-Anywhere -->
     <string name="back">Back</string>
@@ -96,6 +97,7 @@
     <string name="whats_on_your_mind">What\'s on your mind?</string>
     <string name="tags">Tags</string>
     <string name="tags_required">Tags (required)</string>
+
 
 
 </resources>

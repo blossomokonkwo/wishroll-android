@@ -1,52 +1,71 @@
 package co.wishroll.models.domainmodels;
 
 
-import androidx.annotation.Nullable;
-
-import java.util.Date;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 public class User {
     //for viewage and representation on views
 
 
-    private String username;
 
-    @Nullable
-    private Integer numFollowers;
+    @SerializedName("id")
+    @Expose
+    public int id;
 
-    @Nullable
-    private Integer numFollowing;
+    @SerializedName("username")
+    @Expose
+    public String username;
 
-    @Nullable
-    private Integer viewCount;
+    @SerializedName("num_followers")
+    @Expose
+    public Integer numFollowers;
 
-    @Nullable
-    private String avatar;
+    @SerializedName("num_following")
+    @Expose
+    public Integer numFollowing;
+
+    @SerializedName("view_count")
+    @Expose
+    public Integer viewCount;
+
+    @SerializedName("avatar")
+    @Expose
+    public String avatar;
+
+    @SerializedName("profile_background_url")
+    @Expose
+    public String profileBackgroundUrl;
 
 
-    private int id;
-
-    @Nullable
-    private String profileBackgroundUrl;
-
-
+    @SerializedName("verified")
+    @Expose
     private boolean verified;
 
-    @Nullable
-    private boolean following;
+    @SerializedName("following")
+    @Expose
+    public boolean following;
 
-    @Nullable
-    private String name;
+    @SerializedName("name")
+    @Expose
+    public String name;
 
-    @Nullable
-    private String bio = "";
+    @SerializedName("bio")
+    @Expose
+    public String bio;
 
-    @Nullable
-    private Integer wishrollScore;
+    @SerializedName("wishroll_score")
+    @Expose
+    public Integer wishrollScore;
 
-    @Nullable
-    private Date createdAt;
+    @SerializedName("created_at")
+    @Expose
+    public String createdAt;
 
+
+    public User(){
+
+    }
 
     public User(String username, int id, boolean verified) {
         this.username = username;
@@ -62,39 +81,38 @@ public class User {
         this.username = username;
     }
 
-    @Nullable
+
     public Integer getNumFollowers() {
         return numFollowers;
     }
 
-    public void setNumFollowers(@Nullable Integer numFollowers) {
+    public void setNumFollowers(Integer numFollowers) {
         this.numFollowers = numFollowers;
     }
 
-    @Nullable
     public Integer getNumFollowing() {
         return numFollowing;
     }
 
-    public void setNumFollowing(@Nullable Integer numFollowing) {
+    public void setNumFollowing(Integer numFollowing) {
         this.numFollowing = numFollowing;
     }
 
-    @Nullable
+
     public Integer getViewCount() {
         return viewCount;
     }
 
-    public void setViewCount(@Nullable Integer viewCount) {
+    public void setViewCount(Integer viewCount) {
         this.viewCount = viewCount;
     }
 
-    @Nullable
+
     public String getAvatar() {
         return avatar;
     }
 
-    public void setAvatar(@Nullable String avatar) {
+    public void setAvatar(String avatar) {
         this.avatar = avatar;
     }
 
@@ -106,12 +124,12 @@ public class User {
         this.id = id;
     }
 
-    @Nullable
+
     public String getProfileBackgroundUrl() {
         return profileBackgroundUrl;
     }
 
-    public void setProfileBackgroundUrl(@Nullable String profileBackgroundUrl) {
+    public void setProfileBackgroundUrl(String profileBackgroundUrl) {
         this.profileBackgroundUrl = profileBackgroundUrl;
     }
 
@@ -131,39 +149,37 @@ public class User {
         this.following = following;
     }
 
-    @Nullable
     public String getName() {
         return name;
     }
 
-    public void setName(@Nullable String name) {
+    public void setName(String name) {
         this.name = name;
     }
 
-    @Nullable
+
     public String getBio() {
         return bio;
     }
 
-    public void setBio(@Nullable String bio) {
+    public void setBio(String bio) {
         this.bio = bio;
     }
 
-    @Nullable
     public Integer getWishrollScore() {
         return wishrollScore;
     }
 
-    public void setWishrollScore(@Nullable Integer wishrollScore) {
+    public void setWishrollScore(Integer wishrollScore) {
         this.wishrollScore = wishrollScore;
     }
 
-    @Nullable
-    public Date getCreatedAt() {
+
+    public String getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(@Nullable Date createdAt) {
+    public void setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
     }
 }

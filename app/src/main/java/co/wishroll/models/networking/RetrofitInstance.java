@@ -56,7 +56,7 @@ public class RetrofitInstance {
                 .build();
 
         if(retrofitInstance == null){
-            gson = new GsonBuilder().setLenient().create();
+            gson = new GsonBuilder().create();
             retrofitInstance = new Retrofit.Builder()
                     .baseUrl(API_BASE_URL)
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())

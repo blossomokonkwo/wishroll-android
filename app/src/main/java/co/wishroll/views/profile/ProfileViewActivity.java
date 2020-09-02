@@ -7,11 +7,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -19,11 +21,15 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
+import com.mikhaellopez.circularimageview.CircularImageView;
 
 import co.wishroll.R;
 import co.wishroll.databinding.ActivityProfileviewBinding;
+import co.wishroll.models.domainmodels.User;
 import co.wishroll.models.repository.local.SessionManagement;
+import co.wishroll.utilities.StateData;
 import co.wishroll.viewmodel.ProfileViewModel;
+import co.wishroll.viewmodel.ProfileViewModelFactory;
 import co.wishroll.views.home.MainActivity;
 import co.wishroll.views.registration.LoginActivity;
 import co.wishroll.views.reusables.Followers;
@@ -40,8 +46,10 @@ public class ProfileViewActivity extends AppCompatActivity {
     ProfileViewModel profileViewModel;
 
 
-    TextView usernameView, fullNameView;
+    TextView usernameView, fullNameView, wishrollScore, bioProfileView, numViews, numFollowers, numFollowing;
     private FloatingActionButton fabHome;
+    CircularImageView profilePicture;
+    ImageView bannerPicture, emojiView;
     ImageButton backProfileView, moreProfileView;
     Button bMainButton;
     private TextView followingList, followersList;
@@ -56,34 +64,37 @@ public class ProfileViewActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        int currentId = sessionManagement.getCurrentUserId();
         activityProfileViewBinding = DataBindingUtil.setContentView(this, R.layout.activity_profileview);
-        profileViewModel = new ViewModelProvider(this).get(ProfileViewModel.class);
+        profileViewModel = new ViewModelProvider(this, new ProfileViewModelFactory(currentId)).get(ProfileViewModel.class);
         activityProfileViewBinding.setProfileViewModel(profileViewModel);
 
 
-
-
-
-
-
-
+        usernameView = findViewById(R.id.usernameProfileView);
+        fullNameView = findViewById(R.id.fullNameProfileView);
+        wishrollScore = findViewById(R.id.wishrollScoreProfileView);
+        bioProfileView = findViewById(R.id.bioProfileView);
+        numViews = findViewById(R.id.viewsProfileView);
+        numFollowers = findViewById(R.id.followerCountProfileView);
+        numFollowing = findViewById(R.id.followingCountProfileView);
 
 
         fabHome = findViewById(R.id.fabProfileView);
         backProfileView = findViewById(R.id.backProfileView);
         moreProfileView = findViewById(R.id.moreProfileView);
         bMainButton = findViewById(R.id.mainButtonProfileView);
-        followersList = findViewById(R.id.followerCountProfileView);
-        followingList = findViewById(R.id.followingCountProfileView);
 
-        followingList.setOnClickListener(new View.OnClickListener() {
+
+        subscribeProfileObserver();
+
+        numFollowing.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(ProfileViewActivity.this, Following.class));
             }
         });
 
-        followersList.setOnClickListener(new View.OnClickListener() {
+        numFollowers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(ProfileViewActivity.this, Followers.class));
@@ -221,6 +232,78 @@ public class ProfileViewActivity extends AppCompatActivity {
 
 
 
+
+
+    }
+
+
+    public void subscribeProfileObserver(){
+        profileViewModel.observeCurrentUserProfile().observe(this, new Observer<StateData<User>>() {
+            @Override
+            public void onChanged(StateData<User> userStateData) {
+                if (userStateData != null) {
+
+                    switch (userStateData.status) {
+
+                        case LOADING: {
+                            showProgressBar(true);
+                            break;
+                        }
+                        case ERROR: {
+                            String yo = "gassedupshawty";
+                            usernameView.setText(yo);
+                            Log.d(TAG, "onChanged: fam this----");
+                            //Log.d(TAG, "onChanged: bruh " + userStateData.data.getId());
+                            showProgressBar(false);
+                            break;
+
+                        }
+
+                        case AUTHENTICATED: {
+                            User user = userStateData.data;
+
+                            usernameView.setText(user.getUsername());
+                            fullNameView.setText(user.getName());
+                            String wishrollScoreString = user.getWishrollScore() + "";
+                            wishrollScore.setText(wishrollScoreString);
+                            bioProfileView.setText(user.getBio());
+                            String numFollowersString = user.getNumFollowers() + "";
+                            String numFollowingString = user.getNumFollowing() + "";
+                            numFollowers.setText(numFollowersString);
+                            numFollowing.setText(numFollowingString);
+                            String numViewsString = user.getViewCount() + "";
+                            numViews.setText(numViewsString);
+
+
+
+
+                            break;
+                        }
+
+                       /* case NOT_AUTHENTICATED: {
+
+
+                            break;
+
+                        }*/
+
+                    }
+                }
+            }
+        });
+    }
+
+    public void showProgressBar(boolean isVisible){
+        if(isVisible){
+
+        }
+    }
+
+    public void loadProfilePicture(String profilePictureURL){
+
+    }
+
+    public void loadBannerPicture(String bannerPictureURL){
 
 
     }

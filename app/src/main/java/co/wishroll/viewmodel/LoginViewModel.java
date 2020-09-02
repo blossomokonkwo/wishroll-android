@@ -10,7 +10,6 @@ import androidx.lifecycle.ViewModel;
 import co.wishroll.models.repository.AuthRepository;
 import co.wishroll.models.repository.datamodels.AuthResponse;
 import co.wishroll.models.repository.datamodels.LoginRequest;
-import co.wishroll.models.repository.local.SessionManagement;
 import co.wishroll.utilities.AuthListener;
 import co.wishroll.utilities.AuthResource;
 
@@ -23,7 +22,6 @@ public class LoginViewModel extends ViewModel {
 
     AuthRepository authRepository = applicationGraph.authRepository();
     public AuthListener authListener = null;
-    SessionManagement sessionManagement = applicationGraph.sessionManagement();
 
     MediatorLiveData<AuthResource<AuthResponse>> authResponseMediatorLiveData = new MediatorLiveData<>();
 
