@@ -26,7 +26,7 @@ public class WishRollApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        //  instance = this;
+        instance = this;
         mContext = getApplicationContext();
     }
 

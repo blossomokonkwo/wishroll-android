@@ -5,13 +5,18 @@ import android.util.Log;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 import javax.inject.Singleton;
 
+import co.wishroll.WishRollApplication;
 import co.wishroll.models.repository.local.SessionManagement;
 import dagger.Module;
 import dagger.Provides;
+import okhttp3.Cache;
+import okhttp3.CacheControl;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -31,10 +36,12 @@ public class RetrofitInstance {
 
     private static String API_BASE_URL = "http://10.0.2.2:3000/v2/";
     private static Retrofit retrofitInstance;
-    private static Retrofit innerRetrofitInstance;
     public static SessionManagement sessionManagement = applicationGraph.sessionManagement();
     private static Gson gson;
 
+    private static final long cacheSize = 5 * 1024 * 1024; // 5 MB
+    private static String HEADER_CACHE_CONTROL = "Cache-Control";
+    private static String HEADER_PRAGMA = "Pragma";
 
 
 
@@ -49,12 +56,16 @@ public class RetrofitInstance {
 
 
         OkHttpClient httpClient = new OkHttpClient.Builder()
+                .cache(cache())
+                .addNetworkInterceptor(networkInterceptor())
+                .addInterceptor(offlineInterceptor())
                 .addInterceptor(loggingInterceptor)
                 .addInterceptor(new Interceptor() {
                     @Override
                     public Response intercept(Chain chain) throws IOException {
                         Request.Builder ongoing = chain.request().newBuilder();
                         if (isUserLoggedIn()) {
+
                             ongoing.addHeader("Authorization", sessionManagement.getToken());
                             ongoing.addHeader("Content-Type", "application/json");
                             ongoing.addHeader("Accept", "application/json");
@@ -63,6 +74,8 @@ public class RetrofitInstance {
                     }
                 })
                 .build();
+
+
 
 
 
@@ -80,6 +93,9 @@ public class RetrofitInstance {
         return retrofitInstance;
     }
 
+    private static Cache cache(){
+        return new Cache(new File(WishRollApplication.getInstance().getCacheDir(), "wishrollCache"), cacheSize);
+    }
 
     public static boolean isUserLoggedIn(){
         if(sessionManagement.getCurrentUserId() != 0 && sessionManagement.getToken() != null){
@@ -88,5 +104,54 @@ public class RetrofitInstance {
         }else{
             return false;
         }
+    }
+
+    private static Interceptor offlineInterceptor(){
+        return new Interceptor() {
+            
+            @Override
+            public Response intercept(Chain chain) throws IOException {
+                Log.d(TAG, "intercept: offline interceptor called.");
+
+                Request request = chain.request();
+
+                if(!WishRollApplication.hasNetwork()){
+                    CacheControl cacheControl = new CacheControl.Builder()
+                            .maxStale(30, TimeUnit.MINUTES)
+                            .build();
+
+                    request = request.newBuilder()
+                            .removeHeader(HEADER_PRAGMA)
+                            .removeHeader(HEADER_CACHE_CONTROL)
+                            .header(HEADER_CACHE_CONTROL, cacheControl.toString())
+                            .build();
+
+                }
+
+
+                return chain.proceed(request);
+            }
+        };
+    }
+
+    private static Interceptor networkInterceptor(){
+        return new Interceptor() {
+            @Override
+            public Response intercept(Chain chain) throws IOException {
+                Log.d(TAG, "intercept: network interceptor called");
+
+                Response response = chain.proceed(chain.request());
+
+                CacheControl cacheControl = new CacheControl.Builder()
+                        .maxAge(30, TimeUnit.SECONDS)
+                        .build();
+
+                return response.newBuilder()
+                        .removeHeader(HEADER_PRAGMA)
+                        .removeHeader(HEADER_CACHE_CONTROL)
+                        .header(HEADER_CACHE_CONTROL, cacheControl.toString())
+                        .build();
+            }
+        };
     }
 }
