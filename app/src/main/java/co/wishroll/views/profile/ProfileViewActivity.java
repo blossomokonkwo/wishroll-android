@@ -246,13 +246,22 @@ public class ProfileViewActivity extends AppCompatActivity {
                     switch (userStateData.status) {
 
                         case LOADING: {
-                            showProgressBar(true);
+                            String yo = "loading...";
+                            usernameView.setText(yo);
                             break;
                         }
                         case ERROR: {
-                            String yo = "gassedupshawty";
-                            usernameView.setText(yo);
-                            Log.d(TAG, "onChanged: fam this----");
+                            bMainButton.setVisibility(View.GONE);
+                            numViews.setVisibility(View.GONE);
+                            numFollowers.setVisibility(View.GONE);
+                            numFollowing.setVisibility(View.GONE);
+                            usernameView.setVisibility(View.GONE);
+                            wishrollScore.setVisibility(View.GONE);
+                            emojiView.setVisibility(View.GONE);
+                            String errorMessage = "User Not Found";
+                            fullNameView.setText(errorMessage);
+
+                            Log.d(TAG, "onChanged: error on showing profile.");
                             //Log.d(TAG, "onChanged: bruh " + userStateData.data.getId());
                             showProgressBar(false);
                             break;
@@ -280,7 +289,7 @@ public class ProfileViewActivity extends AppCompatActivity {
                             break;
                         }
 
-                       /* case NOT_AUTHENTICATED: {
+                        /*case NOT_AUTHENTICATED: {
 
 
                             break;

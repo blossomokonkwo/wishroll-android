@@ -30,12 +30,12 @@ public class ProfileViewModel extends ViewModel {
     }
 
     public void getCurrentUser(int id){
-
+        userLiveData.setValue(StateData.loading((User)null));
         final LiveData<StateData<User>> source = userRepository.getUserById(id);
         userLiveData.addSource(source, new Observer<StateData<User>>() {
             @Override
             public void onChanged(StateData<User> userStateData) {
-                userLiveData.postValue(userStateData);
+                userLiveData.setValue(userStateData);
                 userLiveData.removeSource(source);
             }
         });

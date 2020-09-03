@@ -132,6 +132,9 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-reactivestreams:2.2.0"
     implementation "androidx.lifecycle:lifecycle-livedata:2.2.0"
 
+    //OkHttp Logging Interceptor
+    implementation "com.squareup.okhttp3:logging-interceptor:4.8.1"
+
 
 
 
