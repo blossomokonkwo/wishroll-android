@@ -3,6 +3,7 @@ package co.wishroll.viewmodel;
 import android.text.TextUtils;
 import android.widget.EditText;
 
+import androidx.databinding.BindingAdapter;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.Observer;
@@ -27,6 +28,8 @@ public class EditProfileViewModel extends ViewModel {
     SessionManagement sessionManagement = applicationGraph.sessionManagement();
     AuthListener authListener = null;
     MediatorLiveData<StateData<EditedUser>> editedCurrentUser = new MediatorLiveData<>();
+
+
 
 
 
@@ -81,6 +84,21 @@ public class EditProfileViewModel extends ViewModel {
 
     }
 
+
+    @BindingAdapter("android:sessionName")
+    public static void setSessionName(EditText editText, String name){
+        editText.setText(name);
+    }
+
+   /* @BindingAdapter("android:sessionUsername")
+
+    @BindingAdapter("android:sessionBio")
+
+    @BindingAdapter("android:sessionEmail")
+
+    @BindingAdapter("android:sessionAvatar")
+
+    @BindingAdapter("android:sessionBackground")*/
 
     public void updateCurrentUser(Map<String, String> changedAttributes){
         editedCurrentUser.setValue(StateData.loading((EditedUser)null));

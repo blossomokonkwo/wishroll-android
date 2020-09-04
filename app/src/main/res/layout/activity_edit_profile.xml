@@ -5,13 +5,15 @@
 
     <data>
 
-        <variable
-            name="sessionManagement"
-            type="co.wishroll.models.repository.local.SessionManagement" />
+
 
         <variable
             name="editProfileViewModel"
             type="co.wishroll.viewmodel.EditProfileViewModel" />
+
+        <variable
+            name="sessionManagement"
+            type="co.wishroll.models.repository.local.SessionManagement" />
 
 
     </data>
@@ -150,7 +152,7 @@
                     android:layout_height="wrap_content"
                     >
                     <EditText
-                        android:hint="@{sessionManagement.name}"
+                        android:sessionName="@{sessionManagement.name}"
                         android:textColorHint="@color/black"
                         android:id="@+id/nameEdit"
                         android:layout_width="@dimen/_220sdp"
@@ -200,7 +202,6 @@
                     android:layout_height="wrap_content"
                     >
                     <EditText
-                        android:hint="@{sessionManagement.username}"
                         android:textColorHint="@color/black"
                         android:id="@+id/usernameEdit"
                         android:layout_width="@dimen/_220sdp"
@@ -249,7 +250,7 @@
                     android:layout_height="wrap_content"
                     >
                     <EditText
-                        android:hint="@{sessionManagement.email}"
+
                         android:textColorHint="@color/black"
                         android:id="@+id/emailEdit"
                         android:layout_width="@dimen/_220sdp"
@@ -298,7 +299,6 @@
                     android:layout_height="wrap_content"
                     >
                     <EditText
-                        android:hint="@{sessionManagement.bio}"
                         android:textColorHint="@color/black"
                         android:id="@+id/bioEdit"
                         android:layout_width="@dimen/_220sdp"

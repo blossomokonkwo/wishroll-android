@@ -26,8 +26,8 @@ public class SessionManagement extends Application {
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     String SHARED_PREF_NAME = "session";
-    Encryption encryption = Encryption.getDefault("Key", "chile", new byte[16]);
-    public static String token;
+     Encryption encryption = Encryption.getDefault("Key", "chile", new byte[16]);
+    public String token;
 
 
 
