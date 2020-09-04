@@ -1,9 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="sessionManagement"
+            type="co.wishroll.models.repository.local.SessionManagement" />
+
+        <variable
+            name="editProfileViewModel"
+            type="co.wishroll.viewmodel.EditProfileViewModel" />
+
+
+    </data>
+
+
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".views.profile.EditProfileActivity"
@@ -92,6 +106,19 @@
 
             </RelativeLayout>
 
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ProgressBar
+                    android:id="@+id/editProfileProgressBar"
+                    android:visibility="invisible"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_width="@dimen/_30sdp"
+                    android:layout_height="@dimen/_30sdp"/>
+
+            </RelativeLayout>
+
 
 
             <!-- Editing Text Fields -->
@@ -123,10 +150,12 @@
                     android:layout_height="wrap_content"
                     >
                     <EditText
+                        android:hint="@{sessionManagement.name}"
+                        android:textColorHint="@color/black"
                         android:id="@+id/nameEdit"
                         android:layout_width="@dimen/_220sdp"
                         android:layout_height="wrap_content"
-                        android:text="blossom"
+                        android:text="@={editProfileViewModel.editName}"
                         android:textSize="@dimen/_15sdp"
                         android:background="@android:color/transparent"
                         />
@@ -171,10 +200,12 @@
                     android:layout_height="wrap_content"
                     >
                     <EditText
+                        android:hint="@{sessionManagement.username}"
+                        android:textColorHint="@color/black"
                         android:id="@+id/usernameEdit"
                         android:layout_width="@dimen/_220sdp"
                         android:layout_height="wrap_content"
-                        android:text="blossomxo"
+                        android:text="@={editProfileViewModel.editUsername}"
                         android:textSize="@dimen/_15sdp"
                         android:background="@android:color/transparent"
                         />
@@ -218,10 +249,12 @@
                     android:layout_height="wrap_content"
                     >
                     <EditText
+                        android:hint="@{sessionManagement.email}"
+                        android:textColorHint="@color/black"
                         android:id="@+id/emailEdit"
                         android:layout_width="@dimen/_220sdp"
                         android:layout_height="wrap_content"
-                        android:text="blossom@gmail.com"
+                        android:text="@={editProfileViewModel.editEmail}"
                         android:textSize="@dimen/_15sdp"
                         android:background="@android:color/transparent"
                         />
@@ -265,10 +298,12 @@
                     android:layout_height="wrap_content"
                     >
                     <EditText
+                        android:hint="@{sessionManagement.bio}"
+                        android:textColorHint="@color/black"
                         android:id="@+id/bioEdit"
                         android:layout_width="@dimen/_220sdp"
                         android:layout_height="wrap_content"
-                        android:text="Welcome to the party"
+                        android:text="@={editProfileViewModel.editBio}"
                         android:inputType="textMultiLine"
                         android:lines="4"
                         android:textSize="@dimen/_13sdp"
@@ -297,6 +332,7 @@
 
             <Button
                 android:id="@+id/bsaveChanges"
+                android:onClick="@{() -> editProfileViewModel.onSaveChanges()}"
                 android:layout_gravity="center_horizontal"
                 android:layout_width="@dimen/_120sdp"
                 android:layout_height="@dimen/_40sdp"

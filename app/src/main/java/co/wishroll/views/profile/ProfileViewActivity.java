@@ -64,6 +64,7 @@ public class ProfileViewActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         int currentId = sessionManagement.getCurrentUserId();
         activityProfileViewBinding = DataBindingUtil.setContentView(this, R.layout.activity_profileview);
         profileViewModel = new ViewModelProvider(this, new ProfileViewModelFactory(currentId)).get(ProfileViewModel.class);
@@ -77,7 +78,7 @@ public class ProfileViewActivity extends AppCompatActivity {
         numViews = findViewById(R.id.viewsProfileView);
         numFollowers = findViewById(R.id.followerCountProfileView);
         numFollowing = findViewById(R.id.followingCountProfileView);
-
+        emojiView = findViewById(R.id.emojiProfileView);
 
         fabHome = findViewById(R.id.fabProfileView);
         backProfileView = findViewById(R.id.backProfileView);
@@ -246,12 +247,18 @@ public class ProfileViewActivity extends AppCompatActivity {
                     switch (userStateData.status) {
 
                         case LOADING: {
-                            String yo = "loading...";
-                            usernameView.setText(yo);
+                            bMainButton.setVisibility(View.INVISIBLE);
+                            numViews.setVisibility(View.INVISIBLE);
+                            numFollowers.setVisibility(View.INVISIBLE);
+                            numFollowing.setVisibility(View.INVISIBLE);
+                            usernameView.setVisibility(View.INVISIBLE);
+                            wishrollScore.setVisibility(View.INVISIBLE);
+                            emojiView.setVisibility(View.INVISIBLE);
+                            fullNameView.setVisibility(View.INVISIBLE);
                             break;
                         }
                         case ERROR: {
-                            bMainButton.setVisibility(View.GONE);
+                           bMainButton.setVisibility(View.GONE);
                             numViews.setVisibility(View.GONE);
                             numFollowers.setVisibility(View.GONE);
                             numFollowing.setVisibility(View.GONE);
@@ -262,7 +269,7 @@ public class ProfileViewActivity extends AppCompatActivity {
                             fullNameView.setText(errorMessage);
 
                             Log.d(TAG, "onChanged: error on showing profile.");
-                            //Log.d(TAG, "onChanged: bruh " + userStateData.data.getId());
+
                             showProgressBar(false);
                             break;
 
@@ -270,6 +277,15 @@ public class ProfileViewActivity extends AppCompatActivity {
 
                         case AUTHENTICATED: {
                             User user = userStateData.data;
+
+                            bMainButton.setVisibility(View.VISIBLE);
+                            numViews.setVisibility(View.VISIBLE);
+                            numFollowers.setVisibility(View.VISIBLE);
+                            numFollowing.setVisibility(View.VISIBLE);
+                            usernameView.setVisibility(View.VISIBLE);
+                            wishrollScore.setVisibility(View.VISIBLE);
+                            emojiView.setVisibility(View.VISIBLE);
+                            fullNameView.setVisibility(View.VISIBLE);
 
                             usernameView.setText(user.getUsername());
                             fullNameView.setText(user.getName());

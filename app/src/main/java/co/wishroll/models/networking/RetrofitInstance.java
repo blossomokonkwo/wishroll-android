@@ -56,9 +56,9 @@ public class RetrofitInstance {
 
 
         OkHttpClient httpClient = new OkHttpClient.Builder()
-                .cache(cache())
-                .addNetworkInterceptor(networkInterceptor())
-                .addInterceptor(offlineInterceptor())
+                //.cache(cache())
+                //.addNetworkInterceptor(networkInterceptor())
+                //.addInterceptor(offlineInterceptor())
                 .addInterceptor(loggingInterceptor)
                 .addInterceptor(new Interceptor() {
                     @Override

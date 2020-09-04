@@ -1,28 +1,37 @@
 package co.wishroll.views.profile;
 
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.Toast;
+import android.widget.ProgressBar;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.mikhaellopez.circularimageview.CircularImageView;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import co.wishroll.R;
+import co.wishroll.databinding.ActivityEditProfileBinding;
+import co.wishroll.models.repository.datamodels.EditedUser;
 import co.wishroll.models.repository.local.SessionManagement;
+import co.wishroll.utilities.AuthListener;
+import co.wishroll.utilities.StateData;
+import co.wishroll.utilities.ToastUtils;
+import co.wishroll.viewmodel.EditProfileViewModel;
 
 import static co.wishroll.WishRollApplication.applicationGraph;
 
-public class EditProfileActivity extends AppCompatActivity {
+public class EditProfileActivity extends AppCompatActivity implements AuthListener {
     private static final String TAG = "EditProfileActivity";
+
     SessionManagement sessionManagement = applicationGraph.sessionManagement();
+    private ActivityEditProfileBinding editProfileBinding;
+    EditProfileViewModel editProfileViewModel;
+    ProgressBar progressBar;
 
 
     private ImageButton backButton, editBannerButton;
@@ -35,6 +44,13 @@ public class EditProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
 
+
+
+        editProfileBinding = DataBindingUtil.setContentView(this, R.layout.activity_edit_profile);
+        editProfileViewModel = new ViewModelProvider(this).get(EditProfileViewModel.class);
+        editProfileBinding.setEditProfileViewModel(editProfileViewModel);
+
+
         backButton = findViewById(R.id.backEditProfileView);
         editBannerButton = findViewById(R.id.editBanneButtonrProfileView);
         editProfilePicture = findViewById(R.id.editPictureProfileView);
@@ -43,6 +59,7 @@ public class EditProfileActivity extends AppCompatActivity {
         editUsername = findViewById(R.id.usernameEdit);
         editName = findViewById(R.id.nameEdit);
         editBio = findViewById(R.id.bioEdit);
+        progressBar = findViewById(R.id.editProfileProgressBar);
 
         editEmail.setText(sessionManagement.getEmail());
         editUsername.setText(sessionManagement.getUsername());
@@ -64,61 +81,98 @@ public class EditProfileActivity extends AppCompatActivity {
             }
         });
 
-        saveButton.setOnClickListener(new View.OnClickListener() {
+
+    }
+
+
+
+    public void observeChangedUser(){
+        editProfileViewModel.observeEditsMade().observe(this, new Observer<StateData<EditedUser>>() {
             @Override
-            public void onClick(View v) {
+            public void onChanged(StateData<EditedUser> editedUserStateData) {
+                if(editedUserStateData != null){
+                    switch (editedUserStateData.status){
 
-                final String newEmail = editEmail.getText().toString().trim();
-                final String newUsername = formatUsername(editUsername);
-                final String newBio = editBio.getText().toString();
-                final String newName = editName.getText().toString();
+                        case LOADING: {
+                                showProgressBar(true);
+                            break;
+                        }
+                        case ERROR: {
+                                showProgressBar(false);
+                                sendMessage("Something went wrong.");
 
-                if(TextUtils.isEmpty(newName) || TextUtils.isEmpty(newUsername) || TextUtils.isEmpty(newEmail)){
-                    Toast.makeText(EditProfileActivity.this, "You missed a spot", Toast.LENGTH_LONG).show();
+                            break;
 
-                }else if(!usernameIsValid(newUsername)){
-                    Toast.makeText(EditProfileActivity.this, "Please enter a valid username", Toast.LENGTH_LONG).show();
+                        }
 
-                }else if(!emailIsVerified(newEmail)){
-                    Toast.makeText(EditProfileActivity.this, "Please enter a valid email", Toast.LENGTH_LONG).show();
+                        case AUTHENTICATED: {
+                            showProgressBar(false);
+                            if(editedUserStateData.data != null) {
+                                if(sessionManagement.editUserDetails(editedUserStateData.data)){
+                                    sendMessage("Profile Updated");
+                                    finish();
+                                }
 
-                }else{
-                    //sessionManagement.updateSession();
-                    //PATCH and return to edit profile activity
+                            }
+
+
+
+                            break;
+                        }
+
+                        /*case NOT_AUTHENTICATED: {
+
+
+                            break;
+
+                        }*/
+
+
+                    }
                 }
-
             }
         });
     }
 
+    private void showProgressBar(boolean isVisible){
+        if(isVisible){
+            progressBar.setVisibility(View.VISIBLE);
+        }else{
+            progressBar.setVisibility(View.GONE);
+        }
+    }
 
-    public boolean usernameIsValid(String usernameInput){
-        //Username Validation: no triple periods or underscores, no longer than 20 characters, no special characters
-
-        String usernameRegex = "^[A-Z0-9]([._](?![._])|[a-z0-9]){1,20}[a-z0-9]$";
-
-        Pattern usernamePat = Pattern.compile(usernameRegex, Pattern.CASE_INSENSITIVE);
-
-        Matcher matcher = usernamePat.matcher(usernameInput);
-
-        return matcher.find();
+    @Override
+    public void onStarted() {
 
     }
 
-    public String formatUsername(EditText username){
+    @Override
+    public void onSuccess() {
 
-        return username.getText().toString().toLowerCase().replace(' ', '_');
     }
 
-    public static boolean emailIsVerified(String emailInput){
-        //checks if email entry is in correct email form
+    @Override
+    public void onFailure(String message) {
+        ToastUtils.showToast(this, message);
 
-        String emailRegex = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$";
 
-        Pattern emailPat = Pattern.compile(emailRegex, Pattern.CASE_INSENSITIVE);
+    }
 
-        Matcher matcher = emailPat.matcher(emailInput);
+    @Override
+    public void sendMessage(String message) {
+        ToastUtils.showToast(this, message);
+    }
 
-        return matcher.find();
+    @Override
+    public void errorMessage(String message) {
+        ToastUtils.showToast(this, message);
+
+
+    }
+
+    @Override
+    public void statusGetter(int statusCode) {
+
     }
 }

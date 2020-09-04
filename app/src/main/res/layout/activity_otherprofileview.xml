@@ -5,9 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <variable
-            name="UserViewModel"
-            type="co.wishroll.viewmodel.UserViewModel" />
+
 
         <variable
             name="OtherProfileViewModel"

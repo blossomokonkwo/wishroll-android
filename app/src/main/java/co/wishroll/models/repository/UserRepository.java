@@ -5,16 +5,24 @@ import android.util.Log;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.LiveDataReactiveStreams;
 
+import java.util.Map;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import co.wishroll.models.domainmodels.User;
 import co.wishroll.models.networking.RetrofitInstance;
 import co.wishroll.models.networking.WishRollApi;
+import co.wishroll.models.repository.datamodels.AuthResponse;
+import co.wishroll.models.repository.datamodels.EditedUser;
+import co.wishroll.models.repository.datamodels.UValidationRequest;
 import co.wishroll.models.repository.local.SessionManagement;
 import co.wishroll.utilities.StateData;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 
 import static co.wishroll.WishRollApplication.applicationGraph;
@@ -29,6 +37,8 @@ public class UserRepository {
 
 
     private static int statusCode;
+
+    boolean usernameValid;
 
     private WishRollApi wishRollApi;
 
@@ -111,6 +121,61 @@ public class UserRepository {
 
 
         return source;
+    }
+
+    public boolean usernameIsAvailable(String username) {
+
+        UValidationRequest uValidationRequest = new UValidationRequest(username);
+
+        wishRollApi.validateUsername(uValidationRequest).enqueue(new Callback<AuthResponse>() {
+            @Override
+            public void onResponse(Call<AuthResponse> call, Response<AuthResponse> response) {
+                if (response.code() == 200) {
+                    usernameValid = true;
+
+                } else if (response.code() == 400) {
+                    usernameValid = false;
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<AuthResponse> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
+
+        return usernameValid;
+
+    }
+
+
+
+
+    public LiveData<StateData<EditedUser>> updateUser(Map<String, String> changedAttributes){
+        final LiveData<StateData<EditedUser>> source = LiveDataReactiveStreams.fromPublisher(
+                wishRollApi.updateUserDetails(changedAttributes)
+                .onErrorReturn(new Function<Throwable, EditedUser>() {
+                    @Override
+                    public EditedUser apply(Throwable throwable) throws Exception {
+                        return null;
+                    }
+                })
+                .map(new Function<EditedUser, StateData<EditedUser>>() {
+                    @Override
+                    public StateData<EditedUser> apply(EditedUser editedUser) throws Exception {
+
+                        if(editedUser == null){
+                            return StateData.error("Something went went wrong", null);
+                        }else{
+                            return StateData.authenticated(editedUser);
+                        }
+
+                    }
+                }).subscribeOn(Schedulers.io()));
+
+        return source;
+
     }
 
 

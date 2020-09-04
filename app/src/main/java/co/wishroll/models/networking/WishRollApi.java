@@ -1,12 +1,14 @@
 package co.wishroll.models.networking;
 
 import java.util.List;
+import java.util.Map;
 
 import co.wishroll.models.domainmodels.Notification;
 import co.wishroll.models.domainmodels.Post;
 import co.wishroll.models.domainmodels.User;
 import co.wishroll.models.repository.datamodels.AuthResponse;
 import co.wishroll.models.repository.datamodels.EValidationRequest;
+import co.wishroll.models.repository.datamodels.EditedUser;
 import co.wishroll.models.repository.datamodels.LoginRequest;
 import co.wishroll.models.repository.datamodels.SignupRequestMany;
 import co.wishroll.models.repository.datamodels.UValidationRequest;
@@ -14,9 +16,10 @@ import io.reactivex.Flowable;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
-import retrofit2.http.PATCH;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
+import retrofit2.http.QueryMap;
 
 public interface WishRollApi {
     //all wishroll api methods and calls
@@ -49,9 +52,8 @@ public interface WishRollApi {
     Flowable<User> getUserByUsername(@Path ("username") String username);
 
 
-    @PATCH("users/{id}")
-    Flowable<User> updateUserDetails();  //(@Body UserModel userModel, @Path ("id") int id);
-    //not sure what to send in the body to be honest
+    @PUT("user/update")
+    Flowable<EditedUser> updateUserDetails(@QueryMap Map<String, String> parameters); //send anything that changed, how to send anything
 
     @GET("")
     Flowable<List<User>> getListFollowers();
@@ -76,7 +78,7 @@ public interface WishRollApi {
     @GET("")
     Flowable<List<Notification>> getNotifications();
 
-    
+
 
 
 

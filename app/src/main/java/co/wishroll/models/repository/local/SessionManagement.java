@@ -10,6 +10,7 @@ import javax.inject.Singleton;
 
 import co.wishroll.WishRollApplication;
 import co.wishroll.models.repository.datamodels.AccessToken;
+import co.wishroll.models.repository.datamodels.EditedUser;
 import co.wishroll.models.repository.datamodels.UserModel;
 import co.wishroll.utilities.Encryption;
 
@@ -80,42 +81,18 @@ public class SessionManagement extends Application {
 
     }
 
-    public void updateSession(UserModel userModel){
 
 
-        editor.putString("username", userModel.getUsername());
-        Log.d(TAG, "updateSession: UPDATED USERNAME: " + userModel.getUsername());
-
-        editor.putString("bio", userModel.getBio());
-        Log.d(TAG, "updateSession: UPDATED BIO: " + userModel.getBio());
-
-        if(userModel.getAvatar() != null) {
-            editor.putString("avatar", userModel.getAvatar());
-            Log.d(TAG, "updateSession: UPDATED AVATAR URL STRING: " + userModel.getAvatar().toString());
-        }else{
-            editor.putString("avatar", "");
-
-        }
-
-        if( userModel.getProfileBackgroundUrl() != null) {
-            editor.putString("background_url", userModel.getProfileBackgroundUrl());
-            Log.d(TAG, "updateSession: UPDATED BACKGROUND URL STRING: " + userModel.getProfileBackgroundUrl());
-        }else{
-            editor.putString("background_url", "");
-
-        }
+    public boolean editUserDetails(EditedUser editedUser){
+        editor.putString("username", editedUser.getUsername());
+        editor.putString("name", editedUser.getName());
+        editor.putString("avatar", editedUser.getAvatarUrl());
+        editor.putString("background_url", editedUser.getBackgroundUrl());
+        editor.putString("email", editedUser.getEmail());
+        editor.putString("bio", editedUser.getBio());
 
 
-        editor.putString("name", userModel.getName());
-        Log.d(TAG, "updateSession: UPDATED NAME: " + userModel.getName());
-
-        editor.putString("email", userModel.getEmail());
-        Log.d(TAG, "updateSession: UPDATED EMAIL: " + userModel.getEmail());
-
-
-        editor.commit();
-
-
+        return editor.commit();
     }
 
     public String getEmail(){
