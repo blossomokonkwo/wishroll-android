@@ -26,8 +26,7 @@ import co.wishroll.models.repository.local.SessionManagement;
 import co.wishroll.viewmodel.OtherProfileViewModel;
 import co.wishroll.views.home.MainActivity;
 import co.wishroll.views.registration.LoginActivity;
-import co.wishroll.views.reusables.Followers;
-import co.wishroll.views.reusables.Following;
+import co.wishroll.views.reusables.UserList;
 import co.wishroll.views.tools.ProfileViewPagerAdapter;
 
 import static co.wishroll.WishRollApplication.applicationGraph;
@@ -75,14 +74,14 @@ public class OtherProfileViewActivity extends AppCompatActivity {
         followingList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(OtherProfileViewActivity.this, Following.class));
+                startActivity(new Intent(OtherProfileViewActivity.this, UserList.class));
             }
         });
 
         followersList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(OtherProfileViewActivity.this, Followers.class));
+                startActivity(new Intent(OtherProfileViewActivity.this, UserList.class));
 
             }
         });

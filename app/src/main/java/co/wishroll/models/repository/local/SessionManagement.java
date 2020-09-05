@@ -21,7 +21,7 @@ public class SessionManagement extends Application {
     //wipes current user information on log out
     //stores authentication token of user
     //wipes authentication token of user
-    //TODO(responsible for refreshing user authorization token when it expires)
+    
 
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
@@ -51,11 +51,12 @@ public class SessionManagement extends Application {
         editor.putString("bio", userModel.getBio());
         Log.d(TAG, "saveSession: CURRENT BIO: " + userModel.getBio());
 
-        if( userModel.getAvatar() != null) {
+        if( userModel.getAvatar() == null) {
+            editor.putString("avatar", "");
+        }else{
             editor.putString("avatar", userModel.getAvatar());
             Log.d(TAG, "saveSession: CURRENT AVATAR URL STRING: " + userModel.getAvatar());
-        }else{
-            editor.putString("avatar", "");
+
         }
 
         if( userModel.getProfileBackgroundUrl() != null) {
@@ -83,23 +84,66 @@ public class SessionManagement extends Application {
 
 
 
-    public boolean editUserDetails(EditedUser editedUser){
+    public void editUserDetails(EditedUser editedUser){
+        Log.d(TAG, "editUserDetails: updating the user's session with returned values");
         editor.putString("username", editedUser.getUsername());
         editor.putString("name", editedUser.getName());
         editor.putString("avatar", editedUser.getAvatarUrl());
         editor.putString("background_url", editedUser.getBackgroundUrl());
         editor.putString("email", editedUser.getEmail());
         editor.putString("bio", editedUser.getBio());
+        editor.commit();
 
 
-        return editor.commit();
+
     }
 
+    //Editing User Profile Methods
+
+    public void setNameSession(String name){
+        editor.putString("name", name);
+        editor.commit();
+    }
+
+    public void setEmailSession(String email){
+        editor.putString("email", email);
+        editor.commit();
+    }
+
+
+    public void setAvatar(String avatar){
+        editor.putString("avatar", avatar);
+        editor.commit();
+    }
+
+
+    public void setBackgroundSession(String background){
+        editor.putString("background_url", background);
+        editor.commit();
+    }
+
+
+    public void setBioSession(String bio){
+        editor.putString("bio", bio);
+        editor.commit();
+
+    }
+
+
+    public void setUsernameSession(String username){
+        editor.putString("username", username);
+        editor.commit();
+
+    }
+
+
     public String getEmail(){
+        Log.d(TAG, "getEmail: returning the email held in session");
         return sharedPreferences.getString("email", "");
     }
 
     public String getAvatarURL(){
+        Log.d(TAG, "getAvatarURL: returning the avatar url held in session");
         return sharedPreferences.getString("avatar", "");
     }
 
@@ -108,14 +152,17 @@ public class SessionManagement extends Application {
     }
 
     public String getUsername(){
+        Log.d(TAG, "getUsername: returning the username held in session");
         return sharedPreferences.getString("username", "");
     }
 
     public String getBio(){
+        Log.d(TAG, "getBio: returning the bio held in session");
         return sharedPreferences.getString("bio", "");
     }
 
     public String getName(){
+        Log.d(TAG, "getName: returning the name held in session");
         return sharedPreferences.getString("name", "");
     }
 

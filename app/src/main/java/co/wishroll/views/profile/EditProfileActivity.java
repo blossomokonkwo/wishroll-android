@@ -1,18 +1,16 @@
 package co.wishroll.views.profile;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-
-import com.mikhaellopez.circularimageview.CircularImageView;
 
 import co.wishroll.R;
 import co.wishroll.databinding.ActivityEditProfileBinding;
@@ -34,15 +32,13 @@ public class EditProfileActivity extends AppCompatActivity implements AuthListen
     ProgressBar progressBar;
 
 
-    private ImageButton backButton, editBannerButton;
-    private CircularImageView editProfilePicture;
-    private Button saveButton;
-    EditText editEmail, editUsername, editName, editBio;
+    private ImageButton backButton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_profile);
+        //setContentView(R.layout.activity_edit_profile);
 
 
 
@@ -52,21 +48,18 @@ public class EditProfileActivity extends AppCompatActivity implements AuthListen
 
 
         backButton = findViewById(R.id.backEditProfileView);
-        editBannerButton = findViewById(R.id.editBanneButtonrProfileView);
-        editProfilePicture = findViewById(R.id.editPictureProfileView);
-        saveButton = findViewById(R.id.bsaveChanges);
-        editEmail = findViewById(R.id.emailEdit);
-        editUsername = findViewById(R.id.usernameEdit);
-        editName = findViewById(R.id.nameEdit);
-        editBio = findViewById(R.id.bioEdit);
+
+
         progressBar = findViewById(R.id.editProfileProgressBar);
 
-        editEmail.setText(sessionManagement.getEmail());
-        editUsername.setText(sessionManagement.getUsername());
-        editName.setText(sessionManagement.getName());
-        editBio.setText(sessionManagement.getBio());
 
 
+
+
+
+
+
+        observeChangedUser();
 
 
 
@@ -82,11 +75,20 @@ public class EditProfileActivity extends AppCompatActivity implements AuthListen
         });
 
 
+
+
+
+
+
+
     }
 
 
 
     public void observeChangedUser(){
+
+        editProfileViewModel.editBio = sessionManagement.getBio();
+        Log.d(TAG, "observeChangedUser: starting to observe the edited user");
         editProfileViewModel.observeEditsMade().observe(this, new Observer<StateData<EditedUser>>() {
             @Override
             public void onChanged(StateData<EditedUser> editedUserStateData) {
@@ -94,10 +96,12 @@ public class EditProfileActivity extends AppCompatActivity implements AuthListen
                     switch (editedUserStateData.status){
 
                         case LOADING: {
+                            Log.d(TAG, "onChanged: this is loading");
                                 showProgressBar(true);
                             break;
                         }
                         case ERROR: {
+                            Log.d(TAG, "onChanged: we have an error with the edited user.");
                                 showProgressBar(false);
                                 sendMessage("Something went wrong.");
 
@@ -106,12 +110,24 @@ public class EditProfileActivity extends AppCompatActivity implements AuthListen
                         }
 
                         case AUTHENTICATED: {
+
+                            Log.d(TAG, "onChanged: this user's changes are getting saved into the shared preferences");
                             showProgressBar(false);
+
                             if(editedUserStateData.data != null) {
-                                if(sessionManagement.editUserDetails(editedUserStateData.data)){
-                                    sendMessage("Profile Updated");
-                                    finish();
-                                }
+
+
+                                sessionManagement.setNameSession(editedUserStateData.data.name);
+                                sessionManagement.setUsernameSession(editedUserStateData.data.username);
+                                sessionManagement.setBioSession(editedUserStateData.data.bio);
+                                sessionManagement.setEmailSession(editedUserStateData.data.email);
+                                sessionManagement.setBackgroundSession(editedUserStateData.data.backgroundUrl);
+                                sessionManagement.setAvatar(editedUserStateData.data.avatarUrl);
+
+                                sendMessage("Profile Updated");
+                                finish();
+
+
 
                             }
 
@@ -161,7 +177,7 @@ public class EditProfileActivity extends AppCompatActivity implements AuthListen
 
     @Override
     public void sendMessage(String message) {
-        ToastUtils.showToast(this, message);
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -175,4 +191,10 @@ public class EditProfileActivity extends AppCompatActivity implements AuthListen
     public void statusGetter(int statusCode) {
 
     }
+
+
+
+
+
+
 }

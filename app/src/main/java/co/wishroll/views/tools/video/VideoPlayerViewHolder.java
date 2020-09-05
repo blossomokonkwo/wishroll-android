@@ -1,4 +1,4 @@
-package co.wishroll.views.tools;
+package co.wishroll.views.tools.video;
 
 import android.view.View;
 import android.widget.FrameLayout;

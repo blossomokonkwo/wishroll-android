@@ -57,6 +57,7 @@ public class UserRepository {
 
     public LiveData<StateData<User>> getUserById(int id){
         Log.d(TAG, "getUserById: in the get user by id method");
+
         final LiveData<StateData<User>> source = LiveDataReactiveStreams.fromPublisher(
                 wishRollApi.getUserById(id)
                 .onErrorReturn(new Function<Throwable, User>() {
@@ -106,7 +107,7 @@ public class UserRepository {
                             public StateData<User> apply(User user) throws Exception {
 
                                 if(user.getId() == 0){
-                                    Log.d(TAG, "apply: user id is equal tp zero. returning the error message rn");
+                                    Log.d(TAG, "apply: user id is equal to zero. returning the error message rn");
                                     return StateData.error("User not Found", null);
 
                                 }else{
@@ -125,16 +126,22 @@ public class UserRepository {
 
     public boolean usernameIsAvailable(String username) {
 
+        Log.d(TAG, "usernameIsAvailable: checking if username is taken");
         UValidationRequest uValidationRequest = new UValidationRequest(username);
-
+        
+        
         wishRollApi.validateUsername(uValidationRequest).enqueue(new Callback<AuthResponse>() {
+            
+            
             @Override
             public void onResponse(Call<AuthResponse> call, Response<AuthResponse> response) {
                 if (response.code() == 200) {
                     usernameValid = true;
+                    Log.d(TAG, "onResponse: username is not taken");
 
                 } else if (response.code() == 400) {
                     usernameValid = false;
+                    Log.d(TAG, "onResponse: username is taken");
 
                 }
             }
@@ -145,6 +152,8 @@ public class UserRepository {
             }
         });
 
+        Log.d(TAG, "usernameIsAvailable: this username is available" + usernameValid);
+
         return usernameValid;
 
     }
@@ -153,21 +162,27 @@ public class UserRepository {
 
 
     public LiveData<StateData<EditedUser>> updateUser(Map<String, String> changedAttributes){
+        Log.d(TAG, "updateUser: we are in the update user method of the user repository.");
+
         final LiveData<StateData<EditedUser>> source = LiveDataReactiveStreams.fromPublisher(
                 wishRollApi.updateUserDetails(changedAttributes)
                 .onErrorReturn(new Function<Throwable, EditedUser>() {
                     @Override
                     public EditedUser apply(Throwable throwable) throws Exception {
+                        Log.d(TAG, "apply: in the error clause of the update user method.");
                         return null;
                     }
                 })
                 .map(new Function<EditedUser, StateData<EditedUser>>() {
                     @Override
                     public StateData<EditedUser> apply(EditedUser editedUser) throws Exception {
+                        Log.d(TAG, "apply: in the mapping clause of the update user method.");
 
                         if(editedUser == null){
                             return StateData.error("Something went went wrong", null);
                         }else{
+                            Log.d(TAG, "apply: this user has been successfully updated");
+                            //Log.d(TAG, "apply: edited user " + editedUser.toString());
                             return StateData.authenticated(editedUser);
                         }
 
