@@ -72,7 +72,7 @@ public class PasswordSignupActivity extends AppCompatActivity implements AuthLis
                 }else if(!etPasswordOne.getText().toString().equals(etPasswordTwo.getText().toString())) {
                     onFailure("Please enter the correct password");
 
-                }else if(etPasswordOne.getText().toString().length() <= 8 ) {
+                }else if(etPasswordOne.getText().toString().length() <= 6 ) {
                     sendMessage("Your password must be 8 characters or longer");
 
                 }else {

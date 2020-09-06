@@ -34,6 +34,8 @@ public class SessionManagement extends Application {
 
     @Inject
     public SessionManagement(){
+
+
         sharedPreferences = WishRollApplication.getContext().getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
 
@@ -98,47 +100,33 @@ public class SessionManagement extends Application {
 
     }
 
+    public boolean clearClearables(){
+        editor.remove("username");
+        editor.remove("bio");
+        editor.remove("avatar");
+        editor.remove("name");
+        editor.remove("email");
+        editor.remove("background");
+        return editor.commit();
+    }
+
+    public void printEverything(String location){
+        Log.d(TAG, "printing everything at this point: " + location );
+        Log.d(TAG, "printEverything: username: " + sharedPreferences.getString("username", "username is blank"));
+        Log.d(TAG, "printEverything: name: " + sharedPreferences.getString("name", "name is blank"));
+        Log.d(TAG, "printEverything: bio: " + sharedPreferences.getString("bio", "bio is blank"));
+        Log.d(TAG, "printEverything: email: " + sharedPreferences.getString("email", "email is blank"));
+
+    }
+
     //Editing User Profile Methods
 
-    public void setNameSession(String name){
-        editor.putString("name", name);
-        editor.commit();
-    }
 
-    public void setEmailSession(String email){
-        editor.putString("email", email);
-        editor.commit();
-    }
-
-
-    public void setAvatar(String avatar){
-        editor.putString("avatar", avatar);
-        editor.commit();
-    }
-
-
-    public void setBackgroundSession(String background){
-        editor.putString("background_url", background);
-        editor.commit();
-    }
-
-
-    public void setBioSession(String bio){
-        editor.putString("bio", bio);
-        editor.commit();
-
-    }
-
-
-    public void setUsernameSession(String username){
-        editor.putString("username", username);
-        editor.commit();
-
-    }
 
 
     public String getEmail(){
         Log.d(TAG, "getEmail: returning the email held in session");
+
         return sharedPreferences.getString("email", "");
     }
 
@@ -157,6 +145,7 @@ public class SessionManagement extends Application {
     }
 
     public String getBio(){
+
         Log.d(TAG, "getBio: returning the bio held in session");
         return sharedPreferences.getString("bio", "");
     }

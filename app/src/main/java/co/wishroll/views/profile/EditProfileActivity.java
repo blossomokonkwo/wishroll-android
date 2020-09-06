@@ -1,5 +1,6 @@
 package co.wishroll.views.profile;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -14,7 +15,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import co.wishroll.R;
 import co.wishroll.databinding.ActivityEditProfileBinding;
-import co.wishroll.models.repository.datamodels.EditedUser;
+import co.wishroll.models.repository.datamodels.UpdateResponse;
 import co.wishroll.models.repository.local.SessionManagement;
 import co.wishroll.utilities.AuthListener;
 import co.wishroll.utilities.StateData;
@@ -45,16 +46,12 @@ public class EditProfileActivity extends AppCompatActivity implements AuthListen
         editProfileBinding = DataBindingUtil.setContentView(this, R.layout.activity_edit_profile);
         editProfileViewModel = new ViewModelProvider(this).get(EditProfileViewModel.class);
         editProfileBinding.setEditProfileViewModel(editProfileViewModel);
-
+        editProfileViewModel.authListener = this;
 
         backButton = findViewById(R.id.backEditProfileView);
 
 
         progressBar = findViewById(R.id.editProfileProgressBar);
-
-
-
-
 
 
 
@@ -67,9 +64,18 @@ public class EditProfileActivity extends AppCompatActivity implements AuthListen
 
 
 
+
+
+
+
+
+
+
+
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                startActivity(new Intent(EditProfileActivity.this, ProfileViewActivity.class));
                 finish();
             }
         });
@@ -87,23 +93,28 @@ public class EditProfileActivity extends AppCompatActivity implements AuthListen
 
     public void observeChangedUser(){
 
-        editProfileViewModel.editBio = sessionManagement.getBio();
+
+
         Log.d(TAG, "observeChangedUser: starting to observe the edited user");
-        editProfileViewModel.observeEditsMade().observe(this, new Observer<StateData<EditedUser>>() {
+        editProfileViewModel.observeEditsMade().observe(this, new Observer<StateData<UpdateResponse>>() {
             @Override
-            public void onChanged(StateData<EditedUser> editedUserStateData) {
-                if(editedUserStateData != null){
-                    switch (editedUserStateData.status){
+            public void onChanged(StateData<UpdateResponse> updateResponseStateData) {
+                if(updateResponseStateData != null){
+
+                    switch (updateResponseStateData.status){
 
                         case LOADING: {
                             Log.d(TAG, "onChanged: this is loading");
                                 showProgressBar(true);
                             break;
                         }
+
                         case ERROR: {
                             Log.d(TAG, "onChanged: we have an error with the edited user.");
                                 showProgressBar(false);
-                                sendMessage("Something went wrong.");
+                                sendMessage("This username is taken");
+                                startActivity(new Intent(EditProfileActivity.this, ProfileViewActivity.class));
+                                finish();
 
                             break;
 
@@ -114,18 +125,15 @@ public class EditProfileActivity extends AppCompatActivity implements AuthListen
                             Log.d(TAG, "onChanged: this user's changes are getting saved into the shared preferences");
                             showProgressBar(false);
 
-                            if(editedUserStateData.data != null) {
+                            if(updateResponseStateData.data != null) {
 
-
-                                sessionManagement.setNameSession(editedUserStateData.data.name);
-                                sessionManagement.setUsernameSession(editedUserStateData.data.username);
-                                sessionManagement.setBioSession(editedUserStateData.data.bio);
-                                sessionManagement.setEmailSession(editedUserStateData.data.email);
-                                sessionManagement.setBackgroundSession(editedUserStateData.data.backgroundUrl);
-                                sessionManagement.setAvatar(editedUserStateData.data.avatarUrl);
-
+                                Log.d(TAG, "onChanged:THIS IS ANNOYING ME SESSION: " + updateResponseStateData.data.currentUser.getBio());
                                 sendMessage("Profile Updated");
-                                finish();
+
+                                    sessionManagement.editUserDetails(updateResponseStateData.data.currentUser);
+
+                                    sessionManagement.printEverything("AFTER USER HAD PRESSED SAVE AND IT HAS UPDATED SUCCESSFULLY");
+                                    finish();
 
 
 
@@ -145,6 +153,10 @@ public class EditProfileActivity extends AppCompatActivity implements AuthListen
 
 
                     }
+                }else{
+                    sendMessage("This username is taken");
+                    startActivity(new Intent(EditProfileActivity.this, ProfileViewActivity.class));
+                    finish();
                 }
             }
         });

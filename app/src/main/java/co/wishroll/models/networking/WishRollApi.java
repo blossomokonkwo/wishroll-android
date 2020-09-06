@@ -8,10 +8,10 @@ import co.wishroll.models.domainmodels.Post;
 import co.wishroll.models.domainmodels.User;
 import co.wishroll.models.repository.datamodels.AuthResponse;
 import co.wishroll.models.repository.datamodels.EValidationRequest;
-import co.wishroll.models.repository.datamodels.EditedUser;
 import co.wishroll.models.repository.datamodels.LoginRequest;
 import co.wishroll.models.repository.datamodels.SignupRequestMany;
 import co.wishroll.models.repository.datamodels.UValidationRequest;
+import co.wishroll.models.repository.datamodels.UpdateResponse;
 import io.reactivex.Flowable;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -48,12 +48,13 @@ public interface WishRollApi {
     @GET("users/{id}")
     Flowable<User> getUserById(@Path ("id") int id);
 
+
     @GET("users/{username}")
     Flowable<User> getUserByUsername(@Path ("username") String username);
 
 
     @PUT("user/update")
-    Flowable<EditedUser> updateUserDetails(@QueryMap Map<String, String> parameters); //send anything that changed, how to send anything
+    Flowable<UpdateResponse> updateUserDetails(@QueryMap Map<String, String> parameters); //send anything that changed, how to send anything
 
     @GET("")
     Flowable<List<User>> getListFollowers();

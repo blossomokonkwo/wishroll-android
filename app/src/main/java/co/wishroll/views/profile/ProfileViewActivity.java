@@ -189,6 +189,7 @@ public class ProfileViewActivity extends AppCompatActivity {
 
                         startActivity(new Intent(ProfileViewActivity.this, EditProfileActivity.class));
                         bottomSheetDialog.dismiss();
+                        finish();
 
                     }
                 });
@@ -200,7 +201,6 @@ public class ProfileViewActivity extends AppCompatActivity {
                         sessionManagement.checkLogout();
                         bottomSheetDialog.dismiss();
                         startActivity(new Intent(ProfileViewActivity.this, LoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK| Intent.FLAG_ACTIVITY_CLEAR_TOP));
-                        //TODO(this crashes everytime it happens but we're going to leave it alone for now) --> added to this but we'll see how it works rn bruv
                         finish();
 
                     }
@@ -226,6 +226,7 @@ public class ProfileViewActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(ProfileViewActivity.this, EditProfileActivity.class));
+
             }
         });
 
@@ -275,8 +276,8 @@ public class ProfileViewActivity extends AppCompatActivity {
                         }
 
                         case AUTHENTICATED: {
-                            User user = userStateData.data;
 
+                            User user = userStateData.data;
                             bMainButton.setVisibility(View.VISIBLE);
                             numViews.setVisibility(View.VISIBLE);
                             numFollowers.setVisibility(View.VISIBLE);
@@ -286,7 +287,8 @@ public class ProfileViewActivity extends AppCompatActivity {
                             emojiView.setVisibility(View.VISIBLE);
                             fullNameView.setVisibility(View.VISIBLE);
 
-                            usernameView.setText(user.getUsername());
+                            String attedUsername = "@" + user.getUsername();
+                            usernameView.setText(attedUsername);
                             fullNameView.setText(user.getName());
                             String wishrollScoreString = user.getWishrollScore() + "";
                             wishrollScore.setText(wishrollScoreString);
@@ -297,6 +299,12 @@ public class ProfileViewActivity extends AppCompatActivity {
                             numFollowing.setText(numFollowingString);
                             String numViewsString = user.getViewCount() + "";
                             numViews.setText(numViewsString);
+
+                            /*sessionManagement.setNameSession(user.getName());
+                            sessionManagement.setUsernameSession(user.getUsername());
+                            sessionManagement.setBioSession(user.getBio());
+                            sessionManagement.setBackgroundSession(user.getProfileBackgroundUrl());
+                            sessionManagement.setAvatar(user.getAvatar());*/
 
 
 

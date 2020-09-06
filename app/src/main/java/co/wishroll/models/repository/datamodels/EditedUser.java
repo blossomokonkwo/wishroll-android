@@ -25,7 +25,7 @@ public class EditedUser {
     @Expose
     public String avatarUrl;
 
-    @SerializedName("background_url")
+    @SerializedName("profile_background_url")
     @Expose
     public String backgroundUrl;
 

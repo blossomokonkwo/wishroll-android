@@ -1,8 +1,8 @@
 package co.wishroll.viewmodel;
 
-import android.text.TextUtils;
 import android.util.Log;
 
+import androidx.databinding.ObservableField;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.Observer;
@@ -14,133 +14,227 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import co.wishroll.models.repository.UserRepository;
-import co.wishroll.models.repository.datamodels.EditedUser;
+import co.wishroll.models.repository.datamodels.UpdateResponse;
 import co.wishroll.models.repository.local.SessionManagement;
 import co.wishroll.utilities.AuthListener;
 import co.wishroll.utilities.StateData;
 
 import static co.wishroll.WishRollApplication.applicationGraph;
 
-public class EditProfileViewModel extends ViewModel {
-    private static final String TAG = "EditProfileViewModel";
+public class EditProfileViewModel extends ViewModel{
 
+    private static final String TAG = "EditProfileViewModel";
     UserRepository userRepository = applicationGraph.userRepository();
     SessionManagement sessionManagement = applicationGraph.sessionManagement();
     public AuthListener authListener = null;
-    MediatorLiveData<StateData<EditedUser>> editedCurrentUser = new MediatorLiveData<>();
+    HashMap<String, String> changedValues = new HashMap<String, String>();
+    MediatorLiveData<StateData<UpdateResponse>> editedCurrentUser = new MediatorLiveData<>();
 
 
+    public ObservableField<String> editName = new ObservableField<>(sessionManagement.getName());
 
-
-    //the strings that are supposed to be placeholders are coming up empty :((((
-
-
-
-
-    public String editName = sessionManagement.getName();
-    public String editUsername = sessionManagement.getUsername();
-    public String editEmail = sessionManagement.getEmail();
-    public String editBio = ""; //= sessionManagement.getBio();
-    public String editProfileURL = sessionManagement.getAvatarURL();
-    public String editBackgroundURL = sessionManagement.getBackgroundURL();
-
-   /* public EditProfileViewModel(){
-         editName = sessionManagement.getName();
-         editUsername = sessionManagement.getUsername();
-        editEmail = sessionManagement.getEmail();
-        editBio = sessionManagement.getBio();
-         editProfileURL = sessionManagement.getAvatarURL();
-       editBackgroundURL = sessionManagement.getBackgroundURL();
+    public String getEditName(){
+        return editName.get();
     }
-*/
+
+    public void setEditName(ObservableField<String> name) {
+        this.editName = name;
+        this.editName.notifyChange();
+    }
+
+
+    public ObservableField<String> editUsername = new ObservableField<>(sessionManagement.getUsername());
+
+    public String getEditUsername(){
+        return editUsername.get();
+    }
+
+    public void setEditUsername(ObservableField<String> username) {
+        this.editUsername = username;
+        this.editUsername.notifyChange();
+    }
+
+
+
+
+    public ObservableField<String> editEmail = new ObservableField<>(sessionManagement.getEmail());
+
+    public String getEditEmail(){
+        return editEmail.get();
+    }
+
+    public void setEditEmail(ObservableField<String> email) {
+        this.editEmail = email;
+        this.editEmail.notifyChange();
+    }
+
+
+    public ObservableField<String> editBio = new ObservableField<>(sessionManagement.getBio());
+    public String getEditBio(){
+        return editBio.get();
+    }
+
+    public void setEditBio(ObservableField<String> bio) {
+        this.editBio = bio;
+        this.editBio.notifyChange();
+    }
+
+
+
+    public ObservableField<String> editProfileURL = new ObservableField<>(sessionManagement.getAvatarURL());
+    public String getEditProfileURL(){
+        return editProfileURL.get();
+    }
+
+    public void setEditProfileURL(ObservableField<String> profileURL) {
+        this.editProfileURL = profileURL;
+        this.editProfileURL.notifyChange();
+    }
+
+    public ObservableField<String> editBackgroundURL = new ObservableField<>(sessionManagement.getBackgroundURL());
+    public String getEditBackgroundURL(){
+        return editBackgroundURL.get();
+    }
+
+    public void setEditBackgroundURL(ObservableField<String> backgroundURL) {
+        this.editBackgroundURL = backgroundURL;
+        this.editBackgroundURL.notifyChange();
+    }
+
+    String editNameNow;
+    String editUsernameNow;
+    String editEmailNow;
+    String editBioNow;
+    String editProfileURLNow ;
+    String editBackgroundURLNow;
+
+
+
+
+    public void afterNameChange(CharSequence s){
+        this.editNameNow =  s.toString();
+    }
+
+    public void afterUsernameChange(CharSequence s){
+        this.editUsernameNow =  s.toString();
+
+
+
+    }
+    public void afterEmailChange(CharSequence s){
+        this.editEmailNow =  s.toString();
+    }
+    public void afterBioChange(CharSequence s){
+        //Log.d(TAG, "afterBioChange: this is how the bio has changed " + s.toString());
+        this.editBioNow =  s.toString();
+    }
+    public void afterBackgroundURLChange(CharSequence s){
+        this.editBackgroundURLNow =  s.toString();
+    }
+    public void afterProfileURLChange(CharSequence s){
+        this.editProfileURLNow =  s.toString();
+    }
 
 
 
 
 
-    public void onSaveChanges(){
 
-        Log.d(TAG, "onSaveChanges: save changes button was pressed.");
-        if(TextUtils.isEmpty(editUsername) || TextUtils.isEmpty(editEmail)){
+
+
+   public void onSaveChanges(){
+
+
+       sessionManagement.printEverything("save changes button is pressed.");
+
+        if(editUsername.get() == null ||  editEmail.get() == null ){  //probably can't even do if it is null because it could just mean that it didn't change
             authListener.sendMessage("Please enter a value.");
 
-        }else if(!usernameIsValid(editUsername)){
-            Log.d(TAG, "onSaveChanges: username is not valid clause in the if statement");
+        }else if(!usernameIsValid(editUsername.get())){
             authListener.sendMessage("Please enter a valid username");
 
-        }else{
-            Log.d(TAG, "onSaveChanges: all these things are correct now we are adding them into the hashmap");
-            HashMap<String, String> changedValues = new HashMap<String, String>();
-
-                    if(!sessionManagement.getUsername().equals(editUsername)){
-                         if(!userRepository.usernameIsAvailable(editUsername)) {
-                             authListener.sendMessage("That username is taken");
-                             Log.d(TAG, "onSaveChanges: this username is not available");
-
-                         }else{
-                             Log.d(TAG, "onSaveChanges: username was changed so we are adding it to the hashmap");
-                             changedValues.put("username", formatUsername(editUsername));
-                         }
-                    }else if(!sessionManagement.getName().equals(editName)){
-                        Log.d(TAG, "onSaveChanges: name was changed so we are adding it to the hashmap");
-                        changedValues.put("name", editName);
-
-                    } else if(!sessionManagement.getEmail().equals(editEmail)){
-
-                        if(!emailIsVerified(editEmail)) {
-                            Log.d(TAG, "onSaveChanges: email is not valid clause in the if statement");
-                            authListener.sendMessage("Please enter a valid email");
-
-                        }else{
-                            Log.d(TAG, "onSaveChanges: email was changed so we are adding it to the hashmap");
-                            changedValues.put("email", editEmail);
-                        }
-
-                    }else if(!sessionManagement.getBio().equals(editBio)){
-                            Log.d(TAG, "onSaveChanges: bio was changed so we are adding it to the hashmap");
-                            changedValues.put("bio", editBio);
-
-                    }else if(!sessionManagement.getBackgroundURL().equals(editBackgroundURL)){
-                            Log.d(TAG, "onSaveChanges: background url was changed so we are adding it to the hashmap");
-                            changedValues.put("profile_background_media", editBackgroundURL);
-
-                    }else if (!sessionManagement.getAvatarURL().equals(editProfileURL)){
-                            Log.d(TAG, "onSaveChanges: profile picture was changed so we are adding it to the hashmap");
-                            changedValues.put("avatar", editProfileURL);
-                    }
+        }else {
 
 
-                if(!changedValues.isEmpty()){
-                    Log.d(TAG, "onSaveChanges: we are now going to update the current user, finally");
-                    updateCurrentUser(changedValues);
-                }else{
-                    Log.d(TAG, "onSaveChanges: the user did not make any changes");
+            if (editUsernameNow != null && !sessionManagement.getUsername().equals(editUsernameNow)) { //if its changed then do this
+                changedValues.put("username", editUsernameNow);
+
+            }
+
+            if (editNameNow != null) {  //meaning if it changed
+                changedValues.put("name", editNameNow);
+            }
+
+            if (editEmailNow != null) { //if this changed then do this
+
+                if (!emailIsVerified(editEmailNow)) {
+                    authListener.sendMessage("Please enter a valid email");
+
+                } else {
+                    changedValues.put("email", editEmailNow);
                 }
 
+            }
+
+            if (editBioNow != null) {
+                changedValues.put("bio", editBioNow);
+
+            }
+
+            if (editBackgroundURLNow != null) {
+                changedValues.put("profile_background_media", editBackgroundURLNow);
+
+            }
+
+            if (editProfileURLNow != null) {
+                changedValues.put("avatar", editProfileURLNow);
+            }
+
+
+            if (!changedValues.isEmpty()) {
+                sessionManagement.printEverything("user changed some values");
+
+                if(changedValues.get("username") == null ){
+                    changedValues.remove("username");
+
+
+                }
+
+                updateCurrentUser(changedValues);
+
+            } else {
+                sessionManagement.printEverything("user did not change any values");
+                Log.d(TAG, "onSaveChanges: the user did not make any changes");
+            }
 
 
         }
+        }
 
+
+
+
+
+    public MediatorLiveData<StateData<UpdateResponse>> observeEditsMade(){
+        return editedCurrentUser;
     }
 
 
 
     public void updateCurrentUser(Map<String, String> changedAttributes){
+        //for when the save button is pressed
         Log.d(TAG, "updateCurrentUser: in the update current user method of the view model");
-        editedCurrentUser.setValue(StateData.loading((EditedUser)null));
-        final LiveData<StateData<EditedUser>> source = userRepository.updateUser(changedAttributes);
-        editedCurrentUser.addSource(source, new Observer<StateData<EditedUser>>() {
+        editedCurrentUser.setValue(StateData.loading((UpdateResponse) null));
+        final LiveData<StateData<UpdateResponse>> source = userRepository.updateUser(changedAttributes);
+        editedCurrentUser.addSource(source, new Observer<StateData<UpdateResponse>>() {
+
             @Override
-            public void onChanged(StateData<EditedUser> editedUserStateData) {
+            public void onChanged(StateData<UpdateResponse> updatedResponseStateData) {
                 Log.d(TAG, "onChanged: value has changed so now we set value and remove source");
-                editedCurrentUser.setValue(editedUserStateData);
+                editedCurrentUser.setValue(updatedResponseStateData);
                 editedCurrentUser.removeSource(source);
             }
         });
-    }
-
-    public MediatorLiveData<StateData<EditedUser>> observeEditsMade(){
-        return editedCurrentUser;
     }
 
 
@@ -159,7 +253,7 @@ public class EditProfileViewModel extends ViewModel {
 
     public String formatUsername(String username){
 
-        return username.toLowerCase().replace(' ', '_');
+        return username.toLowerCase().trim().replace(' ', '_');
     }
 
     public static boolean emailIsVerified(String emailInput){
@@ -173,4 +267,6 @@ public class EditProfileViewModel extends ViewModel {
 
         return matcher.find();
     }
+
+
 }

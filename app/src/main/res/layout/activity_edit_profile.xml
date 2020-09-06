@@ -6,8 +6,6 @@
 
     <data>
 
-
-
         <variable
             name="editProfileViewModel"
             type="co.wishroll.viewmodel.EditProfileViewModel" />
@@ -76,7 +74,8 @@
                     android:src="@color/wishroll_blue" />
 
                 <RelativeLayout
-                    android:id="@+id/editProfilePictureButton"                    android:layout_width="@dimen/_100sdp"
+                    android:layout_width="@dimen/_100sdp"
+                    android:id="@+id/editProfilePictureButton"
                     android:layout_height="@dimen/_100sdp"
                     android:layout_centerInParent="true">
 
@@ -144,11 +143,14 @@
 
                         />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     >
+
                     <EditText
+                        android:afterTextChanged="@{(edtitable)->editProfileViewModel.afterNameChange(edtitable)}"
                         android:textColorHint="@color/black"
                         android:id="@+id/nameEdit"
                         android:layout_width="@dimen/_220sdp"
@@ -198,11 +200,13 @@
                     android:layout_height="wrap_content"
                     >
                     <EditText
+                        android:afterTextChanged="@{(edtitable)->editProfileViewModel.afterUsernameChange(edtitable)}"
+                        android:maxLength="20"
                         android:textColorHint="@color/black"
                         android:id="@+id/usernameEdit"
                         android:layout_width="@dimen/_220sdp"
                         android:layout_height="wrap_content"
-                        android:text=""
+                        android:text="@{editProfileViewModel.editUsername}"
                         android:textSize="@dimen/_15sdp"
                         android:background="@android:color/transparent"
                         />
@@ -246,7 +250,7 @@
                     android:layout_height="wrap_content"
                     >
                     <EditText
-
+                        android:afterTextChanged="@{(edtitable)->editProfileViewModel.afterEmailChange(edtitable)}"
                         android:textColorHint="@color/black"
                         android:id="@+id/emailEdit"
                         android:layout_width="@dimen/_220sdp"
@@ -294,19 +298,20 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     >
+
                     <EditText
-                        android:textColorHint="@color/black"
+                        android:afterTextChanged="@{(edtitable)->editProfileViewModel.afterBioChange(edtitable)}"
                         android:id="@+id/bioEdit"
-                        android:layout_width="@dimen/_220sdp"
+                        android:layout_width="@dimen/_200sdp"
                         android:layout_height="wrap_content"
-                        android:text="@{editProfileViewModel.editBio}"
+                        android:background="@android:color/transparent"
+                        android:gravity="top|left"
                         android:inputType="textMultiLine"
                         android:lines="4"
-                        android:textSize="@dimen/_13sdp"
-                        android:gravity="top|left"
-                        android:background="@android:color/transparent"
                         android:maxLength="100"
-                        />
+                        android:text="@{editProfileViewModel.editBio}"
+                        android:textColorHint="@color/black"
+                        android:textSize="@dimen/_13sdp" />
 
                 </LinearLayout>
 
@@ -328,14 +333,15 @@
 
             <Button
                 android:id="@+id/bsaveChanges"
-                android:layout_gravity="center_horizontal"
+                android:onClick="@{() -> editProfileViewModel.onSaveChanges()}"
                 android:layout_width="@dimen/_120sdp"
                 android:layout_height="@dimen/_40sdp"
+                android:layout_gravity="center_horizontal"
                 android:background="@drawable/blue_button"
                 android:text="@string/save_label"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
-                android:textSize="@dimen/_17ssp"/>
+                android:textSize="@dimen/_17ssp" />
 
         </LinearLayout>
 

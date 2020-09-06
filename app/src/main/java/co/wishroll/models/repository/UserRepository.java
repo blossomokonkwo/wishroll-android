@@ -14,8 +14,8 @@ import co.wishroll.models.domainmodels.User;
 import co.wishroll.models.networking.RetrofitInstance;
 import co.wishroll.models.networking.WishRollApi;
 import co.wishroll.models.repository.datamodels.AuthResponse;
-import co.wishroll.models.repository.datamodels.EditedUser;
 import co.wishroll.models.repository.datamodels.UValidationRequest;
+import co.wishroll.models.repository.datamodels.UpdateResponse;
 import co.wishroll.models.repository.local.SessionManagement;
 import co.wishroll.utilities.StateData;
 import io.reactivex.functions.Function;
@@ -40,7 +40,9 @@ public class UserRepository {
 
     boolean usernameValid;
 
-    private WishRollApi wishRollApi;
+    User editProfileUser;
+
+    public WishRollApi wishRollApi;
 
 
 
@@ -161,29 +163,29 @@ public class UserRepository {
 
 
 
-    public LiveData<StateData<EditedUser>> updateUser(Map<String, String> changedAttributes){
+    public LiveData<StateData<UpdateResponse>> updateUser(Map<String, String> changedAttributes){
         Log.d(TAG, "updateUser: we are in the update user method of the user repository.");
 
-        final LiveData<StateData<EditedUser>> source = LiveDataReactiveStreams.fromPublisher(
+        final LiveData<StateData<UpdateResponse>> source = LiveDataReactiveStreams.fromPublisher(
                 wishRollApi.updateUserDetails(changedAttributes)
-                .onErrorReturn(new Function<Throwable, EditedUser>() {
+                .onErrorReturn(new Function<Throwable, UpdateResponse>() {
                     @Override
-                    public EditedUser apply(Throwable throwable) throws Exception {
+                    public UpdateResponse apply(Throwable throwable) throws Exception {
                         Log.d(TAG, "apply: in the error clause of the update user method.");
                         return null;
                     }
                 })
-                .map(new Function<EditedUser, StateData<EditedUser>>() {
+                .map(new Function<UpdateResponse, StateData<UpdateResponse>>() {
                     @Override
-                    public StateData<EditedUser> apply(EditedUser editedUser) throws Exception {
+                    public StateData<UpdateResponse> apply(UpdateResponse updateResponse) throws Exception {
                         Log.d(TAG, "apply: in the mapping clause of the update user method.");
 
-                        if(editedUser == null){
-                            return StateData.error("Something went went wrong", null);
+                        if(updateResponse == null){
+                            return null;
                         }else{
                             Log.d(TAG, "apply: this user has been successfully updated");
                             //Log.d(TAG, "apply: edited user " + editedUser.toString());
-                            return StateData.authenticated(editedUser);
+                            return StateData.authenticated(updateResponse);
                         }
 
                     }
@@ -192,6 +194,9 @@ public class UserRepository {
         return source;
 
     }
+
+
+
 
 
 
