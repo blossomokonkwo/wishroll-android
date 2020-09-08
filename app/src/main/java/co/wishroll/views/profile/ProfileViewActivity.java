@@ -226,7 +226,7 @@ public class ProfileViewActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(ProfileViewActivity.this, EditProfileActivity.class));
-
+                finish();
             }
         });
 

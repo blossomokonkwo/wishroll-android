@@ -71,7 +71,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_190sdp"
                     android:scaleType="centerCrop"
-                    android:src="@color/wishroll_blue" />
+                    android:src="@color/black" />
 
                 <RelativeLayout
                     android:layout_width="@dimen/_100sdp"

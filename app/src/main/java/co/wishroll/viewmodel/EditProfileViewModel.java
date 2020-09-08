@@ -27,7 +27,7 @@ public class EditProfileViewModel extends ViewModel{
     UserRepository userRepository = applicationGraph.userRepository();
     SessionManagement sessionManagement = applicationGraph.sessionManagement();
     public AuthListener authListener = null;
-    HashMap<String, String> changedValues = new HashMap<String, String>();
+    public HashMap<String, String> changedValues = new HashMap<String, String>();
     MediatorLiveData<StateData<UpdateResponse>> editedCurrentUser = new MediatorLiveData<>();
 
 
@@ -105,7 +105,8 @@ public class EditProfileViewModel extends ViewModel{
     String editUsernameNow;
     String editEmailNow;
     String editBioNow;
-    String editProfileURLNow ;
+
+    String editProfileURLNow;
     String editBackgroundURLNow;
 
 

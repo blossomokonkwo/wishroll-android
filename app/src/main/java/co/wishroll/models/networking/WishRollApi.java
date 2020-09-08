@@ -13,13 +13,15 @@ import co.wishroll.models.repository.datamodels.SignupRequestMany;
 import co.wishroll.models.repository.datamodels.UValidationRequest;
 import co.wishroll.models.repository.datamodels.UpdateResponse;
 import io.reactivex.Flowable;
+import okhttp3.MultipartBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
+import retrofit2.http.Part;
+import retrofit2.http.PartMap;
 import retrofit2.http.Path;
-import retrofit2.http.QueryMap;
 
 public interface WishRollApi {
     //all wishroll api methods and calls
@@ -53,8 +55,13 @@ public interface WishRollApi {
     Flowable<User> getUserByUsername(@Path ("username") String username);
 
 
+    //@Multipart
     @PUT("user/update")
-    Flowable<UpdateResponse> updateUserDetails(@QueryMap Map<String, String> parameters); //send anything that changed, how to send anything
+    Flowable<UpdateResponse> updateUserDetails(
+            @PartMap Map<String, String> parameters,
+            @Part MultipartBody.Part profilePicture,
+            @Part MultipartBody.Part bannerPicture
+            ); //sending the banner AND picture???
 
     @GET("")
     Flowable<List<User>> getListFollowers();

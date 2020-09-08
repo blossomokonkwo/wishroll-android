@@ -73,8 +73,8 @@ public class MainActivity extends AppCompatActivity {
                         String[] permissions ={Manifest.permission.READ_EXTERNAL_STORAGE};
                         requestPermissions(permissions, PERMISSION_CODE);
 
-                    }else{
-
+                    }else if(checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                        goToGallery();
                     }
 
                 }else{
@@ -175,4 +175,6 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
     }
+
+
 }
