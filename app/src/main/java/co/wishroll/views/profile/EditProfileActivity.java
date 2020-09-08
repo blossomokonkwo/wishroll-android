@@ -1,10 +1,13 @@
 package co.wishroll.views.profile;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Base64;
@@ -28,7 +31,6 @@ import androidx.lifecycle.ViewModelProvider;
 import com.mikhaellopez.circularimageview.CircularImageView;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
 
 import co.wishroll.R;
@@ -36,13 +38,10 @@ import co.wishroll.databinding.ActivityEditProfileBinding;
 import co.wishroll.models.repository.datamodels.UpdateResponse;
 import co.wishroll.models.repository.local.SessionManagement;
 import co.wishroll.utilities.AuthListener;
-import co.wishroll.utilities.FileUtils;
+import co.wishroll.utilities.FilePath;
 import co.wishroll.utilities.StateData;
 import co.wishroll.utilities.ToastUtils;
 import co.wishroll.viewmodel.EditProfileViewModel;
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
 
 import static co.wishroll.WishRollApplication.applicationGraph;
 
@@ -93,36 +92,50 @@ public class EditProfileActivity extends AppCompatActivity implements AuthListen
 
         progressBar = findViewById(R.id.editProfileProgressBar);
 
-        if(ContextCompat.checkSelfPermission(EditProfileActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
-            ActivityCompat.requestPermissions(EditProfileActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, MY_PERMISSIONS_REQUEST);
-        }
+
+
 
         editProfilePictureButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                if(Build.VERSION.SDK_INT>=23) {
+                    if(checkPermission()){
                         goToProfileGallery();
+                    }else{
+                        requestPermission();
+                    }
+                }else{
+                    goToProfileGallery();
+
+                }
+
+
+
 
 
             }
         });
-
 
         editBackground.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(Build.VERSION.SDK_INT>=23) {
+                    if(checkPermission()){
+                        goToBackgroundGallery();
+                    }else{
+                        requestPermission();
 
-                goToBackgroundGallery();
+                    }
+                }else{
+                    goToBackgroundGallery();
+                }
+
+
+
             }
         });
 
-
-
-
         observeChangedUser();
-
-
-
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -146,14 +159,7 @@ public class EditProfileActivity extends AppCompatActivity implements AuthListen
 
 
 
-    @NonNull
-    private MultipartBody.Part prepareFilePart(String partName, Uri fileUri){
-        File file = FileUtils.getFile(this, fileUri);
 
-        RequestBody requestFile = RequestBody.create(MediaType.parse(getContentResolver().getType(fileUri)), file);
-
-        return MultipartBody.Part.createFormData(partName, file.getName(), requestFile);
-    }
 
 
 
@@ -221,11 +227,13 @@ public class EditProfileActivity extends AppCompatActivity implements AuthListen
             Uri path = data.getData();
             Log.d(TAG, "onActivityResult: PROFILE URL: " + path);
 
+
             try {
                 bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), path);
                 profilePicture.setImageBitmap(bitmap);
-                profileURL = getProfileURLString(bitmap);
+                profileURL = FilePath.getFilePath(EditProfileActivity.this, path);
                 editProfileViewModel.setEditProfileURLNow(profileURL);
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -238,7 +246,7 @@ public class EditProfileActivity extends AppCompatActivity implements AuthListen
             try {
                 backgroundBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), paths);
                 backgroundProfile.setImageBitmap(backgroundBitmap);
-                backgroundURL = getBackgroundString(backgroundBitmap);
+                backgroundURL = FilePath.getFilePath(EditProfileActivity.this, paths);
                 editProfileViewModel.setEditBackgroundURLNow(backgroundURL);
 
             } catch (IOException e) {
@@ -325,7 +333,38 @@ public class EditProfileActivity extends AppCompatActivity implements AuthListen
 
 
 
+    private void requestPermission(){
+        if(ActivityCompat.shouldShowRequestPermissionRationale(EditProfileActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE)){
+            Toast.makeText(EditProfileActivity.this, "Please Grant Permission to allow Image Uploading", Toast.LENGTH_SHORT).show();
+        }
+        else{
+            ActivityCompat.requestPermissions(EditProfileActivity.this,new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, MY_PERMISSIONS_REQUEST);
+        }
+    }
 
+    private boolean checkPermission(){
+        int result= ContextCompat.checkSelfPermission(EditProfileActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE);
+        if(result== PackageManager.PERMISSION_GRANTED){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if(requestCode == MY_PERMISSIONS_REQUEST){
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Log.d(TAG, "onRequestPermissionsResult: permission was granted");
+                } else {
+                    Toast.makeText(EditProfileActivity.this, "Please Grant Permission to allow Image Uploading", Toast.LENGTH_SHORT).show();
+                }
+        }
+
+    }
 
 
 
@@ -370,6 +409,20 @@ public class EditProfileActivity extends AppCompatActivity implements AuthListen
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(intent, IMAGE_REQUEST_CODE );
+    }
+
+    public String getPathfromUrl(Uri uri, Activity activity){
+        Cursor cursor = activity.getContentResolver().query(uri, null, null, null, null);
+        if(cursor == null){
+            return uri.getPath();
+        }else{
+            cursor.moveToFirst();
+            int id = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+            return cursor.getString(id);
+
+        }
+
+
     }
 
 

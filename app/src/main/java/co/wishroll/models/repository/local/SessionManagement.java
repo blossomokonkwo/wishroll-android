@@ -116,6 +116,10 @@ public class SessionManagement extends Application {
         Log.d(TAG, "printEverything: name: " + sharedPreferences.getString("name", "name is blank"));
         Log.d(TAG, "printEverything: bio: " + sharedPreferences.getString("bio", "bio is blank"));
         Log.d(TAG, "printEverything: email: " + sharedPreferences.getString("email", "email is blank"));
+        Log.d(TAG, "printEverything: avatar: " + sharedPreferences.getString("avatar", "email is blank"));
+        Log.d(TAG, "printEverything: bio: " + sharedPreferences.getString("background", "email is blank"));
+
+
 
     }
 

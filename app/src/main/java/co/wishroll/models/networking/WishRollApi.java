@@ -14,6 +14,7 @@ import co.wishroll.models.repository.datamodels.UValidationRequest;
 import co.wishroll.models.repository.datamodels.UpdateResponse;
 import io.reactivex.Flowable;
 import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -58,9 +59,32 @@ public interface WishRollApi {
 
     @Multipart
     @PUT("user/update")
-    Flowable<UpdateResponse> updateUserDetails(@PartMap Map<String, String> parameters,
+    Flowable<UpdateResponse> updateUserDetails(@PartMap Map<String, RequestBody> parameters,
                                                @Part MultipartBody.Part profile,
-                                               @Part MultipartBody.Part banner); //sending the banner AND picture??? yeah. raw
+                                               @Part MultipartBody.Part banner);
+
+    @Multipart
+    @PUT("user/update")
+    Flowable<UpdateResponse> updateUserDetails(@PartMap Map<String, RequestBody> parameters,
+                                               @Part MultipartBody.Part profile);
+
+    @Multipart
+    @PUT("user/update")
+    Flowable<UpdateResponse> updateUserDetails(@PartMap Map<String, RequestBody> parameters);
+
+    @Multipart
+    @PUT("user/update")
+    Flowable<UpdateResponse> updateUserDetails( @Part MultipartBody.Part profile,
+                                                @Part MultipartBody.Part banner);
+
+    @Multipart
+    @PUT("user/update")
+    Flowable<UpdateResponse> updateUserDetails( @Part MultipartBody.Part profile);
+
+
+
+
+
 
 
 

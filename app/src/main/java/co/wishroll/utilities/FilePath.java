@@ -12,6 +12,7 @@ import android.provider.MediaStore;
 public class FilePath {
 
     public static String getFilePath(Context context, Uri uri){
+
         boolean isKitKat= Build.VERSION.SDK_INT>=Build.VERSION_CODES.KITKAT;
 
         if(isKitKat && DocumentsContract.isDocumentUri(context,uri)){

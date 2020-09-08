@@ -8,6 +8,7 @@ import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -17,7 +18,11 @@ import co.wishroll.models.repository.UserRepository;
 import co.wishroll.models.repository.datamodels.UpdateResponse;
 import co.wishroll.models.repository.local.SessionManagement;
 import co.wishroll.utilities.AuthListener;
+import co.wishroll.utilities.FileUtils;
 import co.wishroll.utilities.StateData;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 import static co.wishroll.WishRollApplication.applicationGraph;
 
@@ -27,8 +32,15 @@ public class EditProfileViewModel extends ViewModel{
     UserRepository userRepository = applicationGraph.userRepository();
     SessionManagement sessionManagement = applicationGraph.sessionManagement();
     public AuthListener authListener = null;
-    public HashMap<String, String> changedValues = new HashMap<String, String>();
+    public Map<String, RequestBody> changedValues = new HashMap<>();
     MediatorLiveData<StateData<UpdateResponse>> editedCurrentUser = new MediatorLiveData<>();
+    String profileFileName;
+    String backgroundFileName;
+    RequestBody profileRequest;
+    RequestBody backgroundRequest;
+    MultipartBody.Part profileMultipartPart;
+    MultipartBody.Part bannerMultipartPart;
+
 
 
     public ObservableField<String> editName = new ObservableField<>(sessionManagement.getName());
@@ -152,6 +164,9 @@ public class EditProfileViewModel extends ViewModel{
     }
 
 
+    public RequestBody createPartFromString(String entryString){
+        return RequestBody.create( entryString, MultipartBody.FORM );
+    }
 
 
 
@@ -159,7 +174,8 @@ public class EditProfileViewModel extends ViewModel{
 
 
    public void onSaveChanges(){
-
+        boolean changedProfile = false;
+        boolean changedBackground = false;
 
        sessionManagement.printEverything("save changes button is pressed.");
 
@@ -169,16 +185,16 @@ public class EditProfileViewModel extends ViewModel{
         }else if(!usernameIsValid(editUsername.get())){
             authListener.sendMessage("Please enter a valid username");
 
-        }else {
+        }else{
 
 
             if (editUsernameNow != null && !sessionManagement.getUsername().equals(editUsernameNow)) { //if its changed then do this
-                changedValues.put("username", editUsernameNow);
+                changedValues.put("username", createPartFromString(editUsernameNow));
 
             }
 
             if (editNameNow != null) {  //meaning if it changed
-                changedValues.put("name", editNameNow);
+                changedValues.put("name", createPartFromString(editNameNow));
             }
 
             if (editEmailNow != null) { //if this changed then do this
@@ -187,27 +203,58 @@ public class EditProfileViewModel extends ViewModel{
                     authListener.sendMessage("Please enter a valid email");
 
                 } else {
-                    changedValues.put("email", editEmailNow);
+                    changedValues.put("email", createPartFromString(editEmailNow));
                 }
 
             }
 
             if (editBioNow != null) {
-                changedValues.put("bio", editBioNow);
+                changedValues.put("bio", createPartFromString(editBioNow));
 
             }
 
             if (editBackgroundURLNow != null) {
-                Log.d(TAG, "onSaveChanges: BACKGROUND URL GOTTEN FROM ACTIVITY " + editBackgroundURLNow);
-                changedValues.put("profile_background_media", editBackgroundURLNow);
+                Log.d(TAG, "onSaveChanges: BACKGROUND PATH GOTTEN FROM ACTIVITY " + editBackgroundURLNow);
+
+                File backgroundPicture = new File(editBackgroundURLNow);
+                backgroundFileName = backgroundPicture.getName();
+
+
+                backgroundRequest = RequestBody.create(backgroundPicture, MediaType.parse(FileUtils.getMimeType(backgroundPicture)));
+
+
+                      /*  new MultipartBody.Builder().setType(MultipartBody.FORM)
+                        .addFormDataPart("profile_background_media", profileFileName,
+                                RequestBody.create(MediaType.parse("image/*"), backgroundPicture)).build();
+
+                RequestBody imagePart = RequestBody.create(
+                        MediaType.parse(mimeType),
+                        file);*/
+
+                bannerMultipartPart = MultipartBody.Part.createFormData("profile_background_media", backgroundFileName, backgroundRequest);
+
+                changedBackground = true;
+
+
+
 
             }
 
             if (editProfileURLNow != null) {
-                Log.d(TAG, "onSaveChanges: PROFILE URL GOTTEN FROM ACTIVITY " + editBackgroundURLNow);
+                Log.d(TAG, "onSaveChanges: PROFILE PATH GOTTEN FROM ACTIVITY " + editProfileURLNow);
+                File profilePicture = new File(editProfileURLNow);
+                profileFileName = profilePicture.getName();
 
-                changedValues.put("avatar", editProfileURLNow);
+
+                profileRequest = RequestBody.create(profilePicture, MediaType.parse(FileUtils.getMimeType(profilePicture)));
+
+                 profileMultipartPart = MultipartBody.Part.createFormData("avatar", profileFileName, profileRequest);
+
+                changedProfile = true;
+
+
             }
+
 
 
             if (!changedValues.isEmpty()) {
@@ -216,19 +263,46 @@ public class EditProfileViewModel extends ViewModel{
 
                 if(changedValues.get("username") == null ){
                     changedValues.remove("username");
-
-
                 }
-                //send to server!!!! XD<333
-                //updateCurrentUser(changedValues);
+
+                if( !changedBackground && !changedProfile){
+                    //send to server!!!! XD<333
+                    updateCurrentUser(changedValues, null, null);
+
+                }else if(!changedBackground && changedProfile){
+
+                    updateCurrentUser(changedValues, profileMultipartPart, null);
+
+                }else if(changedBackground && !changedProfile){
+
+                    updateCurrentUser(changedValues, null, bannerMultipartPart);
+                }
 
             } else {
+
+                if(changedBackground && !changedProfile){
+
+                    updateCurrentUser(null, null, bannerMultipartPart);
+
+                }else if(!changedBackground && changedProfile){
+
+                    updateCurrentUser(null, profileMultipartPart, null);
+
+                }else if(changedBackground && changedProfile){
+                    updateCurrentUser(null, profileMultipartPart, bannerMultipartPart);
+                }
+
                 sessionManagement.printEverything("user did not change any values");
                 Log.d(TAG, "onSaveChanges: the user did not make any changes");
             }
 
 
         }
+
+       Log.d(TAG, "DID THE BACKGROUND CHANGE?" + changedBackground);
+
+
+       Log.d(TAG, "DID THE PROFILE CHANGE?" + changedProfile);
         }
 
 
@@ -241,11 +315,11 @@ public class EditProfileViewModel extends ViewModel{
 
 
 
-    public void updateCurrentUser(Map<String, String> changedAttributes){
+    public void updateCurrentUser(Map<String, RequestBody> changedAttributes, MultipartBody.Part profilePicture, MultipartBody.Part bannerPicture){
         //for when the save button is pressed
         Log.d(TAG, "updateCurrentUser: in the update current user method of the view model");
         editedCurrentUser.setValue(StateData.loading((UpdateResponse) null));
-        final LiveData<StateData<UpdateResponse>> source = userRepository.updateUser(changedAttributes);
+        final LiveData<StateData<UpdateResponse>> source = userRepository.updateUser(changedAttributes, profilePicture, bannerPicture);
         editedCurrentUser.addSource(source, new Observer<StateData<UpdateResponse>>() {
 
             @Override
