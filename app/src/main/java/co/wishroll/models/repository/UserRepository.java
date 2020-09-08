@@ -5,8 +5,6 @@ import android.util.Log;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.LiveDataReactiveStreams;
 
-import java.util.Map;
-
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
@@ -15,7 +13,6 @@ import co.wishroll.models.networking.RetrofitInstance;
 import co.wishroll.models.networking.WishRollApi;
 import co.wishroll.models.repository.datamodels.AuthResponse;
 import co.wishroll.models.repository.datamodels.UValidationRequest;
-import co.wishroll.models.repository.datamodels.UpdateResponse;
 import co.wishroll.models.repository.local.SessionManagement;
 import co.wishroll.utilities.StateData;
 import io.reactivex.functions.Function;
@@ -163,7 +160,7 @@ public class UserRepository {
 
 
 
-    public LiveData<StateData<UpdateResponse>> updateUser(Map<String, String> changedAttributes){
+    /*public LiveData<StateData<UpdateResponse>> updateUser(Map<String, String> changedAttributes){
         Log.d(TAG, "updateUser: we are in the update user method of the user repository.");
 
         final LiveData<StateData<UpdateResponse>> source = LiveDataReactiveStreams.fromPublisher(
@@ -194,7 +191,7 @@ public class UserRepository {
 
         return source;
 
-    }
+    }*/
 
 
 

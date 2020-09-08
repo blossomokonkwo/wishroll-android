@@ -17,6 +17,7 @@ import okhttp3.MultipartBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Part;
@@ -55,13 +56,14 @@ public interface WishRollApi {
     Flowable<User> getUserByUsername(@Path ("username") String username);
 
 
-    //@Multipart
+    @Multipart
     @PUT("user/update")
-    Flowable<UpdateResponse> updateUserDetails(
-            @PartMap Map<String, String> parameters,
-            @Part MultipartBody.Part profilePicture,
-            @Part MultipartBody.Part bannerPicture
-            ); //sending the banner AND picture???
+    Flowable<UpdateResponse> updateUserDetails(@PartMap Map<String, String> parameters,
+                                               @Part MultipartBody.Part profile,
+                                               @Part MultipartBody.Part banner); //sending the banner AND picture??? yeah. raw
+
+
+
 
     @GET("")
     Flowable<List<User>> getListFollowers();

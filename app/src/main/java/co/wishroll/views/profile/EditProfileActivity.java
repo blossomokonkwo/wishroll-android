@@ -1,6 +1,8 @@
 package co.wishroll.views.profile;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -14,8 +16,11 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -23,6 +28,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.mikhaellopez.circularimageview.CircularImageView;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 
 import co.wishroll.R;
@@ -30,9 +36,13 @@ import co.wishroll.databinding.ActivityEditProfileBinding;
 import co.wishroll.models.repository.datamodels.UpdateResponse;
 import co.wishroll.models.repository.local.SessionManagement;
 import co.wishroll.utilities.AuthListener;
+import co.wishroll.utilities.FileUtils;
 import co.wishroll.utilities.StateData;
 import co.wishroll.utilities.ToastUtils;
 import co.wishroll.viewmodel.EditProfileViewModel;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 import static co.wishroll.WishRollApplication.applicationGraph;
 
@@ -58,6 +68,7 @@ public class EditProfileActivity extends AppCompatActivity implements AuthListen
     private Bitmap bitmap;
     ImageView backgroundProfile;
     private Bitmap backgroundBitmap;
+    private int MY_PERMISSIONS_REQUEST = 200;
 
 
 
@@ -81,6 +92,10 @@ public class EditProfileActivity extends AppCompatActivity implements AuthListen
         backgroundProfile = findViewById(R.id.bannerEditProfileView);
 
         progressBar = findViewById(R.id.editProfileProgressBar);
+
+        if(ContextCompat.checkSelfPermission(EditProfileActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(EditProfileActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, MY_PERMISSIONS_REQUEST);
+        }
 
         editProfilePictureButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,20 +124,6 @@ public class EditProfileActivity extends AppCompatActivity implements AuthListen
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -133,41 +134,82 @@ public class EditProfileActivity extends AppCompatActivity implements AuthListen
 
 
 
-
-
-
-
-
     }
 
-    public void getProfileURLString(){
+
+
+
+
+
+
+
+
+
+
+    @NonNull
+    private MultipartBody.Part prepareFilePart(String partName, Uri fileUri){
+        File file = FileUtils.getFile(this, fileUri);
+
+        RequestBody requestFile = RequestBody.create(MediaType.parse(getContentResolver().getType(fileUri)), file);
+
+        return MultipartBody.Part.createFormData(partName, file.getName(), requestFile);
+    }
+
+
+
+
+    public String getProfileURLString(Bitmap bitmap){
+        String encodedImage = "";
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        showProgressBar(true);
+        if(bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream)){
+            showProgressBar(false);
+            byte[] imageInByte = byteArrayOutputStream.toByteArray();
+           encodedImage = Base64.encodeToString(imageInByte, Base64.DEFAULT);
+        }
 
-        byte[] imageInByte = byteArrayOutputStream.toByteArray();
-        String encodedImage = Base64.encodeToString(imageInByte, Base64.DEFAULT);
+
+        return encodedImage;
     }
 
-
-
-    private void ImageUpload(Bitmap bitmap) {
+    private String getBackgroundString(Bitmap bitmap) {
+        String encodedImage = "";
+        showProgressBar(true);
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
-        String encodedImage = Base64.encodeToString(byteArrayOutputStream.toByteArray(), Base64.DEFAULT);
+        if(bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream)){
+           encodedImage = Base64.encodeToString(byteArrayOutputStream.toByteArray(), Base64.DEFAULT);
+            showProgressBar(false);
+        }
+
+        return encodedImage;
     }
 
-    public void goToBackgroundGallery(){
-        Intent intentBackground = new Intent();
-        intentBackground.setType("image/*");
-        intentBackground.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(intentBackground, BACKGROUND_IMAGE_REQUEST_CODE );
-    }
 
-    public void goToProfileGallery(){
-            Intent intent = new Intent();
-            intent.setType("image/*");
-            intent.setAction(Intent.ACTION_GET_CONTENT);
-            startActivityForResult(intent, IMAGE_REQUEST_CODE );
-    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -182,6 +224,8 @@ public class EditProfileActivity extends AppCompatActivity implements AuthListen
             try {
                 bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), path);
                 profilePicture.setImageBitmap(bitmap);
+                profileURL = getProfileURLString(bitmap);
+                editProfileViewModel.setEditProfileURLNow(profileURL);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -194,6 +238,8 @@ public class EditProfileActivity extends AppCompatActivity implements AuthListen
             try {
                 backgroundBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), paths);
                 backgroundProfile.setImageBitmap(backgroundBitmap);
+                backgroundURL = getBackgroundString(backgroundBitmap);
+                editProfileViewModel.setEditBackgroundURLNow(backgroundURL);
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -202,9 +248,6 @@ public class EditProfileActivity extends AppCompatActivity implements AuthListen
         }
 
     }
-
-
-
 
     public void observeChangedUser(){
 
@@ -277,6 +320,72 @@ public class EditProfileActivity extends AppCompatActivity implements AuthListen
             }
         });
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public void goToBackgroundGallery(){
+        Intent intentBackground = new Intent();
+        intentBackground.setType("image/*");
+        intentBackground.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(intentBackground, BACKGROUND_IMAGE_REQUEST_CODE );
+    }
+
+    public void goToProfileGallery(){
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(intent, IMAGE_REQUEST_CODE );
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     private void showProgressBar(boolean isVisible){
         if(isVisible){

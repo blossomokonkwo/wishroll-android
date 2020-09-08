@@ -81,7 +81,7 @@ public class EditProfileViewModel extends ViewModel{
 
 
 
-    public ObservableField<String> editProfileURL = new ObservableField<>(sessionManagement.getAvatarURL());
+   /* public ObservableField<String> editProfileURL = new ObservableField<>(sessionManagement.getAvatarURL());
     public String getEditProfileURL(){
         return editProfileURL.get();
     }
@@ -89,9 +89,9 @@ public class EditProfileViewModel extends ViewModel{
     public void setEditProfileURL(ObservableField<String> profileURL) {
         this.editProfileURL = profileURL;
         this.editProfileURL.notifyChange();
-    }
+    }*/
 
-    public ObservableField<String> editBackgroundURL = new ObservableField<>(sessionManagement.getBackgroundURL());
+   /* public ObservableField<String> editBackgroundURL = new ObservableField<>(sessionManagement.getBackgroundURL());
     public String getEditBackgroundURL(){
         return editBackgroundURL.get();
     }
@@ -99,15 +99,31 @@ public class EditProfileViewModel extends ViewModel{
     public void setEditBackgroundURL(ObservableField<String> backgroundURL) {
         this.editBackgroundURL = backgroundURL;
         this.editBackgroundURL.notifyChange();
-    }
+    }*/
 
     String editNameNow;
     String editUsernameNow;
     String editEmailNow;
     String editBioNow;
-
     String editProfileURLNow;
     String editBackgroundURLNow;
+
+    public void setEditProfileURLNow(String url){
+        this.editProfileURLNow = url;
+
+    }
+
+    public String getEditProfileURLNow(){
+        return editProfileURLNow;
+    }
+
+    public void setEditBackgroundURLNow(String url){
+        this.editBackgroundURLNow = url;
+    }
+
+    public String getEditBackgroundURLNow(){
+        return editBackgroundURLNow;
+    }
 
 
 
@@ -115,7 +131,6 @@ public class EditProfileViewModel extends ViewModel{
     public void afterNameChange(CharSequence s){
         this.editNameNow =  s.toString();
     }
-
     public void afterUsernameChange(CharSequence s){
         this.editUsernameNow =  s.toString();
 
@@ -183,25 +198,29 @@ public class EditProfileViewModel extends ViewModel{
             }
 
             if (editBackgroundURLNow != null) {
+                Log.d(TAG, "onSaveChanges: BACKGROUND URL GOTTEN FROM ACTIVITY " + editBackgroundURLNow);
                 changedValues.put("profile_background_media", editBackgroundURLNow);
 
             }
 
             if (editProfileURLNow != null) {
+                Log.d(TAG, "onSaveChanges: PROFILE URL GOTTEN FROM ACTIVITY " + editBackgroundURLNow);
+
                 changedValues.put("avatar", editProfileURLNow);
             }
 
 
             if (!changedValues.isEmpty()) {
                 sessionManagement.printEverything("user changed some values");
+                Log.d(TAG, "onSaveChanges: all values in the changed " + changedValues.toString());
 
                 if(changedValues.get("username") == null ){
                     changedValues.remove("username");
 
 
                 }
-
-                updateCurrentUser(changedValues);
+                //send to server!!!! XD<333
+                //updateCurrentUser(changedValues);
 
             } else {
                 sessionManagement.printEverything("user did not change any values");
