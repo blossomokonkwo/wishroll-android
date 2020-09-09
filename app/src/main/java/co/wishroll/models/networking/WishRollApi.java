@@ -13,10 +13,10 @@ import co.wishroll.models.repository.datamodels.PostResponse;
 import co.wishroll.models.repository.datamodels.SignupRequestMany;
 import co.wishroll.models.repository.datamodels.UValidationRequest;
 import co.wishroll.models.repository.datamodels.UpdateResponse;
+import io.reactivex.Completable;
 import io.reactivex.Flowable;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
@@ -90,10 +90,10 @@ public interface WishRollApi {
 
     @Multipart
     @POST("posts")
-    Flowable<PostResponse> uploadPost(@Part MultipartBody.Part post);
+    Flowable<PostResponse> uploadPost(@Part MultipartBody.Part post); //does api accept nulls or separate calls for each case?
 
     @POST("tags")
-    Flowable<ResponseBody> sendTags(@Field("post_id") int postID, @Field("text") String tags);
+    Completable sendTags(@Field("post_id") int postID, @Field("text") String tags); //simply returns whether this was successfull or not
 
 
 

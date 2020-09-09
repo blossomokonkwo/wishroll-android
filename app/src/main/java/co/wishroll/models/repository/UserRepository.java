@@ -168,7 +168,6 @@ public class UserRepository {
                                 @Override
                                 public UpdateResponse apply(Throwable throwable) throws Exception {
                                     Log.d(TAG, "apply: in the error clause of the update user method.");
-
                                     return null;
                                 }
                             })

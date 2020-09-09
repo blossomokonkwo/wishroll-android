@@ -301,7 +301,7 @@ public class EditProfileActivity extends AppCompatActivity implements AuthListen
                                     sessionManagement.editUserDetails(updateResponseStateData.data.currentUser);
 
                                     sessionManagement.printEverything("AFTER USER HAD PRESSED SAVE AND IT HAS UPDATED SUCCESSFULLY");
-                                    startActivity(new Intent(EditProfileActivity.this, ProfileViewActivity.class));
+                                    //startActivity(new Intent(EditProfileActivity.this, ProfileViewActivity.class));
                                     finish();
 
 
