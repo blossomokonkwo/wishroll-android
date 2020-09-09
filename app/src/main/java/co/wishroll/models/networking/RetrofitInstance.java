@@ -39,7 +39,7 @@ public class RetrofitInstance {
     public static SessionManagement sessionManagement = applicationGraph.sessionManagement();
     private static Gson gson;
 
-    private static final long cacheSize = 5 * 1024 * 1024; // 5 MB
+    private static final long cacheSize = 175 * 1024 * 1024; // 5 MB
     private static String HEADER_CACHE_CONTROL = "Cache-Control";
     private static String HEADER_PRAGMA = "Pragma";
 
@@ -56,9 +56,9 @@ public class RetrofitInstance {
 
 
         OkHttpClient httpClient = new OkHttpClient.Builder()
-                //.cache(cache())
-                //.addNetworkInterceptor(networkInterceptor())
-                //.addInterceptor(offlineInterceptor())
+                .cache(cache())
+                .addNetworkInterceptor(networkInterceptor())
+                .addInterceptor(offlineInterceptor())
                 .addInterceptor(loggingInterceptor)
                 .addInterceptor(new Interceptor() {
                     @Override
@@ -143,7 +143,7 @@ public class RetrofitInstance {
                 Response response = chain.proceed(chain.request());
 
                 CacheControl cacheControl = new CacheControl.Builder()
-                        .maxAge(30, TimeUnit.SECONDS)
+                        .maxAge(1, TimeUnit.MINUTES)
                         .build();
 
                 return response.newBuilder()

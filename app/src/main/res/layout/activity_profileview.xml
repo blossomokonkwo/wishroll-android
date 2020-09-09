@@ -8,6 +8,14 @@
         <variable
             name="ProfileViewModel"
             type="co.wishroll.viewmodel.ProfileViewModel" />
+
+        <variable
+            name="profileImageUrl"
+            type="String" />
+
+        <variable
+            name="bannerImageUrl"
+            type="String" />
     </data>
 
 <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -69,6 +77,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_160sdp"
                         android:scaleType="centerCrop"
+                        app:bannerViewImage="@{bannerImageUrl}"
                         android:src="@color/wishroll_blue" />
 
 
@@ -84,6 +93,7 @@
                 android:elevation="10dp"
                 android:src="@drawable/defaultprofile"
                 app:civ_border="true"
+                app:profileViewImage="@{profileImageUrl}"
                 app:civ_border_color="@color/white"
                 app:civ_border_width="4dp"
                 app:civ_shadow="true"

@@ -1,12 +1,18 @@
 package co.wishroll.viewmodel;
 
 import android.util.Log;
+import android.widget.ImageView;
 
+import androidx.databinding.BindingAdapter;
 import androidx.databinding.ObservableField;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+import com.mikhaellopez.circularimageview.CircularImageView;
 
 import java.io.File;
 import java.util.HashMap;
@@ -40,6 +46,22 @@ public class EditProfileViewModel extends ViewModel{
     RequestBody backgroundRequest;
     MultipartBody.Part profileMultipartPart;
     MultipartBody.Part bannerMultipartPart;
+
+    @BindingAdapter("editProfileImage")
+    public static void loadProfileImage(CircularImageView view, String imageUrl) {
+        Log.d(TAG, "loadProfileImage: binding adapter lolol XDXDXD ");
+        Glide.with(view.getContext())
+                .load(imageUrl).apply(new RequestOptions().circleCrop())
+                .into(view);
+    }
+
+    @BindingAdapter("editBannerImage")
+    public static void loadBannerImage(ImageView view, String bannerImageUrl) {
+        Log.d(TAG, "loadProfileImage: binding adapter lolol XDXDXD ");
+        Glide.with(view.getContext())
+                .load(bannerImageUrl).apply(new RequestOptions().centerCrop())
+                .into(view);
+    }
 
 
 

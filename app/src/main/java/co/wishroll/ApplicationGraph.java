@@ -5,6 +5,7 @@ import javax.inject.Singleton;
 import co.wishroll.models.networking.RetrofitInstance;
 import co.wishroll.models.repository.AuthRepository;
 import co.wishroll.models.repository.MainRepository;
+import co.wishroll.models.repository.PostRepository;
 import co.wishroll.models.repository.UserRepository;
 import co.wishroll.models.repository.local.SessionManagement;
 import dagger.Component;
@@ -20,6 +21,8 @@ public interface ApplicationGraph {
      MainRepository mainRepository();
 
      UserRepository userRepository();
+
+     PostRepository postRepository();
 
 
 

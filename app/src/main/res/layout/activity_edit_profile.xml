@@ -10,6 +10,14 @@
             name="editProfileViewModel"
             type="co.wishroll.viewmodel.EditProfileViewModel" />
 
+        <variable
+            name="profileImageUrl"
+            type="String" />
+
+        <variable
+            name="bannerImageUrl"
+            type="String" />
+
 
 
     </data>
@@ -69,6 +77,7 @@
                 <ImageView
                     android:id="@+id/bannerEditProfileView"
                     android:layout_width="match_parent"
+                    app:editBannerImage="@{bannerImageUrl}"
                     android:layout_height="@dimen/_190sdp"
                     android:scaleType="centerCrop"
                     android:src="@color/black" />
@@ -85,6 +94,7 @@
                         android:layout_width="match_parent"
                         android:src="@drawable/logosmall"
                         app:civ_border="true"
+                        app:editProfileImage="@{profileImageUrl}"
                         app:civ_border_color="@color/white"
                         app:civ_border_width="4dp"
                         />

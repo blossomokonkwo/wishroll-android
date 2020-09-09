@@ -68,6 +68,8 @@ public class ProfileViewActivity extends AppCompatActivity {
         activityProfileViewBinding = DataBindingUtil.setContentView(this, R.layout.activity_profileview);
         profileViewModel = new ViewModelProvider(this, new ProfileViewModelFactory(currentId)).get(ProfileViewModel.class);
         activityProfileViewBinding.setProfileViewModel(profileViewModel);
+        activityProfileViewBinding.setBannerImageUrl(sessionManagement.getBackgroundURL());
+        activityProfileViewBinding.setProfileImageUrl(sessionManagement.getAvatarURL());
 
 
         usernameView = findViewById(R.id.usernameProfileView);
@@ -153,7 +155,7 @@ public class ProfileViewActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(ProfileViewActivity.this, MainActivity.class));
-                finish();
+
             }
         });
 
@@ -226,12 +228,9 @@ public class ProfileViewActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(ProfileViewActivity.this, EditProfileActivity.class));
-                finish();
+
             }
         });
-
-
-
 
 
 

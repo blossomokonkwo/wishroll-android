@@ -83,6 +83,9 @@ public class EditProfileActivity extends AppCompatActivity implements AuthListen
         editProfileBinding.setEditProfileViewModel(editProfileViewModel);
         editProfileViewModel.authListener = this;
 
+        editProfileBinding.setBannerImageUrl(sessionManagement.getBackgroundURL());
+        editProfileBinding.setProfileImageUrl(sessionManagement.getAvatarURL());
+
         backButton = findViewById(R.id.backEditProfileView);
         profilePicture =  findViewById(R.id.editPictureProfileView); //the only profile picture
         editProfilePictureButton =  findViewById(R.id.editProfilePictureButton); //the full layout that encapsulates the profile picture
@@ -140,7 +143,6 @@ public class EditProfileActivity extends AppCompatActivity implements AuthListen
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(EditProfileActivity.this, ProfileViewActivity.class));
                 finish();
             }
         });
