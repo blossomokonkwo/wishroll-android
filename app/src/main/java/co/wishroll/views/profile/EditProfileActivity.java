@@ -52,8 +52,11 @@ public class EditProfileActivity extends AppCompatActivity implements AuthListen
     private ActivityEditProfileBinding editProfileBinding;
     EditProfileViewModel editProfileViewModel;
     ProgressBar progressBar;
-    private  int IMAGE_REQUEST_CODE = 21;
+    private  int IMAGE_REQUEST_CODE = 20;
     private int BACKGROUND_IMAGE_REQUEST_CODE = 30;
+    private int BACKGROUND_CROP_CODE = 40;
+    private int PROFILE_CROP_CODE = 50;
+
 
 
 
@@ -226,64 +229,89 @@ public class EditProfileActivity extends AppCompatActivity implements AuthListen
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode == IMAGE_REQUEST_CODE && resultCode == RESULT_OK && data != null){
+        if(requestCode == IMAGE_REQUEST_CODE && resultCode == RESULT_OK && data != null) {
 
             Uri path = data.getData();
             Log.d(TAG, "onActivityResult: PROFILE URL: " + path);
+            startCropImageActivity(path, PROFILE_CROP_CODE);
 
-
-            try {
-                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), path);
-                CropImage.activity(path)
-                        .setCropShape(CropImageView.CropShape.OVAL)
-                        .setCropMenuCropButtonTitle("Done")
-                        .setActivityTitle("Crop")
-                        .setFixAspectRatio(true)
-                        .setGuidelines(CropImageView.Guidelines.ON)
-                        .start(this);
-
-
-                if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
-                    CropImage.ActivityResult result = CropImage.getActivityResult(data);
-                    if (resultCode == RESULT_OK) {
-                        Uri resultUri = result.getUri();
-
-                        profilePicture.setImageBitmap(bitmap);
-                        profileURL = FilePath.getFilePath(EditProfileActivity.this, resultUri);
-                        editProfileViewModel.setEditProfileURLNow(profileURL);
-
-                    } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
-                        Exception error = result.getError();
-                    }
-                }
-
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
 
 
         }
 
+        if(requestCode == BACKGROUND_IMAGE_REQUEST_CODE && resultCode == RESULT_OK && data != null){
+            Uri path = data.getData();
+            Log.d(TAG, "onActivityResult: BACKGROUND URL: " + path);
+            startCropImageActivity(path, BACKGROUND_CROP_CODE);
 
 
-        if(requestCode == BACKGROUND_IMAGE_REQUEST_CODE && resultCode == RESULT_OK && data != null){ //
-            Uri paths = data.getData();
-            Log.d(TAG, "onActivityResult: BACKGROUND URL: " + paths);
+
+        }
+
+        if (requestCode == BACKGROUND_CROP_CODE) {
+            CropImage.ActivityResult result = CropImage.getActivityResult(data);
 
             try {
-                backgroundBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), paths);
-                backgroundProfile.setImageBitmap(backgroundBitmap);
-                backgroundURL = FilePath.getFilePath(EditProfileActivity.this, paths);
-                editProfileViewModel.setEditBackgroundURLNow(backgroundURL);
-
+                backgroundBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), result.getUri());
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
+            backgroundProfile.setImageBitmap(backgroundBitmap);
+            backgroundURL = FilePath.getFilePath(EditProfileActivity.this, result.getUri());
+            editProfileViewModel.setEditBackgroundURLNow(backgroundURL);
         }
+
+        if (requestCode == PROFILE_CROP_CODE) {
+            CropImage.ActivityResult result = CropImage.getActivityResult(data);
+
+            try {
+                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), result.getUri());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            profilePicture.setImageBitmap(bitmap);
+            profileURL = FilePath.getFilePath(EditProfileActivity.this, result.getUri());
+            editProfileViewModel.setEditProfileURLNow(profileURL);
+        }
+
+
+        if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+            CropImage.ActivityResult result = CropImage.getActivityResult(data);
+            Exception error = result.getError();
+        }
+
+
+
 
     }
+    
+
+    private void startCropImageActivity(Uri path, int requestCode) {
+        Intent cropIntent = null;
+        if(requestCode == PROFILE_CROP_CODE){
+            cropIntent = CropImage.activity(path)
+                    .setCropShape(CropImageView.CropShape.OVAL)
+                    .setCropMenuCropButtonTitle("Done")
+                    .setGuidelines(CropImageView.Guidelines.ON)
+                    .setFixAspectRatio(true)
+                    .setActivityTitle("Crop")
+                    .setMultiTouchEnabled(true)
+                    .getIntent(this);
+
+        }else if(requestCode == BACKGROUND_CROP_CODE){
+            cropIntent = CropImage.activity(path)
+                    .setGuidelines(CropImageView.Guidelines.ON)
+                    .setCropMenuCropButtonTitle("Done")
+                    .setFixAspectRatio(true)
+                    .setActivityTitle("Crop")
+                    .setMultiTouchEnabled(true)
+                    .getIntent(this);
+        }
+
+
+        startActivityForResult(cropIntent, requestCode);
+    }
+
 
     public void observeChangedUser(){
 
