@@ -15,8 +15,6 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
@@ -144,25 +142,17 @@ public class MainActivity extends AppCompatActivity {
 
         tabLayoutMediator.attach();
 
-        //loadProfileCircle();
+
     }
 
     public void goToGallery(){
         Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        //intent.setType("image/* video/*");
+        intent.setType("image/* video/*");
         startActivityForResult(intent, IMAGE_PICK_CODE);
 
     }
 
 
-
-    public void loadProfileCircle(){
-        RequestOptions options = new RequestOptions()
-                .centerCrop()
-                .placeholder(R.drawable.defaultprofile)
-                .error(R.drawable.defaultprofile);
-        Glide.with(MainActivity.this).load(sessionManagement.getAvatarURL()).apply(options).into(profileThumbnail);
-    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {

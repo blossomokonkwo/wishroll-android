@@ -217,7 +217,7 @@ public class EditProfileViewModel extends ViewModel{
             }
 
             if (editNameNow != null) {  //meaning if it changed
-                changedValues.put("name", createPartFromString(editNameNow));
+                changedValues.put("name", createPartFromString(editNameNow.trim()));
             }
 
             if (editEmailNow != null) { //if this changed then do this
@@ -226,13 +226,13 @@ public class EditProfileViewModel extends ViewModel{
                     authListener.sendMessage("Please enter a valid email");
 
                 } else {
-                    changedValues.put("email", createPartFromString(editEmailNow));
+                    changedValues.put("email", createPartFromString(editEmailNow.trim()));
                 }
 
             }
 
             if (editBioNow != null) {
-                changedValues.put("bio", createPartFromString(editBioNow));
+                changedValues.put("bio", createPartFromString(editBioNow.trim()));
 
             }
 

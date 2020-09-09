@@ -102,8 +102,6 @@ public interface WishRollApi {
 
 
 
-
-
     @GET("")
     Flowable<List<User>> getListFollowers();
     //gets list of user's followers

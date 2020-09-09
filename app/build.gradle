@@ -138,6 +138,9 @@ dependencies {
     //Styleable Toasts
     implementation 'com.muddzdev:styleabletoast:2.2.3'
 
+    //Android Image Cropping
+    implementation 'com.theartofdev.edmodo:android-image-cropper:2.8.0'
+
 
 
 

@@ -1,10 +1,8 @@
 package co.wishroll.views.profile;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
@@ -29,6 +27,8 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.mikhaellopez.circularimageview.CircularImageView;
+import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -143,6 +143,7 @@ public class EditProfileActivity extends AppCompatActivity implements AuthListen
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                startActivity(new Intent(EditProfileActivity.this, ProfileViewActivity.class));
                 finish();
             }
         });
@@ -226,22 +227,47 @@ public class EditProfileActivity extends AppCompatActivity implements AuthListen
         super.onActivityResult(requestCode, resultCode, data);
 
         if(requestCode == IMAGE_REQUEST_CODE && resultCode == RESULT_OK && data != null){
+
             Uri path = data.getData();
             Log.d(TAG, "onActivityResult: PROFILE URL: " + path);
 
 
             try {
                 bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), path);
-                profilePicture.setImageBitmap(bitmap);
-                profileURL = FilePath.getFilePath(EditProfileActivity.this, path);
-                editProfileViewModel.setEditProfileURLNow(profileURL);
+                CropImage.activity(path)
+                        .setCropShape(CropImageView.CropShape.OVAL)
+                        .setCropMenuCropButtonTitle("Done")
+                        .setActivityTitle("Crop")
+                        .setFixAspectRatio(true)
+                        .setGuidelines(CropImageView.Guidelines.ON)
+                        .start(this);
+
+
+                if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+                    CropImage.ActivityResult result = CropImage.getActivityResult(data);
+                    if (resultCode == RESULT_OK) {
+                        Uri resultUri = result.getUri();
+
+                        profilePicture.setImageBitmap(bitmap);
+                        profileURL = FilePath.getFilePath(EditProfileActivity.this, resultUri);
+                        editProfileViewModel.setEditProfileURLNow(profileURL);
+
+                    } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+                        Exception error = result.getError();
+                    }
+                }
+
 
             } catch (IOException e) {
                 e.printStackTrace();
             }
 
 
-        }else if(requestCode == BACKGROUND_IMAGE_REQUEST_CODE && resultCode == RESULT_OK && data != null){ //
+        }
+
+
+
+        if(requestCode == BACKGROUND_IMAGE_REQUEST_CODE && resultCode == RESULT_OK && data != null){ //
             Uri paths = data.getData();
             Log.d(TAG, "onActivityResult: BACKGROUND URL: " + paths);
 
@@ -301,7 +327,7 @@ public class EditProfileActivity extends AppCompatActivity implements AuthListen
                                     sessionManagement.editUserDetails(updateResponseStateData.data.currentUser);
 
                                     sessionManagement.printEverything("AFTER USER HAD PRESSED SAVE AND IT HAS UPDATED SUCCESSFULLY");
-                                    //startActivity(new Intent(EditProfileActivity.this, ProfileViewActivity.class));
+                                    startActivity(new Intent(EditProfileActivity.this, ProfileViewActivity.class));
                                     finish();
 
 
@@ -413,19 +439,6 @@ public class EditProfileActivity extends AppCompatActivity implements AuthListen
         startActivityForResult(intent, IMAGE_REQUEST_CODE );
     }
 
-    public String getPathfromUrl(Uri uri, Activity activity){
-        Cursor cursor = activity.getContentResolver().query(uri, null, null, null, null);
-        if(cursor == null){
-            return uri.getPath();
-        }else{
-            cursor.moveToFirst();
-            int id = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
-            return cursor.getString(id);
-
-        }
-
-
-    }
 
 
 

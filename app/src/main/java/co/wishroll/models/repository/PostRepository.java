@@ -35,23 +35,21 @@ public class PostRepository {
     }
 
     public LiveData<StateData<Completable>> uploadPost(MultipartBody.Part post, RequestBody caption, String tags){
-        //int returned from upload post request is used in a chain request to upload the tags and sort of accompany the tags with the post. when request is complete you get a 200 ok
 
         if(post != null && caption != null){
 
-
-                    Completable completable =  wishRollApi.uploadPost(post, caption)
-                    .flatMapCompletable(postResponse -> wishRollApi.sendTags(postResponse.getPostId(), tags))
-                    .subscribeOn(Schedulers.io());
-
-            source = LiveDataReactiveStreams.fromPublisher(completable.toFlowable());
+            source = LiveDataReactiveStreams.fromPublisher(wishRollApi.uploadPost(post, caption)
+                    .flatMapCompletable(
+                            postResponse -> wishRollApi.sendTags(postResponse.getPostId(), tags))
+                    .subscribeOn(Schedulers.io()).toFlowable());
 
 
 
 
         }else if(post != null && caption == null && tags != null){
+
             source = LiveDataReactiveStreams.fromPublisher(
-                    wishRollApi.uploadPost(post, null)
+                    wishRollApi.uploadPost(post)
                     .flatMapCompletable(postResponse -> wishRollApi.sendTags(postResponse.getPostId(), tags))
                     .subscribeOn(Schedulers.io()).toFlowable());
 
