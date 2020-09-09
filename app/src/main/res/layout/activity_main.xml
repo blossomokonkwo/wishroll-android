@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     >
 
     <data>
@@ -7,15 +9,18 @@
         <variable
             name="mainviewmodel"
             type="co.wishroll.viewmodel.MainViewModel" />
+
+        <variable
+            name="imageUrl"
+            type="String" />
+
     </data>
 
 <androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".views.home.MainActivity">
-
 
 
     <!-- Full Page -->
@@ -28,6 +33,7 @@
 
 
     <!-- Profile Banner & Top Image Buttons -->
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/_70sdp">
@@ -40,7 +46,7 @@
         <!-- android:onClick="@{() -> mainviewmodel.onProfileMainPressed}" -->
 
         <com.mikhaellopez.circularimageview.CircularImageView
-
+            app:profileImage="@{imageUrl}"
             android:layout_margin="@dimen/_10sdp"
             android:id="@+id/profileMain"
             android:layout_width="@dimen/_55sdp"

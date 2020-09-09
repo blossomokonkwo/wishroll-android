@@ -165,6 +165,7 @@ public class EditProfileViewModel extends ViewModel{
 
 
     public RequestBody createPartFromString(String entryString){
+
         return RequestBody.create( entryString, MultipartBody.FORM );
     }
 
@@ -179,17 +180,17 @@ public class EditProfileViewModel extends ViewModel{
 
        sessionManagement.printEverything("save changes button is pressed.");
 
-        if(editUsername.get() == null ||  editEmail.get() == null ){  //probably can't even do if it is null because it could just mean that it didn't change
+        if(editUsername.get() == null ||  editEmail.get() == null ){
             authListener.sendMessage("Please enter a value.");
 
-        }else if(!usernameIsValid(editUsername.get())){
+        }else if(!usernameIsValid(editUsername.get()) && editUsernameNow != null && !editUsernameNow.equals(sessionManagement.getUsername())){
             authListener.sendMessage("Please enter a valid username");
 
         }else{
 
 
             if (editUsernameNow != null && !sessionManagement.getUsername().equals(editUsernameNow)) { //if its changed then do this
-                changedValues.put("username", createPartFromString(editUsernameNow));
+                changedValues.put("username", createPartFromString(formatUsername(editUsernameNow)));
 
             }
 
@@ -338,6 +339,7 @@ public class EditProfileViewModel extends ViewModel{
         String usernameRegex = "^[A-Z0-9]([._](?![._])|[a-z0-9]){1,20}[a-z0-9]$";
 
         Pattern usernamePat = Pattern.compile(usernameRegex, Pattern.CASE_INSENSITIVE);
+
 
         Matcher matcher = usernamePat.matcher(usernameInput);
 

@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
         activityMainBinding = DataBindingUtil.setContentView(MainActivity.this, R.layout.activity_main);
         mainViewModel = new ViewModelProvider(this).get(MainViewModel.class);
         activityMainBinding.setMainviewmodel(mainViewModel);
+        activityMainBinding.setImageUrl(sessionManagement.getAvatarURL());
 
         fabUpload = findViewById(R.id.fabUpload);
         searchBarFake = findViewById(R.id.etSearchBarMain);
@@ -143,12 +144,12 @@ public class MainActivity extends AppCompatActivity {
 
         tabLayoutMediator.attach();
 
-        loadProfileCircle();
+        //loadProfileCircle();
     }
 
     public void goToGallery(){
         Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        intent.setType("image/* video/*");
+        //intent.setType("image/* video/*");
         startActivityForResult(intent, IMAGE_PICK_CODE);
 
     }
