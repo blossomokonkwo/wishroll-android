@@ -8,7 +8,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
@@ -30,7 +29,6 @@ import com.mikhaellopez.circularimageview.CircularImageView;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 import co.wishroll.R;
@@ -158,73 +156,6 @@ public class EditProfileActivity extends AppCompatActivity implements AuthListen
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-    public String getProfileURLString(Bitmap bitmap){
-        String encodedImage = "";
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        showProgressBar(true);
-        if(bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream)){
-            showProgressBar(false);
-            byte[] imageInByte = byteArrayOutputStream.toByteArray();
-           encodedImage = Base64.encodeToString(imageInByte, Base64.DEFAULT);
-        }
-
-
-        return encodedImage;
-    }
-
-    private String getBackgroundString(Bitmap bitmap) {
-        String encodedImage = "";
-        showProgressBar(true);
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        if(bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream)){
-           encodedImage = Base64.encodeToString(byteArrayOutputStream.toByteArray(), Base64.DEFAULT);
-            showProgressBar(false);
-        }
-
-        return encodedImage;
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -284,7 +215,7 @@ public class EditProfileActivity extends AppCompatActivity implements AuthListen
 
 
     }
-    
+
 
     private void startCropImageActivity(Uri path, int requestCode) {
         Intent cropIntent = null;
@@ -314,8 +245,6 @@ public class EditProfileActivity extends AppCompatActivity implements AuthListen
 
 
     public void observeChangedUser(){
-
-
 
         Log.d(TAG, "observeChangedUser: starting to observe the edited user");
         editProfileViewModel.observeEditsMade().observe(this, new Observer<StateData<UpdateResponse>>() {
@@ -421,33 +350,6 @@ public class EditProfileActivity extends AppCompatActivity implements AuthListen
         }
 
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

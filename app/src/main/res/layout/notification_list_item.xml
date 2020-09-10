@@ -2,7 +2,7 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/_80sdp"
+    android:layout_height="@dimen/_70sdp"
     android:orientation="horizontal"
     android:paddingBottom="@dimen/_1sdp"
     android:paddingLeft="@dimen/_10sdp"
@@ -12,8 +12,9 @@
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center">
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -22,10 +23,9 @@
 
         <com.mikhaellopez.circularimageview.CircularImageView
             android:id="@+id/notificationProfilePicture"
-            android:layout_marginTop="@dimen/_10sdp"
             android:layout_marginRight="@dimen/_5sdp"
-            android:layout_width="@dimen/_35sdp"
-            android:layout_height="@dimen/_35sdp"
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_40sdp"
             android:src="@drawable/defaultprofile"
             />
 
@@ -41,7 +41,7 @@
                 android:layout_height="wrap_content"
                 android:text="potatocornchips"
                 android:id="@+id/notificationUsername"
-                android:layout_marginBottom="@dimen/_10sdp"
+                android:layout_marginBottom="@dimen/_1sdp"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_11sdp"
                 android:textStyle="bold"/>
@@ -92,7 +92,7 @@
             android:layout_alignParentRight="true"
             android:id="@+id/notificationThumbnail"
             android:layout_width="@dimen/_60sdp"
-            android:layout_height="@dimen/_80sdp"
+            android:layout_height="@dimen/_70sdp"
             android:src="@drawable/reaction_picture"
             android:scaleType="centerCrop"
             >

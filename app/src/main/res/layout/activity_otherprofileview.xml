@@ -55,7 +55,7 @@
                         android:layout_alignParentStart="true"/>
 
 
-                    <ImageButton
+                    <!--<ImageButton
                         android:id="@+id/moreProfileView"
                         android:layout_width="@dimen/_30sdp"
                         android:layout_height="@dimen/_20sdp"
@@ -63,7 +63,7 @@
                         android:elevation="2dp"
                         android:layout_margin="10dp"
                         android:background="@color/transparent"
-                        android:layout_alignParentEnd="true"/>
+                        android:layout_alignParentEnd="true"/>-->
 
 
                     <ImageView

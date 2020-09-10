@@ -3,7 +3,6 @@ package co.wishroll.views.profile;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -15,7 +14,6 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
 
-import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
@@ -25,7 +23,6 @@ import co.wishroll.databinding.ActivityOtherprofileviewBinding;
 import co.wishroll.models.repository.local.SessionManagement;
 import co.wishroll.viewmodel.OtherProfileViewModel;
 import co.wishroll.views.home.MainActivity;
-import co.wishroll.views.registration.LoginActivity;
 import co.wishroll.views.reusables.UserList;
 import co.wishroll.views.tools.ProfileViewPagerAdapter;
 
@@ -39,10 +36,10 @@ public class OtherProfileViewActivity extends AppCompatActivity {
     OtherProfileViewModel otherProfileViewModel;
 
 
-    TextView usernameView, fullNameView;
+    private TextView usernameView, fullNameView;
     private FloatingActionButton fabHome;
-    ImageButton backProfileView, moreProfileView;
-    Button bMainButton;
+    private ImageButton backProfileView, moreProfileView;
+    private Button bMainButton;
     private TextView followingList, followersList;
     SessionManagement sessionManagement = applicationGraph.sessionManagement();
 
@@ -58,7 +55,7 @@ public class OtherProfileViewActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        String username = intent.getStringExtra("username");
+        String username = intent.getStringExtra("username"); //use intent extra and viewmodel factory to send username to viewmodel and API
         activityOtherprofileviewBinding = DataBindingUtil.setContentView(this, R.layout.activity_otherprofileview);
         otherProfileViewModel = new ViewModelProvider(this).get(OtherProfileViewModel.class);
         activityOtherprofileviewBinding.setOtherProfileViewModel(otherProfileViewModel);
@@ -91,7 +88,7 @@ public class OtherProfileViewActivity extends AppCompatActivity {
 
 
         ViewPager2 viewPager2 = findViewById(R.id.viewPagerProfileView);
-        viewPager2.setAdapter(new ProfileViewPagerAdapter(this));
+        viewPager2.setAdapter(new ProfileViewPagerAdapter(this, false));
 
         TabLayout tabLayout = findViewById(R.id.tabLayoutProfileView);
         TabLayoutMediator tabLayoutMediator = new TabLayoutMediator(
@@ -108,21 +105,11 @@ public class OtherProfileViewActivity extends AppCompatActivity {
                         tab.setIcon(R.drawable.ic_uploads);
                         break;}
 
-                    case 1:{
+                    default:{
                         //tab.setText("Likes");
-                        tab.setIcon(R.drawable.ic_likes);
+                        tab.setIcon(R.drawable.ic_rolls);
                         break;}
 
-                    case 2:{
-                        //tab.setText("Bookmarks");
-                        tab.setIcon(R.drawable.ic_bookmark);
-                        break;}
-
-                    default: {
-                        //tab.setText("Notifications");
-                        tab.setIcon(R.drawable.ic_notifications);
-                        break;
-                    }
                 }
 
             }
@@ -141,63 +128,7 @@ public class OtherProfileViewActivity extends AppCompatActivity {
             }
         });
 
-        moreProfileView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-               final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(
-                        OtherProfileViewActivity.this, R.style.BottomSheetDialogTheme
-                );
 
-                View bottomSheetView = LayoutInflater.from(getApplicationContext()).inflate(R.layout.layout_bottom_sheet,
-                        findViewById(R.id.bottomSheetContainer));
-
-                bottomSheetView.findViewById(R.id.contactProfileView).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        startActivity(new Intent(OtherProfileViewActivity.this, ContactActivity.class));
-                        bottomSheetDialog.dismiss();
-                    }
-                });
-
-                bottomSheetView.findViewById(R.id.privacyProfileView).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        //TODO(show user privacy policy)
-                        //bottomSheetDialog.dismiss();
-                    }
-                });
-
-                bottomSheetView.findViewById(R.id.yourAccountProfileView).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                        startActivity(new Intent(OtherProfileViewActivity.this, EditProfileActivity.class));
-                        bottomSheetDialog.dismiss();
-
-                    }
-                });
-
-                bottomSheetView.findViewById(R.id.logoutProfileView).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        sessionManagement.clearSession();
-                        sessionManagement.checkLogout();
-                        bottomSheetDialog.dismiss();
-                        startActivity(new Intent(OtherProfileViewActivity.this, LoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK| Intent.FLAG_ACTIVITY_CLEAR_TOP));
-                        //TODO(this crashes everytime it happens but we're going to leave it alone for now) --> added to this but we'll see how it works rn bruv
-                        finish();
-
-                    }
-
-                });
-
-
-                bottomSheetDialog.setContentView(bottomSheetView);
-                bottomSheetDialog.show();
-
-            }
-
-        });
 
         backProfileView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -209,7 +140,6 @@ public class OtherProfileViewActivity extends AppCompatActivity {
         bMainButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(OtherProfileViewActivity.this, EditProfileActivity.class));
             }
         });
 

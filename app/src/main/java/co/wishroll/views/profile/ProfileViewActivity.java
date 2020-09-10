@@ -45,14 +45,14 @@ public class ProfileViewActivity extends AppCompatActivity {
     ProfileViewModel profileViewModel;
 
 
-    TextView usernameView, fullNameView, wishrollScore, bioProfileView, numViews, numFollowers, numFollowing;
+    private TextView usernameView, fullNameView, wishrollScore, bioProfileView, numViews, numFollowers, numFollowing;
     private FloatingActionButton fabHome;
-    CircularImageView profilePicture;
-    ImageView bannerPicture, emojiView;
-    ImageButton backProfileView, moreProfileView;
-    Button bMainButton;
+    private CircularImageView profilePicture;
+    private ImageView bannerPicture, emojiView;
+    private ImageButton backProfileView, moreProfileView;
+    private Button bMainButton;
     private TextView followingList, followersList;
-    SessionManagement sessionManagement = applicationGraph.sessionManagement();
+    private SessionManagement sessionManagement = applicationGraph.sessionManagement();
 
 
 
@@ -128,13 +128,13 @@ public class ProfileViewActivity extends AppCompatActivity {
 
                     case 1:{
                         //tab.setText("Likes");
-                        tab.setIcon(R.drawable.ic_likes);
+                        tab.setIcon(R.drawable.ic_rolls);
                         break;}
 
-                    case 2:{
+                   /* case 2:{
                         //tab.setText("Bookmarks");
                         tab.setIcon(R.drawable.ic_bookmark);
-                        break;}
+                        break;}*/
 
                     default: {
                         //tab.setText("Notifications");

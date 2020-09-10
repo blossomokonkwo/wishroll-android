@@ -105,6 +105,8 @@
     <string name="error_selecting_file">Error selecting File</string>
     <string name="internal_storage">Internal storage</string>
 
+    <string name="bookmarks">Bookmarked</string>
+    <string name="likes">Liked</string>
 
 
 </resources>

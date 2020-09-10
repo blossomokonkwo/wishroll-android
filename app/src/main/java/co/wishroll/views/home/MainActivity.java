@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     FloatingActionButton fabUpload;
     EditText searchBarFake;
     private static final int PERMISSION_CODE = 1001;
-    private static final int IMAGE_PICK_CODE = 1000;
+    private static final int MEDIA_PICK_CODE = 1000;
 
 
 
@@ -146,9 +146,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void goToGallery(){
-        Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        intent.setType("image/* video/*");
-        startActivityForResult(intent, IMAGE_PICK_CODE);
+
+
+        Intent intentUpload = new Intent();
+        intentUpload.setType("*/*");
+        intentUpload.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(intentUpload, MEDIA_PICK_CODE );
 
     }
 
