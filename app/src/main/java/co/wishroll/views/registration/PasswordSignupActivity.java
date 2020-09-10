@@ -34,15 +34,15 @@ import static co.wishroll.WishRollApplication.applicationGraph;
 public class PasswordSignupActivity extends AppCompatActivity implements AuthListener {
 
     private static final String TAG = "SIGNUP ACTIVITY";
-    Retrofit retrofitInstance = RetrofitInstance.getRetrofitInstance();
-    WishRollApi wishRollApi = retrofitInstance.create(WishRollApi.class);
-    SessionManagement sessionManagement = applicationGraph.sessionManagement();
+    private Retrofit retrofitInstance = RetrofitInstance.getRetrofitInstance();
+    private WishRollApi wishRollApi = retrofitInstance.create(WishRollApi.class);
+    private SessionManagement sessionManagement = applicationGraph.sessionManagement();
 
 
-    Button signUp;
-    ProgressBar progressBarEnd;
-    Button bBackPassword;
-    EditText etPasswordOne, etPasswordTwo;
+    private Button signUp;
+    private ProgressBar progressBarEnd;
+    private Button bBackPassword;
+    private EditText etPasswordOne, etPasswordTwo;
 
 
 
@@ -82,7 +82,7 @@ public class PasswordSignupActivity extends AppCompatActivity implements AuthLis
                     Log.d(TAG, "onNextEmail: SETTING asc values: " + SignupRequest.getEmail() + " " + SignupRequest.getName() + " " +
                             SignupRequest.getBirthday() + " " + SignupRequest.getUsername() + " " + SignupRequest.getPassword());
 
-                    SignupRequestMany signupRequestMany = new SignupRequestMany(SignupRequest.getName(), SignupRequest.getUsername(), SignupRequest.getPassword(),SignupRequest.getEmail(),SignupRequest.getBirthday() );
+                    SignupRequestMany signupRequestMany = new SignupRequestMany("", SignupRequest.getUsername(), SignupRequest.getPassword(),SignupRequest.getEmail(),SignupRequest.getBirthday() );
 
 
                     wishRollApi.signupUser(signupRequestMany).enqueue(new Callback<AuthResponse>() {

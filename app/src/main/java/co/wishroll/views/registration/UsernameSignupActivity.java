@@ -31,15 +31,15 @@ import retrofit2.Retrofit;
 public class UsernameSignupActivity extends AppCompatActivity implements AuthListener {
 
     private static final String TAG = "SIGNUP ACTIVITY";
-    Retrofit retrofitInstance = RetrofitInstance.getRetrofitInstance();
-    WishRollApi wishRollApi = retrofitInstance.create(WishRollApi.class);
+    private Retrofit retrofitInstance = RetrofitInstance.getRetrofitInstance();
+    private WishRollApi wishRollApi = retrofitInstance.create(WishRollApi.class);
 
 
 
-    Button nextUsername;
-    ProgressBar progressBarSignup;
-    Button bBackUsername;
-    EditText etUsername;
+    private Button nextUsername;
+    private ProgressBar progressBarSignup;
+    private Button bBackUsername;
+    private EditText etUsername;
 
 
 

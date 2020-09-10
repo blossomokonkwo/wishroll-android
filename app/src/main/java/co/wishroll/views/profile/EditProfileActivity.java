@@ -49,7 +49,7 @@ public class EditProfileActivity extends AppCompatActivity implements AuthListen
     SessionManagement sessionManagement = applicationGraph.sessionManagement();
     private ActivityEditProfileBinding editProfileBinding;
     EditProfileViewModel editProfileViewModel;
-    ProgressBar progressBar;
+    private ProgressBar progressBar;
     private  int IMAGE_REQUEST_CODE = 20;
     private int BACKGROUND_IMAGE_REQUEST_CODE = 30;
     private int BACKGROUND_CROP_CODE = 40;
@@ -63,10 +63,10 @@ public class EditProfileActivity extends AppCompatActivity implements AuthListen
 
 
     private ImageButton backButton, editBackground;
-    CircularImageView profilePicture;
-    RelativeLayout editProfilePictureButton;
+    private CircularImageView profilePicture;
+    private RelativeLayout editProfilePictureButton;
     private Bitmap bitmap;
-    ImageView backgroundProfile;
+    private ImageView backgroundProfile;
     private Bitmap backgroundBitmap;
     private int MY_PERMISSIONS_REQUEST = 200;
 

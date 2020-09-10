@@ -30,9 +30,9 @@ public class LoginActivity extends AppCompatActivity implements AuthListener {
     ActivityLoginBinding activityLoginBinding;
     LoginViewModel loginViewModel;
 
-    TextView signupInstead;
-    ProgressBar progressBar;
-    EditText emailUser, password;
+    private TextView signupInstead;
+    private ProgressBar progressBar;
+    private EditText emailUser, password;
 
 
     @Override

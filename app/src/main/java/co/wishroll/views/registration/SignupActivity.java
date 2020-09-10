@@ -23,7 +23,6 @@ import co.wishroll.models.repository.datamodels.AuthResponse;
 import co.wishroll.models.repository.datamodels.EValidationRequest;
 import co.wishroll.models.repository.datamodels.SignupRequest;
 import co.wishroll.utilities.AuthListener;
-import io.reactivex.Completable;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -38,13 +37,13 @@ public class SignupActivity extends AppCompatActivity implements AuthListener {
 
 
 
-    ProgressBar progressBarEmail;
-    Button bNextEmail;
-    ImageButton backEmail;
-    EditText signupEmailET;
-    Completable emailValid;
-    Retrofit retrofitInstance = RetrofitInstance.getRetrofitInstance();
-    WishRollApi wishRollApi = retrofitInstance.create(WishRollApi.class);
+    private ProgressBar progressBarEmail;
+    private Button bNextEmail;
+    private ImageButton backEmail;
+    private EditText signupEmailET;
+
+    private Retrofit retrofitInstance = RetrofitInstance.getRetrofitInstance();
+    private WishRollApi wishRollApi = retrofitInstance.create(WishRollApi.class);
 
 
 
@@ -90,7 +89,7 @@ public class SignupActivity extends AppCompatActivity implements AuthListener {
                     wishRollApi.validateEmail(eValidationRequest).enqueue(new Callback<AuthResponse>() {
                         @Override
                         public void onResponse(Call<AuthResponse> call, Response<AuthResponse> response) {
-                            if(response.code() ==200){
+                            if(response.code() == 200){
                                 SignupRequest.setEmail(signupEmailET.getText().toString());
                                 showEmailProgressBar(false);
                                 statusGetter(200);
@@ -175,7 +174,7 @@ public class SignupActivity extends AppCompatActivity implements AuthListener {
                 Toast.makeText(this, "This email is linked with another account", Toast.LENGTH_SHORT).show();
             }else{
                 Log.d(TAG, "statusGetter: on our way to the next activity");
-                startActivity(new Intent(SignupActivity.this, NameSignupActivity.class));
+                startActivity(new Intent(SignupActivity.this, AgeSignupActivity.class));
             }
     }
 }

@@ -9,8 +9,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,17 +26,16 @@ public class AgeSignupActivity extends AppCompatActivity implements AuthListener
     public String year;
     public String month;
     public String day;
-    RadioGroup radioGroupGender;
-    RadioButton radioButtonGender;
 
 
 
 
-    EditText etMonth, etDay, etYear;
-    Button nextAgeButton;
-    ProgressBar progressBarAge;
-    ImageButton backAge;
-    int genderNum;
+
+    private EditText etMonth, etDay, etYear;
+    private Button nextAgeButton;
+    private ProgressBar progressBarAge;
+    private ImageButton backAge;
+
 
 
 
@@ -57,7 +54,6 @@ public class AgeSignupActivity extends AppCompatActivity implements AuthListener
         progressBarAge = findViewById(R.id.progressBarAge);
         backAge = findViewById(R.id.backAge);
 
-        radioGroupGender = findViewById(R.id.rgGender);
 
 
 
@@ -65,7 +61,7 @@ public class AgeSignupActivity extends AppCompatActivity implements AuthListener
         backAge.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(AgeSignupActivity.this, NameSignupActivity.class));
+                startActivity(new Intent(AgeSignupActivity.this, SignupActivity.class));
                 finish();
             }
         });
@@ -84,33 +80,20 @@ public class AgeSignupActivity extends AppCompatActivity implements AuthListener
                 if((TextUtils.isEmpty(year) || TextUtils.isEmpty(month) || TextUtils.isEmpty(day)) || !ageClean(month, day, year)){
                     onFailure("Please enter a correct birthday");
 
-                }else if(!ofAge(month, day, year)){
+                }
+
+                if(!ofAge(month, day, year)){
                     onFailure("You need to be 12 or older to use WishRoll");
+                }
 
-                }else{
-
-                    int radioId = radioGroupGender.getCheckedRadioButtonId();
-                    Log.d(TAG, "checkButton: THIS IS WHAT THIS LOOKS LIKE " + radioId);
-
-                    switch (radioGroupGender.getCheckedRadioButtonId()){
-                        case (R.id.rbMale):
-                            genderNum = 0;
-                            break;
-                        case (R.id.rbFemale):
-                            genderNum = 1;
-                            break;
-                        case (R.id.rbPrefer):
-                            genderNum = 2;
-                            break;
-                    }
-
-                    SignupRequest.setGender(genderNum);
                     SignupRequest.setBirthday(formatBirthdate(month, day, year));
                     statusGetter(200);
-                    Log.d(TAG, "onNextEmail: asc values: " + SignupRequest.getEmail() + " " + SignupRequest.getName() + " " + SignupRequest.getBirthday() + " " + SignupRequest.getGender()) ;
+                    Log.d(TAG, "onNextEmail: asc values: " + SignupRequest.getEmail() + " " + SignupRequest.getName() + " " + SignupRequest.getBirthday());
                 }
-            }
+
+
         });
+
 
 
 

@@ -105,53 +105,6 @@
 
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginBottom="30dp"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/gender_ask"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_16ssp" />
-
-
-            <RadioGroup
-                android:layout_marginTop="@dimen/_10sdp"
-                android:id="@+id/rgGender"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <RadioButton
-                    android:checked="true"
-                    android:id="@+id/rbMale"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/male"
-                    android:layout_marginEnd="@dimen/_10sdp"/>
-
-                <RadioButton
-                    android:id="@+id/rbFemale"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/female"
-                    android:layout_marginEnd="@dimen/_10sdp"/>
-
-                <RadioButton
-                    android:id="@+id/rbPrefer"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/prefer_not_to_answer"
-                    android:layout_marginEnd="@dimen/_10sdp"/>
-
-            </RadioGroup>
-
-
-        </LinearLayout>
 
 
 

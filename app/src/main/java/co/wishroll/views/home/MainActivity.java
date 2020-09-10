@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
@@ -147,7 +148,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void goToGallery(){
 
-
         Intent intentUpload = new Intent();
         intentUpload.setType("*/*");
         intentUpload.setAction(Intent.ACTION_GET_CONTENT);
@@ -156,6 +156,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {

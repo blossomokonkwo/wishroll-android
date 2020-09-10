@@ -39,7 +39,6 @@
         <activity
             android:name=".views.home.MainActivity"
             android:launchMode="singleTask" />
-        <activity android:name=".views.registration.NameSignupActivity" />
         <activity android:name=".views.registration.AgeSignupActivity" />
         <activity android:name=".views.registration.UsernameSignupActivity" />
         <activity android:name=".views.registration.PasswordSignupActivity" />
