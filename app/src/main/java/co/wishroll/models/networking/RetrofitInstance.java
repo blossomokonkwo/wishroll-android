@@ -117,7 +117,7 @@ public class RetrofitInstance {
 
                 if(!WishRollApplication.hasNetwork()){
                     CacheControl cacheControl = new CacheControl.Builder()
-                            .maxStale(30, TimeUnit.MINUTES)
+                            .maxStale(1, TimeUnit.MINUTES) //time before request information is invalid in low internet spaces
                             .build();
 
                     request = request.newBuilder()
@@ -134,6 +134,11 @@ public class RetrofitInstance {
         };
     }
 
+   /* public static WishRollApi wishRollApi = RetrofitInstance.getRetrofitInstance().create(WishRollApi.class);
+
+    public WishRollApi getWishRollApi() {
+        return wishRollApi;
+    }*/
     private static Interceptor networkInterceptor(){
         return new Interceptor() {
             @Override
@@ -143,7 +148,7 @@ public class RetrofitInstance {
                 Response response = chain.proceed(chain.request());
 
                 CacheControl cacheControl = new CacheControl.Builder()
-                        .maxAge(1, TimeUnit.MINUTES)
+                        .maxAge(10, TimeUnit.SECONDS) //time before a new request is made
                         .build();
 
                 return response.newBuilder()

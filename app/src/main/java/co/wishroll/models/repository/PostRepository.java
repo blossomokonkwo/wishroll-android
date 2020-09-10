@@ -22,7 +22,6 @@ public class PostRepository {
 
     public WishRollApi wishRollApi;
 
-    public boolean wasSuccessful = false;
     LiveData<StateData<Completable>> source;
 
 

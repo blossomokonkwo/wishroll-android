@@ -232,7 +232,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginRight="@dimen/_10sdp"/>
             </RelativeLayout>
-            <RelativeLayout
+            <!--<RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_20sdp">
@@ -242,15 +242,15 @@
                     android:text="@string/more_like_this"
                     android:layout_centerHorizontal="true"
                     android:textSize="@dimen/_10sdp"/>
-            </RelativeLayout>
+            </RelativeLayout>-->
 
-            <fragment
+            <!--<fragment
                 android:id="@+id/morelikethisFragment"
                 android:layout_width="match_parent"
                 android:layout_height="900dp"
                 android:name="co.wishroll.views.reusables.MoreLikeThisFragment">
 
-            </fragment>
+            </fragment>-->
 
 
 

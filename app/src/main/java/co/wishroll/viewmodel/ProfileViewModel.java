@@ -13,6 +13,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.mikhaellopez.circularimageview.CircularImageView;
 
+import co.wishroll.R;
 import co.wishroll.models.domainmodels.User;
 import co.wishroll.models.repository.UserRepository;
 import co.wishroll.models.repository.local.SessionManagement;
@@ -32,7 +33,7 @@ public class ProfileViewModel extends ViewModel {
     public static void loadProfileViewImage(CircularImageView view, String imageUrl) {
         Log.d(TAG, "loadProfileImage: binding adapter lolol XDXDXD ");
         Glide.with(view.getContext())
-                .load(imageUrl).apply(new RequestOptions().circleCrop())
+                .load(imageUrl).apply(new RequestOptions().circleCrop()).placeholder(R.drawable.defaultprofile)
                 .into(view);
     }
 
@@ -40,7 +41,7 @@ public class ProfileViewModel extends ViewModel {
     public static void loadBannerViewImage(ImageView view, String bannerImageUrl) {
         Log.d(TAG, "loadProfileImage: binding adapter lolol XDXDXD ");
         Glide.with(view.getContext())
-                .load(bannerImageUrl).apply(new RequestOptions().centerCrop())
+                .load(bannerImageUrl).apply(new RequestOptions().centerCrop()).placeholder(R.color.wishroll_blue)
                 .into(view);
     }
 

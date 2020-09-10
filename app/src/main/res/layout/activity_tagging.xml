@@ -74,6 +74,7 @@
 
 
         <EditText
+            android:text="@={taggingviewmodel.postCaption}"
             android:layout_marginTop="@dimen/_10sdp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
@@ -81,13 +82,15 @@
             android:layout_width="wrap_content"
             android:background="#FFFFFF"
             android:maxLength="100"
+            android:layout_toLeftOf="@id/taggingThumbnail"
             android:textSize="@dimen/_14ssp"
             android:layout_height="wrap_content"
             android:hint="@string/whats_on_your_mind"
-            android:layout_marginRight="@dimen/_5sdp"
+            android:layout_marginRight="@dimen/_20sdp"
             />
 
         <ImageView
+            android:id="@+id/taggingThumbnail"
             android:maxHeight="@dimen/_100sdp"
             android:maxWidth="@dimen/_100sdp"
             android:layout_width="@dimen/_100sdp"
@@ -122,6 +125,7 @@
 
 
         <EditText
+            android:text="@={taggingviewmodel.postTags}"
             android:layout_marginTop="@dimen/_10sdp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"

@@ -72,11 +72,11 @@ public class EditProfileActivity extends AppCompatActivity implements AuthListen
 
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.activity_edit_profile);
-
 
 
         editProfileBinding = DataBindingUtil.setContentView(this, R.layout.activity_edit_profile);

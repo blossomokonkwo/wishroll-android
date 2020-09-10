@@ -381,10 +381,10 @@ public class FileUtils {
          * Attempt to retrieve the thumbnail of given Uri from the MediaStore. This
          * should not be called on the UI thread.
          *
-         * @param context
-         * @param uri
-         * @return
-         * @author paulburke
+         *
+         *
+         *
+         *
          */
         public static Bitmap getThumbnail(Context context, Uri uri) {
             return getThumbnail(context, uri, getMimeType(context, uri));

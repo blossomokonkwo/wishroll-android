@@ -3,6 +3,7 @@ package co.wishroll.views.home;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,14 +20,20 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
+import com.gowtham.library.utils.TrimType;
+import com.gowtham.library.utils.TrimVideo;
 import com.mikhaellopez.circularimageview.CircularImageView;
+import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
 
 import co.wishroll.R;
 import co.wishroll.databinding.ActivityMainBinding;
 import co.wishroll.models.repository.local.SessionManagement;
+import co.wishroll.utilities.FileUtils;
 import co.wishroll.viewmodel.MainViewModel;
 import co.wishroll.views.profile.ProfileViewActivity;
 import co.wishroll.views.tools.MainViewPagerAdapter;
+import co.wishroll.views.upload.TaggingActivity;
 
 import static co.wishroll.WishRollApplication.applicationGraph;
 
@@ -40,6 +47,8 @@ public class MainActivity extends AppCompatActivity {
     EditText searchBarFake;
     private static final int PERMISSION_CODE = 1001;
     private static final int MEDIA_PICK_CODE = 1000;
+    private int IMAGE_CROP_CODE = 1002;
+    private int VIDEO_TRIM_CODE = 1003;
 
 
 
@@ -94,6 +103,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.d(TAG, "before navigating to the profile activity");
                 Intent intent = new Intent(MainActivity.this, ProfileViewActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -120,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
 
                     case 0:{
 
-                        tab.setText("Trending");
+                        tab.setText("Discover");
 
                         break;}
 
@@ -147,7 +157,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void goToGallery(){
-
         Intent intentUpload = new Intent();
         intentUpload.setType("*/*");
         intentUpload.setAction(Intent.ACTION_GET_CONTENT);
@@ -159,7 +168,84 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+       
+        if(requestCode == MEDIA_PICK_CODE && resultCode == RESULT_OK && data != null) {
+            Uri path = data.getData();
+            //data.get
+            //Log.d(TAG, "onActivityResult: this is the type of data you picked bloss " + FileUtils.getMimeType(this, data.getData()));
+            Log.d(TAG, "onActivityResult: but wait theres more shawty " + FileUtils.getExtension(data.getData().toString()));
+            Log.d(TAG, "onActivityResult: lets see how accurate these are tbh");
 
+            String extension = FileUtils.getExtension(data.getData().toString().toLowerCase());
+
+
+
+
+            if(extension.equals(".mp4") || extension.equals(".mov") || extension.equals(".m4a") || extension.equals(".avi") || extension.equals(".wmv")){
+                Log.d(TAG, "onActivityResult: this is a video pile " + extension);
+                    startTrimVideoActivity(path);
+
+            }else if(extension.equals(".jpg") || extension.equals(".gif") || extension.equals(".png") || extension.equals(".jpeg") || extension.equals(".PNG")){
+
+
+                Log.d(TAG, "onActivityResult: we in here this is a picturee!!1");
+                startCropImageActivity(path, IMAGE_CROP_CODE);
+
+
+            }
+            
+        }
+        
+        if(requestCode == IMAGE_CROP_CODE){
+            CropImage.ActivityResult result = CropImage.getActivityResult(data);
+
+            if(result != null) {
+                Log.d(TAG, "onActivityResult: we in here shawtayyyy");
+                Intent startTagging = new Intent(MainActivity.this, TaggingActivity.class);
+                startTagging.setData(result.getUri());
+                startTagging.putExtra("isVideo", false);
+                startActivity(startTagging);
+            }
+        }
+
+        if(requestCode == TrimVideo.VIDEO_TRIMMER_REQ_CODE && data != null){
+            Uri uri = Uri.parse(TrimVideo.getTrimmedVideoPath(data));
+            Log.d(TAG, "onActivityResult: chief we got the videos on lock yezzirrr");
+            Intent startTagging = new Intent(MainActivity.this, TaggingActivity.class);
+            startTagging.setData(uri);
+            startTagging.putExtra("isVideo", true);
+            startActivity(startTagging);
+
+        }
+
+
+
+
+
+    }
+
+    private void startCropImageActivity(Uri path, int requestCode) {
+
+        Intent  cropIntent = CropImage.activity(path)
+                    .setGuidelines(CropImageView.Guidelines.ON)
+                    .setCropMenuCropButtonTitle("Done")
+                    .setFixAspectRatio(false)
+                    .setActivityTitle("Crop")
+                    .setMultiTouchEnabled(true)
+                    .getIntent(this);
+
+
+
+        startActivityForResult(cropIntent, requestCode);
+    }
+
+    private void startTrimVideoActivity(Uri videoUri){
+
+        TrimVideo.activity(String.valueOf(videoUri))
+                .setAccurateCut(false)
+                .setTrimType(TrimType.MIN_MAX_DURATION)
+                .setMinToMax(1, 15)  //seconds
+                .start(this);
     }
 
     @Override

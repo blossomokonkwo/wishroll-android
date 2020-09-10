@@ -80,15 +80,15 @@ public class AgeSignupActivity extends AppCompatActivity implements AuthListener
                 if((TextUtils.isEmpty(year) || TextUtils.isEmpty(month) || TextUtils.isEmpty(day)) || !ageClean(month, day, year)){
                     onFailure("Please enter a correct birthday");
 
-                }
-
-                if(!ofAge(month, day, year)){
+                }else if(!ofAge(month, day, year)){
                     onFailure("You need to be 12 or older to use WishRoll");
-                }
+                }else {
 
                     SignupRequest.setBirthday(formatBirthdate(month, day, year));
                     statusGetter(200);
                     Log.d(TAG, "onNextEmail: asc values: " + SignupRequest.getEmail() + " " + SignupRequest.getName() + " " + SignupRequest.getBirthday());
+                }
+
                 }
 
 
