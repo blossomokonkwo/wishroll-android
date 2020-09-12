@@ -105,10 +105,10 @@ public class OtherProfileViewActivity extends AppCompatActivity {
                         tab.setIcon(R.drawable.ic_uploads);
                         break;}
 
-                    default:{
+                    /*default:{
                         //tab.setText("Likes");
                         tab.setIcon(R.drawable.ic_rolls);
-                        break;}
+                        break;}*/
 
                 }
 

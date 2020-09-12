@@ -5,8 +5,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import co.wishroll.views.home.FeedFragment;
-import co.wishroll.views.home.MessagesFragment;
 import co.wishroll.views.home.TrendingFragment;
 
 
@@ -26,12 +24,12 @@ public class MainViewPagerAdapter extends FragmentStateAdapter {
     public Fragment createFragment(int position) {
 
         switch (position) {
-            case 0:
-                return new TrendingFragment();
+            /*case 0:
+                return new TrendingFragment();*/
             /*case 1:
                 return new MessagesFragment();*/
             default:
-                return new FeedFragment();
+                return new TrendingFragment();
         }
 
 
@@ -40,7 +38,8 @@ public class MainViewPagerAdapter extends FragmentStateAdapter {
     @Override
     public int getItemCount() {
 
-        return 2;
+        return 1;
+        //TODO(changed to 1 becuase Rolls is yet to come out for androud)
         //changed to 2 from three because of the exclusion of messages tab
 
     }

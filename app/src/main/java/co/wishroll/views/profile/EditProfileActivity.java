@@ -182,27 +182,31 @@ public class EditProfileActivity extends AppCompatActivity implements AuthListen
         if (requestCode == BACKGROUND_CROP_CODE) {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
 
-            try {
-                backgroundBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), result.getUri());
-            } catch (IOException e) {
-                e.printStackTrace();
+            if(result != null) {
+                try {
+                    backgroundBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), result.getUri());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                backgroundProfile.setImageBitmap(backgroundBitmap);
+                backgroundURL = FilePath.getFilePath(EditProfileActivity.this, result.getUri());
+                editProfileViewModel.setEditBackgroundURLNow(backgroundURL);
             }
-            backgroundProfile.setImageBitmap(backgroundBitmap);
-            backgroundURL = FilePath.getFilePath(EditProfileActivity.this, result.getUri());
-            editProfileViewModel.setEditBackgroundURLNow(backgroundURL);
         }
 
         if (requestCode == PROFILE_CROP_CODE) {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
 
-            try {
-                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), result.getUri());
-            } catch (IOException e) {
-                e.printStackTrace();
+            if(result != null) {
+                try {
+                    bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), result.getUri());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                profilePicture.setImageBitmap(bitmap);
+                profileURL = FilePath.getFilePath(EditProfileActivity.this, result.getUri());
+                editProfileViewModel.setEditProfileURLNow(profileURL);
             }
-            profilePicture.setImageBitmap(bitmap);
-            profileURL = FilePath.getFilePath(EditProfileActivity.this, result.getUri());
-            editProfileViewModel.setEditProfileURLNow(profileURL);
         }
 
 

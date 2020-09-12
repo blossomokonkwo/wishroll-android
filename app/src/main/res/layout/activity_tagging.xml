@@ -40,7 +40,7 @@
         />
 
         <TextView
-            android:id="@+id/shareButton"
+            android:id="@+id/shareButtonTag"
             android:onClick="@{()-> taggingviewmodel.onSharePressed()}"
             android:layout_alignParentEnd="true"
             android:layout_width="wrap_content"
@@ -82,12 +82,28 @@
             android:layout_width="wrap_content"
             android:background="#FFFFFF"
             android:maxLength="100"
-            android:layout_toLeftOf="@id/taggingThumbnail"
+            android:layout_toLeftOf="@id/taggingThumbnailLayout"
             android:textSize="@dimen/_14ssp"
             android:layout_height="wrap_content"
             android:hint="@string/whats_on_your_mind"
             android:layout_marginRight="@dimen/_20sdp"
             />
+
+        <RelativeLayout
+            android:id="@+id/taggingThumbnailLayout"
+            android:layout_width="@dimen/_100sdp"
+            android:layout_height="@dimen/_100sdp"
+            android:layout_alignParentEnd="true">
+
+            <ImageView
+                android:id="@+id/videoIndicator"
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:src="@drawable/ic_play"
+                app:tint="@color/light_grey"
+                android:elevation="2dp"
+                android:layout_centerInParent="true"/>
+
 
         <ImageView
             android:id="@+id/taggingThumbnail"
@@ -97,6 +113,7 @@
             android:layout_height="@dimen/_100sdp"
             android:src="@color/wishroll_blue"
             android:layout_alignParentEnd="true"/>
+        </RelativeLayout>
 
 
 

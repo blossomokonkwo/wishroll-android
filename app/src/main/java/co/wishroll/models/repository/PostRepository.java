@@ -1,18 +1,24 @@
 package co.wishroll.models.repository;
 
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.LiveDataReactiveStreams;
+
+import java.io.IOException;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import co.wishroll.models.networking.RetrofitInstance;
 import co.wishroll.models.networking.WishRollApi;
-import co.wishroll.utilities.StateData;
+import co.wishroll.models.repository.datamodels.PostResponse;
 import io.reactivex.Completable;
-import io.reactivex.schedulers.Schedulers;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 
 @Singleton
@@ -21,8 +27,9 @@ public class PostRepository {
     private static final String TAG = "PostRepository";
 
     public WishRollApi wishRollApi;
-
-    LiveData<StateData<Completable>> source;
+    boolean succeeded = false;
+    int postId;
+    LiveData<Completable> source;
 
 
     @Inject
@@ -33,24 +40,74 @@ public class PostRepository {
 
     }
 
-    public LiveData<StateData<Completable>> uploadPost(MultipartBody.Part post, RequestBody caption, String tags){
+    public boolean uploadPost(MultipartBody.Part post, MultipartBody.Part videoThumbnail, RequestBody caption, String tags, boolean isVideo){
 
         if(post != null && caption != null){
+            wishRollApi.uploadPost(post, caption).enqueue(new Callback<PostResponse>() {
+                @Override
+                public void onResponse(Call<PostResponse> call, Response<PostResponse> response) {
+                    if(response.isSuccessful()){
+                        postId = response.body().getPostId();
 
-            source = LiveDataReactiveStreams.fromPublisher(wishRollApi.uploadPost(post, caption)
-                    .flatMapCompletable(
-                            postResponse -> wishRollApi.sendTags(postResponse.getPostId(), tags))
-                    .subscribeOn(Schedulers.io()).toFlowable());
+                        wishRollApi.sendTags(postId, tags).enqueue(new Callback<ResponseBody>() {
+                            @Override
+                            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                if(response.isSuccessful()) {
+                                    succeeded = true;
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                            }
+                        });
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<PostResponse> call, Throwable t) {
+                    t.printStackTrace();
+                    Log.d(TAG, "onFailure: this failed ew");
+                }
+            });
+
+
+
+
+
+
+
+
+
 
 
 
 
         }else if(post != null && caption == null && tags != null){
 
-            source = LiveDataReactiveStreams.fromPublisher(
-                    wishRollApi.uploadPost(post)
-                    .flatMapCompletable(postResponse -> wishRollApi.sendTags(postResponse.getPostId(), tags))
-                    .subscribeOn(Schedulers.io()).toFlowable());
+            wishRollApi.uploadPost(post).enqueue(new Callback<PostResponse>() {
+                @Override
+                public void onResponse(Call<PostResponse> call, Response<PostResponse> response) {
+                    if(response.isSuccessful()){
+                        try {
+                            if(wishRollApi.sendTags(response.body().getPostId(), tags).execute().isSuccessful()){
+                                succeeded = true;
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<PostResponse> call, Throwable t) {
+                    t.printStackTrace();
+                    Log.d(TAG, "onFailure: this failed ew");
+                }
+            });
+
+
 
 
         }
@@ -58,11 +115,11 @@ public class PostRepository {
 
 
 
-
-
-        return source; //source is a livedata, statedata, completable
+        return succeeded; //source is a livedata, statedata, completable
 
     }
+
+
 
 
 }

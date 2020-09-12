@@ -134,18 +134,20 @@ public class MainActivity extends AppCompatActivity {
 
                         break;}
 
+                   //TODO(saving until messaging for android comes out)
                    /* case 1:{
 
                         tab.setText("Messages");
 
                         break;}*/
 
-                    default: {
+                   //TODO(this is for when Rolls comes out, would be displayed not as a grid view but as a scrolling, vine type view)
+                    /*default: {
 
                         tab.setText("Feed");
 
                         break;
-                    }
+                    }*/
                 }
 
             }
@@ -172,20 +174,21 @@ public class MainActivity extends AppCompatActivity {
         if(requestCode == MEDIA_PICK_CODE && resultCode == RESULT_OK && data != null) {
             Uri path = data.getData();
             //data.get
-            //Log.d(TAG, "onActivityResult: this is the type of data you picked bloss " + FileUtils.getMimeType(this, data.getData()));
-            Log.d(TAG, "onActivityResult: but wait theres more shawty " + FileUtils.getExtension(data.getData().toString()));
+           // Log.d(TAG, "onActivityResult: this is the type of data you picked bloss " + FileUtils.getMimeType(this, data.getData()));
+            Log.d(TAG, "onActivityResult: but wait theres more shawty " + FileUtils.getExtension(path.toString()));
             Log.d(TAG, "onActivityResult: lets see how accurate these are tbh");
+            String mimeType = getContentResolver().getType(path);
+            String extension = FileUtils.getExtension(data.getData().toString());
+            Log.d(TAG, "onActivityResult: WHY ARE YOU BEHAVING LIKE THIS LETS SEE IF THIS WORKS " + mimeType) ;
 
-            String extension = FileUtils.getExtension(data.getData().toString().toLowerCase());
 
+            //|| mimeType.equals("image/jpeg")
 
-
-
-            if(extension.equals(".mp4") || extension.equals(".mov") || extension.equals(".m4a") || extension.equals(".avi") || extension.equals(".wmv")){
+            if(extension.equals(".mp4") || extension.equals(".mov") || extension.equals(".m4a") || extension.equals(".avi") || extension.equals(".wmv") || mimeType.equals("video/mp4") || mimeType.contains("video") ){
                 Log.d(TAG, "onActivityResult: this is a video pile " + extension);
                     startTrimVideoActivity(path);
 
-            }else if(extension.equals(".jpg") || extension.equals(".gif") || extension.equals(".png") || extension.equals(".jpeg") || extension.equals(".PNG")){
+            }else if(extension.equals(".jpg") || extension.equals(".gif") || extension.equals(".png") || extension.equals(".jpeg") || extension.equals(".PNG")|| mimeType.equals("image/jpeg") || mimeType.contains("image")){
 
 
                 Log.d(TAG, "onActivityResult: we in here this is a picturee!!1");
@@ -242,7 +245,8 @@ public class MainActivity extends AppCompatActivity {
     private void startTrimVideoActivity(Uri videoUri){
 
         TrimVideo.activity(String.valueOf(videoUri))
-                .setAccurateCut(false)
+                .setAccurateCut(true)
+                //.setCompressOption(new CompressOption(30, 10))
                 .setTrimType(TrimType.MIN_MAX_DURATION)
                 .setMinToMax(1, 15)  //seconds
                 .start(this);

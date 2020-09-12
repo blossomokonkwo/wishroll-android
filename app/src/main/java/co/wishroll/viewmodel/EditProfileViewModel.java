@@ -272,7 +272,7 @@ public class EditProfileViewModel extends ViewModel{
 
                 profileRequest = RequestBody.create(profilePicture, MediaType.parse(FileUtils.getMimeType(profilePicture)));
 
-                 profileMultipartPart = MultipartBody.Part.createFormData("avatar", profileFileName, profileRequest);
+                profileMultipartPart = MultipartBody.Part.createFormData("avatar", profileFileName, profileRequest);
 
                 changedProfile = true;
 
@@ -343,6 +343,7 @@ public class EditProfileViewModel extends ViewModel{
         //for when the save button is pressed
         Log.d(TAG, "updateCurrentUser: in the update current user method of the view model");
         editedCurrentUser.setValue(StateData.loading((UpdateResponse) null));
+
         final LiveData<StateData<UpdateResponse>> source = userRepository.updateUser(changedAttributes, profilePicture, bannerPicture);
         editedCurrentUser.addSource(source, new Observer<StateData<UpdateResponse>>() {
 

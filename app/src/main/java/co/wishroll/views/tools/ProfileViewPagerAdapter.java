@@ -6,7 +6,6 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import co.wishroll.views.profile.NotificationsFragment;
-import co.wishroll.views.profile.RollsFragment;
 import co.wishroll.views.profile.UploadsFragment;
 
 public class ProfileViewPagerAdapter extends FragmentStateAdapter {
@@ -36,17 +35,17 @@ public class ProfileViewPagerAdapter extends FragmentStateAdapter {
             switch (position) {
                 case 0:
                     return new UploadsFragment();
-                case 1:
-                    return new RollsFragment();
+                /*case 1:
+                    return new RollsFragment();*/
                 default:
                     return new NotificationsFragment();
             }
         }else {
             switch (position) {
-                case 0:
-                    return new UploadsFragment();
+                /*case 0:
+                    return new UploadsFragment();*/
                 default:
-                    return new RollsFragment();
+                    return new UploadsFragment();
             }
         }
 
@@ -57,9 +56,9 @@ public class ProfileViewPagerAdapter extends FragmentStateAdapter {
     public int getItemCount() {
 
         if(isCurrentUser) {
-            return 3;
-        }else{
             return 2;
+        }else{
+            return 1;
         }
 
     }
