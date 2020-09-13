@@ -20,8 +20,6 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
-import com.gowtham.library.utils.TrimType;
-import com.gowtham.library.utils.TrimVideo;
 import com.mikhaellopez.circularimageview.CircularImageView;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
@@ -186,7 +184,12 @@ public class MainActivity extends AppCompatActivity {
 
             if(extension.equals(".mp4") || extension.equals(".mov") || extension.equals(".m4a") || extension.equals(".avi") || extension.equals(".wmv") || mimeType.equals("video/mp4") || mimeType.contains("video") ){
                 Log.d(TAG, "onActivityResult: this is a video pile " + extension);
-                    startTrimVideoActivity(path);
+                   // startTrimVideoActivity(path);
+                    //send video path to tagging activity instead
+                Intent taggingVideoIntent = new Intent(MainActivity.this, TaggingActivity.class);
+                Log.d(TAG, "onActivityResult: THIS IS THE VIDEO TAG STRUCTURE " + path);
+                taggingVideoIntent.setData(path);
+
 
             }else if(extension.equals(".jpg") || extension.equals(".gif") || extension.equals(".png") || extension.equals(".jpeg") || extension.equals(".PNG")|| mimeType.equals("image/jpeg") || mimeType.contains("image")){
 
@@ -207,11 +210,12 @@ public class MainActivity extends AppCompatActivity {
                 Intent startTagging = new Intent(MainActivity.this, TaggingActivity.class);
                 startTagging.setData(result.getUri());
                 startTagging.putExtra("isVideo", false);
-                startActivity(startTagging);
+                Log.d(TAG, "onActivityResult: THIS IS THE IMAGE PATH STRUCTURE, LETS OMPARE " + result.getUri());
+                //startActivity(startTagging);
             }
         }
 
-        if(requestCode == TrimVideo.VIDEO_TRIMMER_REQ_CODE && data != null){
+        /*if(requestCode == TrimVideo.VIDEO_TRIMMER_REQ_CODE && data != null){
             Uri uri = Uri.parse(TrimVideo.getTrimmedVideoPath(data));
             Log.d(TAG, "onActivityResult: chief we got the videos on lock yezzirrr");
             Intent startTagging = new Intent(MainActivity.this, TaggingActivity.class);
@@ -219,7 +223,7 @@ public class MainActivity extends AppCompatActivity {
             startTagging.putExtra("isVideo", true);
             startActivity(startTagging);
 
-        }
+        }*/
 
 
 
@@ -242,7 +246,7 @@ public class MainActivity extends AppCompatActivity {
         startActivityForResult(cropIntent, requestCode);
     }
 
-    private void startTrimVideoActivity(Uri videoUri){
+   /* private void startTrimVideoActivity(Uri videoUri){
 
         TrimVideo.activity(String.valueOf(videoUri))
                 .setAccurateCut(true)
@@ -250,7 +254,7 @@ public class MainActivity extends AppCompatActivity {
                 .setTrimType(TrimType.MIN_MAX_DURATION)
                 .setMinToMax(1, 15)  //seconds
                 .start(this);
-    }
+    }*/
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
