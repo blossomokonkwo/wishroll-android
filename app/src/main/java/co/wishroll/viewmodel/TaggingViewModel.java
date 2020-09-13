@@ -18,16 +18,12 @@ import static co.wishroll.WishRollApplication.applicationGraph;
 public class TaggingViewModel extends ViewModel {
 
     private static final String TAG = "TaggingViewModel";
-    boolean shareStatus;
     PostRepository postRepository = applicationGraph.postRepository();
     public String postTags;
     public String postCaption;
     public AuthListener authListener = null;
-    RequestBody tags;
     RequestBody caption;
     public String postPath = "";
-    public String videoThumbnailPath = "";
-    RequestBody videoThumbnailRequestbody;
     RequestBody postRequestBody;
     MultipartBody.Part postMultipart;
     MultipartBody.Part videoThumbnail;
@@ -56,24 +52,31 @@ public class TaggingViewModel extends ViewModel {
             }
     }
 
+    public boolean isVideo() {
+        return isVideo;
+    }
 
-   public void onSharePressed(){
+    public void setVideo(boolean video) {
+        isVideo = video;
+    }
+
+    public void onSharePressed(){
        Log.d(TAG, "onSharePressed: this is the caption that the user entered " + postCaption);
        Log.d(TAG, "onSharePressed: these are the tags that the user entered " + postTags);
        Log.d(TAG, "onSharePressed: this is the file path of the chosen media " + postPath);
+
         if(postTags == null){
             authListener.sendMessage("Each post must have tags");
         }else{
              caption = createPartFromString(postCaption);
 
              File postFile = new File(postPath);
-             File videoThumbnailFile = new File(videoThumbnailPath);
+
 
              postRequestBody = RequestBody.create(postFile, MediaType.parse(FileUtils.getMimeType(postFile)));
              postMultipart = MultipartBody.Part.createFormData("media_item", postFile.getName(), postRequestBody);
 
-             videoThumbnailRequestbody = RequestBody.create(videoThumbnailFile, MediaType.parse(FileUtils.getMimeType(videoThumbnailFile)));
-             videoThumbnail = MultipartBody.Part.createFormData("thumbnail_item", videoThumbnailFile.getName(), videoThumbnailRequestbody);
+             videoThumbnail = MultipartBody.Part.createFormData("thumbnail_item", postFile.getName(), postRequestBody);
 
 
 

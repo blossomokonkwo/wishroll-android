@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -36,6 +37,7 @@ import co.wishroll.views.upload.TaggingActivity;
 import static co.wishroll.WishRollApplication.applicationGraph;
 
 public class MainActivity extends AppCompatActivity {
+
     private static final String TAG = "MAIN ACTIVITY";
     ActivityMainBinding activityMainBinding;
     MainViewModel mainViewModel;
@@ -46,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
     private static final int PERMISSION_CODE = 1001;
     private static final int MEDIA_PICK_CODE = 1000;
     private int IMAGE_CROP_CODE = 1002;
-    private int VIDEO_TRIM_CODE = 1003;
+
 
 
 
@@ -64,16 +66,9 @@ public class MainActivity extends AppCompatActivity {
         searchBarFake = findViewById(R.id.etSearchBarMain);
         profileThumbnail = findViewById(R.id.profileMain);
 
-
-
-
-
-
-
         fabUpload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
-
 
                 if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M ){
                     if(checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED){
@@ -88,12 +83,8 @@ public class MainActivity extends AppCompatActivity {
                     goToGallery();
                 }
 
-
-
             }
         });
-
-
 
         profileThumbnail.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,9 +104,9 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+
         ViewPager2 viewPager2 = findViewById(R.id.viewPagerMainView);
         viewPager2.setAdapter(new MainViewPagerAdapter(this));
-
         TabLayout tabLayout = findViewById(R.id.tabLayoutMainView);
         TabLayoutMediator tabLayoutMediator = new TabLayoutMediator(
                 tabLayout, viewPager2, new TabLayoutMediator.TabConfigurationStrategy() {
@@ -150,18 +141,15 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
         tabLayoutMediator.attach();
-
-
     }
 
     public void goToGallery(){
         Intent intentUpload = new Intent();
         intentUpload.setType("*/*");
+        intentUpload.putExtra(MediaStore.EXTRA_DURATION_LIMIT, 30);
         intentUpload.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(intentUpload, MEDIA_PICK_CODE );
-
     }
 
 
@@ -171,30 +159,29 @@ public class MainActivity extends AppCompatActivity {
        
         if(requestCode == MEDIA_PICK_CODE && resultCode == RESULT_OK && data != null) {
             Uri path = data.getData();
-            //data.get
-           // Log.d(TAG, "onActivityResult: this is the type of data you picked bloss " + FileUtils.getMimeType(this, data.getData()));
-            Log.d(TAG, "onActivityResult: but wait theres more shawty " + FileUtils.getExtension(path.toString()));
-            Log.d(TAG, "onActivityResult: lets see how accurate these are tbh");
+
             String mimeType = getContentResolver().getType(path);
             String extension = FileUtils.getExtension(data.getData().toString());
-            Log.d(TAG, "onActivityResult: WHY ARE YOU BEHAVING LIKE THIS LETS SEE IF THIS WORKS " + mimeType) ;
+            Log.d(TAG, "onActivityResult: mime type of chose media: " + mimeType) ;
 
 
-            //|| mimeType.equals("image/jpeg")
+            assert mimeType != null;
+            if(extension.equals(".mp4") || extension.equals(".mov") || extension.equals(".m4a") || extension.equals(".avi")
+                    || extension.equals(".wmv") || mimeType.equals("video/mp4") || mimeType.contains("video") ){
 
-            if(extension.equals(".mp4") || extension.equals(".mov") || extension.equals(".m4a") || extension.equals(".avi") || extension.equals(".wmv") || mimeType.equals("video/mp4") || mimeType.contains("video") ){
-                Log.d(TAG, "onActivityResult: this is a video pile " + extension);
-                   // startTrimVideoActivity(path);
-                    //send video path to tagging activity instead
+                Log.d(TAG, "onActivityResult: this is a video file: " + extension);
                 Intent taggingVideoIntent = new Intent(MainActivity.this, TaggingActivity.class);
-                Log.d(TAG, "onActivityResult: THIS IS THE VIDEO TAG STRUCTURE " + path);
+                Log.d(TAG, "onActivityResult: Structure of video path: " + path);
                 taggingVideoIntent.setData(path);
+                taggingVideoIntent.putExtra("isVideo", true);
+                startActivity(taggingVideoIntent);
 
 
-            }else if(extension.equals(".jpg") || extension.equals(".gif") || extension.equals(".png") || extension.equals(".jpeg") || extension.equals(".PNG")|| mimeType.equals("image/jpeg") || mimeType.contains("image")){
+            }else if(extension.equals(".jpg") || extension.equals(".gif") || extension.equals(".png") || extension.equals(".jpeg")
+                    || extension.equals(".PNG")|| mimeType.equals("image/jpeg") || mimeType.contains("image")){
 
-
-                Log.d(TAG, "onActivityResult: we in here this is a picturee!!1");
+                Log.d(TAG, "onActivityResult: this is an image file: " + extension);
+                Log.d(TAG, "onActivityResult: Structure of video path: " + path);
                 startCropImageActivity(path, IMAGE_CROP_CODE);
 
 
@@ -206,24 +193,15 @@ public class MainActivity extends AppCompatActivity {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
 
             if(result != null) {
-                Log.d(TAG, "onActivityResult: we in here shawtayyyy");
+                Log.d(TAG, "onActivityResult: getting cropped result");
                 Intent startTagging = new Intent(MainActivity.this, TaggingActivity.class);
                 startTagging.setData(result.getUri());
                 startTagging.putExtra("isVideo", false);
-                Log.d(TAG, "onActivityResult: THIS IS THE IMAGE PATH STRUCTURE, LETS OMPARE " + result.getUri());
-                //startActivity(startTagging);
+                Log.d(TAG, "onActivityResult: cropped image uri " + result.getUri());
+                startActivity(startTagging);
             }
         }
 
-        /*if(requestCode == TrimVideo.VIDEO_TRIMMER_REQ_CODE && data != null){
-            Uri uri = Uri.parse(TrimVideo.getTrimmedVideoPath(data));
-            Log.d(TAG, "onActivityResult: chief we got the videos on lock yezzirrr");
-            Intent startTagging = new Intent(MainActivity.this, TaggingActivity.class);
-            startTagging.setData(uri);
-            startTagging.putExtra("isVideo", true);
-            startActivity(startTagging);
-
-        }*/
 
 
 
@@ -241,20 +219,10 @@ public class MainActivity extends AppCompatActivity {
                     .setMultiTouchEnabled(true)
                     .getIntent(this);
 
-
-
         startActivityForResult(cropIntent, requestCode);
     }
 
-   /* private void startTrimVideoActivity(Uri videoUri){
 
-        TrimVideo.activity(String.valueOf(videoUri))
-                .setAccurateCut(true)
-                //.setCompressOption(new CompressOption(30, 10))
-                .setTrimType(TrimType.MIN_MAX_DURATION)
-                .setMinToMax(1, 15)  //seconds
-                .start(this);
-    }*/
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {

@@ -1,7 +1,6 @@
 package co.wishroll.views.upload;
 
 import android.graphics.Bitmap;
-import android.media.MediaMetadataRetriever;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -21,6 +20,7 @@ import co.wishroll.R;
 import co.wishroll.databinding.ActivityTaggingBinding;
 import co.wishroll.utilities.AuthListener;
 import co.wishroll.utilities.FilePath;
+import co.wishroll.utilities.FileUtils;
 import co.wishroll.viewmodel.TaggingViewModel;
 
 public class TaggingActivity extends AppCompatActivity implements AuthListener {
@@ -59,12 +59,16 @@ public class TaggingActivity extends AppCompatActivity implements AuthListener {
             }
         });
 
+
         Uri mediaUri = getIntent().getData();
         boolean isVideo = getIntent().getBooleanExtra("isVideo", false);
         String postPath = FilePath.getFilePath(TaggingActivity.this, mediaUri);
-        taggingViewModel.setPostPath(postPath);
 
-        Log.d(TAG, "onCreate: entered the tagging activity but im really not sure why this is crashing all the time i just want to postpone android until literally november omg ");
+
+        //Sends post path to view model
+        taggingViewModel.setPostPath(postPath);
+        taggingViewModel.setVideo(isVideo);
+
 
         if(!isVideo) {
             videoIndicator.setVisibility(View.GONE);
@@ -91,7 +95,7 @@ public class TaggingActivity extends AppCompatActivity implements AuthListener {
 
         }else if(isVideo){
 
-            thumbnailBitmap = getVideoFrameFromVideo(postPath);
+            thumbnailBitmap = FileUtils.getThumbnail(this, mediaUri);
 
             float aspectRatio = thumbnailBitmap.getWidth()/ (float) thumbnailBitmap.getHeight();
             int width = 100;
@@ -101,7 +105,6 @@ public class TaggingActivity extends AppCompatActivity implements AuthListener {
             thumbnailBitmap = Bitmap.createScaledBitmap(thumbnailBitmap, width, height, true);
 
 
-            Log.d(TAG, "onCreate: this is a video we got");
         }
 
 
@@ -116,28 +119,11 @@ public class TaggingActivity extends AppCompatActivity implements AuthListener {
     }
     
     public void observeUploadStatus(){
-        //taggingViewModel.
+
 
     }
 
-    public static Bitmap getVideoFrameFromVideo(String videoPath) {
-        Bitmap bitmap = null;
-        MediaMetadataRetriever mediaMetadataRetriever = null;
-        try {
-            mediaMetadataRetriever = new MediaMetadataRetriever();
-            //mediaMetadataRetriever.setDataSource(videoPath, new HashMap<String, String>());
-            mediaMetadataRetriever.setDataSource(videoPath);
-            bitmap = mediaMetadataRetriever.getFrameAtTime();
-        } catch (Exception e) {
-            e.printStackTrace();
 
-        } finally {
-            if (mediaMetadataRetriever != null) {
-                mediaMetadataRetriever.release();
-            }
-        }
-        return bitmap;
-    }
 
     @Override
     public void onStarted() {
