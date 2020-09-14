@@ -1,6 +1,5 @@
 package co.wishroll.views.upload;
 
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -15,12 +14,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.bumptech.glide.Glide;
+
 import java.io.IOException;
 
 import co.wishroll.R;
 import co.wishroll.databinding.ActivityTaggingBinding;
 import co.wishroll.utilities.AuthListener;
-import co.wishroll.utilities.FilePath;
+import co.wishroll.utilities.FileUtils;
 import co.wishroll.viewmodel.TaggingViewModel;
 
 public class TaggingActivity extends AppCompatActivity implements AuthListener {
@@ -62,7 +63,7 @@ public class TaggingActivity extends AppCompatActivity implements AuthListener {
 
         Uri mediaUri = getIntent().getData();
         boolean isVideo = getIntent().getBooleanExtra("isVideo", false);
-        String postPath = FilePath.getFilePath(TaggingActivity.this, mediaUri);
+        String postPath = FileUtils.getPath(TaggingActivity.this, mediaUri);
 
 
         //Sends post path to view model
@@ -86,32 +87,38 @@ public class TaggingActivity extends AppCompatActivity implements AuthListener {
             int height = Math.round(width / aspectRatio);
 
 
-        /* use height as base instead of width
-        int height = 480;
-        int width = Math.round(height * aspectRatio);*/
+            /* use height as base instead of width
+            int height = 480;
+            int width = Math.round(height * aspectRatio);*/
+
 
             thumbnailBitmap = Bitmap.createScaledBitmap(thumbnailBitmap, width, height, true);
 
 
         }else if(isVideo){
             Log.d(TAG, "onCreate: video url for video " + mediaUri);
+
             //thumbnailBitmap = FileUtils.getThumbnail(this, mediaUri);
 
-            Log.d(TAG, "onCreate: this should have a file extension behind it: " + getRealPathFromURI(mediaUri));
-            /*float aspectRatio = thumbnailBitmap.getWidth()/ (float) thumbnailBitmap.getHeight();
-            int width = 100;
-            int height = Math.round(width / aspectRatio);
+
+            Log.d(TAG, "onCreate: this should have a file extension behind it: " + mediaUri.getPath());
+            //Log.d(TAG, "onCreate: and this should be the proper video path: " + FileUtils.getPath(this, mediaUri));
+            //File videoFile = new File(mediaUri.toString());
+            loadVideoThumbnail(FileUtils.getPath(this, mediaUri));
+
+            //float aspectRatio = thumbnailBitmap.getWidth()/ (float) thumbnailBitmap.getHeight();
+            //int width = 100;
+
+            //int height = Math.round(width / aspectRatio);
 
             videoIndicator.setVisibility(View.VISIBLE);
-            thumbnailBitmap = Bitmap.createScaledBitmap(thumbnailBitmap, width, height, true);*/
+            //thumbnailBitmap = Bitmap.createScaledBitmap(thumbnailBitmap, width, height, true);
 
 
         }
 
 
-        //mediaThumbnail.setImageBitmap(thumbnailBitmap);
-        mediaThumbnail.setBackgroundColor(getResources().getColor(R.color.wishroll_blue));
-
+        mediaThumbnail.setImageBitmap(thumbnailBitmap);
         observeUploadStatus();
 
         
@@ -121,19 +128,20 @@ public class TaggingActivity extends AppCompatActivity implements AuthListener {
     }
 
 
-    public String getRealPathFromURI(Uri contentUri)
-    {
-        String[] proj = { MediaStore.Audio.Media.DATA };
-        Cursor cursor = getContentResolver().query(contentUri, proj, null, null, null);
-        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Video.Media.DATA);
-        cursor.moveToFirst();
 
-        return cursor.getString(column_index);
+    private void loadVideoThumbnail(String filePath){
+        Glide
+                .with(TaggingActivity.this)
+                .load(filePath)
+                .error(R.drawable.defaultprofile)
+                .into(mediaThumbnail);
     }
-    
+
+
+
+
+
     public void observeUploadStatus(){
-
-
     }
 
 

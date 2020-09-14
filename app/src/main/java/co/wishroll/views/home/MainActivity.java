@@ -188,7 +188,7 @@ public class MainActivity extends AppCompatActivity {
                     || extension.equals(".PNG")|| mimeType.equals("image/jpeg") || mimeType.contains("image")){
 
                 Log.d(TAG, "onActivityResult: this is an image file: " + extension);
-                Log.d(TAG, "onActivityResult: Structure of video path: " + path);
+                Log.d(TAG, "onActivityResult: Structure of image: " + path);
                 startCropImageActivity(path, IMAGE_CROP_CODE);
 
 

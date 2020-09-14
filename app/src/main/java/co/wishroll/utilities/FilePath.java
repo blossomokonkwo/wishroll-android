@@ -8,7 +8,6 @@ import android.os.Build;
 import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
-import android.util.Log;
 
 public class FilePath {
 
@@ -34,15 +33,16 @@ public class FilePath {
 
 
                 String id= DocumentsContract.getDocumentId(uri);
-                Log.d(TAG, "getFilePath: DOWNLOAD ID " + id);
+                //Log.d(TAG, "getFilePath: DOWNLOAD ID " + id);
 
                 //content://com.android.providers.downloads.documents/document/   content://downloads/public_downloads
-                 Uri contenturi = ContentUris.withAppendedId(Uri.parse("content://com.android.providers.downloads.documents/document/"),Long.valueOf(id));
+                 Uri contenturi = ContentUris.withAppendedId(Uri.parse("content://downloads/public_downloads"),Long.valueOf(id));
 
 
 
                 return getDataColumn(context,contenturi,null,null);
             }
+
             else if(isMediaDocument(uri)){
                 String docId=DocumentsContract.getDocumentId(uri);
                 String[] split=docId.split(":");
