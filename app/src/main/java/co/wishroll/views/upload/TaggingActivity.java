@@ -1,5 +1,6 @@
 package co.wishroll.views.upload;
 
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -20,7 +21,6 @@ import co.wishroll.R;
 import co.wishroll.databinding.ActivityTaggingBinding;
 import co.wishroll.utilities.AuthListener;
 import co.wishroll.utilities.FilePath;
-import co.wishroll.utilities.FileUtils;
 import co.wishroll.viewmodel.TaggingViewModel;
 
 public class TaggingActivity extends AppCompatActivity implements AuthListener {
@@ -94,21 +94,23 @@ public class TaggingActivity extends AppCompatActivity implements AuthListener {
 
 
         }else if(isVideo){
+            Log.d(TAG, "onCreate: video url for video " + mediaUri);
+            //thumbnailBitmap = FileUtils.getThumbnail(this, mediaUri);
 
-            thumbnailBitmap = FileUtils.getThumbnail(this, mediaUri);
-
-            float aspectRatio = thumbnailBitmap.getWidth()/ (float) thumbnailBitmap.getHeight();
+            Log.d(TAG, "onCreate: this should have a file extension behind it: " + getRealPathFromURI(mediaUri));
+            /*float aspectRatio = thumbnailBitmap.getWidth()/ (float) thumbnailBitmap.getHeight();
             int width = 100;
             int height = Math.round(width / aspectRatio);
 
             videoIndicator.setVisibility(View.VISIBLE);
-            thumbnailBitmap = Bitmap.createScaledBitmap(thumbnailBitmap, width, height, true);
+            thumbnailBitmap = Bitmap.createScaledBitmap(thumbnailBitmap, width, height, true);*/
 
 
         }
 
 
-        mediaThumbnail.setImageBitmap(thumbnailBitmap);
+        //mediaThumbnail.setImageBitmap(thumbnailBitmap);
+        mediaThumbnail.setBackgroundColor(getResources().getColor(R.color.wishroll_blue));
 
         observeUploadStatus();
 
@@ -116,6 +118,17 @@ public class TaggingActivity extends AppCompatActivity implements AuthListener {
         
 
 
+    }
+
+
+    public String getRealPathFromURI(Uri contentUri)
+    {
+        String[] proj = { MediaStore.Audio.Media.DATA };
+        Cursor cursor = getContentResolver().query(contentUri, proj, null, null, null);
+        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Video.Media.DATA);
+        cursor.moveToFirst();
+
+        return cursor.getString(column_index);
     }
     
     public void observeUploadStatus(){

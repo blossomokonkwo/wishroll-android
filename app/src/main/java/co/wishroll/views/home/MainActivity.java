@@ -3,6 +3,7 @@ package co.wishroll.views.home;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -172,6 +173,12 @@ public class MainActivity extends AppCompatActivity {
                 Log.d(TAG, "onActivityResult: this is a video file: " + extension);
                 Intent taggingVideoIntent = new Intent(MainActivity.this, TaggingActivity.class);
                 Log.d(TAG, "onActivityResult: Structure of video path: " + path);
+
+
+
+
+
+
                 taggingVideoIntent.setData(path);
                 taggingVideoIntent.putExtra("isVideo", true);
                 startActivity(taggingVideoIntent);
@@ -207,6 +214,17 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+    }
+
+
+    public String getRealPathFromURI(Uri contentUri)
+    {
+        String[] proj = { MediaStore.Audio.Media.DATA };
+        Cursor cursor = getContentResolver().query(contentUri, proj, null, null, null);
+        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Video.Media.DATA);
+        cursor.moveToFirst();
+
+        return cursor.getString(column_index);
     }
 
     private void startCropImageActivity(Uri path, int requestCode) {

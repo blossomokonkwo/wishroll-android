@@ -29,11 +29,15 @@ public class FilePath {
                     return Environment.getExternalStorageDirectory()+"/"+split[1];
                 }
             }
+
             else if(isDownloadsDocument(uri)){
+
+
                 String id= DocumentsContract.getDocumentId(uri);
                 Log.d(TAG, "getFilePath: DOWNLOAD ID " + id);
 
-                 Uri contenturi = ContentUris.withAppendedId(Uri.parse("content://downloads/public_downloads"),Long.valueOf(id));
+                //content://com.android.providers.downloads.documents/document/   content://downloads/public_downloads
+                 Uri contenturi = ContentUris.withAppendedId(Uri.parse("content://com.android.providers.downloads.documents/document/"),Long.valueOf(id));
 
 
 
