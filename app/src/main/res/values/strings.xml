@@ -63,6 +63,7 @@
     <string name="bio_label">Bio</string>
     <string name="save_label">Save</string>
     <string name="saved_dialog">Profile Updated</string>
+    <string name="profile_uploaded">Profile Updated</string>
 
 
     <!-- Bottom Sheet Slider Text-->
@@ -97,6 +98,7 @@
     <string name="whats_on_your_mind">What\'s on your mind?</string>
     <string name="tags">Tags</string>
     <string name="tags_required">Tags (required)</string>
+    <string name="post_uploaded">Upload Successful…</string>
 
     <!-- File Utilities -->
     <string name="empty_directory">Empty Directory</string>
@@ -107,6 +109,9 @@
 
     <string name="bookmarks">Bookmarked</string>
     <string name="likes">Liked</string>
+
+    <!-- Error Handling -->
+    <string name="something_went_wrong">Something went wrong, please try again</string>
 
 
 </resources>

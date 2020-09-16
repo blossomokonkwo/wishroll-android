@@ -78,10 +78,12 @@ public class MainActivity extends AppCompatActivity {
 
                     }else if(checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
                         goToGallery();
+
                     }
 
                 }else{
                     goToGallery();
+
                 }
 
             }
@@ -131,13 +133,12 @@ public class MainActivity extends AppCompatActivity {
 
                         break;}*/
 
-                   //TODO(this is for when Rolls comes out, would be displayed not as a grid view but as a scrolling, vine type view)
-                    /*default: {
+                    default: {
 
                         tab.setText("Feed");
 
                         break;
-                    }*/
+                    }
                 }
 
             }

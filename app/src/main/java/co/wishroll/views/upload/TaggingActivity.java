@@ -1,9 +1,11 @@
 package co.wishroll.views.upload;
 
 import android.graphics.Bitmap;
+import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -16,12 +18,14 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 import co.wishroll.R;
 import co.wishroll.databinding.ActivityTaggingBinding;
 import co.wishroll.utilities.AuthListener;
 import co.wishroll.utilities.FileUtils;
+import co.wishroll.utilities.ToastUtils;
 import co.wishroll.viewmodel.TaggingViewModel;
 
 public class TaggingActivity extends AppCompatActivity implements AuthListener {
@@ -62,8 +66,10 @@ public class TaggingActivity extends AppCompatActivity implements AuthListener {
 
 
         Uri mediaUri = getIntent().getData();
+        Log.d(TAG, "onCreate: this is the mediaUri path " + mediaUri);
         boolean isVideo = getIntent().getBooleanExtra("isVideo", false);
         String postPath = FileUtils.getPath(TaggingActivity.this, mediaUri);
+        Log.d(TAG, "onCreate: this is the path for both processed pictures and videos " + postPath);
 
 
         //Sends post path to view model
@@ -81,39 +87,24 @@ public class TaggingActivity extends AppCompatActivity implements AuthListener {
                 e.printStackTrace();
             }
 
-
             float aspectRatio = thumbnailBitmap.getWidth()/ (float) thumbnailBitmap.getHeight();
             int width = 100;
             int height = Math.round(width / aspectRatio);
-
-
-            /* use height as base instead of width
-            int height = 480;
-            int width = Math.round(height * aspectRatio);*/
-
 
             thumbnailBitmap = Bitmap.createScaledBitmap(thumbnailBitmap, width, height, true);
 
 
         }else if(isVideo){
-            Log.d(TAG, "onCreate: video url for video " + mediaUri);
 
-            //thumbnailBitmap = FileUtils.getThumbnail(this, mediaUri);
+            Log.d(TAG, "onCreate: getting video thumbnail");
+            assert postPath != null;
+            thumbnailBitmap = ThumbnailUtils.createVideoThumbnail(postPath, MediaStore.Images.Thumbnails.FULL_SCREEN_KIND );
+
+            //loadVideoThumbnail(FileUtils.getPath(this, mediaUri));
 
 
-            Log.d(TAG, "onCreate: this should have a file extension behind it: " + mediaUri.getPath());
-            //Log.d(TAG, "onCreate: and this should be the proper video path: " + FileUtils.getPath(this, mediaUri));
-            //File videoFile = new File(mediaUri.toString());
-            loadVideoThumbnail(FileUtils.getPath(this, mediaUri));
-
-            //float aspectRatio = thumbnailBitmap.getWidth()/ (float) thumbnailBitmap.getHeight();
-            //int width = 100;
-
-            //int height = Math.round(width / aspectRatio);
 
             videoIndicator.setVisibility(View.VISIBLE);
-            //thumbnailBitmap = Bitmap.createScaledBitmap(thumbnailBitmap, width, height, true);
-
 
         }
 
@@ -136,6 +127,17 @@ public class TaggingActivity extends AppCompatActivity implements AuthListener {
                 .error(R.drawable.defaultprofile)
                 .into(mediaThumbnail);
     }
+
+    public static String encodeTobase64(Bitmap image)
+    {
+        Bitmap immagex = image;
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        immagex.compress(Bitmap.CompressFormat.PNG, 100, baos);
+        byte[] b = baos.toByteArray();
+        String imageEncoded = Base64.encodeToString(b,Base64.DEFAULT);
+        return imageEncoded;
+    }
+
 
 
 
@@ -173,6 +175,12 @@ public class TaggingActivity extends AppCompatActivity implements AuthListener {
 
     @Override
     public void statusGetter(int statusCode) {
+        if(statusCode == 200){
+            ToastUtils.showToast(TaggingActivity.this, getResources().getString(R.string.post_uploaded));
+            finish();
+        }else if(statusCode == 400){
+            ToastUtils.showToast(TaggingActivity.this, getResources().getString(R.string.something_went_wrong));
+        }
 
     }
 }

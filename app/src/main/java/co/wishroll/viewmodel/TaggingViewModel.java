@@ -5,10 +5,13 @@ import android.util.Log;
 import androidx.lifecycle.ViewModel;
 
 import java.io.File;
+import java.util.Arrays;
 
 import co.wishroll.models.repository.PostRepository;
 import co.wishroll.utilities.AuthListener;
 import co.wishroll.utilities.FileUtils;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.observers.DisposableCompletableObserver;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -19,14 +22,25 @@ public class TaggingViewModel extends ViewModel {
 
     private static final String TAG = "TaggingViewModel";
     PostRepository postRepository = applicationGraph.postRepository();
-    public String postTags;
-    public String postCaption;
     public AuthListener authListener = null;
+
+    public String postTags;
+
+
+    public String postCaption;
     RequestBody caption;
+
     public String postPath = "";
+    public String videoThumbnailPath = "";
+
     RequestBody postRequestBody;
+    RequestBody videoThumbnailRequestBody;
     MultipartBody.Part postMultipart;
     MultipartBody.Part videoThumbnail;
+
+
+    File videoThumbnailFile;
+
     boolean isVideo = false;
 
     //send url request bodies to server when post button is pressed
@@ -64,6 +78,7 @@ public class TaggingViewModel extends ViewModel {
        Log.d(TAG, "onSharePressed: this is the caption that the user entered " + postCaption);
        Log.d(TAG, "onSharePressed: these are the tags that the user entered " + postTags);
        Log.d(TAG, "onSharePressed: this is the file path of the chosen media " + postPath);
+        Log.d(TAG, "onSharePressed: TIME TO EXPOSE IS VIDEO: " + isVideo);
 
         if(postTags == null){
             authListener.sendMessage("Each post must have tags");
@@ -71,13 +86,39 @@ public class TaggingViewModel extends ViewModel {
              caption = createPartFromString(postCaption);
 
              File postFile = new File(postPath);
-
-
              postRequestBody = RequestBody.create(postFile, MediaType.parse(FileUtils.getMimeType(postFile)));
              postMultipart = MultipartBody.Part.createFormData("media_item", postFile.getName(), postRequestBody);
+             String[] tags = {postTags};
+             Log.d(TAG, "onSharePressed: this is the array of tags first:to string form:" + Arrays.toString(tags) + " then, by picking the index: " + tags[0]);
 
-             videoThumbnail = MultipartBody.Part.createFormData("thumbnail_item", postFile.getName(), postRequestBody);
 
+
+             if(isVideo) {
+
+                 videoThumbnailFile = new File(videoThumbnailPath);
+                 videoThumbnailRequestBody = RequestBody.create(videoThumbnailFile, MediaType.parse(FileUtils.getMimeType(videoThumbnailFile)));
+                 videoThumbnail = MultipartBody.Part.createFormData("thumbnail_item", postFile.getName(), videoThumbnailRequestBody);
+
+
+             }
+
+             if(isVideo && caption == null){
+
+                 uploadPost(postMultipart, videoThumbnail, null, tags, true);
+
+             }else if(isVideo && caption != null){
+
+                 uploadPost(postMultipart, videoThumbnail, caption, tags, true);
+
+             }
+
+             if(!isVideo && caption == null){
+                 uploadPost(postMultipart, null, null, tags, false);
+
+             }else if(!isVideo && caption != null){
+                 uploadPost(postMultipart, null, caption, tags, false);
+
+             }
 
 
 
@@ -88,9 +129,40 @@ public class TaggingViewModel extends ViewModel {
    }
 
 
-   public void uploadPost(MultipartBody.Part mediaPost, MultipartBody.Part videoThumbnail, RequestBody caption, String tags, boolean isVideo){
-        postRepository.uploadPost(mediaPost, videoThumbnail, caption, tags, isVideo);
+   public void uploadPost(MultipartBody.Part mediaPost, MultipartBody.Part videoThumbnail, RequestBody caption, String[] tags, boolean isVideo){
+
+        Disposable uploadDisposable = postRepository.uploadPost(mediaPost, videoThumbnail, caption, tags, isVideo)
+                .subscribeWith(new DisposableCompletableObserver(){
+                    @Override
+                    public void onStart() {
+                        System.out.println("Started");
+                        //progress bar
+                    }
+
+                    @Override
+                    public void onError(Throwable error) {
+                        authListener.statusGetter(400);
+                        Log.d(TAG, "onError: this failed");
+                        error.printStackTrace();
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        System.out.println("Done!");
+                        authListener.statusGetter(200);
+
+                    }
+                });
+
+
+
+
+
+
+
    }
+
 
 
 

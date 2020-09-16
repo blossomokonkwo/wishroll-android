@@ -15,7 +15,7 @@ import co.wishroll.models.repository.datamodels.UValidationRequest;
 import co.wishroll.models.repository.datamodels.UpdateResponse;
 import io.reactivex.Completable;
 import io.reactivex.Flowable;
-import io.reactivex.Observable;
+import io.reactivex.Single;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
@@ -52,7 +52,7 @@ public interface WishRollApi {
 
 
 
-    //User Profiles
+    //User Profiles & Current User Profile
 
     @GET("users/{id}")
     Flowable<User> getUserById(@Path ("id") int id);
@@ -86,26 +86,33 @@ public interface WishRollApi {
     @PUT("user/update")
     Flowable<UpdateResponse> updateUserDetails( @Part MultipartBody.Part profile);
 
-    @Multipart
-    @POST("posts")
-    Observable<PostResponse> uploadPost(@Part MultipartBody.Part post, @Part("caption") RequestBody caption);
+
+
+
+    //Uploading Posts
 
     @Multipart
     @POST("posts")
-    Observable<PostResponse> uploadPost(@Part MultipartBody.Part post); //does api accept nulls or separate calls for each case?
+    Single<PostResponse> uploadPost(@Part MultipartBody.Part post, @Part("caption") RequestBody caption);
 
     @Multipart
     @POST("posts")
-    Observable<PostResponse> uploadVideo(@Part MultipartBody.Part post, @Part MultipartBody.Part videoThumbnail);
+    Single<PostResponse> uploadPost(@Part MultipartBody.Part post); //does api accept nulls or separate calls for each case?
 
     @Multipart
     @POST("posts")
-    Observable<PostResponse> uploadVideo(@Part MultipartBody.Part post, @Part MultipartBody.Part videoThumbnail, @Part("caption") RequestBody caption );
+    Single<PostResponse> uploadVideo(@Part MultipartBody.Part post, @Part MultipartBody.Part videoThumbnail);
+
+    @Multipart
+    @POST("posts")
+    Single<PostResponse> uploadVideo(@Part MultipartBody.Part post, @Part MultipartBody.Part videoThumbnail, @Part("caption") RequestBody caption );
 
 
     @FormUrlEncoded
     @POST("posts/{post_id}/tags")
-    Completable sendTags(@Path("post_id") int postID, @Field("text") String tags); //simply returns whether this was successfull or not
+    Completable sendTags(@Path("post_id") int postID,  @Field("tags[]") String[] tags);
+
+
 
 
 
@@ -136,23 +143,6 @@ public interface WishRollApi {
 
     @GET("")
     Flowable<List<Notification>> getNotifications();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

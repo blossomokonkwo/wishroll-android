@@ -126,15 +126,15 @@ public class ProfileViewActivity extends AppCompatActivity {
                         tab.setIcon(R.drawable.ic_uploads);
                         break;}
 
-                    /*case 1:{
+                    case 1:{
                         //tab.setText("Likes");
-                        tab.setIcon(R.drawable.ic_rolls);
-                        break;}*/
+                        tab.setIcon(R.drawable.ic_likes);
+                        break;}
 
-                   /* case 2:{
+                    case 2:{
                         //tab.setText("Bookmarks");
                         tab.setIcon(R.drawable.ic_bookmark);
-                        break;}*/
+                        break;}
 
                     default: {
                         //tab.setText("Notifications");

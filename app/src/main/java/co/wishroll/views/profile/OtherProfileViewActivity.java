@@ -2,7 +2,6 @@ package co.wishroll.views.profile;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -96,7 +95,6 @@ public class OtherProfileViewActivity extends AppCompatActivity {
 
             @Override
             public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
-                Log.d(TAG, "inside the onConfigure tab, TabLayout mediator");
 
                 switch (position){
 
@@ -104,11 +102,15 @@ public class OtherProfileViewActivity extends AppCompatActivity {
                         //tab.setText("Uploads");
                         tab.setIcon(R.drawable.ic_uploads);
                         break;}
+                    case 1:{
+                        //tab.setText("Uploads");
+                        tab.setIcon(R.drawable.ic_likes);
+                        break;}
 
-                    /*default:{
+                    default:{
                         //tab.setText("Likes");
-                        tab.setIcon(R.drawable.ic_rolls);
-                        break;}*/
+                        tab.setIcon(R.drawable.ic_bookmark);
+                        break;}
 
                 }
 
