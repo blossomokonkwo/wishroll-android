@@ -267,7 +267,7 @@ public class EditProfileActivity extends AppCompatActivity implements AuthListen
                         case ERROR: {
                             Log.d(TAG, "onChanged: we have an error with the edited user.");
                                 showProgressBar(false);
-                                sendMessage("This username is taken");
+                                ToastUtils.showToast(EditProfileActivity.this, "That username is taken");
                                 startActivity(new Intent(EditProfileActivity.this, ProfileViewActivity.class));
                                 finish();
 
@@ -283,12 +283,12 @@ public class EditProfileActivity extends AppCompatActivity implements AuthListen
                             if(updateResponseStateData.data != null) {
 
                                 Log.d(TAG, "onChanged:THIS IS ANNOYING ME SESSION: " + updateResponseStateData.data.currentUser.getBio());
-                                sendMessage("Profile Updated");
 
                                     sessionManagement.editUserDetails(updateResponseStateData.data.currentUser);
 
                                     sessionManagement.printEverything("AFTER USER HAD PRESSED SAVE AND IT HAS UPDATED SUCCESSFULLY");
-                                    startActivity(new Intent(EditProfileActivity.this, ProfileViewActivity.class));
+                                ToastUtils.showToast(EditProfileActivity.this, "Profile Updated");
+                                startActivity(new Intent(EditProfileActivity.this, ProfileViewActivity.class));
                                     finish();
 
 
@@ -310,7 +310,7 @@ public class EditProfileActivity extends AppCompatActivity implements AuthListen
 
                     }
                 }else{
-                    sendMessage("This username is taken");
+                    ToastUtils.showToast(EditProfileActivity.this, "That username is taken");
                     startActivity(new Intent(EditProfileActivity.this, ProfileViewActivity.class));
                     finish();
                 }
@@ -324,7 +324,7 @@ public class EditProfileActivity extends AppCompatActivity implements AuthListen
 
     private void requestPermission(){
         if(ActivityCompat.shouldShowRequestPermissionRationale(EditProfileActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE)){
-            Toast.makeText(EditProfileActivity.this, "Please Grant Permission to allow Image Uploading", Toast.LENGTH_SHORT).show();
+            ToastUtils.showToast(EditProfileActivity.this, "Please grant permission to allow Image Loading");
         }
         else{
             ActivityCompat.requestPermissions(EditProfileActivity.this,new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, MY_PERMISSIONS_REQUEST);

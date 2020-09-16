@@ -9,6 +9,7 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,6 +38,7 @@ public class TaggingActivity extends AppCompatActivity implements AuthListener {
     private TextView backButton, shareButton;
     private ImageView mediaThumbnail, videoIndicator;
     Bitmap thumbnailBitmap;
+    private ProgressBar progressBar;
 
 
 
@@ -54,6 +56,7 @@ public class TaggingActivity extends AppCompatActivity implements AuthListener {
         backButton = findViewById(R.id.taggingBack);
         videoIndicator = findViewById(R.id.videoIndicator);
         shareButton = findViewById(R.id.shareButtonTag);
+        progressBar = findViewById(R.id.taggingProgressBar);
 
         
 
@@ -176,10 +179,18 @@ public class TaggingActivity extends AppCompatActivity implements AuthListener {
     @Override
     public void statusGetter(int statusCode) {
         if(statusCode == 200){
+            progressBar.setVisibility(View.GONE);
             ToastUtils.showToast(TaggingActivity.this, getResources().getString(R.string.post_uploaded));
+            shareButton.setVisibility(View.VISIBLE);
             finish();
         }else if(statusCode == 400){
+            progressBar.setVisibility(View.INVISIBLE);
+            shareButton.setVisibility(View.VISIBLE);
             ToastUtils.showToast(TaggingActivity.this, getResources().getString(R.string.something_went_wrong));
+        }else if(statusCode == 100){
+            progressBar.setVisibility(View.VISIBLE);
+            shareButton.setVisibility(View.GONE);
+
         }
 
     }

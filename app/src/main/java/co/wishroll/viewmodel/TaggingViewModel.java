@@ -136,7 +136,7 @@ public class TaggingViewModel extends ViewModel {
                     @Override
                     public void onStart() {
                         System.out.println("Started");
-                        //progress bar
+                        authListener.statusGetter(100);
                     }
 
                     @Override
@@ -151,6 +151,7 @@ public class TaggingViewModel extends ViewModel {
                     public void onComplete() {
                         System.out.println("Done!");
                         authListener.statusGetter(200);
+                        dispose();
 
                     }
                 });
