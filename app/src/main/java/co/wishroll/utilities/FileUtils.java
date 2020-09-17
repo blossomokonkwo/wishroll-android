@@ -278,15 +278,16 @@ public class FileUtils {
                 // DownloadsProvider
                 else if (isDownloadsDocument(uri)) {
 
-                   /* final String id = DocumentsContract.getDocumentId(uri);
-                    Log.d(TAG, "getPath: this is the id " + id);
-                    final Uri contentUri = ContentUris.withAppendedId(
-                            Uri.parse("content://downloads/public_downloads"), Long.valueOf(id));
+                    /*final String id = DocumentsContract.getDocumentId(uri);
+                   Log.d(TAG, "getPath: this is the id " + id);
+                   final Uri contentUri = ContentUris.withAppendedId(Uri.parse("content://downloads/public_downloads"), Long.valueOf(id));
+
 
                     return getDataColumn(context, contentUri, null, null);*/
 
 
                         final String id = DocumentsContract.getDocumentId(uri);
+                    Log.d(TAG, "getPath: THIS IS THE ID: " + id);
 
 
                         if (id != null && id.startsWith("raw:")) {
@@ -645,6 +646,7 @@ public class FileUtils {
 
             int index = 0;
 
+
             while (file.exists()) {
                 index++;
                 name = fileName + '(' + index + ')' + extension;
@@ -689,6 +691,11 @@ public class FileUtils {
         }
     }
 
+
+    public static boolean clearCache(){
+            
+            return true;
+    }
 
 
 

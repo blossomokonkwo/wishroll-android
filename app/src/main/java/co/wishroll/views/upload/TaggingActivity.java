@@ -5,7 +5,6 @@ import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -19,13 +18,13 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 import co.wishroll.R;
 import co.wishroll.databinding.ActivityTaggingBinding;
 import co.wishroll.utilities.AuthListener;
 import co.wishroll.utilities.FileUtils;
+import co.wishroll.utilities.ThumbnailHandler;
 import co.wishroll.utilities.ToastUtils;
 import co.wishroll.viewmodel.TaggingViewModel;
 
@@ -97,13 +96,22 @@ public class TaggingActivity extends AppCompatActivity implements AuthListener {
             thumbnailBitmap = Bitmap.createScaledBitmap(thumbnailBitmap, width, height, true);
 
 
+
         }else if(isVideo){
 
             Log.d(TAG, "onCreate: getting video thumbnail");
-            assert postPath != null;
-            thumbnailBitmap = ThumbnailUtils.createVideoThumbnail(postPath, MediaStore.Images.Thumbnails.FULL_SCREEN_KIND );
 
-            //loadVideoThumbnail(FileUtils.getPath(this, mediaUri));
+            assert postPath != null;
+            thumbnailBitmap = ThumbnailUtils.createVideoThumbnail(postPath, MediaStore.Images.Thumbnails.MINI_KIND);
+            Uri omg = ThumbnailHandler.saveToCacheAndGetUri(thumbnailBitmap);
+            //Log.d(TAG, "onCreate: GASSED UP SHAWTY: " + FileUtils.getPath(this, omg) + "");
+            String videoThumbnailPath = omg.getPath();
+            Log.d(TAG, "onCreate: OMG IM JUST WAITING FOR THIS TO WORK TBH /data/user/0/co.WishRoll" + videoThumbnailPath);
+            Log.d(TAG, "onCreate: LETS SEE IF THIS GET FILES DIR THING IS LEGIT: /data/user/0/co.WishRoll"  + videoThumbnailPath);
+            taggingViewModel.setVideoThumbnailPath("/data/user/0/co.WishRoll" + videoThumbnailPath);
+
+
+
 
 
 
@@ -113,13 +121,14 @@ public class TaggingActivity extends AppCompatActivity implements AuthListener {
 
 
         mediaThumbnail.setImageBitmap(thumbnailBitmap);
-        observeUploadStatus();
 
+        //Log.d(TAG, "onCreate: JUST CHECKING IF I STILL MATTER: " + generateVideoThumbnailFileName("lolol.mov"));
         
         
 
 
     }
+
 
 
 
@@ -131,23 +140,14 @@ public class TaggingActivity extends AppCompatActivity implements AuthListener {
                 .into(mediaThumbnail);
     }
 
-    public static String encodeTobase64(Bitmap image)
-    {
-        Bitmap immagex = image;
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        immagex.compress(Bitmap.CompressFormat.PNG, 100, baos);
-        byte[] b = baos.toByteArray();
-        String imageEncoded = Base64.encodeToString(b,Base64.DEFAULT);
-        return imageEncoded;
-    }
 
 
 
 
 
 
-    public void observeUploadStatus(){
-    }
+
+
 
 
 

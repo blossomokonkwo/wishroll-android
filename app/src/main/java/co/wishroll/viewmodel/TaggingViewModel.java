@@ -38,7 +38,6 @@ public class TaggingViewModel extends ViewModel {
     MultipartBody.Part postMultipart;
     MultipartBody.Part videoThumbnail;
 
-
     File videoThumbnailFile;
 
     boolean isVideo = false;
@@ -48,6 +47,14 @@ public class TaggingViewModel extends ViewModel {
 
     public TaggingViewModel() {
 
+    }
+
+    public String getVideoThumbnailPath() {
+        return videoThumbnailPath;
+    }
+
+    public void setVideoThumbnailPath(String videoThumbnailPath) {
+        this.videoThumbnailPath = videoThumbnailPath;
     }
 
     public String getPostPath() {
@@ -96,8 +103,9 @@ public class TaggingViewModel extends ViewModel {
              if(isVideo) {
 
                  videoThumbnailFile = new File(videoThumbnailPath);
+                 Log.d(TAG, "onSharePressed: THUMBNAIL TRACKER " + videoThumbnailFile.getAbsolutePath() + " " + videoThumbnailFile.getName());
                  videoThumbnailRequestBody = RequestBody.create(videoThumbnailFile, MediaType.parse(FileUtils.getMimeType(videoThumbnailFile)));
-                 videoThumbnail = MultipartBody.Part.createFormData("thumbnail_item", postFile.getName(), videoThumbnailRequestBody);
+                 videoThumbnail = MultipartBody.Part.createFormData("thumbnail_item", videoThumbnailFile.getName(), videoThumbnailRequestBody);
 
 
              }
@@ -124,12 +132,15 @@ public class TaggingViewModel extends ViewModel {
 
 
 
-
         }
    }
 
 
-   public void uploadPost(MultipartBody.Part mediaPost, MultipartBody.Part videoThumbnail, RequestBody caption, String[] tags, boolean isVideo){
+
+
+
+
+    public void uploadPost(MultipartBody.Part mediaPost, MultipartBody.Part videoThumbnail, RequestBody caption, String[] tags, boolean isVideo){
 
         Disposable uploadDisposable = postRepository.uploadPost(mediaPost, videoThumbnail, caption, tags, isVideo)
                 .subscribeWith(new DisposableCompletableObserver(){
