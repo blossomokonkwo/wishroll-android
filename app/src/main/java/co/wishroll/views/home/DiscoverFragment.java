@@ -1,35 +1,34 @@
 package co.wishroll.views.home;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import co.wishroll.R;
-import co.wishroll.models.domainmodels.Post;
-import co.wishroll.views.tools.GridRecyclerViewAdapter;
-import co.wishroll.viewmodel.TrendingViewModel;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
 import java.util.ArrayList;
 import java.util.List;
 
+import co.wishroll.R;
+import co.wishroll.models.domainmodels.Post;
+import co.wishroll.viewmodel.DiscoverViewModel;
+import co.wishroll.views.tools.GridRecyclerViewAdapter;
 
-public class TrendingFragment extends Fragment {
+
+public class DiscoverFragment extends Fragment {
 
     View view;
-    TrendingViewModel trendingViewModel;
+    DiscoverViewModel trendingViewModel;
     private RecyclerView myRecyclerView;
     private List<Post> postGrid;
 
 
 
-    public TrendingFragment() {
+    public DiscoverFragment() {
         // Required empty public constructor
     }
 
@@ -50,7 +49,7 @@ public class TrendingFragment extends Fragment {
             postGrid.add(basicPost);
         }
 
-        trendingViewModel = new ViewModelProvider(this).get(TrendingViewModel.class);
+        trendingViewModel = new ViewModelProvider(this).get(DiscoverViewModel.class);
         //trendingViewModel.
 
 

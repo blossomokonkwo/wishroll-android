@@ -10,6 +10,7 @@ import java.util.Arrays;
 import co.wishroll.models.repository.PostRepository;
 import co.wishroll.utilities.AuthListener;
 import co.wishroll.utilities.FileUtils;
+import co.wishroll.utilities.ThumbnailHandler;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableCompletableObserver;
 import okhttp3.MediaType;
@@ -154,6 +155,7 @@ public class TaggingViewModel extends ViewModel {
                     public void onError(Throwable error) {
                         authListener.statusGetter(400);
                         Log.d(TAG, "onError: this failed");
+
                         error.printStackTrace();
 
                     }
@@ -162,6 +164,7 @@ public class TaggingViewModel extends ViewModel {
                     public void onComplete() {
                         System.out.println("Done!");
                         authListener.statusGetter(200);
+                        ThumbnailHandler.clearApplicationData();
                         dispose();
 
                     }

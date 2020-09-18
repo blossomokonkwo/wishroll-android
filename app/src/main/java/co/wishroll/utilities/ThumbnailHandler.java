@@ -121,4 +121,38 @@ public class ThumbnailHandler {
         return true;
     }
 
+
+    public static void clearApplicationData(){
+
+        File cache = getDocumentCacheDir(WishRollApplication.getContext()); //WishRollApplication.getContext().getCacheDir() // getDocumentCacheDir(WishRollApplication.getContext() switched! might get cache/documents instead of /cache/
+        Log.d(TAG, "clearApplicationData: cache path just to make sure " + cache.getAbsolutePath());
+        File appDir = new File(cache.getParent());  //from get parent to getname we are trying to target the documents file
+        if (appDir.exists()) { //exists()
+            String[] children = appDir.list();
+            assert children != null;
+
+            for (String s : children) {
+                if (!s.equals("lib") && !s.equals("shared_prefs") && !s.equals("code_cache") && !s.equals("files") && !s.equals("wishrollCache") && !s.equals("image_manager_disk_cache") ) {  //!s.equals("documents"
+                    deleteDir(new File(appDir, s));
+                    Log.i("TAG", "**************** File /data/data/APP_PACKAGE/" + s + " DELETED *******************");
+                }
+            }
+        }
+    }
+
+    public static boolean deleteDir(File dir)
+    {
+        if (dir != null && dir.isDirectory()) {
+            String[] children = dir.list();
+            for (int i = 0; i < children.length; i++) {
+                boolean success = deleteDir(new File(dir, children[i]));
+                if (!success) {
+                    return false;
+                }
+            }
+        }
+        assert dir != null;
+        return dir.delete();
+    }
+
 }
