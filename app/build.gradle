@@ -25,18 +25,23 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+   /* configurations.all {
+        resolutionStrategy.force "org.antlr:antlr4-runtime:4.5.3"
+        resolutionStrategy.force "org.antlr:antlr4-tool:4.5.3"
+    }*/
+
 
     buildFeatures {
         // Determines whether to generate a BuildConfig class.
-        buildConfig = true
+        buildConfig true
 
         // Determines whether to support View Binding.
         // Note that the viewBinding.enabled property is now deprecated.
-        viewBinding = true
+        viewBinding true
 
         // Determines whether to support Data Binding.
         // Note that the dataBinding.enabled property is now deprecated.
-        dataBinding = true
+        dataBinding true
 
         // Determines whether to generate binder classes for your AIDL files.
         //aidl = true
@@ -102,6 +107,8 @@ android {
 
 dependencies {
 
+    def room_version = "2.2.5"
+
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     implementation 'androidx.appcompat:appcompat:1.2.0'
@@ -150,7 +157,6 @@ dependencies {
     implementation "com.makeramen:roundedimageview:2.3.0"
 
    //Exoplayer Video Player
-   //implementation 'com.google.android.exoplayer:exoplayer:2.8.4'
     implementation 'com.google.android.exoplayer:exoplayer:2.8.4'
 
     //Glide Image Loader Dependecy
@@ -192,6 +198,16 @@ dependencies {
 
     //Progress Bar Styled Loader
     implementation 'com.agrawalsuneet.androidlibs:dotsloader:1.4.2'
+
+    //Paging Library
+    implementation "androidx.paging:paging-runtime:2.1.2"
+    testImplementation "androidx.paging:paging-common:2.1.2"
+    implementation "androidx.paging:paging-rxjava2:2.1.2"
+
+    //Room Database Library
+    implementation "androidx.room:room-runtime:2.2.5"
+    annotationProcessor "androidx.room:room-compiler:2.2.5"
+    implementation "androidx.room:room-rxjava2:2.2.5"
 
 
 

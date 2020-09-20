@@ -4,7 +4,7 @@ import javax.inject.Singleton;
 
 import co.wishroll.models.networking.RetrofitInstance;
 import co.wishroll.models.repository.AuthRepository;
-import co.wishroll.models.repository.MainRepository;
+import co.wishroll.models.repository.DiscoverRepository;
 import co.wishroll.models.repository.PostRepository;
 import co.wishroll.models.repository.UserRepository;
 import co.wishroll.models.repository.local.SessionManagement;
@@ -18,7 +18,7 @@ public interface ApplicationGraph {
 
      SessionManagement sessionManagement();
 
-     MainRepository mainRepository();
+     DiscoverRepository discoverRepository();
 
      UserRepository userRepository();
 

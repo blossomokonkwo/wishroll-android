@@ -4,12 +4,12 @@ import java.util.List;
 import java.util.Map;
 
 import co.wishroll.models.domainmodels.Notification;
-import co.wishroll.models.domainmodels.Post;
 import co.wishroll.models.domainmodels.User;
 import co.wishroll.models.repository.datamodels.AuthResponse;
+import co.wishroll.models.domainmodels.Post;
 import co.wishroll.models.repository.datamodels.EValidationRequest;
 import co.wishroll.models.repository.datamodels.LoginRequest;
-import co.wishroll.models.repository.datamodels.PostResponse;
+import co.wishroll.models.repository.datamodels.UploadPostResponse;
 import co.wishroll.models.repository.datamodels.SignupRequestMany;
 import co.wishroll.models.repository.datamodels.UValidationRequest;
 import co.wishroll.models.repository.datamodels.UpdateResponse;
@@ -93,19 +93,19 @@ public interface WishRollApi {
 
     @Multipart
     @POST("posts")
-    Single<PostResponse> uploadPost(@Part MultipartBody.Part post, @Part("caption") RequestBody caption);
+    Single<UploadPostResponse> uploadPost(@Part MultipartBody.Part post, @Part("caption") RequestBody caption);
 
     @Multipart
     @POST("posts")
-    Single<PostResponse> uploadPost(@Part MultipartBody.Part post); //does api accept nulls or separate calls for each case?
+    Single<UploadPostResponse> uploadPost(@Part MultipartBody.Part post); //does api accept nulls or separate calls for each case?
 
     @Multipart
     @POST("posts")
-    Single<PostResponse> uploadVideo(@Part MultipartBody.Part post, @Part MultipartBody.Part videoThumbnail);
+    Single<UploadPostResponse> uploadVideo(@Part MultipartBody.Part post, @Part MultipartBody.Part videoThumbnail);
 
     @Multipart
     @POST("posts")
-    Single<PostResponse> uploadVideo(@Part MultipartBody.Part post, @Part MultipartBody.Part videoThumbnail, @Part("caption") RequestBody caption );
+    Single<UploadPostResponse> uploadVideo(@Part MultipartBody.Part post, @Part MultipartBody.Part videoThumbnail, @Part("caption") RequestBody caption );
 
 
     @FormUrlEncoded
@@ -114,6 +114,10 @@ public interface WishRollApi {
 
 
 
+    @FormUrlEncoded
+    @GET("trending/posts?offset={offset}")
+    Flowable<List<Post>> getDiscoverPosts(@Path("offset") int offset);
+    //loads data straight to local database with room...^ - ^
 
 
 
@@ -143,6 +147,15 @@ public interface WishRollApi {
 
     @GET("")
     Flowable<List<Notification>> getNotifications();
+
+    @POST("")
+    Completable likePost();
+    //toggle mechanism
+
+    @POST("")
+    Completable bookmarkPost();
+    //toggle mechanism
+
 
 
 

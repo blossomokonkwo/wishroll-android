@@ -2,6 +2,7 @@ package co.wishroll.models.domainmodels;
 
 import java.util.ArrayList;
 
+
 public class Videos extends Post {
 
     public String user_id;
