@@ -7,7 +7,7 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
 
-@Database(entities = DiscoverPostEntity.class, version = 1, exportSchema = false ) //version is used when database os changed, tracks migration
+@Database(entities = DiscoverPostEntity.class, version = 1, exportSchema = false ) //version is used when database os changed, tracks migration, export schema is for json mapping of db
 public abstract class DiscoverDB extends RoomDatabase {
 
     private static DiscoverDB instance;
