@@ -76,7 +76,6 @@ public class ProfileViewActivity extends AppCompatActivity {
         fullNameView = findViewById(R.id.fullNameProfileView);
         wishrollScore = findViewById(R.id.wishrollScoreProfileView);
         bioProfileView = findViewById(R.id.bioProfileView);
-        numViews = findViewById(R.id.viewsProfileView);
         numFollowers = findViewById(R.id.followerCountProfileView);
         numFollowing = findViewById(R.id.followingCountProfileView);
         emojiView = findViewById(R.id.emojiProfileView);
@@ -248,7 +247,6 @@ public class ProfileViewActivity extends AppCompatActivity {
 
                         case LOADING: {
                             bMainButton.setVisibility(View.INVISIBLE);
-                            numViews.setVisibility(View.INVISIBLE);
                             numFollowers.setVisibility(View.INVISIBLE);
                             numFollowing.setVisibility(View.INVISIBLE);
                             usernameView.setVisibility(View.INVISIBLE);
@@ -259,7 +257,7 @@ public class ProfileViewActivity extends AppCompatActivity {
                         }
                         case ERROR: {
                            bMainButton.setVisibility(View.GONE);
-                            numViews.setVisibility(View.GONE);
+
                             numFollowers.setVisibility(View.GONE);
                             numFollowing.setVisibility(View.GONE);
                             usernameView.setVisibility(View.GONE);
@@ -279,7 +277,6 @@ public class ProfileViewActivity extends AppCompatActivity {
 
                             User user = userStateData.data;
                             bMainButton.setVisibility(View.VISIBLE);
-                            numViews.setVisibility(View.VISIBLE);
                             numFollowers.setVisibility(View.VISIBLE);
                             numFollowing.setVisibility(View.VISIBLE);
                             usernameView.setVisibility(View.VISIBLE);
@@ -297,8 +294,8 @@ public class ProfileViewActivity extends AppCompatActivity {
                             String numFollowingString = user.getNumFollowing() + "";
                             numFollowers.setText(numFollowersString);
                             numFollowing.setText(numFollowingString);
-                            String numViewsString = user.getViewCount() + "";
-                            numViews.setText(numViewsString);
+
+
 
                             /*sessionManagement.setNameSession(user.getName());
                             sessionManagement.setUsernameSession(user.getUsername());

@@ -4,15 +4,15 @@ import java.util.List;
 import java.util.Map;
 
 import co.wishroll.models.domainmodels.Notification;
+import co.wishroll.models.domainmodels.Post;
 import co.wishroll.models.domainmodels.User;
 import co.wishroll.models.repository.datamodels.AuthResponse;
-import co.wishroll.models.domainmodels.Post;
 import co.wishroll.models.repository.datamodels.EValidationRequest;
 import co.wishroll.models.repository.datamodels.LoginRequest;
-import co.wishroll.models.repository.datamodels.UploadPostResponse;
 import co.wishroll.models.repository.datamodels.SignupRequestMany;
 import co.wishroll.models.repository.datamodels.UValidationRequest;
 import co.wishroll.models.repository.datamodels.UpdateResponse;
+import co.wishroll.models.repository.datamodels.UploadPostResponse;
 import io.reactivex.Completable;
 import io.reactivex.Flowable;
 import io.reactivex.Single;
@@ -29,6 +29,7 @@ import retrofit2.http.PUT;
 import retrofit2.http.Part;
 import retrofit2.http.PartMap;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface WishRollApi {
     //all wishroll api methods and calls
@@ -114,10 +115,17 @@ public interface WishRollApi {
 
 
 
-    @FormUrlEncoded
-    @GET("trending/posts?offset={offset}")
-    Flowable<List<Post>> getDiscoverPosts(@Path("offset") int offset);
+
+    @GET("trending/posts")
+    Flowable<List<Post>> getDiscoverPosts(@Query("offset") int offset);
     //loads data straight to local database with room...^ - ^
+
+
+
+    @GET("trending/posts")
+    Call<List<Post>> getDiscoverPostss(@Query("offset") int offset);
+
+
 
 
 
