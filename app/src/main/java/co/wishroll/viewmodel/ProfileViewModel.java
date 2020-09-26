@@ -68,11 +68,9 @@ public class ProfileViewModel extends ViewModel {
                 userLiveData.removeSource(source);
             }
         });
-
-
-
-
     }
+
+
     public LiveData<StateData<User>> observeCurrentUserProfile(){
         return userLiveData;
     }

@@ -34,7 +34,7 @@ public class RetrofitInstance {
     private static final String TAG = "RetrofitInstance";
     //houses Retrofit Instance "http://10.0.2.2:3000/v2/" @PhysicalDevice: http://192.168.1.251:3000
 
-    private static String API_BASE_URL = "http://10.0.2.2:3000/v2/";
+    private static String API_BASE_URL = "http://10.0.2.2:3000/";
     private static Retrofit retrofitInstance;
     public static SessionManagement sessionManagement = applicationGraph.sessionManagement();
     private static Gson gson;

@@ -7,7 +7,7 @@
 
         <variable
             name="discoverviewmodel"
-            type="co.wishroll.viewmodel.DiscoverViewModel" />
+            type="co.wishroll.viewmodel.TrendingViewModel" />
 
     </data>
 
@@ -16,13 +16,28 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="co.wishroll.views.home.DiscoverFragment">
+        tools:context="co.wishroll.views.home.TrendingFragment"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+
+
+
+
+
 
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/swipeDiscover">
+
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/trendingRecyclerView"
@@ -34,5 +49,6 @@
 
         </androidx.recyclerview.widget.RecyclerView>
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+        </LinearLayout>
     </FrameLayout>
 </layout>

@@ -6,7 +6,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import co.wishroll.views.home.FeedFragment;
-import co.wishroll.views.home.DiscoverFragment;
+import co.wishroll.views.home.TrendingFragment;
 
 
 public class MainViewPagerAdapter extends FragmentStateAdapter {
@@ -26,7 +26,7 @@ public class MainViewPagerAdapter extends FragmentStateAdapter {
 
         switch (position) {
             case 0:
-                return new DiscoverFragment();
+                return new TrendingFragment();
             /*case 1:
                 return new MessagesFragment();*/
             default:

@@ -33,20 +33,21 @@ import retrofit2.http.Query;
 
 public interface WishRollApi {
     //all wishroll api methods and calls
+    //only thing that has v3/ infront of it are discover things and the search, different content type searches.
 
 
 
     //Authentication and Signup
-    @POST("login")
+    @POST("v2/login")
     Flowable<AuthResponse> loginUser(@Body LoginRequest loginRequest);
 
-    @POST("signup")
+    @POST("v2/signup")
     Call<AuthResponse> signupUser(@Body SignupRequestMany signupRequestMany);
 
-    @POST("signup/email")
+    @POST("v2/signup/email")
     Call<AuthResponse> validateEmail(@Body EValidationRequest eValidationRequest);
 
-    @POST("signup/username")
+    @POST("v2/signup/username")
     Call<AuthResponse> validateUsername(@Body UValidationRequest uValidationRequest);
 
 
@@ -55,36 +56,36 @@ public interface WishRollApi {
 
     //User Profiles & Current User Profile
 
-    @GET("users/{id}")
+    @GET("v2/users/{id}")
     Flowable<User> getUserById(@Path ("id") int id);
 
 
-    @GET("users/{username}")
+    @GET("v2/users/{username}")
     Flowable<User> getUserByUsername(@Path ("username") String username);
 
 
     @Multipart
-    @PUT("user/update")
+    @PUT("v2/user/update")
     Flowable<UpdateResponse> updateUserDetails(@PartMap Map<String, RequestBody> parameters,
                                                @Part MultipartBody.Part profile,
                                                @Part MultipartBody.Part banner);
 
     @Multipart
-    @PUT("user/update")
+    @PUT("v2/user/update")
     Flowable<UpdateResponse> updateUserDetails(@PartMap Map<String, RequestBody> parameters,
                                                @Part MultipartBody.Part profile);
 
     @Multipart
-    @PUT("user/update")
+    @PUT("v2/user/update")
     Flowable<UpdateResponse> updateUserDetails(@PartMap Map<String, RequestBody> parameters);
 
     @Multipart
-    @PUT("user/update")
+    @PUT("v2/user/update")
     Flowable<UpdateResponse> updateUserDetails( @Part MultipartBody.Part profile,
                                                 @Part MultipartBody.Part banner);
 
     @Multipart
-    @PUT("user/update")
+    @PUT("v2/user/update")
     Flowable<UpdateResponse> updateUserDetails( @Part MultipartBody.Part profile);
 
 
@@ -93,37 +94,51 @@ public interface WishRollApi {
     //Uploading Posts
 
     @Multipart
-    @POST("posts")
+    @POST("v2/posts")
     Single<UploadPostResponse> uploadPost(@Part MultipartBody.Part post, @Part("caption") RequestBody caption);
 
     @Multipart
-    @POST("posts")
+    @POST("v2/posts")
     Single<UploadPostResponse> uploadPost(@Part MultipartBody.Part post); //does api accept nulls or separate calls for each case?
 
     @Multipart
-    @POST("posts")
+    @POST("v2/posts")
     Single<UploadPostResponse> uploadVideo(@Part MultipartBody.Part post, @Part MultipartBody.Part videoThumbnail);
 
     @Multipart
-    @POST("posts")
+    @POST("v2/posts")
     Single<UploadPostResponse> uploadVideo(@Part MultipartBody.Part post, @Part MultipartBody.Part videoThumbnail, @Part("caption") RequestBody caption );
 
 
     @FormUrlEncoded
-    @POST("posts/{post_id}/tags")
+    @POST("v2/posts/{post_id}/tags")
     Completable sendTags(@Path("post_id") int postID,  @Field("tags[]") String[] tags);
 
 
+    //Feed Fragment
+    @GET("v2/feed/posts{offset}")
+    Single<List<Post>> getFeedPosts(@Query("offset") int offset);
+
+    //Feed Fragment
+    /*@GET("v2/uploads{offset}")
+    Single<List<Post>> getFeedPosts(@Query("offset") int offset);
+
+    //Feed Fragment
+    @GET("v2/feed{offset}")
+    Single<List<Post>> getFeedPosts(@Query("offset") int offset);
+
+    //Feed Fragment
+    @GET("v2/feed{offset}")
+    Single<List<Post>> getFeedPosts(@Query("offset") int offset);*/
 
 
-    @GET("trending/posts")
-    Flowable<List<Post>> getDiscoverPosts(@Query("offset") int offset);
-    //loads data straight to local database with room...^ - ^
 
 
 
-    @GET("trending/posts")
-    Call<List<Post>> getDiscoverPostss(@Query("offset") int offset);
+
+
+
+
 
 
 

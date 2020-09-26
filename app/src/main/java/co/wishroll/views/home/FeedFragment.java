@@ -1,21 +1,20 @@
 package co.wishroll.views.home;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import co.wishroll.R;
 import co.wishroll.models.domainmodels.Post;
 import co.wishroll.views.tools.GridRecyclerViewAdapter;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class FeedFragment extends Fragment {
@@ -39,6 +38,7 @@ public class FeedFragment extends Fragment {
 
         postGrid = new ArrayList<>();
 
+
         //TODO(Right now we have to create the users but I'm sure they will be fetched through requests very soon)
         Post basicPost = new Post();
 
@@ -60,6 +60,8 @@ public class FeedFragment extends Fragment {
 
         view = inflater.inflate(R.layout.fragment_feed, container, false);
         myRecyclerView = view.findViewById(R.id.feedRecyclerView);
+
+
 
         GridRecyclerViewAdapter feedRecyclerViewAdapter = new GridRecyclerViewAdapter(getContext(), postGrid);
         myRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 3));

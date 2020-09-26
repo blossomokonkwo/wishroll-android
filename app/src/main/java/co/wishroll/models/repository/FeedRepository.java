@@ -11,10 +11,10 @@ import retrofit2.Retrofit;
 import static co.wishroll.WishRollApplication.applicationGraph;
 
 @Singleton
-public class DiscoverRepository {
+public class FeedRepository {
 
     SessionManagement sessionManagement = applicationGraph.sessionManagement();
-    private static final String TAG = "DiscoverRepository";
+    private static final String TAG = "FeedRepository";
     
 
 
@@ -28,7 +28,7 @@ public class DiscoverRepository {
 
 
     @Inject
-    public DiscoverRepository() {
+    public FeedRepository() {
         Retrofit retrofitInstance = RetrofitInstance.getRetrofitInstance();
         wishRollApi = retrofitInstance.create(WishRollApi.class);
 

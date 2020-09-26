@@ -59,42 +59,45 @@ public class GridRecyclerViewAdapter extends RecyclerView.Adapter<GridRecyclerVi
 
             Glide.with(mContext)
                     .load(thisPost.getThumbnailUrl())
-                    .placeholder(R.color.grey)
+                    .placeholder(R.drawable.reaction_picture)
                     .into(holder.mediaThumbnail);
 
 
+            if(thisPost.getMediaUrl() != null) {
 
-            if (thisPost.getMediaUrl().contains("mp4") || thisPost.getMediaUrl().contains(".mov")) {
-                holder.videoFlag.setVisibility(View.VISIBLE);
-            } else {
-                holder.videoFlag.setVisibility(View.INVISIBLE);
-            }
+                if (thisPost.getMediaUrl().contains("mp4") || thisPost.getMediaUrl().contains(".mov")) {
+                    holder.videoFlag.setVisibility(View.VISIBLE);
+                } else {
+                    holder.videoFlag.setVisibility(View.INVISIBLE);
+                }
 
 
-            //imitation
-            if (thisPost.getMediaUrl().contains(".mp4") || thisPost.getMediaUrl().contains(".mov")) {
-                holder.postItem.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        //TODO(check if video or image/gif)
+                //imitation
+                if (thisPost.getMediaUrl().contains(".mp4") || thisPost.getMediaUrl().contains(".mov")) {
+                    holder.postItem.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            //TODO(check if video or image/gif)
 
-                        Intent i = new Intent(mContext, VideoActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                        //put extras maybe
-                        mContext.startActivity(i);
-                    }
-                });
-            } else {
-                holder.postItem.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
+                            Intent i = new Intent(mContext, VideoActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                            //put extras maybe
+                            mContext.startActivity(i);
+                        }
+                    });
+                } else {
+                    holder.postItem.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
 
-                        //TODO(check if video or image/gif)
+                            //TODO(check if video or image/gif)
 
-                        Intent i = new Intent(mContext, ImageActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                        //put extras maybe
-                        mContext.startActivity(i);
-                    }
-                });
+                            Intent i = new Intent(mContext, ImageActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                            //put extras maybe
+                            mContext.startActivity(i);
+                        }
+                    });
+
+                }
 
             }
 
