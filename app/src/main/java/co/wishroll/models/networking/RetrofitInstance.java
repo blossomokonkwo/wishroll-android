@@ -39,7 +39,7 @@ public class RetrofitInstance {
     public static SessionManagement sessionManagement = applicationGraph.sessionManagement();
     private static Gson gson;
 
-    private static final long cacheSize = 175 * 1024 * 1024; // 5 MB
+    private static final long cacheSize = 175 * 1024 * 1024; // 175 MB
     private static String HEADER_CACHE_CONTROL = "Cache-Control";
     private static String HEADER_PRAGMA = "Pragma";
 
@@ -142,6 +142,7 @@ public class RetrofitInstance {
     public WishRollApi getWishRollApi() {
         return wishRollApi;
     }*/
+
     private static Interceptor networkInterceptor(){
         return new Interceptor() {
             @Override

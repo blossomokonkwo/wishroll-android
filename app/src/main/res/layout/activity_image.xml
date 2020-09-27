@@ -101,17 +101,7 @@
 
 
 
-                <ImageButton
-                    android:id="@+id/commentImageView"
-                    android:layout_width="@dimen/_26sdp"
-                    android:layout_height="@dimen/_26sdp"
-                    android:src="@drawable/ic_comment"
-                    android:layout_margin="10dp"
-                    android:layout_centerInParent="true"
-                    android:background="@drawable/circle_button"
-                    android:layout_toLeftOf="@id/shareImageView"
 
-                    />
 
                 <ImageButton
                     android:id="@+id/shareImageView"
@@ -139,19 +129,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-
-                <TextView
-                    android:text="15"
-                    android:textAlignment="center"
-                    android:id="@+id/commentCountImageView"
-                    android:layout_width="@dimen/_26sdp"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_comment"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_centerInParent="true"
-                    android:layout_toLeftOf="@id/shareCountImageView"
-                    android:gravity="center_horizontal" />
 
                 <TextView
                     android:text="15"
@@ -222,16 +199,9 @@
                     </TextView>
                 </LinearLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="1 week ago"
-                    android:textColor="@color/dark_grey"
-                    android:textSize="@dimen/_10sdp"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="@dimen/_10sdp"/>
+
             </RelativeLayout>
+
             <!--<RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

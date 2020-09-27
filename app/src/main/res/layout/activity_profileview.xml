@@ -117,34 +117,7 @@
                     android:textSize="@dimen/_11ssp"
                     android:layout_gravity="center"/>
 
-                <ImageView
-                    android:layout_marginLeft="@dimen/_5sdp"
-                    android:layout_marginTop="@dimen/_2sdp"
-                    android:layout_width="@dimen/_3sdp"
-                    android:layout_height="@dimen/_3sdp"
-                    android:src="@drawable/ic_dot_black"
-                    android:layout_gravity="center"/>
 
-                <TextView
-                    android:layout_marginStart="@dimen/_5sdp"
-                    android:id="@+id/wishrollScoreProfileView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_1sdp"
-                    android:text="6"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_11ssp"
-                    android:layout_gravity="center"/>
-
-
-                <ImageView
-                    android:id="@+id/emojiProfileView"
-                    android:layout_marginTop="@dimen/_1sdp"
-                    android:layout_marginLeft="@dimen/_3sdp"
-                    android:layout_width="@dimen/_13sdp"
-                    android:layout_height="@dimen/_13sdp"
-                    android:src="@drawable/ic_fire_emoji"
-                    android:layout_gravity="center"/>
 
             </LinearLayout>
 
@@ -159,7 +132,9 @@
                     android:gravity="center"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text=""
+                    android:layout_marginLeft="@dimen/_20sdp"
+                    android:layout_marginRight="@dimen/_20sdp"
+                    android:text="Blossom Okonkwo"
                     android:textColor="@color/black"
                     android:textStyle="bold"
                     android:textSize="@dimen/_14ssp"/>
@@ -178,6 +153,9 @@
                     android:id="@+id/bioProfileView"
                     android:layout_marginTop="@dimen/_2sdp"
                     android:gravity="center"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:layout_marginLeft="@dimen/_20sdp"
+                    android:layout_marginRight="@dimen/_20sdp"
                     android:textAlignment="center"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -187,59 +165,7 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:background="@color/white"
-                android:layout_margin="@dimen/_10sdp">
 
-                <TextView
-                    android:id="@+id/followingCountProfileView"
-                    android:layout_marginStart="@dimen/_3sdp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="8"
-                    android:textColor="@color/black"
-                    android:textStyle="bold"
-                    android:layout_gravity="center"/>
-
-                <TextView
-                    android:layout_marginStart="@dimen/_3sdp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/following"
-                    android:layout_gravity="center"/>
-
-                <ImageView
-                    android:layout_marginStart="@dimen/_5sdp"
-                    android:layout_marginTop="@dimen/_2sdp"
-                    android:layout_width="@dimen/_3sdp"
-                    android:layout_height="@dimen/_3sdp"
-                    android:src="@drawable/ic_dot_black"
-                    android:layout_gravity="center"/>
-
-
-
-                <TextView
-                    android:id="@+id/followerCountProfileView"
-                    android:layout_marginStart="@dimen/_5sdp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="8"
-                    android:textColor="@color/black"
-                    android:textStyle="bold"
-                    android:layout_gravity="center"/>
-
-                <TextView
-                    android:layout_marginStart="@dimen/_3sdp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/followers"
-
-                    android:layout_gravity="center"/>
-
-            </LinearLayout>
             <!-- Edit Profile, Follow, or Following Button -->
             <LinearLayout
                 android:layout_width="match_parent"

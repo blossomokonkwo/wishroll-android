@@ -1,25 +1,25 @@
 package co.wishroll.views.reusables;
 
+import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageButton;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SnapHelper;
 
-import android.os.Bundle;
-import android.view.View;
-import android.widget.ImageButton;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import co.wishroll.R;
-import co.wishroll.models.domainmodels.Videos;
+import co.wishroll.models.domainmodels.Post;
 import co.wishroll.views.tools.video.VideoRecyclerViewAdapter;
 
 public class VideoActivity extends AppCompatActivity {
 
-    private List<Videos> videosList = new ArrayList<>();
+    private List<Post> videosList = new ArrayList<>();
     private VideoRecyclerViewAdapter videoRecyclerViewAdapter;
     private RecyclerView recyclerView;
     private ImageButton backButton;
@@ -48,7 +48,7 @@ public class VideoActivity extends AppCompatActivity {
         snapHelper.attachToRecyclerView(recyclerView);
 
        for(int i = 0; i < 10; i++ ) {
-           videosList.add(new Videos());
+           videosList.add(new Post());
        }
 
        videoRecyclerViewAdapter = new VideoRecyclerViewAdapter(videosList, getApplicationContext());

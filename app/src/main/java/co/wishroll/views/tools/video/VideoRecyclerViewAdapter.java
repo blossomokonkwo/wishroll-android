@@ -11,14 +11,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import co.wishroll.R;
-import co.wishroll.models.domainmodels.Videos;
+import co.wishroll.models.domainmodels.Post;
 
 public class VideoRecyclerViewAdapter extends RecyclerView.Adapter<VideoRecyclerViewAdapter.VideoViewHolder> {
 
-    List<Videos> videosList;
+    List<Post> videosList;
     Context mContext;
 
-    public VideoRecyclerViewAdapter(List<Videos> videosList, Context mContext) {
+    public VideoRecyclerViewAdapter(List<Post> videosList, Context mContext) {
         this.videosList = videosList;
         this.mContext = mContext;
     }
@@ -32,7 +32,7 @@ public class VideoRecyclerViewAdapter extends RecyclerView.Adapter<VideoRecycler
 
     @Override
     public void onBindViewHolder(@NonNull VideoViewHolder holder, int position) {
-        Videos videoItem = videosList.get(position);
+        Post videoItem = videosList.get(position);
         
 
     }

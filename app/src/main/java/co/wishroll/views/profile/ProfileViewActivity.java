@@ -32,7 +32,6 @@ import co.wishroll.viewmodel.ProfileViewModel;
 import co.wishroll.viewmodel.ProfileViewModelFactory;
 import co.wishroll.views.home.MainActivity;
 import co.wishroll.views.registration.LoginActivity;
-import co.wishroll.views.reusables.UserList;
 import co.wishroll.views.tools.ProfileViewPagerAdapter;
 
 import static co.wishroll.WishRollApplication.applicationGraph;
@@ -45,13 +44,12 @@ public class ProfileViewActivity extends AppCompatActivity {
     ProfileViewModel profileViewModel;
 
 
-    private TextView usernameView, fullNameView, wishrollScore, bioProfileView, numViews, numFollowers, numFollowing;
+    private TextView usernameView, fullNameView, bioProfileView;
     private FloatingActionButton fabHome;
     private CircularImageView profilePicture;
-    private ImageView bannerPicture, emojiView;
+    private ImageView bannerPicture;
     private ImageButton backProfileView, moreProfileView;
     private Button bMainButton;
-    private TextView followingList, followersList;
     private SessionManagement sessionManagement = applicationGraph.sessionManagement();
 
 
@@ -74,11 +72,7 @@ public class ProfileViewActivity extends AppCompatActivity {
 
         usernameView = findViewById(R.id.usernameProfileView);
         fullNameView = findViewById(R.id.fullNameProfileView);
-        wishrollScore = findViewById(R.id.wishrollScoreProfileView);
         bioProfileView = findViewById(R.id.bioProfileView);
-        numFollowers = findViewById(R.id.followerCountProfileView);
-        numFollowing = findViewById(R.id.followingCountProfileView);
-        emojiView = findViewById(R.id.emojiProfileView);
 
         fabHome = findViewById(R.id.fabProfileView);
         backProfileView = findViewById(R.id.backProfileView);
@@ -88,20 +82,7 @@ public class ProfileViewActivity extends AppCompatActivity {
 
         subscribeProfileObserver();
 
-        numFollowing.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(ProfileViewActivity.this, UserList.class));
-            }
-        });
 
-        numFollowers.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(ProfileViewActivity.this, UserList.class));
-
-            }
-        });
 
 
 
@@ -247,22 +228,15 @@ public class ProfileViewActivity extends AppCompatActivity {
 
                         case LOADING: {
                             bMainButton.setVisibility(View.INVISIBLE);
-                            numFollowers.setVisibility(View.INVISIBLE);
-                            numFollowing.setVisibility(View.INVISIBLE);
                             usernameView.setVisibility(View.INVISIBLE);
-                            wishrollScore.setVisibility(View.INVISIBLE);
-                            emojiView.setVisibility(View.INVISIBLE);
                             fullNameView.setVisibility(View.INVISIBLE);
                             break;
                         }
                         case ERROR: {
                            bMainButton.setVisibility(View.GONE);
 
-                            numFollowers.setVisibility(View.GONE);
-                            numFollowing.setVisibility(View.GONE);
+
                             usernameView.setVisibility(View.GONE);
-                            wishrollScore.setVisibility(View.GONE);
-                            emojiView.setVisibility(View.GONE);
                             String errorMessage = "User Not Found";
                             fullNameView.setText(errorMessage);
 
@@ -277,23 +251,14 @@ public class ProfileViewActivity extends AppCompatActivity {
 
                             User user = userStateData.data;
                             bMainButton.setVisibility(View.VISIBLE);
-                            numFollowers.setVisibility(View.VISIBLE);
-                            numFollowing.setVisibility(View.VISIBLE);
                             usernameView.setVisibility(View.VISIBLE);
-                            wishrollScore.setVisibility(View.VISIBLE);
-                            emojiView.setVisibility(View.VISIBLE);
                             fullNameView.setVisibility(View.VISIBLE);
 
                             String attedUsername = "@" + user.getUsername();
                             usernameView.setText(attedUsername);
                             fullNameView.setText(user.getName());
-                            String wishrollScoreString = user.getWishrollScore() + "";
-                            wishrollScore.setText(wishrollScoreString);
                             bioProfileView.setText(user.getBio());
-                            String numFollowersString = user.getNumFollowers() + "";
-                            String numFollowingString = user.getNumFollowing() + "";
-                            numFollowers.setText(numFollowersString);
-                            numFollowing.setText(numFollowingString);
+
 
 
 

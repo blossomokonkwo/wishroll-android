@@ -16,11 +16,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.tabs.TabLayout;
-import com.google.android.material.tabs.TabLayoutMediator;
 import com.mikhaellopez.circularimageview.CircularImageView;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
@@ -31,7 +28,6 @@ import co.wishroll.models.repository.local.SessionManagement;
 import co.wishroll.utilities.FileUtils;
 import co.wishroll.viewmodel.MainViewModel;
 import co.wishroll.views.profile.ProfileViewActivity;
-import co.wishroll.views.tools.MainViewPagerAdapter;
 import co.wishroll.views.upload.TaggingActivity;
 
 import static co.wishroll.WishRollApplication.applicationGraph;
@@ -107,42 +103,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        ViewPager2 viewPager2 = findViewById(R.id.viewPagerMainView);
-        viewPager2.setAdapter(new MainViewPagerAdapter(this));
-        TabLayout tabLayout = findViewById(R.id.tabLayoutMainView);
-        TabLayoutMediator tabLayoutMediator = new TabLayoutMediator(
-                tabLayout, viewPager2, new TabLayoutMediator.TabConfigurationStrategy() {
 
-            @Override
-            public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
-                Log.d(TAG, "inside the onConfigure tab, TabLayout mediator");
-
-                switch (position){
-
-                    case 0:{
-
-                        tab.setText("Discover");
-
-                        break;}
-
-                   //TODO(saving until messaging for android comes out)
-                   /* case 1:{
-
-                        tab.setText("Messages");
-
-                        break;}*/
-
-                    default: {
-
-                        tab.setText("Feed");
-
-                        break;
-                    }
-                }
-
-            }
-        });
-        tabLayoutMediator.attach();
     }
 
     public void goToGallery(){

@@ -13,11 +13,13 @@ public class ProfileViewModelFactory implements ViewModelProvider.Factory {
     @NonNull
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-        if(modelClass.isAssignableFrom(ProfileViewModel.class)){
+        if (modelClass.isAssignableFrom(ProfileViewModel.class)) {
             return (T) new ProfileViewModel(id);
-        }else{
-             return (T) new OtherProfileViewModel(id);
+
+        } else{
+            return null;
         }
+
 
     }
 

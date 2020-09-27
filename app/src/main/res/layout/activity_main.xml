@@ -34,9 +34,10 @@
 
     <!-- Profile Banner & Top Image Buttons -->
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_70sdp">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_75sdp">
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -85,18 +86,7 @@
             android:background="@color/white"
             android:orientation="vertical">
 
-            <com.google.android.material.tabs.TabLayout
-                app:tabSelectedTextColor="@color/wishroll_blue"
-                app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
-                android:id="@+id/tabLayoutMainView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:tabMode="fixed"
-                app:tabIndicatorColor="@color/wishroll_blue"
-                app:tabGravity="fill"
-                app:tabIconTint="#e4e7ed"
 
-                />
 
             <ScrollView
                 android:id="@+id/nestedContent"
@@ -112,12 +102,14 @@
                 android:background="@color/white"
                 android:orientation="vertical">
 
-            <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/viewPagerMainView"
-                android:layout_width="match_parent"
-                android:layout_height="900dp">
+                <fragment
+                    android:id="@+id/trendingFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="900dp"
+                    android:name="co.wishroll.views.home.TrendingFragment">
 
-            </androidx.viewpager2.widget.ViewPager2>
+                </fragment>
+
             </LinearLayout>
         </ScrollView>
 

@@ -33,7 +33,9 @@ import retrofit2.http.Query;
 
 public interface WishRollApi {
     //all wishroll api methods and calls
-    //only thing that has v3/ infront of it are discover things and the search, different content type searches.
+    // v3/ -> discover and content-type searches
+    // v2/ -> everything else
+
 
 
 
@@ -55,26 +57,21 @@ public interface WishRollApi {
 
 
     //User Profiles & Current User Profile
-
     @GET("v2/users/{id}")
     Flowable<User> getUserById(@Path ("id") int id);
 
-
     @GET("v2/users/{username}")
     Flowable<User> getUserByUsername(@Path ("username") String username);
-
 
     @Multipart
     @PUT("v2/user/update")
     Flowable<UpdateResponse> updateUserDetails(@PartMap Map<String, RequestBody> parameters,
                                                @Part MultipartBody.Part profile,
                                                @Part MultipartBody.Part banner);
-
     @Multipart
     @PUT("v2/user/update")
     Flowable<UpdateResponse> updateUserDetails(@PartMap Map<String, RequestBody> parameters,
                                                @Part MultipartBody.Part profile);
-
     @Multipart
     @PUT("v2/user/update")
     Flowable<UpdateResponse> updateUserDetails(@PartMap Map<String, RequestBody> parameters);
@@ -83,7 +80,6 @@ public interface WishRollApi {
     @PUT("v2/user/update")
     Flowable<UpdateResponse> updateUserDetails( @Part MultipartBody.Part profile,
                                                 @Part MultipartBody.Part banner);
-
     @Multipart
     @PUT("v2/user/update")
     Flowable<UpdateResponse> updateUserDetails( @Part MultipartBody.Part profile);
@@ -92,69 +88,30 @@ public interface WishRollApi {
 
 
     //Uploading Posts
-
     @Multipart
     @POST("v2/posts")
     Single<UploadPostResponse> uploadPost(@Part MultipartBody.Part post, @Part("caption") RequestBody caption);
 
     @Multipart
     @POST("v2/posts")
-    Single<UploadPostResponse> uploadPost(@Part MultipartBody.Part post); //does api accept nulls or separate calls for each case?
+    Single<UploadPostResponse> uploadPost(@Part MultipartBody.Part post);
 
     @Multipart
     @POST("v2/posts")
     Single<UploadPostResponse> uploadVideo(@Part MultipartBody.Part post, @Part MultipartBody.Part videoThumbnail);
 
-    @Multipart
-    @POST("v2/posts")
-    Single<UploadPostResponse> uploadVideo(@Part MultipartBody.Part post, @Part MultipartBody.Part videoThumbnail, @Part("caption") RequestBody caption );
-
+    //@Multipart
+    //@POST("v2/posts")
+    //Single<UploadPostResponse> uploadVideo(@Part MultipartBody.Part post, @Part MultipartBody.Part videoThumbnail, @Part("caption") RequestBody caption );
 
     @FormUrlEncoded
     @POST("v2/posts/{post_id}/tags")
     Completable sendTags(@Path("post_id") int postID,  @Field("tags[]") String[] tags);
 
 
-    //Feed Fragment
-    @GET("v2/feed/posts{offset}")
-    Single<List<Post>> getFeedPosts(@Query("offset") int offset);
-
-    //Feed Fragment
-    /*@GET("v2/uploads{offset}")
-    Single<List<Post>> getFeedPosts(@Query("offset") int offset);
-
-    //Feed Fragment
-    @GET("v2/feed{offset}")
-    Single<List<Post>> getFeedPosts(@Query("offset") int offset);
-
-    //Feed Fragment
-    @GET("v2/feed{offset}")
-    Single<List<Post>> getFeedPosts(@Query("offset") int offset);*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    @GET("")
-    Flowable<List<User>> getListFollowers();
-    //gets list of user's followers
-
-    @GET("")
-    Flowable<List<User>> getListFollowing();
-    //gets list of users who user followed
+    //Uploads Fragment
+    @GET("v2/uploads{offset}")
+    Single<List<Post>> getUploadedPosts(@Query("offset") int offset);
 
     @GET("")
     Flowable<List<Post>> getUploadedPosts();

@@ -4,6 +4,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class Creator {
+    //TODO(remove following)
 
     @SerializedName("id")
     @Expose
@@ -33,6 +34,7 @@ public class Creator {
     }
 
     /**
+     *
      *
      * @param following
      * @param verified

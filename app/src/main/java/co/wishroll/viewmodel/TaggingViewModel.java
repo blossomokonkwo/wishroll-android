@@ -28,8 +28,7 @@ public class TaggingViewModel extends ViewModel {
     public String postTags;
 
 
-    public String postCaption;
-    RequestBody caption;
+
 
     public String postPath = "";
     public String videoThumbnailPath = "";
@@ -83,7 +82,7 @@ public class TaggingViewModel extends ViewModel {
     }
 
     public void onSharePressed(){
-       Log.d(TAG, "onSharePressed: this is the caption that the user entered " + postCaption);
+
        Log.d(TAG, "onSharePressed: these are the tags that the user entered " + postTags);
        Log.d(TAG, "onSharePressed: this is the file path of the chosen media " + postPath);
         Log.d(TAG, "onSharePressed: TIME TO EXPOSE IS VIDEO: " + isVideo);
@@ -91,7 +90,7 @@ public class TaggingViewModel extends ViewModel {
         if(postTags == null){
             authListener.sendMessage("Each post must have tags");
         }else{
-             caption = createPartFromString(postCaption);
+
 
              File postFile = new File(postPath);
              postRequestBody = RequestBody.create(postFile, MediaType.parse(FileUtils.getMimeType(postFile)));
@@ -111,23 +110,19 @@ public class TaggingViewModel extends ViewModel {
 
              }
 
-             if(isVideo && caption == null){
+             if(isVideo){
 
-                 uploadPost(postMultipart, videoThumbnail, null, tags, true);
+                 uploadPost(postMultipart, videoThumbnail, tags, true);
 
-             }else if(isVideo && caption != null){
-
-                 uploadPost(postMultipart, videoThumbnail, caption, tags, true);
-
-             }
-
-             if(!isVideo && caption == null){
-                 uploadPost(postMultipart, null, null, tags, false);
-
-             }else if(!isVideo && caption != null){
-                 uploadPost(postMultipart, null, caption, tags, false);
+             }else {
+                 uploadPost(postMultipart,  null, tags, false);
 
              }
+
+
+
+
+
 
 
 
@@ -141,9 +136,9 @@ public class TaggingViewModel extends ViewModel {
 
 
 
-    public void uploadPost(MultipartBody.Part mediaPost, MultipartBody.Part videoThumbnail, RequestBody caption, String[] tags, boolean isVideo){
+    public void uploadPost(MultipartBody.Part mediaPost, MultipartBody.Part videoThumbnail, String[] tags, boolean isVideo){
 
-        Disposable uploadDisposable = postRepository.uploadPost(mediaPost, videoThumbnail, caption, tags, isVideo)
+        Disposable uploadDisposable = postRepository.uploadPost(mediaPost, videoThumbnail, tags, isVideo)
                 .subscribeWith(new DisposableCompletableObserver(){
                     @Override
                     public void onStart() {

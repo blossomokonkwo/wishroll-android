@@ -25,7 +25,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_marginBottom="@dimen/_10sdp"
+        android:layout_marginBottom="@dimen/_5sdp"
         >
 
         <TextView
@@ -73,30 +73,44 @@
 
     <RelativeLayout
         android:layout_margin="@dimen/_10sdp"
-        android:id="@+id/captionArea"
+        android:id="@+id/taggingArea"
         android:layout_below="@id/smallLine1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/_200sdp"
         android:orientation="horizontal"
         >
-        
 
-
-        <EditText
-            android:text="@={taggingviewmodel.postCaption}"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:textAlignment="viewStart"
+        <RelativeLayout
             android:layout_width="wrap_content"
-            android:background="#FFFFFF"
-            android:maxLength="100"
+            android:layout_height="match_parent"
             android:layout_toLeftOf="@id/taggingThumbnailLayout"
-            android:textSize="@dimen/_14ssp"
-            android:layout_height="wrap_content"
-            android:hint="@string/whats_on_your_mind"
-            android:layout_marginRight="@dimen/_20sdp"
-            />
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true">
+
+
+            <EditText
+                android:text="@={taggingviewmodel.postTags}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:layout_marginRight="@dimen/_25sdp"
+                android:background="#FFFFFF"
+                android:hint="@string/tags_required"
+                android:textAlignment="viewStart"
+                android:textColor="@color/wishroll_blue"
+                android:textSize="@dimen/_14ssp" />
+
+            <ImageButton
+                android:id="@+id/taggingInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:src="@drawable/ic_information"
+                android:background="@color/transparent"/>
+
+        </RelativeLayout>
+
 
         <RelativeLayout
             android:id="@+id/taggingThumbnailLayout"
@@ -136,52 +150,9 @@
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:background="@color/light_grey"
-        android:layout_below="@id/captionArea"/>
+        android:layout_below="@id/taggingArea"/>
 
 
-    <RelativeLayout
-        android:layout_margin="@dimen/_10sdp"
-        android:id="@+id/taggingArea"
-        android:layout_below="@id/smallLine2"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_150sdp"
-        android:orientation="horizontal"
-        >
-
-
-
-        <EditText
-            android:text="@={taggingviewmodel.postTags}"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:textAlignment="viewStart"
-            android:layout_width="wrap_content"
-            android:background="#FFFFFF"
-            android:textColor="@color/wishroll_blue"
-            android:textSize="@dimen/_14ssp"
-            android:layout_height="wrap_content"
-            android:hint="@string/tags_required"
-            android:layout_marginEnd="@dimen/_5sdp"
-            />
-
-        <ImageButton
-            android:id="@+id/taggingInfo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:src="@drawable/ic_information"
-            android:background="@color/transparent"/>
-
-
-
-
-
-
-
-
-
-    </RelativeLayout>
 
 
 

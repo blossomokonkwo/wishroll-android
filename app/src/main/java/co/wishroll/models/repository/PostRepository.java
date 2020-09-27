@@ -11,7 +11,6 @@ import io.reactivex.Completable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
 import retrofit2.Retrofit;
 
 @Singleton
@@ -33,33 +32,19 @@ public class PostRepository {
 
     }
 
-    public Completable uploadPost(MultipartBody.Part post, MultipartBody.Part videoThumbnail, RequestBody caption, String[] tags, boolean isVideo){
+    public Completable uploadPost(MultipartBody.Part post, MultipartBody.Part videoThumbnail, String[] tags, boolean isVideo){
 
-       if(isVideo && caption != null){
+       if(isVideo) {
            Log.d(TAG, "uploadPost: this is a video with no caption, repository-wise");//single to completable then to livedata but what does a completable return???
-           uploadStatus = wishRollApi.uploadVideo(post, videoThumbnail, caption)
-                    .flatMapCompletable(postResponse -> {
-                        return wishRollApi.sendTags(postResponse.getPostId(), tags);
-                    })
+           uploadStatus = wishRollApi.uploadVideo(post, videoThumbnail)
+                   .flatMapCompletable(postResponse -> {
+                       return wishRollApi.sendTags(postResponse.getPostId(), tags);
+                   })
                    .observeOn(AndroidSchedulers.mainThread())
                    .subscribeOn(Schedulers.io());
 
 
-
-
-       }else if(isVideo && caption == null){
-           Log.d(TAG, "uploadPost: this is a video with a caption, repository-wise");
-            uploadStatus = wishRollApi.uploadVideo(post, videoThumbnail)
-                    .flatMapCompletable(postResponse -> {
-                        return wishRollApi.sendTags(postResponse.getPostId(), tags);
-                    })
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribeOn(Schedulers.io());
-
-       }
-
-
-       if(!isVideo && caption == null){
+       }else {
            Log.d(TAG, "uploadPost: this is an image with no caption, repository-wise");
             uploadStatus = wishRollApi.uploadPost(post)
                     .flatMapCompletable(postResponse -> {
@@ -67,16 +52,6 @@ public class PostRepository {
                     })
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribeOn(Schedulers.io());
-
-       }else if(!isVideo && caption != null){
-           Log.d(TAG, "uploadPost: this is an image with a caption, repository-wise");
-            uploadStatus = wishRollApi.uploadPost(post, caption)
-                    .flatMapCompletable(postResponse -> {
-                        return wishRollApi.sendTags(postResponse.getPostId(), tags);
-                    })
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribeOn(Schedulers.io());
-
 
        }
 

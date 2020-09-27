@@ -14,7 +14,7 @@ import com.bumptech.glide.RequestManager;
 import com.mikhaellopez.circularimageview.CircularImageView;
 
 import co.wishroll.R;
-import co.wishroll.models.domainmodels.Videos;
+import co.wishroll.models.domainmodels.Post;
 
 public class VideoPlayerViewHolder extends RecyclerView.ViewHolder{
 
@@ -35,9 +35,7 @@ public class VideoPlayerViewHolder extends RecyclerView.ViewHolder{
         mediaContainer = itemView.findViewById(R.id.media_container);
         profilePicture = itemView.findViewById(R.id.profilePicVideoView);
         username = itemView.findViewById(R.id.usernameVideoView);
-        timeAgo = itemView.findViewById(R.id.timeAgoVideoView);
         numLikes = itemView.findViewById(R.id.likeCountVideoView);
-        numShares = itemView.findViewById(R.id.shareCountVideoView);
         numBookmarks = itemView.findViewById(R.id.bookmarkCountVideoView);
         videoCaption = itemView.findViewById(R.id.videoCaption);
         numViews = itemView.findViewById(R.id.viewCountVideoView);
@@ -45,21 +43,20 @@ public class VideoPlayerViewHolder extends RecyclerView.ViewHolder{
         likeButton = itemView.findViewById(R.id.likeVideoView);
         shareButton = itemView.findViewById(R.id.shareVideoView);
         bookmarkButton = itemView.findViewById(R.id.bookmarkVideoView);
-        commentButton = itemView.findViewById(R.id.commentVideoView);
-        numComments = itemView.findViewById(R.id.commentCountVideoView);
 
-        //videoThumbnail = itemView.findViewById(R.id.); where do I find this?
+
+
 
 
     }
 
-        public void onBind(Videos video, RequestManager requestManager){
+        public void onBind(Post post, RequestManager requestManager){
             this.requestManager = requestManager;
             parent.setTag(this);
-            videoCaption.setText(video.getCaption());
-            timeAgo.setText(video.getTimeAgo());
+            videoCaption.setText(post.getCaption());
+            timeAgo.setText(post.getCreatedAt());
 
-            //this.requestManager.load(video.getThumbnailURL()).into();
+            //this.requestManager.load(post.getThumbnailURL()).into();
 
         }
 

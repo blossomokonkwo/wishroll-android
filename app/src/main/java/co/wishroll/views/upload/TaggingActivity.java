@@ -16,8 +16,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.bumptech.glide.Glide;
-
 import java.io.IOException;
 
 import co.wishroll.R;
@@ -111,10 +109,6 @@ public class TaggingActivity extends AppCompatActivity implements AuthListener {
             taggingViewModel.setVideoThumbnailPath("/data/user/0/co.WishRoll" + videoThumbnailPath);
 
 
-
-
-
-
             videoIndicator.setVisibility(View.VISIBLE);
 
         }
@@ -122,8 +116,7 @@ public class TaggingActivity extends AppCompatActivity implements AuthListener {
 
         mediaThumbnail.setImageBitmap(thumbnailBitmap);
 
-        //Log.d(TAG, "onCreate: JUST CHECKING IF I STILL MATTER: " + generateVideoThumbnailFileName("lolol.mov"));
-        
+
         
 
 
@@ -132,13 +125,7 @@ public class TaggingActivity extends AppCompatActivity implements AuthListener {
 
 
 
-    private void loadVideoThumbnail(String filePath){
-        Glide
-                .with(TaggingActivity.this)
-                .load(filePath)
-                .error(R.drawable.defaultprofile)
-                .into(mediaThumbnail);
-    }
+
 
 
 

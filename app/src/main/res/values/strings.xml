@@ -95,7 +95,7 @@
     <string name="concern_8">Other</string>
 
     <!-- Upload -->
-    <string name="whats_on_your_mind">What\'s on your mind?</string>
+    <string name="caption">Caption</string>
     <string name="tags">Tags</string>
     <string name="tags_required">Tags (required)</string>
     <string name="post_uploaded">Upload Successful…</string>
