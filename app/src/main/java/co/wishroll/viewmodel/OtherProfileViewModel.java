@@ -16,29 +16,27 @@ import com.mikhaellopez.circularimageview.CircularImageView;
 import co.wishroll.R;
 import co.wishroll.models.domainmodels.User;
 import co.wishroll.models.repository.UserRepository;
-import co.wishroll.models.repository.local.SessionManagement;
 import co.wishroll.utilities.StateData;
 
 import static co.wishroll.WishRollApplication.applicationGraph;
 
-public class ProfileViewModel extends ViewModel {
+public class OtherProfileViewModel extends ViewModel {
 
     private static final String TAG = "ProfileViewModel";
     UserRepository userRepository = applicationGraph.userRepository();
-    SessionManagement sessionManagement = applicationGraph.sessionManagement();
     MediatorLiveData<StateData<User>> userLiveData = new MediatorLiveData<>();
     int pointerId;
 
-    @BindingAdapter("profileViewImage")
-    public static void loadProfileViewImage(CircularImageView view, String imageUrl) {
+    @BindingAdapter("otherProfileViewImage")
+    public static void loadOtherProfileViewImage(CircularImageView view, String imageUrl) {
         Log.d(TAG, "loadProfileImage: binding adapter lolol XDXDXD ");
         Glide.with(view.getContext())
                 .load(imageUrl).apply(new RequestOptions().circleCrop()).placeholder(R.drawable.defaultprofile)
                 .into(view);
     }
 
-    @BindingAdapter("bannerViewImage")
-    public static void loadBannerViewImage(ImageView view, String bannerImageUrl) {
+    @BindingAdapter("otherBannerViewImage")
+    public static void loadOtherBannerViewImage(ImageView view, String bannerImageUrl) {
         Log.d(TAG, "loadProfileImage: binding adapter lolol XDXDXD ");
         Glide.with(view.getContext())
                 .load(bannerImageUrl).apply(new RequestOptions().centerCrop()).placeholder(R.color.wishroll_blue)
@@ -47,10 +45,10 @@ public class ProfileViewModel extends ViewModel {
 
 
 
-    public ProfileViewModel(int id){
+    public OtherProfileViewModel(int id){
         this.pointerId = id;
-        Log.d(TAG, "ProfileViewModel: initialized current user id " + pointerId);
-        getCurrentUser(pointerId);
+        Log.d(TAG, "OtherProfileViewModel: initialized current user username " + id);
+        getOtherUser(pointerId);
 
 
 
@@ -58,9 +56,10 @@ public class ProfileViewModel extends ViewModel {
 
 
 
-    public void getCurrentUser(int id){
+    public void getOtherUser(int userId){
         userLiveData.setValue(StateData.loading((User)null));
-        final LiveData<StateData<User>> source = userRepository.getUserById(id);
+        final LiveData<StateData<User>> source = userRepository.getUserById(userId);
+
         userLiveData.addSource(source, new Observer<StateData<User>>() {
             @Override
             public void onChanged(StateData<User> userStateData) {
@@ -71,12 +70,12 @@ public class ProfileViewModel extends ViewModel {
     }
 
 
-    public LiveData<StateData<User>> observeCurrentUserProfile(){
+    public LiveData<StateData<User>> observeOtherUserProfile(){
         return userLiveData;
     }
 
 
-    //do this when the activity is created
+
 
 
 

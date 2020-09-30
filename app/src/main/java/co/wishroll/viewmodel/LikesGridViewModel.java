@@ -1,13 +1,16 @@
 package co.wishroll.viewmodel;
 
-import android.app.Application;
+import android.util.Log;
 
-import androidx.annotation.NonNull;
-import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.ViewModel;
 
 public class LikesGridViewModel extends ViewModel {
-    public LikesGridViewModel() {
+    private static final String TAG = "LikesGridViewModel";
+    int userId;
+
+    public LikesGridViewModel(int id) {
+        this.userId = id;
+        Log.d(TAG, "LikesGridViewModel: this belongs to the user with the id of " + userId);
 
     }
 

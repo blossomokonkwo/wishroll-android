@@ -6,8 +6,10 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
-public class ProfileViewModelFactory implements ViewModelProvider.Factory {
-    private static final String TAG = "ProfileViewModelFactory";
+public class PostageViewModelFactory implements ViewModelProvider.Factory {
+
+    //please o only use this when you want to initalize uploads or likes. if not? just use the default pls
+    private static final String TAG = "PostageViewModelFactory";
     private String username;
     private int id;
 
@@ -16,13 +18,13 @@ public class ProfileViewModelFactory implements ViewModelProvider.Factory {
     @NonNull
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-        if (modelClass.isAssignableFrom(ProfileViewModel.class)) {
+        if (modelClass.isAssignableFrom(UploadsViewModel.class)) {
             Log.d(TAG, "create: setting up the current user profile view");
-            return (T) new ProfileViewModel(id);
+            return (T) new UploadsViewModel(id);
 
         } else{
-            Log.d(TAG, "create: setting up the others profile view ");
-            return (T) new OtherProfileViewModel(id);
+            Log.d(TAG, "create: setting up the likes grid ");
+            return (T) new LikesGridViewModel(id);
         }
 
 
@@ -34,7 +36,7 @@ public class ProfileViewModelFactory implements ViewModelProvider.Factory {
 
     }*/
 
-    public ProfileViewModelFactory(int id) {
+    public PostageViewModelFactory(int id) {
         this.id = id;
 
     }

@@ -1,17 +1,13 @@
 package co.wishroll.models.networking;
 
 import java.util.List;
-import java.util.Map;
 
-import co.wishroll.models.domainmodels.Notification;
 import co.wishroll.models.domainmodels.Post;
-import co.wishroll.models.domainmodels.User;
 import co.wishroll.models.repository.datamodels.AuthResponse;
 import co.wishroll.models.repository.datamodels.EValidationRequest;
 import co.wishroll.models.repository.datamodels.LoginRequest;
 import co.wishroll.models.repository.datamodels.SignupRequestMany;
 import co.wishroll.models.repository.datamodels.UValidationRequest;
-import co.wishroll.models.repository.datamodels.UpdateResponse;
 import co.wishroll.models.repository.datamodels.UploadPostResponse;
 import io.reactivex.Completable;
 import io.reactivex.Flowable;
@@ -25,9 +21,7 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
-import retrofit2.http.PUT;
 import retrofit2.http.Part;
-import retrofit2.http.PartMap;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -57,18 +51,18 @@ public interface WishRollApi {
 
 
     //User Profiles & Current User Profile
-    @GET("v2/users/{id}")
+    /*@GET("v2/users/{id}")
     Flowable<User> getUserById(@Path ("id") int id);
 
     @GET("v2/users/{username}")
-    Flowable<User> getUserByUsername(@Path ("username") String username);
+    Flowable<User> getUserByUsername(@Path ("username") String username);*/
 
-    @Multipart
+    /*@Multipart
     @PUT("v2/user/update")
     Flowable<UpdateResponse> updateUserDetails(@PartMap Map<String, RequestBody> parameters,
                                                @Part MultipartBody.Part profile,
-                                               @Part MultipartBody.Part banner);
-    @Multipart
+                                               @Part MultipartBody.Part banner);*/
+   /* @Multipart
     @PUT("v2/user/update")
     Flowable<UpdateResponse> updateUserDetails(@PartMap Map<String, RequestBody> parameters,
                                                @Part MultipartBody.Part profile);
@@ -82,7 +76,7 @@ public interface WishRollApi {
                                                 @Part MultipartBody.Part banner);
     @Multipart
     @PUT("v2/user/update")
-    Flowable<UpdateResponse> updateUserDetails( @Part MultipartBody.Part profile);
+    Flowable<UpdateResponse> updateUserDetails( @Part MultipartBody.Part profile);*/
 
 
 
@@ -113,28 +107,9 @@ public interface WishRollApi {
     @GET("v2/uploads{offset}")
     Single<List<Post>> getUploadedPosts(@Query("offset") int offset);
 
-    @GET("")
-    Flowable<List<Post>> getUploadedPosts();
-    //gets list of uploads by user
 
-    @GET("")
-    Flowable<List<Post>> getLikedPosts();
-    //gets list of posts liked by user
 
-    @GET("")
-    Flowable<List<Post>> getBookmarkedPost();
-    //gets list of posts bookmarked by user
 
-    @GET("")
-    Flowable<List<Notification>> getNotifications();
-
-    @POST("")
-    Completable likePost();
-    //toggle mechanism
-
-    @POST("")
-    Completable bookmarkPost();
-    //toggle mechanism
 
 
 

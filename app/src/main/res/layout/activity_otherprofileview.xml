@@ -7,14 +7,14 @@
     <data>
         <variable
             name="ProfileViewModel"
-            type="co.wishroll.viewmodel.ProfileViewModel" />
+            type="co.wishroll.viewmodel.OtherProfileViewModel" />
 
         <variable
-            name="profileImageUrl"
+            name="otherProfileImageUrl"
             type="String" />
 
         <variable
-            name="bannerImageUrl"
+            name="otherBannerImageUrl"
             type="String" />
     </data>
 
@@ -51,7 +51,7 @@
 
 
                 <ImageButton
-                    android:id="@+id/backCurrentProfileView"
+                    android:id="@+id/backOtherProfileView"
                     android:layout_width="@dimen/_40sdp"
                     android:layout_height="@dimen/_40sdp"
                     android:src="@drawable/ic_chevron_left_white"
@@ -61,23 +61,15 @@
                     android:layout_alignParentLeft="true"/>
 
 
-                <ImageButton
-                    android:id="@+id/moreCurrentProfileView"
-                    android:layout_width="@dimen/_30sdp"
-                    android:layout_height="@dimen/_20sdp"
-                    android:src="@drawable/ic_more_horiz_24"
-                    android:elevation="2dp"
-                    android:layout_margin="10dp"
-                    android:background="@color/transparent"
-                    android:layout_alignParentRight="true"/>
+
 
 
                     <ImageView
-                        android:id="@+id/bannerProfileView"
+                        android:id="@+id/bannerOtherProfileView"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_160sdp"
                         android:scaleType="centerCrop"
-                        app:bannerViewImage="@{bannerImageUrl}"
+                        app:otherBannerViewImage="@{otherBannerImageUrl}"
                         android:src="@color/wishroll_blue" />
 
 
@@ -86,14 +78,14 @@
 
             <!-- Profile Picture -->
             <com.mikhaellopez.circularimageview.CircularImageView
-                android:id="@+id/profilePictureProfileView"
+                android:id="@+id/profilePictureOtherProfileView"
                 android:layout_width="@dimen/_90sdp"
                 android:layout_height="@dimen/_90sdp"
                 android:layout_marginTop="-55dp"
                 android:elevation="10dp"
                 android:src="@drawable/defaultprofile"
                 app:civ_border="true"
-                app:profileViewImage="@{profileImageUrl}"
+                app:otherProfileViewImage="@{otherProfileImageUrl}"
                 app:civ_border_color="@color/white"
                 app:civ_border_width="4dp"
                 app:civ_shadow="true"
@@ -108,7 +100,7 @@
                 android:background="@color/white">
 
                 <TextView
-                    android:id="@+id/usernameProfileView"
+                    android:id="@+id/usernameOtherProfileView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="buusjds"
@@ -128,7 +120,7 @@
 
 
                 <TextView
-                    android:id="@+id/fullNameProfileView"
+                    android:id="@+id/fullNameOtherProfileView"
                     android:gravity="center"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -150,7 +142,7 @@
                 android:layout_marginRight="@dimen/_25sdp">
 
                 <TextView
-                    android:id="@+id/bioProfileView"
+                    android:id="@+id/bioOtherProfileView"
                     android:layout_marginTop="@dimen/_2sdp"
                     android:gravity="center"
                     android:layout_marginBottom="@dimen/_10sdp"
@@ -158,33 +150,16 @@
                     android:layout_marginRight="@dimen/_20sdp"
                     android:textAlignment="center"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
                     android:text=""
+                    android:layout_height="wrap_content"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_10ssp"/>
 
             </LinearLayout>
 
 
-            <!-- Edit Profile, Follow, or Following Button -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:layout_marginTop="@dimen/_5sdp"
-                android:layout_marginBottom="@dimen/_20sdp">
 
-                <Button
-                    android:id="@+id/mainButtonProfileView"
-                    android:layout_width="@dimen/_115sdp"
-                    android:layout_height="@dimen/_35sdp"
-                    android:background="@drawable/edit_white_button"
-                    android:text="Edit Profile"
-                    android:textAllCaps="false"
-                    android:textSize="@dimen/_12ssp"
-                    style="?android:attr/borderlessButtonStyle"/>
 
-            </LinearLayout>
 
 
 
@@ -201,7 +176,7 @@
                 <com.google.android.material.tabs.TabLayout
                     app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
                     app:tabSelectedTextColor="@color/black"
-                    android:id="@+id/tabLayoutProfileView"
+                    android:id="@+id/tabLayoutOtherProfileView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:tabMode="fixed"
@@ -212,7 +187,7 @@
                     />
 
                 <androidx.viewpager2.widget.ViewPager2
-                    android:id="@+id/viewPagerProfileView"
+                    android:id="@+id/viewPagerOtherProfileView"
                     android:layout_width="match_parent"
                     android:layout_height="900dp">
 
@@ -229,7 +204,7 @@
 
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fabCurrentProfileView"
+            android:id="@+id/fabOtherProfileView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center|bottom"

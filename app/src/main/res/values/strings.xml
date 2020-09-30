@@ -1,29 +1,14 @@
 <resources>
 
     <!-- Sign Up/Login Proceess-->
-    <string name="select_birthdate">Select Birthday</string>
-    <string name="UsernameEmail_label">Username or email</string>
+    <string name="UsernameEmail_label">Email</string>
     <string name="Password_label">Password</string>
-    <string name="Username_label">Username</string>
     <string name="Login_label">Login</string>
     <string name="email">What\'s your Email?</string>
     <string name="enter_email">Please enter your email</string>
-    <string name="set_username">Create a Username</string>
-    <string name="usernamehint">Please enter your username</string>
     <string name="already_have">Already have an account? Login here</string>
     <string name="new_prompt">New to the WishRoll Community? Signup here</string>
-    <string name="Age_Ask">When\'s Your Birthday?</string>
     <string name="create_account">Create Your Account</string>
-    <string name="age_warning">You must be 12 years or older to use WishRoll</string>
-    <string name="age_month">Month</string>
-    <string name="age_day">Day</string>
-    <string name="age_year">Year</string>
-    <string name="full_name">What\'s your Name?</string>
-    <string name="gender_ask">What\'s your Gender?</string>
-    <string name="male">Male</string>
-    <string name="female">Female</string>
-    <string name="prefer_not_to_answer">Prefer Not to Answer</string>
-    <string name="please_name">Please enter your full name</string>
     <string name="confirm_password">Confirm Password</string>
     <string name="eight">At least eight characters</string>
     <string name="retype_label">Re\-type your password</string>
@@ -56,21 +41,14 @@
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
 
-    <!-- Edit Profile Activity-->
-    <string name="email_label">Email</string>
-    <string name="name_label">Name</string>
-    <string name="username_label">Username</string>
-    <string name="bio_label">Bio</string>
-    <string name="save_label">Save</string>
-    <string name="saved_dialog">Profile Updated</string>
-    <string name="profile_uploaded">Profile Updated</string>
+
 
 
     <!-- Bottom Sheet Slider Text-->
     <string name="contact_us">Contact Us</string>
     <string name="privacy_policy">Privacy Policy</string>
     <string name="your_account">Your Account</string>
-    <string name="logout">Logout</string>
+    <string name="delete_account">Delete Account</string>
 
     <!-- Formatted Strings -->
     <string name="usernameWithAt">\@%s</string>

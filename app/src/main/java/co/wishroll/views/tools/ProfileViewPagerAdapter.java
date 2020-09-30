@@ -15,15 +15,17 @@ public class ProfileViewPagerAdapter extends FragmentStateAdapter {
     private static final String TAG = "VIEW PAGER ADAPTER";
 
     boolean isCurrentUser;
+    int userId;
 
     public ProfileViewPagerAdapter(@NonNull FragmentActivity fragmentActivity) {
         super(fragmentActivity);
         this.isCurrentUser = true;
     }
 
-    public ProfileViewPagerAdapter(@NonNull FragmentActivity fragmentActivity, boolean isCurrentUser){
+    public ProfileViewPagerAdapter(@NonNull FragmentActivity fragmentActivity, boolean isCurrentUser, int userId){
         super(fragmentActivity);
         this.isCurrentUser = isCurrentUser;
+        this.userId = userId;
     }
 
 
@@ -36,9 +38,9 @@ public class ProfileViewPagerAdapter extends FragmentStateAdapter {
         if(isCurrentUser) {
             switch (position) {
                 case 0:
-                    return new UploadsFragment();
+                    return new UploadsFragment(userId);
                 case 1:
-                    return new LikesFragment();
+                    return new LikesFragment(userId);
                 case 2:
                     return new BookmarksFragment();
                 default:
@@ -47,12 +49,10 @@ public class ProfileViewPagerAdapter extends FragmentStateAdapter {
         }else {
             switch (position) {
                 case 0:
-                    return new UploadsFragment();
-                case 1:
-                    return new LikesFragment();
+                    return new UploadsFragment(userId);
 
                 default:
-                    return new BookmarksFragment();
+                    return new LikesFragment(userId);
             }
         }
 
@@ -65,7 +65,7 @@ public class ProfileViewPagerAdapter extends FragmentStateAdapter {
         if(isCurrentUser) {
             return 4;
         }else{
-            return 3;
+            return 2;
         }
 
     }
