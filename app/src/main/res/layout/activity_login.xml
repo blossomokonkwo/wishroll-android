@@ -6,7 +6,7 @@
 
         <variable
             name="loginviewmodel"
-            type="co.wishroll.viewmodel.LoginViewModel" />
+            type="co.wishroll.viewmodel.registration.LoginViewModel" />
 
     </data>
 

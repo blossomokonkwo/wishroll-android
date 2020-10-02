@@ -7,11 +7,7 @@ public class SignupRequestMany {
 
 
 
-    @SerializedName("name")
-    String name;
 
-    @SerializedName("username")
-     String username;
 
     @SerializedName("password")
      String password;
@@ -19,8 +15,7 @@ public class SignupRequestMany {
     @SerializedName("email")
      String email;
 
-    @SerializedName("birth_date")
-    String birthday;
+
 
 
 
@@ -30,31 +25,16 @@ public class SignupRequestMany {
     }
 
 
-    public SignupRequestMany(String name, String username, String password, String email, String birthday) {
+    public SignupRequestMany( String email, String password) {
         super();
-        this.name = name;
-        this.username = formatUsername(username);
         this.password = password;
         this.email = email;
-        this.birthday = birthday;
+
     }
 
 
-    public  String getName() {
-        return name;
-    }
 
-    public void setName(String names) {
-        name = names;
-    }
 
-    public  String getUsername() {
-        return username;
-    }
-
-    public  void setUsername(String usernames) {
-        username = usernames;
-    }
 
     public  String getPassword() {
         return password;
@@ -72,15 +52,7 @@ public class SignupRequestMany {
         email = emails;
     }
 
-    public String getBirthday() {
-        return birthday;
-    }
 
-    public  void setBirthday(String birthdays) {
-        birthday = birthdays;
-    }
 
-    public String formatUsername(String username) {
-        return username.toLowerCase().replace(' ', '_');
-    }
+
 }

@@ -5,6 +5,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class AuthResponse {
+    private static final String TAG = "AuthResponse";
     //maps the data given by a login POST request
 
     @SerializedName("user")

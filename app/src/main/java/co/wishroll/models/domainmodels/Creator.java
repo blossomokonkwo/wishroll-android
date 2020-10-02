@@ -22,9 +22,6 @@ public class Creator {
     @Expose
     private String avatar;
 
-    @SerializedName("following")
-    @Expose
-    private Boolean following;
 
     /**
      * No args constructor for use in serialization
@@ -42,13 +39,12 @@ public class Creator {
      * @param avatar
      * @param username
      */
-    public Creator(Integer id, String username, Boolean verified, String avatar, Boolean following) {
+    public Creator(Integer id, String username, Boolean verified, String avatar) {
         super();
         this.id = id;
         this.username = username;
         this.verified = verified;
         this.avatar = avatar;
-        this.following = following;
     }
 
     public Integer getId() {
@@ -83,13 +79,6 @@ public class Creator {
         this.avatar = avatar;
     }
 
-    public Boolean getFollowing() {
-        return following;
-    }
-
-    public void setFollowing(Boolean following) {
-        this.following = following;
-    }
 
 
 }

@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="co.wishroll.views.reusables.TextBodyActivity"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageButton
+            android:id="@+id/backButtonTextBody"
+            android:layout_width="@dimen/_25sdp"
+            android:layout_height="@dimen/_25sdp"
+            android:src="@drawable/ic_chevron_left_24"
+            android:background="@color/transparent"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:layout_marginStart="@dimen/_15sdp"/>
+
+        <TextView
+            android:id="@+id/textBodyMainTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/faqs"
+            android:layout_marginStart="@dimen/_15sdp"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:textSize="@dimen/_18ssp"
+            android:textStyle="bold"
+            android:textColor="@color/black"/>
+
+    </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/faqTextBody"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/toolbar"
+
+            >
+
+        <LinearLayout
+            android:id="@+id/faqOne"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="35dp"
+            android:layout_marginBottom="30dp"
+            android:layout_marginStart="@dimen/_40sdp"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="How do I get the Keyboard Extension?"
+                android:layout_marginBottom="@dimen/_5sdp"
+                android:textSize="@dimen/_15ssp"
+                android:textColor="@color/black"/>
+
+            <TextView
+                android:layout_marginLeft="@dimen/_7sdp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Go to Settings > System > Languages &amp; input. Tap Virtual keyboard and choose WishRoll."
+                android:textSize="@dimen/_13ssp"
+                android:textColor="@color/dark_grey"/>
+
+
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/faqTwo"
+            android:layout_below="@id/faqOne"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="30dp"
+            android:layout_marginStart="@dimen/_40sdp"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="How do I Tag each Post?"
+                android:layout_marginBottom="@dimen/_5sdp"
+                android:textSize="@dimen/_15ssp"
+                android:textColor="@color/black"/>
+
+            <TextView
+                android:layout_marginLeft="@dimen/_7sdp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="You can add any visible words or text in the video/picture, character names, public figure names, the emotion the reaction conveys, any objects or actions, any discernable audio (for video), and also any related emojis. Just be descriptive."
+                android:textSize="@dimen/_13ssp"
+                android:textColor="@color/dark_grey"/>
+
+
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/faqThree"
+            android:layout_below="@id/faqTwo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="30dp"
+            android:layout_marginStart="@dimen/_40sdp"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="How do I share a Post?"
+                android:layout_marginBottom="@dimen/_5sdp"
+                android:textSize="@dimen/_15ssp"
+                android:textColor="@color/black"/>
+
+            <TextView
+                android:layout_marginLeft="@dimen/_7sdp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Click the blue button with the downward-facing arrow to share."
+                android:textSize="@dimen/_13ssp"
+                android:textColor="@color/dark_grey"/>
+
+
+
+
+        </LinearLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/privacyPolicyTextBody"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/toolbar"
+
+            >
+
+
+            <LinearLayout
+                android:id="@+id/privacyPolicyText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="30dp"
+                android:layout_marginStart="@dimen/_40sdp"
+                android:orientation="vertical">
+
+
+
+                <TextView
+                    android:id="@+id/privacyPolicyMainText"
+                    android:layout_marginStart="@dimen/_7sdp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textSize="@dimen/_13ssp"
+                    android:textColor="@color/dark_grey"/>
+
+
+
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+
+
+
+
+    </RelativeLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

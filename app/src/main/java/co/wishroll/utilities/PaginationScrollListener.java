@@ -1,28 +1,41 @@
 package co.wishroll.utilities;
 
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 public abstract class PaginationScrollListener extends RecyclerView.OnScrollListener {
 
-    GridLayoutManager layoutManager;
+    GridLayoutManager gridLayoutManager;
+    LinearLayoutManager linearLayoutManager;
+    //RecyclerView.LayoutManager layoutManager;
 
+   /* public PaginationScrollListener(RecyclerView.LayoutManager layoutManager) {
+        this.layoutManager = layoutManager;
+    }
+*/
     /**
      * Supporting only LinearLayoutManager for now.
      *
      * @param layoutManager
      */
+
+
     public PaginationScrollListener(GridLayoutManager layoutManager) {
-        this.layoutManager = layoutManager;
+        this.gridLayoutManager = layoutManager;
+    }
+
+    public PaginationScrollListener(LinearLayoutManager layoutManager) {
+        this.linearLayoutManager = layoutManager;
     }
 
     @Override
     public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
         super.onScrolled(recyclerView, dx, dy);
 
-        int visibleItemCount = layoutManager.getChildCount();
-        int totalItemCount = layoutManager.getItemCount();
-        int firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition();
+        int visibleItemCount = linearLayoutManager.getChildCount();
+        int totalItemCount = linearLayoutManager.getItemCount();
+        int firstVisibleItemPosition = linearLayoutManager.findFirstVisibleItemPosition();
 
         if (!isLoading() && !isLastPage()) {
             if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount && firstVisibleItemPosition >= 0 && totalItemCount >= getTotalPageCount()) {

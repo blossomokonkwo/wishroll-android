@@ -6,8 +6,13 @@
 
     <data>
         <variable
-            name="VideosViewModel"
-            type="co.wishroll.viewmodel.VideosViewModel" />
+            name="imageviewmodel"
+            type="co.wishroll.viewmodel.media.ImageViewModel" />
+
+        <variable
+            name="mediaPostUrl"
+            type="String" />
+
     </data>
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
@@ -51,17 +56,7 @@
                 android:layout_alignParentLeft="true"/>
 
 
-            <ImageButton
-                android:id="@+id/moreImageView"
-                android:layout_width="@dimen/_40sdp"
-                android:layout_height="@dimen/_35sdp"
-                android:src="@drawable/ic_more_horiz_24"
-                android:elevation="2dp"
-                android:tint="@color/black"
-                android:layout_margin="10dp"
-                android:layout_centerVertical="true"
-                android:background="@color/transparent"
-                android:layout_alignParentRight="true"/>
+
             </RelativeLayout>
 
             <LinearLayout
@@ -70,6 +65,9 @@
                 >
 
                 <ImageView
+                    android:scaleType="fitStart"
+                    android:id="@+id/mainImageView"
+                    app:mainViewImage="@{mediaPostUrl}"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_300sdp"
                     android:src="@color/black"
@@ -82,21 +80,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <ImageButton
-                    android:id="@+id/bLike"
-                    android:layout_width="@dimen/_40sdp"
-                    android:layout_height="@dimen/_40sdp"
-                    android:src="@drawable/ic_like"
-                    android:background="@color/transparent"
-                    android:layout_alignParentLeft="true"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="0 likes"
-                    android:textSize="@dimen/_12sdp"
-                    android:layout_toRightOf="@id/bLike"
-                    android:layout_centerVertical="true"/>
 
 
 
@@ -108,17 +91,6 @@
                     android:layout_width="@dimen/_26sdp"
                     android:layout_height="@dimen/_26sdp"
                     android:src="@drawable/ic_down_arrow"
-                    android:elevation="2dp"
-                    android:layout_margin="10dp"
-                    android:layout_toLeftOf="@id/bookmarkImageView"
-                    android:background="@drawable/circle_button"
-                    />
-
-                <ImageButton
-                    android:id="@+id/bookmarkImageView"
-                    android:layout_width="@dimen/_26sdp"
-                    android:layout_height="@dimen/_26sdp"
-                    android:src="@drawable/ic_bookmark_white"
                     android:layout_margin="10dp"
                     android:background="@drawable/circle_button"
                     android:layout_alignParentRight="true"/>
@@ -130,97 +102,32 @@
                 android:layout_height="wrap_content">
 
 
-                <TextView
-                    android:text="15"
-                    android:id="@+id/shareCountImageView"
-                    android:layout_width="@dimen/_26sdp"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_down_arrow"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_toLeftOf="@id/bookmarkCountImageView"
-                    android:gravity="center_horizontal"
-                    />
 
-                <TextView
-                    android:text="15"
-                    android:id="@+id/bookmarkCountImageView"
-                    android:layout_width="@dimen/_26sdp"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_bookmark_white"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:gravity="center_horizontal"
-                    android:layout_alignParentRight="true"/>
+
 
             </RelativeLayout>
-
 
 
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                >
-
-                <com.mikhaellopez.circularimageview.CircularImageView
-                    android:id="@+id/profilePicImageView"
-                    android:layout_width="@dimen/_50sdp"
-                    app:civ_border="false"
-                    android:layout_marginLeft="@dimen/_6sdp"
-                    android:layout_height="@dimen/_50sdp"
-                    android:src="@drawable/reaction_picture"/>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:layout_marginLeft="@dimen/_5sdp"
-                    android:layout_toRightOf="@id/profilePicImageView"
-                    android:layout_centerVertical="true">
-
-                <TextView
-                    android:id="@+id/usernameImageView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="blossom"
-                    android:textStyle="bold"
-                    android:textColor="@color/black"
-
-                    android:textSize="@dimen/_13sdp"/>
-
-                    <TextView
-                        android:textColor="@color/black"
-                        android:id="@+id/postCaption"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="So yeah this is my caption">
-
-                    </TextView>
-                </LinearLayout>
-
-
-            </RelativeLayout>
-
-            <!--<RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_20sdp">
+                android:layout_marginTop="@dimen/_10sdp">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/more_like_this"
                     android:layout_centerHorizontal="true"
                     android:textSize="@dimen/_10sdp"/>
-            </RelativeLayout>-->
+            </RelativeLayout>
 
-            <!--<fragment
+            <fragment
                 android:id="@+id/morelikethisFragment"
                 android:layout_width="match_parent"
                 android:layout_height="900dp"
                 android:name="co.wishroll.views.reusables.MoreLikeThisFragment">
 
-            </fragment>-->
+            </fragment>
 
 
 

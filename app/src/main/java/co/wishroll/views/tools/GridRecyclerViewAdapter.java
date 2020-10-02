@@ -2,6 +2,7 @@ package co.wishroll.views.tools;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,7 +39,7 @@ public class GridRecyclerViewAdapter extends RecyclerView.Adapter<GridRecyclerVi
 
         View view;
         LayoutInflater mInflater = LayoutInflater.from(mContext);
-        view = mInflater.inflate(R.layout.post_grid_item, parent, false);
+        view = mInflater.inflate(R.layout.item_post_grid, parent, false);
         return new GridViewHolder(view);
     }
 
@@ -46,21 +47,40 @@ public class GridRecyclerViewAdapter extends RecyclerView.Adapter<GridRecyclerVi
     public void onBindViewHolder(@NonNull GridViewHolder holder, int position) {
         Post thisPost = mData.get(position);
 
-        holder.mediaThumbnail.setImageResource(R.color.red);
+        //holder.mediaThumbnail.setImageResource(R.color.red);
         holder.videoFlag.setImageResource(R.drawable.ic_play_white);
 
 
 
-        //String mimeType = FileUtils.getMimeType(mContext, Uri.parse(thisPost.getMediaUrl()));
+        if(thisPost.getMediaUrl() != null) {
+            if (thisPost.getMediaUrl().contains("mp4") || thisPost.getMediaUrl().contains(".mov")) {
 
-        //imitation
+                if (thisPost.getThumbnailUrl() == null) {
+                    Log.d(TAG, "onBindViewHolder: Glide is being asked to load the video thumbnail out of the box");
+
+                    Glide.with(mContext)
+                            .load(thisPost.getMediaUrl())
+                            .placeholder(R.drawable.reaction_picture)
+                            .into(holder.mediaThumbnail);
+
+                } else {
+                    Glide.with(mContext)
+                            .load(thisPost.getThumbnailUrl())
+                            .placeholder(R.drawable.reaction_picture)
+                            .into(holder.mediaThumbnail);
+                }
+
+            } else {
+                Glide.with(mContext)
+                        .load(thisPost.getMediaUrl())
+                        .placeholder(R.drawable.reaction_picture)
+                        .into(holder.mediaThumbnail);
+            }
 
 
+        }
 
-            Glide.with(mContext)
-                    .load(thisPost.getThumbnailUrl())
-                    .placeholder(R.drawable.reaction_picture)
-                    .into(holder.mediaThumbnail);
+
 
 
             if(thisPost.getMediaUrl() != null) {
@@ -77,10 +97,9 @@ public class GridRecyclerViewAdapter extends RecyclerView.Adapter<GridRecyclerVi
                     holder.postItem.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            //TODO(check if video or image/gif)
-
                             Intent i = new Intent(mContext, VideoActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                            //put extras maybe
+                            i.putExtra("mediaUrl", thisPost.getMediaUrl());
+                            i.putExtra("postId", thisPost.getId());
                             mContext.startActivity(i);
                         }
                     });
@@ -88,11 +107,9 @@ public class GridRecyclerViewAdapter extends RecyclerView.Adapter<GridRecyclerVi
                     holder.postItem.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-
-                            //TODO(check if video or image/gif)
-
                             Intent i = new Intent(mContext, ImageActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                            //put extras maybe
+                            i.putExtra("mediaUrl", thisPost.getMediaUrl());
+                            i.putExtra("postId", thisPost.getId());
                             mContext.startActivity(i);
                         }
                     });

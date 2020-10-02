@@ -1,7 +1,5 @@
 package co.wishroll.models.repository;
 
-import android.util.Log;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.LiveDataReactiveStreams;
 
@@ -10,7 +8,6 @@ import javax.inject.Singleton;
 
 import co.wishroll.models.networking.RetrofitInstance;
 import co.wishroll.models.networking.WishRollApi;
-import co.wishroll.models.repository.datamodels.AccessToken;
 import co.wishroll.models.repository.datamodels.AuthResponse;
 import co.wishroll.models.repository.datamodels.LoginRequest;
 import co.wishroll.models.repository.datamodels.UserModel;
@@ -29,7 +26,6 @@ public class AuthRepository {
     private static final String TAG = "AuthRepository";
 
     SessionManagement sessionManagement = applicationGraph.sessionManagement();
-    public static int statusCode;
     public WishRollApi wishRollApi;
 
 
@@ -42,13 +38,6 @@ public class AuthRepository {
 
     }
 
-    public WishRollApi getWishRollApi() {
-        return wishRollApi;
-    }
-
-    public int getStatusCode() {
-        return statusCode;
-    }
 
 
 
@@ -69,12 +58,13 @@ public class AuthRepository {
                         .map(new Function<AuthResponse, AuthResource<AuthResponse>>() {
                             @Override
                             public AuthResource<AuthResponse> apply(AuthResponse authResponse) throws Exception {
-                                if(authResponse.getUserModel().getId() == 0){
+                                if (authResponse.getUserModel().getId() == 0) {
 
                                     return AuthResource.error("Please enter the correct credentials", null);
-                                }else {
-                                    welcomeUser(authResponse.getUserModel(), authResponse.getAccessToken());
+                                } else {
+
                                     return AuthResource.authenticated(authResponse);
+
                                 }
                             }
                         })
@@ -84,9 +74,5 @@ public class AuthRepository {
         return source;
     }
 
-    public void welcomeUser(UserModel userModel, AccessToken accessToken) {
-        Log.d(TAG, "welcomeUser: saving user to sharedPreferences");
-        sessionManagement.saveSession(userModel, accessToken);
 
-    }
 }

@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,23 +15,27 @@ import androidx.lifecycle.ViewModelProvider;
 
 import co.wishroll.R;
 import co.wishroll.databinding.ActivityLoginBinding;
+import co.wishroll.models.repository.datamodels.AccessToken;
 import co.wishroll.models.repository.datamodels.AuthResponse;
+import co.wishroll.models.repository.datamodels.UserModel;
+import co.wishroll.models.repository.local.SessionManagement;
 import co.wishroll.utilities.AuthListener;
 import co.wishroll.utilities.AuthResource;
-import co.wishroll.viewmodel.LoginViewModel;
+import co.wishroll.utilities.ToastUtils;
+import co.wishroll.viewmodel.registration.LoginViewModel;
 import co.wishroll.views.home.MainActivity;
+
+import static co.wishroll.WishRollApplication.applicationGraph;
 
 
 public class LoginActivity extends AppCompatActivity implements AuthListener {
+    private static final String TAG = "LoginActivity";
 
-
-    private static final String TAG = "LOGIN ACTIVITY";
     ActivityLoginBinding activityLoginBinding;
     LoginViewModel loginViewModel;
-
+    SessionManagement sessionManagement = applicationGraph.sessionManagement();
     private TextView signupInstead;
     private ProgressBar progressBar;
-    private EditText emailUser, password;
 
 
     @Override
@@ -79,27 +82,28 @@ public class LoginActivity extends AppCompatActivity implements AuthListener {
                 if(authResponseAuthResource != null){
 
                     AuthResponse response = authResponseAuthResource.data;
+
                     switch (authResponseAuthResource.status){
                         case LOADING: {
                             showProgressBar(true);
                             break;
                         }
                         case ERROR:{
-                            Toast.makeText(LoginActivity.this, "Please enter the correct credentials", Toast.LENGTH_SHORT).show();
+                            ToastUtils.showToast(LoginActivity.this, "Incorrect Email or Password");
                             showProgressBar(false);
                             break;
 
                         }
 
                         case AUTHENTICATED:{
-                            showProgressBar(false);
-                            Log.d(TAG, "onChanged: login successful");
-                            statusGetter(200);
+                            if(welcomeUser(response.getUserModel(), response.getAccessToken())) {
+                                showProgressBar(false);
+                                statusGetter(200);
+                            }
                             break;
                         }
 
                         case NOT_AUTHENTICATED:{
-                            Toast.makeText(LoginActivity.this, "Please enter the correct credentials sis", Toast.LENGTH_SHORT).show();
                             showProgressBar(false);
                             break;
 
@@ -112,6 +116,12 @@ public class LoginActivity extends AppCompatActivity implements AuthListener {
             }
         });
 
+
+    }
+
+    public boolean welcomeUser(UserModel userModel, AccessToken accessToken) {
+        Log.d(TAG, "welcomeUser: saving user to sharedPreferences");
+        return sessionManagement.saveSession(userModel, accessToken);
 
     }
 
@@ -164,7 +174,8 @@ public class LoginActivity extends AppCompatActivity implements AuthListener {
         switch(statusCode){
 
             case 100:
-            Toast.makeText(this, "Please try again.", Toast.LENGTH_SHORT).show();
+                ToastUtils.showToast(LoginActivity.this, "Please try again.");
+
             break;
 
             case 200:
@@ -174,15 +185,15 @@ public class LoginActivity extends AppCompatActivity implements AuthListener {
             break;
 
             case 404:
-                Toast.makeText(this, "Not Found", Toast.LENGTH_SHORT).show();
+                ToastUtils.showToast(LoginActivity.this, "Not Found");
                 break;
 
             case 401:
-                Toast.makeText(this, "You entered the wrong credentials, please try again", Toast.LENGTH_SHORT).show();
+                ToastUtils.showToast(LoginActivity.this, "You entered the wrong credentials, please try again");
                 break;
 
             case 400:
-                Toast.makeText(this, "Could not be fulfilled, please try again", Toast.LENGTH_SHORT).show();
+                ToastUtils.showToast(LoginActivity.this, "Could not be fulfilled, please try again");
                 break;
 
             default:

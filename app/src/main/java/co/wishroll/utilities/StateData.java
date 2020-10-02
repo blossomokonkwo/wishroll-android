@@ -35,8 +35,8 @@ public class StateData<T> {
         return new StateData<>(AuthStatus.LOADING, data, null);
     }
 
-    public static <T> StateData<T> logout () {
-        return new StateData<>(AuthStatus.NOT_AUTHENTICATED, null, null);
+    public static <T> StateData<T> notauthenticated (@Nullable T data) {
+        return new StateData<>(AuthStatus.NOT_AUTHENTICATED, data, null);
     }
 
     public enum AuthStatus { AUTHENTICATED, ERROR, LOADING, NOT_AUTHENTICATED}

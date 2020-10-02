@@ -19,7 +19,6 @@ public class PostRepository {
     private static final String TAG = "PostRepository";
 
     public WishRollApi wishRollApi;
-    int postId;
     Completable uploadStatus;
 
 

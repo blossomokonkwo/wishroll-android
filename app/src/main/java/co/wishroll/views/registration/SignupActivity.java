@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -19,31 +18,38 @@ import java.util.regex.Pattern;
 import co.wishroll.R;
 import co.wishroll.models.networking.RetrofitInstance;
 import co.wishroll.models.networking.WishRollApi;
+import co.wishroll.models.repository.datamodels.AccessToken;
 import co.wishroll.models.repository.datamodels.AuthResponse;
-import co.wishroll.models.repository.datamodels.EValidationRequest;
 import co.wishroll.models.repository.datamodels.SignupRequest;
+import co.wishroll.models.repository.datamodels.SignupRequestMany;
+import co.wishroll.models.repository.datamodels.UserModel;
+import co.wishroll.models.repository.local.SessionManagement;
 import co.wishroll.utilities.AuthListener;
+import co.wishroll.utilities.ToastUtils;
+import co.wishroll.views.home.MainActivity;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
+import static co.wishroll.WishRollApplication.applicationGraph;
+
 
 public class SignupActivity extends AppCompatActivity implements AuthListener {
 
     private static final String TAG = "SIGNUP ACTIVITY";
-
-
-
-
-
-    private ProgressBar progressBarEmail;
-    private Button bNextEmail;
-    private ImageButton backEmail;
-    private EditText signupEmailET;
-
     private Retrofit retrofitInstance = RetrofitInstance.getRetrofitInstance();
     private WishRollApi wishRollApi = retrofitInstance.create(WishRollApi.class);
+    private SessionManagement sessionManagement = applicationGraph.sessionManagement();
+
+
+    private Button signUp;
+    private ProgressBar progressBarEnd;
+    private Button bBackPassword;
+    private EditText etPasswordOne, etPasswordTwo;
+    private EditText signupEmailET;
+
+
 
 
 
@@ -52,16 +58,105 @@ public class SignupActivity extends AppCompatActivity implements AuthListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
 
+
+        bBackPassword = (Button) findViewById(R.id.backButtonPassword);
         signupEmailET = findViewById(R.id.userEmail);
 
-        bNextEmail = findViewById(R.id.bNextEmail);
+        progressBarEnd = findViewById(R.id.progressBarSignupLast);
+        etPasswordOne = findViewById(R.id.userPasswordOne);
+        etPasswordTwo = findViewById(R.id.userPasswordTwo);
+        signUp = findViewById(R.id.bCreateAccount);
 
-        progressBarEmail = findViewById(R.id.progressBarEmail);
 
 
-        backEmail = findViewById(R.id.backEmail);
+        signUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showSignupProgressBar(true);
 
-        backEmail.setOnClickListener(new View.OnClickListener() {
+
+
+
+                if(TextUtils.isEmpty(etPasswordOne.getText().toString()) || TextUtils.isEmpty(etPasswordTwo.getText().toString())){
+                    ToastUtils.showToast(SignupActivity.this, "Please enter the correct password");
+                    showSignupProgressBar(false);
+
+
+                }else if(etPasswordOne.getText().toString().length() <= 7 ) {
+                    ToastUtils.showToast(SignupActivity.this, "Your password must be 8 characters or longer");
+                    showSignupProgressBar(false);
+
+
+
+                }else if(!etPasswordOne.getText().toString().equals(etPasswordTwo.getText().toString())) {
+                    ToastUtils.showToast(SignupActivity.this, "Please enter the correct password");
+                    showSignupProgressBar(false);
+
+
+
+                }else if (TextUtils.isEmpty(signupEmailET.getText().toString()) || !emailIsVerified(signupEmailET.getText().toString())) {
+                    ToastUtils.showToast(SignupActivity.this, "Please enter a valid email");
+                    showSignupProgressBar(false);
+
+
+                }else {
+
+                    SignupRequest.setEmail(signupEmailET.getText().toString());
+                    SignupRequest.setPassword(etPasswordOne.getText().toString());
+
+
+
+                    Log.d(TAG, "onNextEmail: SETTING asc values: " + SignupRequest.getEmail() + " " + SignupRequest.getPassword());
+
+                    SignupRequestMany signupRequestMany = new SignupRequestMany( SignupRequest.getEmail(), SignupRequest.getPassword());
+
+
+                    wishRollApi.signupUser(signupRequestMany).enqueue(new Callback<AuthResponse>() {
+                        @Override
+                        public void onResponse(Call<AuthResponse> call, Response<AuthResponse> response) {
+
+
+                            AuthResponse auth = response.body();
+                            if (response.code() == 201 && auth.getUserModel() != null ) {
+
+
+
+
+                                    if(welcomeNewUser(auth.getUserModel(), auth.getAccessToken())) {
+                                        showSignupProgressBar(false);
+                                        Log.d(TAG, "onNextEmail: asc values: " + SignupRequest.getEmail() + " " + SignupRequest.getPassword());
+                                        statusGetter(200);
+                                    }
+
+
+
+                            } else if (response.code() == 400) {
+
+                                showSignupProgressBar(false);
+                                ToastUtils.showToast(SignupActivity.this, "This email is linked with another account");
+
+                            }else{
+                                showSignupProgressBar(false);
+                                ToastUtils.showToast(SignupActivity.this, "Something went wrong, please try again");
+
+                                Log.d(TAG, "onResponse: auth is null");
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<AuthResponse> call, Throwable t) {
+                            t.printStackTrace();
+                        }
+                    });
+                }
+
+
+
+
+            }
+        });
+
+        bBackPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(SignupActivity.this, LoginActivity.class));
@@ -74,46 +169,6 @@ public class SignupActivity extends AppCompatActivity implements AuthListener {
 
 
 
-        bNextEmail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                Log.d(TAG, "onNextEmail: in the on next email entering for the first time");
-                if (TextUtils.isEmpty(signupEmailET.getText().toString()) || !emailIsVerified(signupEmailET.getText().toString())) {
-                    onFailure("Please enter a valid email");
-                    Log.d(TAG, "onNextEmail: this person did not enter value");
-
-                }else{
-                    showEmailProgressBar(true);
-                    EValidationRequest eValidationRequest = new EValidationRequest(signupEmailET.getText().toString());
-                    wishRollApi.validateEmail(eValidationRequest).enqueue(new Callback<AuthResponse>() {
-                        @Override
-                        public void onResponse(Call<AuthResponse> call, Response<AuthResponse> response) {
-                            if(response.code() == 200){
-                                SignupRequest.setEmail(signupEmailET.getText().toString());
-                                showEmailProgressBar(false);
-                                statusGetter(200);
-                            }else if(response.code() == 400){
-                                showEmailProgressBar(false);
-                                statusGetter(400);
-                            }
-                        }
-
-                        @Override
-                        public void onFailure(Call<AuthResponse> call, Throwable t) {
-                            t.printStackTrace();
-                        }
-                    });
-                }
-            }
-        });
-
-
-
-
-
-
-
 
 
 
@@ -125,21 +180,22 @@ public class SignupActivity extends AppCompatActivity implements AuthListener {
 
 
 
-    public boolean emailIsVerified(String emailInput) {
-        //checks if email entry is in correct email form  easy regex: ^(.+)@(.+)$  "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$"
-        String emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}";
-        Pattern emailPat = Pattern.compile(emailRegex, Pattern.CASE_INSENSITIVE);
-        Matcher matcher = emailPat.matcher(emailInput);
-        return matcher.find();
+    public boolean welcomeNewUser(UserModel userModel, AccessToken accessToken) {
+         return sessionManagement.saveSession(userModel, accessToken);
+
     }
 
-    private void showEmailProgressBar(boolean isVisible){
+
+    private void showSignupProgressBar(boolean isVisible){
         if(isVisible){
-            progressBarEmail.setVisibility(View.VISIBLE);
+            progressBarEnd.setVisibility(View.VISIBLE);
         }else{
-            progressBarEmail.setVisibility(View.GONE);
+            progressBarEnd.setVisibility(View.GONE);
         }
     }
+
+
+
 
     @Override
     public void onStarted() {
@@ -153,12 +209,15 @@ public class SignupActivity extends AppCompatActivity implements AuthListener {
 
     @Override
     public void onFailure(String message) {
+        //progressBarSignup.setVisibility(View.GONE);
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+
     }
 
     @Override
     public void sendMessage(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+
     }
 
     @Override
@@ -167,14 +226,27 @@ public class SignupActivity extends AppCompatActivity implements AuthListener {
 
     }
 
+    public boolean emailIsVerified(String emailInput) {
+        //checks if email entry is in correct email form  easy regex: ^(.+)@(.+)$  "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$"
+        String emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}";
+        Pattern emailPat = Pattern.compile(emailRegex, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = emailPat.matcher(emailInput);
+        return matcher.find();
+        }
+
     @Override
     public void statusGetter(int statusCode) {
-            if(statusCode == 400) {
-                Log.d(TAG, "statusGetter: showing the taken message");
-                Toast.makeText(this, "This email is linked with another account", Toast.LENGTH_SHORT).show();
-            }else{
-                Log.d(TAG, "statusGetter: on our way to the next activity");
-                startActivity(new Intent(SignupActivity.this, AgeSignupActivity.class));
-            }
+
+        if(statusCode == 200){
+
+                Intent intent = new Intent(SignupActivity.this, MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK| Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+
+
+
+
+        }
+
     }
 }

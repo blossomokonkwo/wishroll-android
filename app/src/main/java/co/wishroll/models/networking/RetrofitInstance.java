@@ -32,9 +32,9 @@ import static co.wishroll.WishRollApplication.applicationGraph;
 public class RetrofitInstance {
 
     private static final String TAG = "RetrofitInstance";
-    //houses Retrofit Instance "http://10.0.2.2:3000/v2/" @PhysicalDevice: http://192.168.1.251:3000
+    //houses Retrofit Instance "http://10.0.2.2:3000/v2/" @PhysicalDevice: http://192.168.1.251:3000 www.wishroll.co/
 
-    private static String API_BASE_URL = "http://10.0.2.2:3000/";
+    private static String API_BASE_URL = "https://www.wishroll.co/";
     private static Retrofit retrofitInstance;
     public static SessionManagement sessionManagement = applicationGraph.sessionManagement();
     private static Gson gson;
@@ -56,9 +56,9 @@ public class RetrofitInstance {
 
 
         OkHttpClient httpClient = new OkHttpClient.Builder()
-                .cache(cache())
-                .addNetworkInterceptor(networkInterceptor())
-                .addInterceptor(offlineInterceptor())
+                //.cache(cache())
+                //.addNetworkInterceptor(networkInterceptor())
+                //.addInterceptor(offlineInterceptor())
                 /*.connectTimeout(60, TimeUnit.SECONDS)
                 .readTimeout(60, TimeUnit.SECONDS)
                 .writeTimeout(60, TimeUnit.SECONDS)*/
