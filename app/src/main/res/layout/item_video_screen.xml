@@ -52,7 +52,16 @@
 
 
 
-
+            <ImageButton
+                android:id="@+id/bookmarkVideoView"
+                android:layout_width="@dimen/_26sdp"
+                android:layout_height="@dimen/_26sdp"
+                android:src="@drawable/ic_bookmark_hollow"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/circle_button"
+                android:layout_toLeftOf="@id/shareVideoView"
+                />
 
             <ImageButton
                 android:id="@+id/shareVideoView"

@@ -65,11 +65,12 @@
                 >
 
                 <ImageView
-                    android:scaleType="fitStart"
                     android:id="@+id/mainImageView"
                     app:mainViewImage="@{mediaPostUrl}"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_300sdp"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitCenter"
                     android:src="@color/black"
                     />
 
@@ -84,7 +85,27 @@
 
 
 
+                <RelativeLayout
+                    android:layout_width="@dimen/_26sdp"
+                    android:layout_height="@dimen/_26sdp"
+                    android:layout_toLeftOf="@id/shareImageView"
+                    android:background="@drawable/blue_button"
+                    android:layout_centerVertical="true">
 
+                <ToggleButton
+                    android:elevation="2dp"
+                    android:id="@+id/bookmarkImageView"
+                    android:layout_width="@dimen/_26sdp"
+                    android:textOff=""
+                    android:layout_centerInParent="true"
+                    android:textOn=""
+                    android:onClick="@{() -> imageviewmodel.onBookmarkClicked()}"
+                    android:layout_height="@dimen/_26sdp"
+                    android:background="@drawable/ic_bookmark_hollow"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="10dp"
+                    />
+                </RelativeLayout>
 
                 <ImageButton
                     android:id="@+id/shareImageView"
@@ -108,26 +129,57 @@
             </RelativeLayout>
 
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical">
 
-            <RelativeLayout
+                <com.google.android.material.tabs.TabLayout
+                    app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
+                    app:tabSelectedTextColor="@color/black"
+                    android:id="@+id/tabLayoutMoreLikeThis"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:tabMode="fixed"
+                    app:tabIndicatorColor="@color/black"
+                    app:tabGravity="fill"
+                    app:tabIconTint="#e4e7ed"
+
+                    />
+
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/viewPagerMoreLikeThis"
+                    android:layout_width="match_parent"
+                    android:layout_height="900dp">
+
+                </androidx.viewpager2.widget.ViewPager2>
+
+            </LinearLayout>
+
+            <!--<RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/more_like_this"
                     android:layout_centerHorizontal="true"
                     android:textSize="@dimen/_10sdp"/>
-            </RelativeLayout>
 
-            <fragment
+            </RelativeLayout>-->
+
+
+            <!--<fragment
                 android:id="@+id/morelikethisFragment"
                 android:layout_width="match_parent"
                 android:layout_height="900dp"
                 android:name="co.wishroll.views.reusables.MoreLikeThisFragment">
 
-            </fragment>
+            </fragment>-->
+
 
 
 
@@ -136,6 +188,14 @@
         </LinearLayout>
 
         </ScrollView>
+
+
+
+
+
+
+
+
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
 

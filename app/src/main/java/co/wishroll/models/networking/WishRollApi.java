@@ -58,11 +58,28 @@ public interface WishRollApi {
 
     //Search
     @GET("v3/posts")
-    Flowable<List<Post>> getSearchResults(@Query("query") int query, @Query("offset") int offset, @Query("content-type") int contentType);
+    Flowable<List<Post>> getSearchResults(@Query("q") int query, @Query("offset") int offset, @Query("content-type") int contentType); //content type = video, image, gif
 
     //Trending
     @GET("v3/trending/trending_tags/")
     Flowable<TrendingTag[]> getTrendingTags(@Query("offset") int offset);
+
+
+
+
+    //More Like This and Video Recommendation
+    @GET("v3/recommendation/posts")
+    Flowable<Post[]> getVideoList(@Query("post_id") int postId, @Query("offset") int offset, @Query("content-type") String contentType);
+
+    @GET("v3/recommendation/posts")
+    Flowable<Post[]> getMoreLikeThis( @Query("post_id") int postId, @Query("offset") int offset);
+
+
+
+
+    @GET("v2/users/{user_id}/bookmarks")
+    Flowable<Post[]> getBookmarkedPost(@Path("user_id") int userId, @Query("offset") int offset);
+
 
     //Delete Account
     @DELETE("v2/users")

@@ -139,6 +139,17 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
+
+                bottomSheetView.findViewById(R.id.viewBookmarks).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        Intent viewBookmarks = new Intent (MainActivity.this, PostsGridActivity.class);
+                        viewBookmarks.putExtra("query", "Bookmarks");
+                        startActivity(viewBookmarks);
+                        bottomSheetDialog.dismiss();
+                    }
+                });
                 bottomSheetView.findViewById(R.id.contactUsButton).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

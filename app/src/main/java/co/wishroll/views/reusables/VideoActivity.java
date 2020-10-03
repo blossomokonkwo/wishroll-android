@@ -22,7 +22,7 @@ public class VideoActivity extends AppCompatActivity {
     private List<Post> videosList = new ArrayList<>();
     private VideoRecyclerViewAdapter videoRecyclerViewAdapter;
     private RecyclerView recyclerView;
-    private ImageButton backButton;
+    private ImageButton backButton, shareButton, bookmarkButton;
 
 
     @Override
@@ -39,6 +39,7 @@ public class VideoActivity extends AppCompatActivity {
             }
         });
 
+
         recyclerView = findViewById(R.id.videoRecyclerView);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
@@ -51,9 +52,13 @@ public class VideoActivity extends AppCompatActivity {
            videosList.add(new Post());
        }
 
+
+
        videoRecyclerViewAdapter = new VideoRecyclerViewAdapter(videosList, getApplicationContext());
        recyclerView.setAdapter(videoRecyclerViewAdapter);
         videoRecyclerViewAdapter.notifyDataSetChanged();
+
+
 
 
 

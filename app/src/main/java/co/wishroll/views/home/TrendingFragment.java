@@ -122,7 +122,7 @@ public class TrendingFragment extends Fragment implements TrendingRecyclerViewAd
                     Log.d(TAG, "onScrolled: DX VALUE  " + dx + " THIS IS DY " + dy);
                     isScrolling = false;
 
-                    if(totalItems % 8 == 0) {
+                    if(totalItems % trendingViewModel.getDataSetSize() == 0) {
                         TrendingViewModel.setOffset(totalItems);
                         trendingViewModel.getMoreTrendingTagPages();
                     }
@@ -252,7 +252,7 @@ public class TrendingFragment extends Fragment implements TrendingRecyclerViewAd
     @Override
     public void onTrendingTagClicked(int position, int thumbnailPosition) {
         if(thumbnailPosition == -1){
-            Intent i = new Intent(getContext(), TrendingGridActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+            Intent i = new Intent(getContext(), PostsGridActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
             i.putExtra("query", listOfTrendingTags.get(position).getTrendingTag());
             startActivity(i);
 

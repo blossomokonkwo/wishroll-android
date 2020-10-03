@@ -18,7 +18,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".views.home.TrendingGridActivity"></activity>
+        <activity android:name=".views.home.PostsGridActivity"></activity>
         <activity android:name=".views.home.ContactActivity" />
         <activity android:name=".views.reusables.TextBodyActivity" />
 

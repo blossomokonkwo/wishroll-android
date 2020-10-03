@@ -16,6 +16,7 @@ public class ImageViewModel extends ViewModel {
     @BindingAdapter("mainViewImage")
     public static void loadProfileViewImage(ImageView view, String imageUrl) {
         Log.d(TAG, "loadProfileImage: binding adapter for imageViewing ");
+
         Glide.with(view.getContext())
                 .load(imageUrl)
                 .placeholder(R.color.white)
@@ -23,6 +24,10 @@ public class ImageViewModel extends ViewModel {
     }
 
     public ImageViewModel() {
+
+    }
+
+    public void onBookmarkClicked(){
 
     }
 

@@ -89,5 +89,11 @@
     <string name="search_prompt">Search WishRoll…</string>
     <string name="wishroll_support">WishRoll Support</string>
 
+    <string name="bookmarks">Bookmarks</string>
+    <string name="send_feedback">Send Feedback</string>
+    <string name="legal">Legal</string>
+    <string name="terms_of_service">Terms of Service</string>
+    <string name="account">Account</string>
+    <string name="general">General</string>
 
 </resources>

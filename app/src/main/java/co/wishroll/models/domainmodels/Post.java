@@ -14,6 +14,10 @@ public class Post {
     @Expose
     private Boolean viewed;
 
+    @SerializedName("bookmarked")
+    @Expose
+    private Boolean bookmarked;
+
     @SerializedName("media_url")
     @Expose
     private String mediaUrl;
@@ -41,13 +45,22 @@ public class Post {
      * @param id
      * @param thumbnailUrl
      */
-    public Post(Integer id, Boolean viewed, String mediaUrl, String thumbnailUrl, Creator creator) {
+    public Post(Integer id, Boolean viewed, Boolean bookmarked, String mediaUrl, String thumbnailUrl, Creator creator) {
         super();
         this.id = id;
         this.viewed = viewed;
+        this.bookmarked = bookmarked;
         this.mediaUrl = mediaUrl;
         this.thumbnailUrl = thumbnailUrl;
         this.creator = creator;
+    }
+
+    public Boolean getBookmarked() {
+        return bookmarked;
+    }
+
+    public void setBookmarked(Boolean bookmarked) {
+        this.bookmarked = bookmarked;
     }
 
     public Integer getId() {

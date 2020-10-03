@@ -54,7 +54,7 @@ public class ContactActivity extends AppCompatActivity {
     private void openEmail(){
 
 
-        String [] recepients = {"support@wishroll.co"};
+        String [] recepients = {"info@wishroll.co"};
         String subject = emailSubject.getText().toString();
         String message = emailBody.getText().toString();
 

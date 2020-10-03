@@ -22,6 +22,15 @@ public class TrendingViewModel extends ViewModel {
     MediatorLiveData<StateData<ArrayList<TrendingTag>>> trendingTagLiveData = new MediatorLiveData<>();
     int START_OFFSET = 0;
     public static int offset = 0;
+    public int dataSetSize = 0;
+
+    public int getDataSetSize() {
+        return dataSetSize;
+    }
+
+    public void setDataSetSize(int dataSetSize) {
+        this.dataSetSize = dataSetSize;
+    }
 
     public static int getOffset() {
         return offset;
@@ -46,6 +55,13 @@ public class TrendingViewModel extends ViewModel {
         trendingTagLiveData.addSource(source, new Observer<StateData<ArrayList<TrendingTag>>>() {
             @Override
             public void onChanged(StateData<ArrayList<TrendingTag>> trendingTagStateData) {
+
+                if(trendingTagStateData.data != null){
+                    setDataSetSize(trendingTagStateData.data.size());
+                }else{
+                    setDataSetSize(8);
+                }
+
                 trendingTagLiveData.setValue(trendingTagStateData);
                 trendingTagLiveData.removeSource(source);
             }

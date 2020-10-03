@@ -2,13 +2,22 @@ package co.wishroll.models.repository;
 
 import android.util.Log;
 
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.LiveDataReactiveStreams;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import co.wishroll.models.domainmodels.Post;
 import co.wishroll.models.networking.RetrofitInstance;
 import co.wishroll.models.networking.WishRollApi;
+import co.wishroll.utilities.StateData;
 import io.reactivex.Completable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.MultipartBody;
 import retrofit2.Retrofit;
@@ -30,6 +39,8 @@ public class PostRepository {
 
 
     }
+
+
 
     public Completable uploadPost(MultipartBody.Part post, MultipartBody.Part videoThumbnail, String[] tags, boolean isVideo){
 
@@ -60,6 +71,46 @@ public class PostRepository {
         return uploadStatus;
 
     }
+
+
+
+
+
+
+
+    public LiveData<StateData<ArrayList<Post>>> getMoreLikeThis(int offset, int postId) {
+        Log.d(TAG, "getUserById: in the get user by id method");
+
+        final LiveData<StateData<ArrayList<Post>>> source = LiveDataReactiveStreams.fromPublisher(
+                wishRollApi.getMoreLikeThis(postId, offset)
+                        .onErrorReturn(new Function<Throwable, Post[]>() {
+                            @Override
+                            public Post[] apply(Throwable throwable) throws Exception {
+                                Log.d(TAG, "apply: this isn't going through");
+                                return null;
+                            }
+                        })
+                        .map(new Function<Post[], StateData<ArrayList<Post>>>() {
+                            @Override
+                            public StateData<ArrayList<Post>> apply(Post[] moreLikeThis) throws Exception {
+                                ArrayList<Post> moreLikeThisArrayList = new ArrayList<>();
+                                if (moreLikeThis == null) {
+                                    return StateData.error("Something went wrong, please try again", moreLikeThisArrayList);
+                                } else {
+                                    moreLikeThisArrayList = new ArrayList<>(Arrays.asList(moreLikeThis));
+                                    return StateData.authenticated(moreLikeThisArrayList);
+                                }
+
+                            }
+                        })
+                        .subscribeOn(Schedulers.io()));
+
+
+
+
+        return source;
+    }
+
 
 
 

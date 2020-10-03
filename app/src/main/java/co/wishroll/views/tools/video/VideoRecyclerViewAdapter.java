@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -42,9 +43,12 @@ public class VideoRecyclerViewAdapter extends RecyclerView.Adapter<VideoRecycler
         return videosList.size();
     }
 
-    public class VideoViewHolder extends RecyclerView.ViewHolder {
+    public static class VideoViewHolder extends RecyclerView.ViewHolder {
+        ImageButton shareButton, bookmarkButton;
+
         public VideoViewHolder(@NonNull View itemView) {
             super(itemView);
+
         }
     }
 }

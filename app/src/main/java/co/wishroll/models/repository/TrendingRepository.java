@@ -50,7 +50,6 @@ public class TrendingRepository {
                                     return null;
                                 }
                             })
-                            //.retry()
                             .map(new Function<TrendingTag[], StateData<ArrayList<TrendingTag>>>() {
                                 @Override
                                 public StateData<ArrayList<TrendingTag>> apply(TrendingTag[] trendingTags) throws Exception {
@@ -65,10 +64,6 @@ public class TrendingRepository {
                                 }
                             })
                 .subscribeOn(Schedulers.io()));
-
-
-
-
 
 
 

@@ -94,7 +94,7 @@ public class TrendingRecyclerViewAdapter extends RecyclerView.Adapter<TrendingRe
        /* holder.seeMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(mContext, TrendingGridActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                Intent i = new Intent(mContext, PostsGridActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 i.putExtra("query", thisTag.getTrendingTag());
                 mContext.startActivity(i);
             }

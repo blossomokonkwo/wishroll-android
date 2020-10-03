@@ -143,4 +143,9 @@ public class GridRecyclerViewAdapter extends RecyclerView.Adapter<GridRecyclerVi
         }
     }
 
+
+    public interface OnGridItemClicked{
+        void onGridItemClicked();
+    }
+
 }
