@@ -12,6 +12,7 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import co.wishroll.models.domainmodels.Post;
+import co.wishroll.models.domainmodels.TrendingTag;
 import co.wishroll.models.networking.RetrofitInstance;
 import co.wishroll.models.networking.WishRollApi;
 import co.wishroll.utilities.StateData;
@@ -149,6 +150,62 @@ public class PostRepository {
         return source;
     }
 
+
+    public  LiveData<StateData<ArrayList<Post>>> getBookmarkedPosts(int userId, int offset){
+        final LiveData<StateData<ArrayList<Post>>> source = LiveDataReactiveStreams.fromPublisher(
+                wishRollApi.getBookmarkedPosts(userId, offset)
+                .onErrorReturn(new Function<Throwable, Post[]>() {
+                    @Override
+                    public Post[] apply(Throwable throwable) throws Exception {
+                        return null;
+                    }
+                }).map(new Function<Post[], StateData<ArrayList<Post>>>() {
+                    @Override
+                    public StateData<ArrayList<Post>> apply(Post[] posts) throws Exception {
+                        ArrayList<Post> queriedPosts = new ArrayList<>();
+
+                        if(posts == null){
+                            return StateData.error("Something went wrong", queriedPosts);
+                        }else{
+                            queriedPosts.addAll(Arrays.asList(posts));
+                            return StateData.authenticated(queriedPosts);
+                        }
+
+                    }
+                }).subscribeOn(Schedulers.io()));
+
+        return source;
+    }
+
+
+
+    public  LiveData<StateData<ArrayList<Post>>> getTaggedPosts(int trendingTagId, int offset){
+        final LiveData<StateData<ArrayList<Post>>> source = LiveDataReactiveStreams.fromPublisher(
+
+                wishRollApi.getSeeMoreTrendingTag(trendingTagId, offset)
+                        .onErrorReturn(new Function<Throwable, TrendingTag>() {
+                            @Override
+                            public TrendingTag apply(Throwable throwable) throws Exception {
+                                Log.d(TAG, "apply: error happened and we in here");
+                                return null;
+                            }
+                        }).map(new Function<TrendingTag, StateData<ArrayList<Post>>>() {
+                    @Override
+                    public StateData<ArrayList<Post>> apply(TrendingTag trendingTag) throws Exception {
+                        ArrayList<Post> trendingTagPosts = new ArrayList<>();
+
+                        if(trendingTag == null){
+                            return StateData.error("Something went wrong", trendingTagPosts);
+                        }else{
+                            trendingTagPosts.addAll(Arrays.asList(trendingTag.getTrendingTagThumbnails()));
+                            return StateData.authenticated(trendingTagPosts);
+                        }
+
+                    }
+                }).subscribeOn(Schedulers.io()));
+
+        return source;
+    }
 
 
 

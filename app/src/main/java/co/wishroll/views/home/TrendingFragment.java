@@ -227,6 +227,9 @@ public class TrendingFragment extends Fragment implements TrendingRecyclerViewAd
         if(thumbnailPosition == -1){
             Intent i = new Intent(getContext(), PostsGridActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
             i.putExtra("query", listOfTrendingTags.get(position).getTrendingTag());
+            i.putExtra("trendingTagId", listOfTrendingTags.get(position).getTrendingTagId());
+            //i.putExtra("trendingTagId", position);
+
             startActivity(i);
 
         }else{

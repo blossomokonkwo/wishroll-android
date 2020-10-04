@@ -64,6 +64,7 @@ public class ImageViewModel extends ViewModel {
         });
     }
 
+
     public void toggleBookmarking(boolean bookmarking){
         Disposable bookmarkStatus = postRepository.toggleBookmark(postId, bookmarking)
                 .subscribeWith(new DisposableCompletableObserver(){

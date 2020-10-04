@@ -4,9 +4,13 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
+import co.wishroll.viewmodel.PostsGridViewModel;
+
 public class MediaViewModelFactory implements ViewModelProvider.Factory {
 
     private int postId;
+    private int trendingTagId;
+    private boolean isBookmarkingQuery;
 
     @NonNull
     @Override
@@ -17,9 +21,11 @@ public class MediaViewModelFactory implements ViewModelProvider.Factory {
         }else if (modelClass.isAssignableFrom(VideosViewModel.class)){
             return (T) new VideosViewModel(postId);
 
-        }else if(modelClass.isAssignableFrom(ImageViewModel.class)){
+        }else if(modelClass.isAssignableFrom(ImageViewModel.class)) {
             return (T) new ImageViewModel(postId);
 
+        }else if(modelClass.isAssignableFrom(PostsGridViewModel.class)){
+                return (T) new PostsGridViewModel(trendingTagId, isBookmarkingQuery);
         }else{
             return null;
 
@@ -32,5 +38,10 @@ public class MediaViewModelFactory implements ViewModelProvider.Factory {
 
     }
 
+
+    public MediaViewModelFactory(int trendingTagId, boolean isBookmarkingQuery ){
+        this.trendingTagId = trendingTagId;
+        this.isBookmarkingQuery = isBookmarkingQuery;
+    }
 
 }

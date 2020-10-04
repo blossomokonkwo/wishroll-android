@@ -8,7 +8,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -146,6 +145,7 @@ public class MainActivity extends AppCompatActivity {
 
                         Intent viewBookmarks = new Intent (MainActivity.this, PostsGridActivity.class);
                         viewBookmarks.putExtra("query", "Bookmarks");
+                        viewBookmarks.putExtra("isBookmarkQuery", true);
                         startActivity(viewBookmarks);
                         bottomSheetDialog.dismiss();
                     }
@@ -179,6 +179,8 @@ public class MainActivity extends AppCompatActivity {
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 sessionManagement.clearSession();
                                 sessionManagement.checkLogout();
+
+                                //LMAOOOO IDEK IF THIS IS RIGHT TBH
                                 if(userRepository.deleteThisUser() == 200) {
                                     Glide.get(MainActivity.this).clearMemory();
                                     //Glide.get(getContext()).clearDiskCache();

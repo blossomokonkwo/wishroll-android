@@ -54,9 +54,9 @@ public class VideoActivity extends AppCompatActivity {
 
 
 
-       videoRecyclerViewAdapter = new VideoRecyclerViewAdapter(videosList, getApplicationContext());
+       videoRecyclerViewAdapter = new VideoRecyclerViewAdapter(videosList, this);
        recyclerView.setAdapter(videoRecyclerViewAdapter);
-        videoRecyclerViewAdapter.notifyDataSetChanged();
+       videoRecyclerViewAdapter.notifyDataSetChanged();
 
 
 

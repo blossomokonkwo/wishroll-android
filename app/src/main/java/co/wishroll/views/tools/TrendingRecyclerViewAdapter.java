@@ -90,6 +90,7 @@ public class TrendingRecyclerViewAdapter extends RecyclerView.Adapter<TrendingRe
         }
 
         holder.tagString.setText(thisTag.getTrendingTag());
+
        /* holder.seeMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
