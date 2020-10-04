@@ -77,8 +77,19 @@ public interface WishRollApi {
 
 
 
+    //Bookmarked Posts
+    @POST("v2/posts/{post_id}/bookmarks")
+    Completable createBookmark(@Path("post_id") int postId);
+
+    @DELETE("v2/posts/{post_id}/bookmarks")
+    Completable deleteBookmark(@Path("post_id") int postId);
+
+    @GET("v2/posts/{post_id}")
+    Flowable<Post> getPost(@Path("post_id") int postId);
+
+
     @GET("v2/users/{user_id}/bookmarks")
-    Flowable<Post[]> getBookmarkedPost(@Path("user_id") int userId, @Query("offset") int offset);
+    Flowable<Post[]> getBookmarkedPosts(@Path("user_id") int userId, @Query("offset") int offset);
 
 
     //Delete Account

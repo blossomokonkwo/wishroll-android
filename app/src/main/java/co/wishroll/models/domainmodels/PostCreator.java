@@ -1,9 +1,12 @@
 package co.wishroll.models.domainmodels;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Creator {
+public class PostCreator implements Parcelable {
     //TODO(remove following)
 
     @SerializedName("id")
@@ -27,25 +30,49 @@ public class Creator {
      * No args constructor for use in serialization
      *
      */
-    public Creator() {
+    public PostCreator() {
     }
 
     /**
      *
      *
-     * @param following
      * @param verified
      * @param id
      * @param avatar
      * @param username
      */
-    public Creator(Integer id, String username, Boolean verified, String avatar) {
+    public PostCreator(Integer id, String username, Boolean verified, String avatar) {
         super();
         this.id = id;
         this.username = username;
         this.verified = verified;
         this.avatar = avatar;
     }
+
+    protected PostCreator(Parcel in) {
+        if (in.readByte() == 0) {
+            id = null;
+        } else {
+            id = in.readInt();
+        }
+        username = in.readString();
+        byte tmpVerified = in.readByte();
+        verified = tmpVerified == 0 ? null : tmpVerified == 1;
+        avatar = in.readString();
+    }
+
+
+    public static final Creator<PostCreator> CREATOR = new Creator<PostCreator>() {
+        @Override
+        public PostCreator createFromParcel(Parcel in) {
+            return new PostCreator(in);
+        }
+
+        @Override
+        public PostCreator[] newArray(int size) {
+            return new PostCreator[size];
+        }
+    };
 
     public Integer getId() {
         return id;
@@ -80,5 +107,21 @@ public class Creator {
     }
 
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
 
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        if (id == null) {
+            parcel.writeByte((byte) 0);
+        } else {
+            parcel.writeByte((byte) 1);
+            parcel.writeInt(id);
+        }
+        parcel.writeString(username);
+        parcel.writeByte((byte) (verified == null ? 0 : verified ? 1 : 2));
+        parcel.writeString(avatar);
+    }
 }

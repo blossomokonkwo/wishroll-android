@@ -43,7 +43,6 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
 
 
         if(loggedIn(sessionManagement.getCurrentUserId())){
-        //if(loggedIn(0)){
             Log.d(TAG, "WelcomeActivity: CURRENT USER ID  " + sessionManagement.getCurrentUserId() );
             startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
             finish();

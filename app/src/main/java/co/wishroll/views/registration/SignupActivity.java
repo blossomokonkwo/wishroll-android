@@ -3,12 +3,10 @@ package co.wishroll.views.registration;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -105,9 +103,6 @@ public class SignupActivity extends AppCompatActivity implements AuthListener {
                     SignupRequest.setPassword(etPasswordOne.getText().toString());
 
 
-
-                    Log.d(TAG, "onNextEmail: SETTING asc values: " + SignupRequest.getEmail() + " " + SignupRequest.getPassword());
-
                     SignupRequestMany signupRequestMany = new SignupRequestMany( SignupRequest.getEmail(), SignupRequest.getPassword());
 
 
@@ -124,7 +119,6 @@ public class SignupActivity extends AppCompatActivity implements AuthListener {
 
                                     if(welcomeNewUser(auth.getUserModel(), auth.getAccessToken())) {
                                         showSignupProgressBar(false);
-                                        Log.d(TAG, "onNextEmail: asc values: " + SignupRequest.getEmail() + " " + SignupRequest.getPassword());
                                         statusGetter(200);
                                     }
 
@@ -139,7 +133,6 @@ public class SignupActivity extends AppCompatActivity implements AuthListener {
                                 showSignupProgressBar(false);
                                 ToastUtils.showToast(SignupActivity.this, "Something went wrong, please try again");
 
-                                Log.d(TAG, "onResponse: auth is null");
                             }
                         }
 
@@ -209,20 +202,20 @@ public class SignupActivity extends AppCompatActivity implements AuthListener {
 
     @Override
     public void onFailure(String message) {
-        //progressBarSignup.setVisibility(View.GONE);
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+
+        ToastUtils.showToast(this, message);
 
     }
 
     @Override
     public void sendMessage(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        ToastUtils.showToast(this, message);
 
     }
 
     @Override
     public void errorMessage(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        ToastUtils.showToast(this, message);
 
     }
 

@@ -7,11 +7,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import co.wishroll.R;
+import co.wishroll.utilities.ToastUtils;
 
 public class ContactActivity extends AppCompatActivity {
 
@@ -60,7 +60,7 @@ public class ContactActivity extends AppCompatActivity {
 
 
         if(TextUtils.isEmpty(subject) || TextUtils.isEmpty(message)){
-            Toast.makeText(ContactActivity.this, "You missed a spot", Toast.LENGTH_LONG).show();
+            ToastUtils.showToast(ContactActivity.this, "You missed a spot");
         }else{
 
 

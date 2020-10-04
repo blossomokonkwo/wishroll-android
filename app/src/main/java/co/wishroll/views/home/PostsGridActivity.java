@@ -17,7 +17,7 @@ public class PostsGridActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //literally going to be used for any mass grid viewing
+        //literally going to be used for any mass grid viewing with a title
         setContentView(R.layout.activity_trendinggrid);
         activityTitle = findViewById(R.id.tagGridTitle);
         backButton = findViewById(R.id.backTrendingGrid);

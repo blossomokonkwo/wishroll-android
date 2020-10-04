@@ -2,11 +2,9 @@ package co.wishroll.views.registration;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -120,7 +118,6 @@ public class LoginActivity extends AppCompatActivity implements AuthListener {
     }
 
     public boolean welcomeUser(UserModel userModel, AccessToken accessToken) {
-        Log.d(TAG, "welcomeUser: saving user to sharedPreferences");
         return sessionManagement.saveSession(userModel, accessToken);
 
     }
@@ -138,8 +135,6 @@ public class LoginActivity extends AppCompatActivity implements AuthListener {
    @Override
    public void onStarted() {
         progressBar.setVisibility(View.VISIBLE);
-        //Toast.makeText(this, "Login Started", Toast.LENGTH_SHORT).show();
-
 
 }
 
@@ -147,25 +142,23 @@ public class LoginActivity extends AppCompatActivity implements AuthListener {
     public void onSuccess() {
 
         progressBar.setVisibility(View.INVISIBLE);
-        //Toast.makeText(this, "Login Success", Toast.LENGTH_SHORT).show();
 
     }
 
     @Override
     public void onFailure(String message) {
         progressBar.setVisibility(View.INVISIBLE);
-       Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
-
+        ToastUtils.showToast(this, message);
     }
 
     @Override
     public void sendMessage(String message){
-       Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+       ToastUtils.showToast(this, message);
    }
 
    @Override
     public void errorMessage(String message){
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+       ToastUtils.showToast(this, message);
    }
 
     @Override

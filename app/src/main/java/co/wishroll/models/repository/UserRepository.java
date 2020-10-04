@@ -3,32 +3,20 @@ package co.wishroll.models.repository;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import co.wishroll.models.domainmodels.User;
 import co.wishroll.models.networking.RetrofitInstance;
 import co.wishroll.models.networking.WishRollApi;
-import co.wishroll.models.repository.local.SessionManagement;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-import static co.wishroll.WishRollApplication.applicationGraph;
-
 @Singleton
 public class UserRepository {
 
-    SessionManagement sessionManagement = applicationGraph.sessionManagement();
-    private static final String TAG = "UserRepository";
-
-    private static UserRepository mainRepository;
 
 
     private static int statusCode;
-
-    boolean usernameValid;
-
-    User editProfileUser;
 
     public WishRollApi wishRollApi;
     //LiveData<StateData<MAYBEDELETERESPONSE>> source;

@@ -100,6 +100,8 @@ public class GridRecyclerViewAdapter extends RecyclerView.Adapter<GridRecyclerVi
                             Intent i = new Intent(mContext, VideoActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                             i.putExtra("mediaUrl", thisPost.getMediaUrl());
                             i.putExtra("postId", thisPost.getId());
+                            i.putExtra("isBookmarked", thisPost.getBookmarked());
+                            i.putExtra("post", thisPost);
                             mContext.startActivity(i);
                         }
                     });
@@ -110,6 +112,8 @@ public class GridRecyclerViewAdapter extends RecyclerView.Adapter<GridRecyclerVi
                             Intent i = new Intent(mContext, ImageActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                             i.putExtra("mediaUrl", thisPost.getMediaUrl());
                             i.putExtra("postId", thisPost.getId());
+                            i.putExtra("isBookmarked", thisPost.getBookmarked());
+                            i.putExtra("post", thisPost);
                             mContext.startActivity(i);
                         }
                     });

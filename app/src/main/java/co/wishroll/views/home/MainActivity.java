@@ -256,16 +256,13 @@ public class MainActivity extends AppCompatActivity {
 
             String mimeType = getContentResolver().getType(path);
             String extension = FileUtils.getExtension(data.getData().toString());
-            Log.d(TAG, "onActivityResult: mime type of chose media: " + mimeType) ;
 
 
             assert mimeType != null;
             if(extension.equals(".mp4") || extension.equals(".mov") || extension.equals(".m4a") || extension.equals(".avi")
                     || extension.equals(".wmv") || mimeType.equals("video/mp4") || mimeType.contains("video") ){
 
-                Log.d(TAG, "onActivityResult: this is a video file: " + extension);
                 Intent taggingVideoIntent = new Intent(MainActivity.this, TaggingActivity.class);
-                Log.d(TAG, "onActivityResult: Structure of video path: " + path);
 
 
 
@@ -280,8 +277,6 @@ public class MainActivity extends AppCompatActivity {
             }else if(extension.equals(".jpg") || extension.equals(".gif") || extension.equals(".png") || extension.equals(".jpeg")
                     || extension.equals(".PNG")|| mimeType.equals("image/jpeg") || mimeType.contains("image")){
 
-                Log.d(TAG, "onActivityResult: this is an image file: " + extension);
-                Log.d(TAG, "onActivityResult: Structure of image: " + path);
                 startCropImageActivity(path, IMAGE_CROP_CODE);
 
 
@@ -293,11 +288,9 @@ public class MainActivity extends AppCompatActivity {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
 
             if(result != null) {
-                Log.d(TAG, "onActivityResult: getting cropped result");
                 Intent startTagging = new Intent(MainActivity.this, TaggingActivity.class);
                 startTagging.setData(result.getUri());
                 startTagging.putExtra("isVideo", false);
-                Log.d(TAG, "onActivityResult: cropped image uri " + result.getUri());
                 startActivity(startTagging);
             }
         }

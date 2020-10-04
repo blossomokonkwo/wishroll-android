@@ -82,8 +82,7 @@ public class MoreLikeThisViewModel extends ViewModel {
     }
 
 
-    //ViewModel for the Image Activity, the fragment underneath.
-    //Fetches and displays list of posts that have similar tags to the above post
+
 
 
 }

@@ -118,8 +118,7 @@ public class TrendingFragment extends Fragment implements TrendingRecyclerViewAd
                 scrollOutItems = linearLayoutManager.findFirstVisibleItemPosition();
 
                 if(isScrolling && (currentItems + scrollOutItems == totalItems) ) {
-                    Log.d(TAG, "onScrolled: TOTAL NUMBER OF ITEMS ALL TOGETHER " + totalItems);
-                    Log.d(TAG, "onScrolled: DX VALUE  " + dx + " THIS IS DY " + dy);
+
                     isScrolling = false;
 
                     if(totalItems % trendingViewModel.getDataSetSize() == 0) {
@@ -144,10 +143,7 @@ public class TrendingFragment extends Fragment implements TrendingRecyclerViewAd
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                //ToastUtils.showToast(getContext(), "You Called?");
-                Log.d(TAG, "onRefresh: refreshing this list of trending tags");
                 refreshTrendingTags();
-                //trendingRecyclerViewAdapter.notifyDataSetChanged();
 
 
             }
@@ -179,12 +175,11 @@ public class TrendingFragment extends Fragment implements TrendingRecyclerViewAd
                     switch (arrayListStateData.status) {
 
                         case LOADING: {
-                            Log.d(TAG, "onChanged: THIS IS LOADING");
+                            Log.d(TAG, "onChanged: Loading Trending Tags");
                             break;
                         }
                         case ERROR: {
                             ToastUtils.showToast(getContext(), arrayListStateData.message);
-                            Log.d(TAG, "onChanged: THERE WAS AN ERROR");
 
                             break;
 
@@ -192,22 +187,21 @@ public class TrendingFragment extends Fragment implements TrendingRecyclerViewAd
 
                         case AUTHENTICATED: {
                             listOfTrendingTags.addAll(arrayListStateData.data);
-                            Log.d(TAG, "onChanged: SIZE OF LIST GOING INTO ADAPTER " + listOfTrendingTags.size());
+                            Log.d(TAG, "onChanged: Size of List going into adapter " + listOfTrendingTags.size());
                             trendingRecyclerViewAdapter.notifyDataSetChanged();
                             swipeRefreshLayout.setRefreshing(false);
 
 
 
 
-                            Log.d(TAG, "onChanged: THIS HAS BEEN AUTHENTICATED");
+                            Log.d(TAG, "onChanged: This has been authenticated.");
                             break;
                         }
 
                         case NOT_AUTHENTICATED:
-                            Log.d(TAG, "onChanged: REFRESHED TRENDINGLIVEDATA");
+                            Log.d(TAG, "onChanged: Refreshed Trending Live Data");
                             listOfTrendingTags.clear();
                             trendingRecyclerViewAdapter.notifyDataSetChanged();
-                            //swipeRefreshLayout.setRefreshing(false);
 
                             break;
                     }
@@ -219,28 +213,7 @@ public class TrendingFragment extends Fragment implements TrendingRecyclerViewAd
 
 
 
-        /*wishRollApi.getTrendingTags(START_OFFSET).enqueue(new Callback<TrendingTag[]>() {
-            @Override
-            public void onResponse(Call<TrendingTag[]> call, Response<TrendingTag[]> response) {
-                Log.d(TAG, "onResponse: THIS IS THE TRENDING TAG LENGTH " + response.body().length);
-                for(int i = 0; i < response.body().length; i++){
-                    listOfTrendingTags.add(response.body()[i]);
-                    Log.d(TAG, "onResponse: ADDING THESE IDK MAN " + i);
-                }
 
-                Log.d(TAG, "onCreateView: FINISHED LENGTH " + listOfTrendingTags.size());
-                trendingRecyclerViewAdapter = new TrendingRecyclerViewAdapter(getContext(), listOfTrendingTags);
-                Log.d(TAG, "onCreateView: IS THIS EVEN COMING HERE OMG");
-                myRecyclerView.setAdapter(trendingRecyclerViewAdapter);
-
-
-            }
-
-            @Override
-            public void onFailure(Call<TrendingTag[]> call, Throwable t) {
-                t.printStackTrace();
-            }
-        });*/
     }
 
     public void refreshTrendingTags(){
@@ -263,18 +236,24 @@ public class TrendingFragment extends Fragment implements TrendingRecyclerViewAd
                 Intent i = new Intent(getContext(), VideoActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 i.putExtra("postId", listOfTrendingTags.get(position).getTrendingTagThumbnails()[thumbnailPosition].getId());
                 i.putExtra("mediaUrl", listOfTrendingTags.get(position).getTrendingTagThumbnails()[thumbnailPosition].getMediaUrl());
+                i.putExtra("post", listOfTrendingTags.get(position).getTrendingTagThumbnails()[thumbnailPosition]);
                 startActivity(i);
+
 
             }else{
 
                 Intent i = new Intent(getContext(), ImageActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+
+
                 i.putExtra("postId", listOfTrendingTags.get(position).getTrendingTagThumbnails()[thumbnailPosition].getId());
                 i.putExtra("mediaUrl", listOfTrendingTags.get(position).getTrendingTagThumbnails()[thumbnailPosition].getMediaUrl());
+                i.putExtra("post", listOfTrendingTags.get(position).getTrendingTagThumbnails()[thumbnailPosition]);
                 startActivity(i);
+
+
             }
 
         }
-        Log.d(TAG, "onTrendingTagClicked: you clicked on trending tag number " + position + " with the thumbnail in position " + thumbnailPosition);
 
 
     }

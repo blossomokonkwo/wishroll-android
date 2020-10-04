@@ -1,9 +1,13 @@
 package co.wishroll.models.domainmodels;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Post {
+public class Post implements Parcelable {
+
     //TODO(Remove Comment Count)
 
     @SerializedName("id")
@@ -28,7 +32,7 @@ public class Post {
 
     @SerializedName("creator")
     @Expose
-    private Creator creator;
+    private PostCreator creator;
 
     /**
      * No args constructor for use in serialization
@@ -45,7 +49,7 @@ public class Post {
      * @param id
      * @param thumbnailUrl
      */
-    public Post(Integer id, Boolean viewed, Boolean bookmarked, String mediaUrl, String thumbnailUrl, Creator creator) {
+    public Post(Integer id, Boolean viewed, Boolean bookmarked, String mediaUrl, String thumbnailUrl, PostCreator creator) {
         super();
         this.id = id;
         this.viewed = viewed;
@@ -54,6 +58,34 @@ public class Post {
         this.thumbnailUrl = thumbnailUrl;
         this.creator = creator;
     }
+
+
+    protected Post(Parcel in) {
+        if (in.readByte() == 0) {
+            id = null;
+        } else {
+            id = in.readInt();
+        }
+        byte tmpViewed = in.readByte();
+        viewed = tmpViewed == 0 ? null : tmpViewed == 1;
+        byte tmpBookmarked = in.readByte();
+        bookmarked = tmpBookmarked == 0 ? null : tmpBookmarked == 1;
+        mediaUrl = in.readString();
+        thumbnailUrl = in.readString();
+        creator = in.readParcelable(PostCreator.class.getClassLoader());
+    }
+
+    public static final Creator<Post> CREATOR = new Creator<Post>() {
+        @Override
+        public Post createFromParcel(Parcel in) {
+            return new Post(in);
+        }
+
+        @Override
+        public Post[] newArray(int size) {
+            return new Post[size];
+        }
+    };
 
     public Boolean getBookmarked() {
         return bookmarked;
@@ -95,11 +127,32 @@ public class Post {
         this.thumbnailUrl = thumbnailUrl;
     }
 
-    public Creator getCreator() {
+    public PostCreator getCreator() {
         return creator;
     }
 
-    public void setCreator(Creator creator) {
+    public void setCreator(PostCreator creator) {
         this.creator = creator;
+    }
+
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        if (id == null) {
+            parcel.writeByte((byte) 0);
+        } else {
+            parcel.writeByte((byte) 1);
+            parcel.writeInt(id);
+        }
+        parcel.writeByte((byte) (viewed == null ? 0 : viewed ? 1 : 2));
+        parcel.writeByte((byte) (bookmarked == null ? 0 : bookmarked ? 1 : 2));
+        parcel.writeString(mediaUrl);
+        parcel.writeString(thumbnailUrl);
+        parcel.writeParcelable(creator, i);
     }
 }

@@ -71,7 +71,6 @@ public class TrendingViewModel extends ViewModel {
 
 
     public void getMoreTrendingTagPages(){
-        //trendingTagLiveData.setValue(StateData.loading((ArrayList<TrendingTag>) null));
         final LiveData<StateData<ArrayList<TrendingTag>>> source = trendingRepository.getTrendingTags(offset);
         trendingTagLiveData.addSource(source, new Observer<StateData<ArrayList<TrendingTag>>>() {
             @Override

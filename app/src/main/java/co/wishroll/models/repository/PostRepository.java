@@ -29,7 +29,7 @@ public class PostRepository {
 
     public WishRollApi wishRollApi;
     Completable uploadStatus;
-
+    Completable status;
 
 
     @Inject
@@ -45,7 +45,6 @@ public class PostRepository {
     public Completable uploadPost(MultipartBody.Part post, MultipartBody.Part videoThumbnail, String[] tags, boolean isVideo){
 
        if(isVideo) {
-           Log.d(TAG, "uploadPost: this is a video with no caption, repository-wise");//single to completable then to livedata but what does a completable return???
            uploadStatus = wishRollApi.uploadVideo(post, videoThumbnail)
                    .flatMapCompletable(postResponse -> {
                        return wishRollApi.sendTags(postResponse.getPostId(), tags);
@@ -55,7 +54,6 @@ public class PostRepository {
 
 
        }else {
-           Log.d(TAG, "uploadPost: this is an image with no caption, repository-wise");
             uploadStatus = wishRollApi.uploadPost(post)
                     .flatMapCompletable(postResponse -> {
                         return wishRollApi.sendTags(postResponse.getPostId(), tags);
@@ -71,12 +69,6 @@ public class PostRepository {
         return uploadStatus;
 
     }
-
-
-
-
-
-
 
     public LiveData<StateData<ArrayList<Post>>> getMoreLikeThis(int offset, int postId) {
         Log.d(TAG, "getUserById: in the get user by id method");
@@ -111,6 +103,51 @@ public class PostRepository {
         return source;
     }
 
+
+
+
+    public Completable toggleBookmark(int postId, boolean bookmarking){
+
+        if(bookmarking){
+            status = wishRollApi.createBookmark(postId)
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribeOn(Schedulers.io());
+        }else{
+            status = wishRollApi.deleteBookmark(postId)
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribeOn(Schedulers.io());
+        }
+
+
+
+        return status;
+    }
+
+
+    public LiveData<StateData<Post>> getPost(int postId){
+
+        LiveData<StateData<Post>>source = LiveDataReactiveStreams.fromPublisher(
+                wishRollApi.getPost(postId)
+                        .onErrorReturn(new Function<Throwable, Post>() {
+                            @Override
+                            public Post apply(Throwable throwable) throws Exception {
+                                return null;
+                            }
+                        })
+                .map(new Function<Post, StateData<Post>>() {
+                    @Override
+                    public StateData<Post> apply(Post post) throws Exception {
+                        if(post == null){
+                            return StateData.error("Something went wrong", null);
+                        }else{
+                            return StateData.authenticated(post);
+                        }
+
+                    }
+                })
+                .subscribeOn(Schedulers.io()));
+        return source;
+    }
 
 
 

@@ -1,7 +1,5 @@
 package co.wishroll.models.networking;
 
-import android.util.Log;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -32,9 +30,9 @@ import static co.wishroll.WishRollApplication.applicationGraph;
 public class RetrofitInstance {
 
     private static final String TAG = "RetrofitInstance";
-    //houses Retrofit Instance "http://10.0.2.2:3000/v2/" @PhysicalDevice: http://192.168.1.251:3000 www.wishroll.co/
+    //houses Retrofit Instance "http://10.0.2.2:3000/v2/" @PhysicalDevice: http://192.168.1.251:3000 www.wishroll.co/   wishroll-testing.herokuapp.com/
 
-    private static String API_BASE_URL = "https://www.wishroll.co/";
+    private static String API_BASE_URL = "https://wishroll-testing.herokuapp.com/";
     private static Retrofit retrofitInstance;
     public static SessionManagement sessionManagement = applicationGraph.sessionManagement();
     private static Gson gson;
@@ -102,7 +100,6 @@ public class RetrofitInstance {
 
     public static boolean isUserLoggedIn(){
         if(sessionManagement.getCurrentUserId() != 0 && sessionManagement.getToken() != null){
-            Log.d(TAG, "isUserLoggedIn: the user id for this person is: " + sessionManagement.getCurrentUserId());
             return true;
         }else{
             return false;
@@ -114,13 +111,12 @@ public class RetrofitInstance {
             
             @Override
             public Response intercept(Chain chain) throws IOException {
-                Log.d(TAG, "intercept: offline interceptor called.");
 
                 Request request = chain.request();
 
                 if(!WishRollApplication.hasNetwork()){
                     CacheControl cacheControl = new CacheControl.Builder()
-                            .maxStale(1, TimeUnit.MINUTES) //time before request information is invalid in low internet spaces
+                            .maxStale(1, TimeUnit.HOURS) //time before request information is invalid in low internet spaces
                             .build();
 
                     request = request.newBuilder()
@@ -147,12 +143,11 @@ public class RetrofitInstance {
         return new Interceptor() {
             @Override
             public Response intercept(Chain chain) throws IOException {
-                Log.d(TAG, "intercept: network interceptor called");
 
                 Response response = chain.proceed(chain.request());
 
                 CacheControl cacheControl = new CacheControl.Builder()
-                        .maxAge(10, TimeUnit.SECONDS) //time before a new request is made
+                        .maxAge(30, TimeUnit.MINUTES) //time before a new request is made
                         .build();
 
                 return response.newBuilder()

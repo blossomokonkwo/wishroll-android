@@ -51,17 +51,28 @@
 
 
 
-
-            <ImageButton
-                android:id="@+id/bookmarkVideoView"
+            <RelativeLayout
                 android:layout_width="@dimen/_26sdp"
                 android:layout_height="@dimen/_26sdp"
-                android:src="@drawable/ic_bookmark_hollow"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:background="@drawable/circle_button"
                 android:layout_toLeftOf="@id/shareVideoView"
-                />
+                android:background="@drawable/blue_button"
+                android:layout_centerVertical="true">
+
+                <!-- android:onClick="@{() -> imageviewmodel.onBookmarkClicked()}" -->
+
+                <ToggleButton
+                    android:id="@+id/bookmarkVideoView"
+                    android:elevation="2dp"
+                    android:layout_width="@dimen/_26sdp"
+                    android:textOff=""
+                    android:layout_centerInParent="true"
+                    android:textOn=""
+                    android:layout_height="@dimen/_26sdp"
+                    android:background="@drawable/toggle_bookmarks"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="10dp"
+                    />
+            </RelativeLayout>
 
             <ImageButton
                 android:id="@+id/shareVideoView"

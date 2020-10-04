@@ -42,17 +42,13 @@ public class SessionManagement extends Application {
 
     public boolean saveSession(UserModel userModel, AccessToken accessToken){
 
-        Log.d(TAG, "saveSession: about to save the id");
         editor.putInt("id", userModel.getId());
-        Log.d(TAG, "saveSession: CURRENT USER ID: " + userModel.getId());
 
         editor.putString("email", userModel.getEmail());
-        Log.d(TAG, "saveSession: CURRENT EMAIL: " + userModel.getEmail());
 
         Log.d(TAG, "saveSession: ORIGINAL TOKEN: " + accessToken.getAccess());
         editor.putString("token", encryption.encryptOrNull(accessToken.getAccess()));
-        //editor.putString("token", accessToken.getAccess());
-        Log.d(TAG, "saveSession: ENCRYPTED TOKEN: " + encryption.encryptOrNull(accessToken.getAccess()));
+
 
         return editor.commit();
 
@@ -78,7 +74,6 @@ public class SessionManagement extends Application {
 
 
     public String getEmail(){
-        Log.d(TAG, "getEmail: returning the email held in session");
 
         return sharedPreferences.getString("email", "");
     }
@@ -89,9 +84,7 @@ public class SessionManagement extends Application {
 
 
     public String getToken() {
-        Log.d(TAG, "getToken: DECRYPTED TOKEN: " + encryption.decryptOrNull(sharedPreferences.getString("token", null)));
         token = encryption.decryptOrNull(sharedPreferences.getString("token", null));
-        //token = sharedPreferences.getString("token", null);
 
         return token;
     }

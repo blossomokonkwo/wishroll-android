@@ -54,19 +54,21 @@ public class TrendingRecyclerViewAdapter extends RecyclerView.Adapter<TrendingRe
     public void onBindViewHolder(@NonNull TrendingViewHolder holder, int position) {
 
         TrendingTag thisTag = mData.get(position);
+
         switch(thisTag.getTrendingTagThumbnails().length){
             case 0:
                 holder.thumbnailOne.setVisibility(View.GONE);
                 holder.thumbnailTwo.setVisibility(View.GONE);
                 holder.thumbnailThree.setVisibility(View.GONE);
-
                 break;
+
             case 1:
                 thumbnail1 = thisTag.getTrendingTagThumbnails()[0];
                 holder.thumbnailOne.setVisibility(View.VISIBLE);
                 holder.thumbnailTwo.setVisibility(View.GONE);
                 holder.thumbnailThree.setVisibility(View.GONE);
                 break;
+
             case 2:
                 thumbnail1 = thisTag.getTrendingTagThumbnails()[0];
                 thumbnail2 = thisTag.getTrendingTagThumbnails()[1];
@@ -74,7 +76,8 @@ public class TrendingRecyclerViewAdapter extends RecyclerView.Adapter<TrendingRe
                 holder.thumbnailTwo.setVisibility(View.VISIBLE);
                 holder.thumbnailThree.setVisibility(View.GONE);
                 break;
-            case 3:
+
+            default:
                 holder.thumbnailOne.setVisibility(View.VISIBLE);
                 holder.thumbnailTwo.setVisibility(View.VISIBLE);
                 holder.thumbnailThree.setVisibility(View.VISIBLE);
@@ -83,11 +86,7 @@ public class TrendingRecyclerViewAdapter extends RecyclerView.Adapter<TrendingRe
                 thumbnail2 = thisTag.getTrendingTagThumbnails()[1];
                 thumbnail3 = thisTag.getTrendingTagThumbnails()[2];
                 break;
-            default:
-                holder.thumbnailOne.setVisibility(View.INVISIBLE);
-                holder.thumbnailTwo.setVisibility(View.INVISIBLE);
-                holder.thumbnailThree.setVisibility(View.INVISIBLE);
-                break;
+
         }
 
         holder.tagString.setText(thisTag.getTrendingTag());
@@ -101,66 +100,78 @@ public class TrendingRecyclerViewAdapter extends RecyclerView.Adapter<TrendingRe
         });*/
 
         //Displaying Thumbnails
-        if ((thumbnail1.getMediaUrl().contains("mp4") || thumbnail1.getMediaUrl().contains(".mov")) && thumbnail1 != null ) {
 
-            if(thumbnail1.getThumbnailUrl() == null){
+        if(thumbnail1 != null) {
+            if ((thumbnail1.getMediaUrl().contains("mp4") || thumbnail1.getMediaUrl().contains(".mov")) && thumbnail1 != null) {
 
+                if (thumbnail1.getThumbnailUrl() == null) {
+
+                    Glide.with(mContext)
+                            .load(thumbnail1.getMediaUrl())
+                            .placeholder(R.color.light_grey)
+                            .into(holder.thumbnailOne);
+
+                } else {
+                    Glide.with(mContext)
+                            .load(thumbnail1.getThumbnailUrl())
+                            .placeholder(R.color.light_grey)
+                            .into(holder.thumbnailOne);
+                }
+            } else {
                 Glide.with(mContext)
                         .load(thumbnail1.getMediaUrl())
                         .placeholder(R.color.light_grey)
                         .into(holder.thumbnailOne);
-
-            }else {
-                Glide.with(mContext)
-                        .load(thumbnail1.getThumbnailUrl())
-                        .placeholder(R.color.light_grey)
-                        .into(holder.thumbnailOne);
             }
-        }else{
-            Glide.with(mContext)
-                    .load(thumbnail1.getMediaUrl())
-                    .placeholder(R.color.light_grey)
-                    .into(holder.thumbnailOne);
+
         }
-        if ((thumbnail2.getMediaUrl().contains("mp4") || thumbnail2.getMediaUrl().contains(".mov")) && thumbnail2 != null ) {
 
-            if(thumbnail2.getThumbnailUrl() == null){
-                Log.d(TAG, "onBindViewHolder: Glide is being asked to load the video thumbnail out of the box");
+        if(thumbnail2 != null) {
+            if ((thumbnail2.getMediaUrl().contains("mp4") || thumbnail2.getMediaUrl().contains(".mov")) && thumbnail2 != null) {
 
+                if (thumbnail2.getThumbnailUrl() == null) {
+                    Log.d(TAG, "onBindViewHolder: Glide is being asked to load the video thumbnail out of the box");
+
+                    Glide.with(mContext)
+                            .load(thumbnail2.getMediaUrl())
+                            .placeholder(R.color.light_grey)
+                            .into(holder.thumbnailTwo);
+
+                } else {
+                    Glide.with(mContext)
+                            .load(thumbnail2.getThumbnailUrl())
+                            .placeholder(R.color.light_grey)
+                            .into(holder.thumbnailTwo);
+                }
+            } else {
                 Glide.with(mContext)
                         .load(thumbnail2.getMediaUrl())
                         .placeholder(R.color.light_grey)
                         .into(holder.thumbnailTwo);
-
-            }else {
-                Glide.with(mContext)
-                        .load(thumbnail2.getThumbnailUrl())
-                        .placeholder(R.color.light_grey)
-                        .into(holder.thumbnailTwo);
             }
-        }else{
-            Glide.with(mContext)
-                    .load(thumbnail2.getMediaUrl())
-                    .placeholder(R.color.light_grey)
-                    .into(holder.thumbnailTwo);
+
         }
-        if ((thumbnail3.getMediaUrl().contains(".mp4") || thumbnail3.getMediaUrl().contains(".mov")) && thumbnail3 != null) {
-            if(thumbnail3.getThumbnailUrl() == null){
+
+        if(thumbnail3 != null) {
+            if ((thumbnail3.getMediaUrl().contains(".mp4") || thumbnail3.getMediaUrl().contains(".mov")) && thumbnail3 != null) {
+                if (thumbnail3.getThumbnailUrl() == null) {
+                    Glide.with(mContext)
+                            .load(thumbnail3.getMediaUrl())
+                            .placeholder(R.color.light_grey)
+                            .into(holder.thumbnailThree);
+                } else {
+                    Glide.with(mContext)
+                            .load(thumbnail3.getThumbnailUrl())
+                            .placeholder(R.color.light_grey)
+                            .into(holder.thumbnailThree);
+                }
+            } else {
                 Glide.with(mContext)
                         .load(thumbnail3.getMediaUrl())
                         .placeholder(R.color.light_grey)
                         .into(holder.thumbnailThree);
-            }else {
-                Glide.with(mContext)
-                        .load(thumbnail3.getThumbnailUrl())
-                        .placeholder(R.color.light_grey)
-                        .into(holder.thumbnailThree);
             }
-        }else{
-            Glide.with(mContext)
-                    .load(thumbnail3.getMediaUrl())
-                    .placeholder(R.color.light_grey)
-                    .into(holder.thumbnailThree);
+
         }
 
 

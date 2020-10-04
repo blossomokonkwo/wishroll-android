@@ -1,11 +1,8 @@
 package co.wishroll.viewmodel;
 
-import android.util.Log;
-
 import androidx.lifecycle.ViewModel;
 
 import java.io.File;
-import java.util.Arrays;
 
 import co.wishroll.models.repository.PostRepository;
 import co.wishroll.utilities.AuthListener;
@@ -83,9 +80,6 @@ public class TaggingViewModel extends ViewModel {
 
     public void onSharePressed(){
 
-       Log.d(TAG, "onSharePressed: these are the tags that the user entered " + postTags);
-       Log.d(TAG, "onSharePressed: this is the file path of the chosen media " + postPath);
-        Log.d(TAG, "onSharePressed: TIME TO EXPOSE IS VIDEO: " + isVideo);
 
         if(postTags == null){
             authListener.sendMessage("Each post must have tags");
@@ -96,14 +90,12 @@ public class TaggingViewModel extends ViewModel {
              postRequestBody = RequestBody.create(postFile, MediaType.parse(FileUtils.getMimeType(postFile)));
              postMultipart = MultipartBody.Part.createFormData("media_item", postFile.getName(), postRequestBody);
              String[] tags = {postTags};
-             Log.d(TAG, "onSharePressed: this is the array of tags first:to string form:" + Arrays.toString(tags) + " then, by picking the index: " + tags[0]);
 
 
 
              if(isVideo) {
 
                  videoThumbnailFile = new File(videoThumbnailPath);
-                 Log.d(TAG, "onSharePressed: THUMBNAIL TRACKER " + videoThumbnailFile.getAbsolutePath() + " " + videoThumbnailFile.getName());
                  videoThumbnailRequestBody = RequestBody.create(videoThumbnailFile, MediaType.parse(FileUtils.getMimeType(videoThumbnailFile)));
                  videoThumbnail = MultipartBody.Part.createFormData("thumbnail_item", videoThumbnailFile.getName(), videoThumbnailRequestBody);
 
@@ -142,14 +134,12 @@ public class TaggingViewModel extends ViewModel {
                 .subscribeWith(new DisposableCompletableObserver(){
                     @Override
                     public void onStart() {
-                        System.out.println("Started");
                         authListener.statusGetter(100);
                     }
 
                     @Override
                     public void onError(Throwable error) {
                         authListener.statusGetter(400);
-                        Log.d(TAG, "onError: this failed");
 
                         error.printStackTrace();
 
@@ -157,7 +147,6 @@ public class TaggingViewModel extends ViewModel {
 
                     @Override
                     public void onComplete() {
-                        System.out.println("Done!");
                         authListener.statusGetter(200);
                         ThumbnailHandler.clearApplicationData();
                         dispose();

@@ -4,6 +4,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
+import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,7 +20,8 @@ public class VideoPlayerViewHolder extends RecyclerView.ViewHolder{
     ProgressBar progressBar;
     View parent;
     RequestManager requestManager;
-    ImageButton  shareButton, bookmarkButton;
+    ImageButton  shareButton;
+    ToggleButton bookmarkButton;
 
     public VideoPlayerViewHolder(@NonNull View itemView) {
         super(itemView);
