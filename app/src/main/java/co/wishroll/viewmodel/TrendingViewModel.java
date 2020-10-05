@@ -51,20 +51,20 @@ public class TrendingViewModel extends ViewModel {
 
     public void getFirstTrendingTagPage(){
         trendingTagLiveData.setValue(StateData.loading((ArrayList<TrendingTag>) null));
-        final LiveData<StateData<ArrayList<TrendingTag>>> source = trendingRepository.getTrendingTags(START_OFFSET);
+            final LiveData<StateData<ArrayList<TrendingTag>>> source = trendingRepository.getTrendingTags(START_OFFSET);
         trendingTagLiveData.addSource(source, new Observer<StateData<ArrayList<TrendingTag>>>() {
-            @Override
-            public void onChanged(StateData<ArrayList<TrendingTag>> trendingTagStateData) {
+                @Override
+                public void onChanged(StateData<ArrayList<TrendingTag>> trendingTagStateData) {
 
-                if(trendingTagStateData.data != null){
-                    setDataSetSize(trendingTagStateData.data.size());
-                }else{
-                    setDataSetSize(8);
+                    if(trendingTagStateData.data != null){
+                        setDataSetSize(trendingTagStateData.data.size());
+                    }else{
+                        setDataSetSize(8);
+                    }
+
+                    trendingTagLiveData.setValue(trendingTagStateData);
+                    trendingTagLiveData.removeSource(source);
                 }
-
-                trendingTagLiveData.setValue(trendingTagStateData);
-                trendingTagLiveData.removeSource(source);
-            }
         });
     }
 

@@ -1,7 +1,6 @@
 package co.wishroll.views.tools;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -131,7 +130,6 @@ public class TrendingRecyclerViewAdapter extends RecyclerView.Adapter<TrendingRe
             if ((thumbnail2.getMediaUrl().contains("mp4") || thumbnail2.getMediaUrl().contains(".mov")) && thumbnail2 != null) {
 
                 if (thumbnail2.getThumbnailUrl() == null) {
-                    Log.d(TAG, "onBindViewHolder: Glide is being asked to load the video thumbnail out of the box");
 
                     Glide.with(mContext)
                             .load(thumbnail2.getMediaUrl())
@@ -193,7 +191,6 @@ public class TrendingRecyclerViewAdapter extends RecyclerView.Adapter<TrendingRe
             }
         }
         if(thumbnail3 != null) {
-            Log.d(TAG, "onBindViewHolder: MEDIA URL ");
             if (thumbnail3.getMediaUrl().contains(".mp4") || thumbnail3.getMediaUrl().contains(".mov")) {
                 holder.videoFlagThree.setVisibility(View.VISIBLE);
             } else {

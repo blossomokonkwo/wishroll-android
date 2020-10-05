@@ -196,6 +196,11 @@ public class ImageActivity extends AppCompatActivity {
     public void onBookmarkClicked(View view) {
         Log.d(TAG, "onBookmarkClicked: you are trying to bookmark this, true or false: " + bookmakButton.isChecked());
         imageViewModel.toggleBookmarking(bookmakButton.isChecked());
+        if(bookmakButton.isChecked()){
+            ToastUtils.showToast(this, "Added to Bookmarks");
+        }else{
+            ToastUtils.showToast(this, "Removed from Bookmarks");
+        }
 
     }
 }

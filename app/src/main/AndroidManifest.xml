@@ -33,27 +33,33 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
+
         <activity android:name=".views.upload.TaggingActivity" />
+
         <activity
             android:name=".views.reusables.VideoActivity"
             android:theme="@style/Fullscreen" />
+
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />
+
         <activity android:name=".views.reusables.ImageActivity" />
-        <activity android:name=".views.profile.ContactActivity" />
+
         <activity
             android:name=".views.search.SearchActivity"
             android:windowSoftInputMode="stateVisible" />
-        <activity android:name=".views.profile.EditProfileActivity" />
-        <activity android:name=".views.profile.ProfileViewActivity" />
+
+
         <activity
             android:name=".views.home.MainActivity"
             android:launchMode="singleTask" />
         <activity android:name=".views.registration.SignupActivity" />
+
         <activity
             android:name=".views.registration.LoginActivity"
             android:launchMode="singleTask" />
+
         <activity
             android:name=".views.reusables.SplashScreen"
             android:theme="@style/splashscreen">
@@ -63,9 +69,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".views.registration.WelcomeActivity"
             android:theme="@style/AppTheme" />
+
     </application>
 
 </manifest>

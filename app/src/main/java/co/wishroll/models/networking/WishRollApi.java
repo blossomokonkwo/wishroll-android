@@ -12,7 +12,6 @@ import io.reactivex.Completable;
 import io.reactivex.Flowable;
 import io.reactivex.Single;
 import okhttp3.MultipartBody;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
@@ -101,7 +100,7 @@ public interface WishRollApi {
 
     //Delete Account
     @DELETE("v2/users")
-    Call<ResponseBody> deleteThisAccount();
+    Completable deleteThisAccount();
 
 
 

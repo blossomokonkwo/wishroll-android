@@ -31,6 +31,9 @@ public class PostRepository {
     public WishRollApi wishRollApi;
     Completable uploadStatus;
     Completable status;
+    private enum ContentType {
+        VIDEO, IMAGES, GIF
+    };
 
 
     @Inject
@@ -207,6 +210,36 @@ public class PostRepository {
         return source;
     }
 
+
+
+    public  LiveData<StateData<ArrayList<Post>>> getVideosListPosts(int postId, int offset){
+        final LiveData<StateData<ArrayList<Post>>> source = LiveDataReactiveStreams.fromPublisher(
+
+                wishRollApi.getVideoList(postId, offset, "video")
+                            .onErrorReturn(new Function<Throwable, Post[]>() {
+                                @Override
+                                public Post[] apply(Throwable throwable) throws Exception {
+                                    return null;
+                                }
+                            })
+                            .map(new Function<Post[], StateData<ArrayList<Post>>>() {
+                                @Override
+                                public StateData<ArrayList<Post>> apply(Post[] posts) throws Exception {
+                                    ArrayList<Post> videosList = new ArrayList<>();
+
+                                    if(posts == null){
+                                        return StateData.error("Something went wrong, please try again", videosList);
+                                    }else{
+                                        videosList.addAll(Arrays.asList(posts));
+                                        return StateData.authenticated(videosList);
+                                    }
+
+                                }
+                            }).subscribeOn(Schedulers.io()));
+
+        return source;
+
+    }
 
 
 }

@@ -1,114 +1,188 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/black">
-    
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+
+
+    <VideoView
+        android:id="@+id/videoView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:background="#000"
-        android:scaleType="center"
-        android:id="@+id/media_container">
+        app:layout_constraintTop_toTopOf="parent"/>
 
-        <ProgressBar
-            android:id="@+id/videoProgressBar"
-            android:layout_width="@dimen/_50sdp"
-            android:layout_height="@dimen/_50sdp"
-            android:layout_gravity="center">
 
-        </ProgressBar>
+    <ProgressBar
+        android:id="@+id/videoProgressBar"
+        android:visibility="invisible"
+        android:layout_width="@dimen/_26sdp"
+        android:layout_height="@dimen/_26sdp"
+        android:layout_gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/videoView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
+    </ProgressBar>
 
 
     <RelativeLayout
+        android:id="@+id/actionBar"
+        android:layout_marginRight="@dimen/_10sdp"
+        android:layout_marginBottom="@dimen/_10sdp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent">
 
 
 
 
 
         <RelativeLayout
-            android:layout_above="@id/bottomBar"
-            android:id="@+id/actionBar"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:layout_marginLeft="@dimen/_10sdp"
-            android:layout_marginBottom="@dimen/_1sdp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_width="@dimen/_26sdp"
+            android:layout_height="@dimen/_26sdp"
+            android:layout_toLeftOf="@id/shareVideoView"
+            android:background="@drawable/blue_button"
+            android:layout_centerVertical="true">
 
 
-
-
-
-            <RelativeLayout
+            <ToggleButton
+                android:id="@+id/bookmarkVideoView"
+                android:elevation="2dp"
                 android:layout_width="@dimen/_26sdp"
+                android:textOff=""
+                android:layout_centerInParent="true"
+                android:textOn=""
                 android:layout_height="@dimen/_26sdp"
-                android:layout_toLeftOf="@id/shareVideoView"
-                android:background="@drawable/blue_button"
-                android:layout_centerVertical="true">
-
-                <!-- android:onClick="@{() -> imageviewmodel.onBookmarkClicked()}" -->
-
-                <ToggleButton
-                    android:id="@+id/bookmarkVideoView"
-                    android:elevation="2dp"
-                    android:layout_width="@dimen/_26sdp"
-                    android:textOff=""
-                    android:layout_centerInParent="true"
-                    android:textOn=""
-                    android:layout_height="@dimen/_26sdp"
-                    android:background="@drawable/toggle_bookmarks"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginTop="10dp"
-                    />
-            </RelativeLayout>
-
-            <ImageButton
-                android:id="@+id/shareVideoView"
-                android:layout_width="@dimen/_26sdp"
-                android:layout_height="@dimen/_26sdp"
-                android:src="@drawable/ic_down_arrow"
-                android:layout_marginLeft="10dp"
+                android:background="@drawable/toggle_bookmarks"
                 android:layout_marginRight="10dp"
-                android:background="@drawable/circle_button"
-                android:layout_alignParentRight="true"/>
-
-
+                android:layout_marginTop="10dp"
+                />
         </RelativeLayout>
 
-        <RelativeLayout
-            android:id="@+id/bottomBar"
-            android:layout_marginBottom="@dimen/_10sdp"
-            android:layout_alignParentBottom="true"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_10sdp">
-
-
-
-
-
-
-
-        </RelativeLayout>
-
-
-
+        <ImageButton
+            android:id="@+id/shareVideoView"
+            android:layout_width="@dimen/_26sdp"
+            android:layout_height="@dimen/_26sdp"
+            android:src="@drawable/ic_down_arrow"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/circle_button"
+            android:layout_alignParentRight="true"/>
 
 
     </RelativeLayout>
 
-    </FrameLayout>
+
+    <!-- <FrameLayout
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintTop_toTopOf="parent"
+         app:layout_constraintBottom_toBottomOf="parent"
+         android:background="#000"
+         android:scaleType="center"
+         android:id="@+id/media_container">
+
+         <ProgressBar
+             android:id="@+id/videoProgressBar"
+             android:layout_width="@dimen/_50sdp"
+             android:layout_height="@dimen/_50sdp"
+             android:layout_gravity="center">
+
+         </ProgressBar>
+
+
+
+     <RelativeLayout
+         android:layout_width="match_parent"
+         android:layout_height="match_parent"
+         android:orientation="vertical">
+
+
+
+
+
+
+
+         <RelativeLayout
+             android:layout_above="@id/bottomBar"
+             android:id="@+id/actionBar"
+             android:layout_marginTop="@dimen/_10sdp"
+             android:layout_marginLeft="@dimen/_10sdp"
+             android:layout_marginBottom="@dimen/_1sdp"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content">
+
+
+
+
+
+             <RelativeLayout
+                 android:layout_width="@dimen/_26sdp"
+                 android:layout_height="@dimen/_26sdp"
+                 android:layout_toLeftOf="@id/shareVideoView"
+                 android:background="@drawable/blue_button"
+                 android:layout_centerVertical="true">
+
+                 &lt;!&ndash; android:onClick="@{() -> imageviewmodel.onBookmarkClicked()}" &ndash;&gt;
+
+                 <ToggleButton
+                     android:id="@+id/bookmarkVideoView"
+                     android:elevation="2dp"
+                     android:layout_width="@dimen/_26sdp"
+                     android:textOff=""
+                     android:layout_centerInParent="true"
+                     android:textOn=""
+                     android:layout_height="@dimen/_26sdp"
+                     android:background="@drawable/toggle_bookmarks"
+                     android:layout_marginRight="10dp"
+                     android:layout_marginTop="10dp"
+                     />
+             </RelativeLayout>
+
+             <ImageButton
+                 android:id="@+id/shareVideoView"
+                 android:layout_width="@dimen/_26sdp"
+                 android:layout_height="@dimen/_26sdp"
+                 android:src="@drawable/ic_down_arrow"
+                 android:layout_marginLeft="10dp"
+                 android:layout_marginRight="10dp"
+                 android:background="@drawable/circle_button"
+                 android:layout_alignParentRight="true"/>
+
+
+         </RelativeLayout>
+
+         <RelativeLayout
+             android:id="@+id/bottomBar"
+             android:layout_marginBottom="@dimen/_10sdp"
+             android:layout_alignParentBottom="true"
+             android:layout_width="match_parent"
+             android:layout_height="@dimen/_10sdp">
+
+
+
+
+
+
+
+         </RelativeLayout>
+
+
+
+
+
+     </RelativeLayout>
+
+     </FrameLayout>-->
 
 
 

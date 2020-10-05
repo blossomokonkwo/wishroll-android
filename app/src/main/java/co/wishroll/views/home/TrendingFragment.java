@@ -3,7 +3,6 @@ package co.wishroll.views.home;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -175,7 +174,6 @@ public class TrendingFragment extends Fragment implements TrendingRecyclerViewAd
                     switch (arrayListStateData.status) {
 
                         case LOADING: {
-                            Log.d(TAG, "onChanged: Loading Trending Tags");
                             break;
                         }
                         case ERROR: {
@@ -187,19 +185,16 @@ public class TrendingFragment extends Fragment implements TrendingRecyclerViewAd
 
                         case AUTHENTICATED: {
                             listOfTrendingTags.addAll(arrayListStateData.data);
-                            Log.d(TAG, "onChanged: Size of List going into adapter " + listOfTrendingTags.size());
                             trendingRecyclerViewAdapter.notifyDataSetChanged();
                             swipeRefreshLayout.setRefreshing(false);
 
 
 
 
-                            Log.d(TAG, "onChanged: This has been authenticated.");
                             break;
                         }
 
                         case NOT_AUTHENTICATED:
-                            Log.d(TAG, "onChanged: Refreshed Trending Live Data");
                             listOfTrendingTags.clear();
                             trendingRecyclerViewAdapter.notifyDataSetChanged();
 

@@ -5,18 +5,15 @@ import javax.inject.Singleton;
 
 import co.wishroll.models.networking.RetrofitInstance;
 import co.wishroll.models.networking.WishRollApi;
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import io.reactivex.Completable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import retrofit2.Retrofit;
 
 @Singleton
 public class UserRepository {
 
 
-
-    private static int statusCode;
 
     public WishRollApi wishRollApi;
     //LiveData<StateData<MAYBEDELETERESPONSE>> source;
@@ -32,26 +29,10 @@ public class UserRepository {
 
 
     //deleting users
-    public int deleteThisUser(){
+    public Completable deleteThisUser() {
 
-        wishRollApi.deleteThisAccount().enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                if(response.code() == 200){
-                    statusCode = 200;
-                }else{
-                    statusCode = 400;
-                }
-
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                t.printStackTrace();
-            }
-        });
-
-        return statusCode;
+        return wishRollApi.deleteThisAccount().observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io());
     }
 
     /*

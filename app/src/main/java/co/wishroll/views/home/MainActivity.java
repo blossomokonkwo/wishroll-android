@@ -181,7 +181,7 @@ public class MainActivity extends AppCompatActivity {
                                 sessionManagement.checkLogout();
 
                                 //LMAOOOO IDEK IF THIS IS RIGHT TBH
-                                if(userRepository.deleteThisUser() == 200) {
+                                if(mainViewModel.deleteAccount()) {
                                     Glide.get(MainActivity.this).clearMemory();
                                     //Glide.get(getContext()).clearDiskCache();
                                     startActivity(new Intent(MainActivity.this, LoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP));
@@ -195,7 +195,7 @@ public class MainActivity extends AppCompatActivity {
                         builder.setNegativeButton("Nevermind", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                onBackPressed();
+
                             }
                         });
 
