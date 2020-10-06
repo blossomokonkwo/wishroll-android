@@ -54,7 +54,7 @@ public class VideosViewModel extends ViewModel {
     }
 
     public void getFirstVideoList(){
-        videoListLiveData.setValue(StateData.loading((ArrayList<Post>) null));
+        //videoListLiveData.setValue(StateData.loading((ArrayList<Post>) null));
         final LiveData<StateData<ArrayList<Post>>> source = postRepository.getVideosListPosts(postId, START_OFFSET);
         videoListLiveData.addSource(source, new Observer<StateData<ArrayList<Post>>>() {
             @Override

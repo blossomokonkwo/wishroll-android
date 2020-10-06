@@ -18,61 +18,10 @@
     tools:context="co.wishroll.views.reusables.VideoActivity"
     >
 
-    <RelativeLayout
-        android:elevation="2dp"
-        android:id="@+id/backButtons"
-        android:background="@color/transparent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="@dimen/_9sdp"
-        android:layout_alignParentTop="true"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
 
 
-        <ImageButton
-            android:id="@+id/backVideoView"
-            android:layout_width="@dimen/_40sdp"
-            android:layout_height="@dimen/_40sdp"
-            android:layout_alignParentLeft="true"
-            android:layout_margin="5dp"
-            android:background="@color/transparent"
-            android:elevation="2dp"
-            android:src="@drawable/ic_chevron_left_white" />
-
-
-        <ImageButton
-            android:id="@+id/moreImageView"
-            android:layout_width="@dimen/_40sdp"
-            android:layout_height="@dimen/_35sdp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_margin="10dp"
-            android:background="@color/transparent"
-            android:elevation="2dp"
-            android:src="@drawable/ic_more_horiz_24" />
-
-
-    </RelativeLayout>
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <ProgressBar
-            android:id="@+id/videoMainProgressBar"
-            android:layout_width="@dimen/_26sdp"
-            android:layout_height="@dimen/_26sdp"
-            android:layout_centerInParent="true"/>
-    </RelativeLayout>
-
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/videosViewPager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-    </androidx.viewpager2.widget.ViewPager2>
-
-    <!--<RelativeLayout
         android:id="@+id/backButtons"
         android:background="@color/transparent"
         app:layout_constraintTop_toTopOf="parent"
@@ -114,7 +63,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-    </androidx.recyclerview.widget.RecyclerView>-->
+    </androidx.recyclerview.widget.RecyclerView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

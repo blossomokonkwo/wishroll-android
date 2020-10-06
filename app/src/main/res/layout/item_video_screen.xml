@@ -8,79 +8,9 @@
     android:background="@color/black">
 
 
-    <VideoView
-        android:id="@+id/videoView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
 
 
-    <ProgressBar
-        android:id="@+id/videoProgressBar"
-        android:visibility="invisible"
-        android:layout_width="@dimen/_26sdp"
-        android:layout_height="@dimen/_26sdp"
-        android:layout_gravity="center"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/videoView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-    </ProgressBar>
-
-
-    <RelativeLayout
-        android:id="@+id/actionBar"
-        android:layout_marginRight="@dimen/_10sdp"
-        android:layout_marginBottom="@dimen/_10sdp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent">
-
-
-
-
-
-        <RelativeLayout
-            android:layout_width="@dimen/_26sdp"
-            android:layout_height="@dimen/_26sdp"
-            android:layout_toLeftOf="@id/shareVideoView"
-            android:background="@drawable/blue_button"
-            android:layout_centerVertical="true">
-
-
-            <ToggleButton
-                android:id="@+id/bookmarkVideoView"
-                android:elevation="2dp"
-                android:layout_width="@dimen/_26sdp"
-                android:textOff=""
-                android:layout_centerInParent="true"
-                android:textOn=""
-                android:layout_height="@dimen/_26sdp"
-                android:background="@drawable/toggle_bookmarks"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="10dp"
-                />
-        </RelativeLayout>
-
-        <ImageButton
-            android:id="@+id/shareVideoView"
-            android:layout_width="@dimen/_26sdp"
-            android:layout_height="@dimen/_26sdp"
-            android:src="@drawable/ic_down_arrow"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/circle_button"
-            android:layout_alignParentRight="true"/>
-
-
-    </RelativeLayout>
-
-
-    <!-- <FrameLayout
+     <FrameLayout
          android:layout_width="match_parent"
          android:layout_height="wrap_content"
          app:layout_constraintEnd_toEndOf="parent"
@@ -128,11 +58,14 @@
              <RelativeLayout
                  android:layout_width="@dimen/_26sdp"
                  android:layout_height="@dimen/_26sdp"
-                 android:layout_toLeftOf="@id/shareVideoView"
+                 android:layout_toLeftOf="@id/downloadVideoView"
                  android:background="@drawable/blue_button"
+                 android:layout_marginRight="10dp"
                  android:layout_centerVertical="true">
 
+<!--
                  &lt;!&ndash; android:onClick="@{() -> imageviewmodel.onBookmarkClicked()}" &ndash;&gt;
+-->
 
                  <ToggleButton
                      android:id="@+id/bookmarkVideoView"
@@ -149,12 +82,23 @@
              </RelativeLayout>
 
              <ImageButton
-                 android:id="@+id/shareVideoView"
+                 android:layout_toLeftOf="@id/shareVideoView"
+                 android:id="@+id/downloadVideoView"
                  android:layout_width="@dimen/_26sdp"
                  android:layout_height="@dimen/_26sdp"
                  android:src="@drawable/ic_down_arrow"
                  android:layout_marginLeft="10dp"
                  android:layout_marginRight="10dp"
+                 android:background="@drawable/circle_button"
+                 />
+
+             <ImageButton
+                 android:id="@+id/shareVideoView"
+                 android:layout_width="@dimen/_26sdp"
+                 android:layout_height="@dimen/_26sdp"
+                 android:src="@drawable/ic_share"
+                 android:layout_marginLeft="10dp"
+                 android:layout_marginRight="20dp"
                  android:background="@drawable/circle_button"
                  android:layout_alignParentRight="true"/>
 
@@ -182,7 +126,7 @@
 
      </RelativeLayout>
 
-     </FrameLayout>-->
+     </FrameLayout>
 
 
 
