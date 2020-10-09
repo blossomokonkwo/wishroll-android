@@ -11,21 +11,17 @@ import co.wishroll.models.networking.WishRollApi;
 import co.wishroll.models.repository.datamodels.AuthResponse;
 import co.wishroll.models.repository.datamodels.LoginRequest;
 import co.wishroll.models.repository.datamodels.UserModel;
-import co.wishroll.models.repository.local.SessionManagement;
 import co.wishroll.utilities.AuthResource;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Retrofit;
 
-import static co.wishroll.WishRollApplication.applicationGraph;
-
 @Singleton
 public class AuthRepository {
-    //all the network calls related to registration
+    //network calls related to registration
 
     private static final String TAG = "AuthRepository";
 
-    SessionManagement sessionManagement = applicationGraph.sessionManagement();
     public WishRollApi wishRollApi;
 
 

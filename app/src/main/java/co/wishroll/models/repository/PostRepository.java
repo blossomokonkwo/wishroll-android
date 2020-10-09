@@ -38,6 +38,7 @@ public class PostRepository {
 
     @Inject
     public PostRepository() {
+
         Retrofit retrofitInstance = RetrofitInstance.getRetrofitInstance();
         wishRollApi = retrofitInstance.create(WishRollApi.class);
 

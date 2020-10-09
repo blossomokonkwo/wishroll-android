@@ -17,19 +17,12 @@ import co.wishroll.utilities.Encryption;
 public class SessionManagement extends Application {
     private static final String TAG = "SessionManagement";
     //stores current user information
-    //wipes current user information on log out
-
-        //stores authentication token of user
-        //wipes authentication token of user
-    
 
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     String SHARED_PREF_NAME = "session";
      Encryption encryption = Encryption.getDefault("Key", "chile", new byte[16]);
     public String token;
-
-
 
 
     @Inject
@@ -48,7 +41,6 @@ public class SessionManagement extends Application {
 
         Log.d(TAG, "saveSession: ORIGINAL TOKEN: " + accessToken.getAccess());
         editor.putString("token", encryption.encryptOrNull(accessToken.getAccess()));
-
 
         return editor.commit();
 
@@ -74,7 +66,6 @@ public class SessionManagement extends Application {
 
 
     public String getEmail(){
-
         return sharedPreferences.getString("email", "");
     }
 
@@ -90,7 +81,6 @@ public class SessionManagement extends Application {
     }
 
     public int getCurrentUserId() {
-
         return sharedPreferences.getInt("id", 0);
     }
 

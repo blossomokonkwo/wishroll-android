@@ -5,14 +5,14 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
+import android.widget.ToggleButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.PagerSnapHelper;
-import androidx.recyclerview.widget.SnapHelper;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager2.widget.ViewPager2;
 
 import java.util.ArrayList;
 
@@ -23,39 +23,36 @@ import co.wishroll.utilities.StateData;
 import co.wishroll.utilities.ToastUtils;
 import co.wishroll.viewmodel.media.MediaViewModelFactory;
 import co.wishroll.viewmodel.media.VideosViewModel;
-import co.wishroll.views.tools.video.VerticalSpacingItemDecorator;
-import co.wishroll.views.tools.video.VideoPlayerRecyclerAdapter;
-import co.wishroll.views.tools.video.VideoPlayerRecyclerView;
+import co.wishroll.views.tools.video.VideosAdapter;
 
 public class VideoActivity extends AppCompatActivity {
     private static final String TAG = "VideoActivity";
 
     ActivityVideoBinding activityVideoBinding;
     private ArrayList<Post> videosList = new ArrayList<>();
-    private VideoPlayerRecyclerView recyclerView;
+    private RecyclerView recyclerView;
     private ImageButton backButton;
-    VideoPlayerRecyclerAdapter adapter;
+    VideosAdapter videoAdapter;
+    ToggleButton bookmarkButton;
     VideosViewModel videosViewModel;
     String mediaUrl;
     ProgressBar videoMainProgressBar;
     int postId;
-    LinearLayoutManager linearLayoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_video);
+        setContentView(R.layout.activity_video);
 
         postId = getIntent().getIntExtra("postId", 0);
         mediaUrl = getIntent().getStringExtra("mediaUrl");
 
         activityVideoBinding = DataBindingUtil.setContentView(this, R.layout.activity_video);
         backButton = findViewById(R.id.backVideoView);
-
-
+        bookmarkButton = findViewById(R.id.bookmarkVideoView);
         videosViewModel = new ViewModelProvider(this, new MediaViewModelFactory(postId)).get(VideosViewModel.class);
         activityVideoBinding.setVideosviewmodel(videosViewModel);
-        //videoMainProgressBar = findViewById(R.id.videoProgressBar);
+        //videoMainProgressBar = findViewById(R.id.videoMainProgressBar);
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,26 +61,14 @@ public class VideoActivity extends AppCompatActivity {
             }
         });
 
+        final ViewPager2 viewPager2 =  findViewById(R.id.videosViewPager);
+        //HELLO WHAT ABOUT THE SNAP HELPER STUFF???
 
-        recyclerView = new VideoPlayerRecyclerView(VideoActivity.this);
-        linearLayoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(linearLayoutManager);
-        linearLayoutManager.setReverseLayout(true);
-        linearLayoutManager.setStackFromEnd(true);
-
-        VerticalSpacingItemDecorator itemDecorator = new VerticalSpacingItemDecorator(0);
-        recyclerView.addItemDecoration(itemDecorator);
-
-        SnapHelper mSnapHelper = new PagerSnapHelper();
-        mSnapHelper.attachToRecyclerView(recyclerView);
 
         observeVideosList();
-        adapter = new VideoPlayerRecyclerAdapter(videosList, VideoActivity.this);
-        recyclerView.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
-        recyclerView.setKeepScreenOn(true);
-        recyclerView.smoothScrollToPosition(videosList.size()+1);
-
+        videoAdapter = new VideosAdapter(videosList, this);
+        viewPager2.setAdapter(videoAdapter);
+        videoAdapter.notifyDataSetChanged();
 
 
 
@@ -97,61 +82,59 @@ public class VideoActivity extends AppCompatActivity {
     }
 
     public void observeVideosList(){
-            videosViewModel.observeVideosList().observe(this, new Observer<StateData<ArrayList<Post>>>() {
-                @Override
-                public void onChanged(StateData<ArrayList<Post>> arrayListStateData) {
-                    if(arrayListStateData != null){
-                        switch (arrayListStateData.status){
-                            case LOADING:
-                                //videoMainProgressBar.setVisibility(View.VISIBLE);
-                                Log.d(TAG, "onChanged: Loading Trending Tags");
-                                break;
+        videosViewModel.observeVideosList().observe(this, new Observer<StateData<ArrayList<Post>>>() {
+            @Override
+            public void onChanged(StateData<ArrayList<Post>> arrayListStateData) {
+                if(arrayListStateData != null){
+                    switch (arrayListStateData.status){
+                        case LOADING:
+                            //videoMainProgressBar.setVisibility(View.VISIBLE);
+                            Log.d(TAG, "onChanged: Loading Trending Tags");
+                            break;
 
-                            case ERROR:
-                                //videoMainProgressBar.setVisibility(View.GONE);
-                                ToastUtils.showToast(VideoActivity.this, arrayListStateData.message);
-                                finish();
+                        case ERROR:
+                            //videoMainProgressBar.setVisibility(View.GONE);
+                            ToastUtils.showToast(VideoActivity.this, arrayListStateData.message);
+                            finish();
 
-                                break;
+                            break;
 
 
 
-                            case AUTHENTICATED:
-                                //videoMainProgressBar.setVisibility(View.GONE);
-                                videosList.addAll(arrayListStateData.data);
-                                /*recyclerView.setVideosList(videosList);
-                                Log.d(TAG, "onChanged: Size of List going into adapter " + videosList.size());
-                                adapter.notifyDataSetChanged();*/
+                        case AUTHENTICATED:
+                            //videoMainProgressBar.setVisibility(View.GONE);
+                            videosList.addAll(arrayListStateData.data);
+                            Log.d(TAG, "onChanged: Size of List going into adapter " + videosList.size());
+                            videoAdapter.notifyDataSetChanged();
 
-                                recyclerView.setVideosList(videosList);
-                               adapter.notifyDataSetChanged();
-
-                                for(int i = 0; i< videosList.size(); i++){
+                                /*for(int i = 0; i< videosList.size(); i++){
                                     Log.d(TAG, "onChanged: video id " + videosList.get(i).getId());
                                     Log.d(TAG, "onChanged: video url " + videosList.get(i).getMediaUrl());
                                     Log.d(TAG, "onChanged: video creator " + videosList.get(i).getCreator().getUsername());
-
-                                }
-
+                                }*/
 
 
 
-                                Log.d(TAG, "onChanged: This has been authenticated.");
-                                break;
+
+                            Log.d(TAG, "onChanged: This has been authenticated.");
+                            break;
 
 
-                            case NOT_AUTHENTICATED:
-                                Log.d(TAG, "onChanged: Refreshed");
-                                videosList.clear();
-                                adapter.notifyDataSetChanged();
+                        case NOT_AUTHENTICATED:
+                            Log.d(TAG, "onChanged: Refreshed");
+                            videosList.clear();
+                            videoAdapter.notifyDataSetChanged();
 
-                                break;
-                        }
-                        }
+                            break;
                     }
+                }
+            }
 
-            });
+        });
     }
+
+
+
 
    /* public void onBookmarkClicked(View view) {
         Log.d(TAG, "onBookmarkClicked: you are trying to bookmark this, true or false: " + bookmakButton.isChecked());
@@ -161,8 +144,10 @@ public class VideoActivity extends AppCompatActivity {
         }else{
             ToastUtils.showToast(this, "Removed from Bookmarks");
         }
-
     }*/
+
+
+
 
 
 

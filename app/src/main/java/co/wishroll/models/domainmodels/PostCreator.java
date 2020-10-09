@@ -7,7 +7,6 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class PostCreator implements Parcelable {
-    //TODO(remove following)
 
     @SerializedName("id")
     @Expose

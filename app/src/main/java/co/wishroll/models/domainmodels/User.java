@@ -5,7 +5,6 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class User {
-    //TODO(Remove wishroll score and following(?))
 
     @SerializedName("id")
     @Expose

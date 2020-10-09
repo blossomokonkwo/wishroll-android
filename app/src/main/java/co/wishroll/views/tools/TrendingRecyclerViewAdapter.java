@@ -90,19 +90,11 @@ public class TrendingRecyclerViewAdapter extends RecyclerView.Adapter<TrendingRe
 
         holder.tagString.setText(thisTag.getTrendingTag());
 
-       /* holder.seeMore.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(mContext, PostsGridActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                i.putExtra("query", thisTag.getTrendingTag());
-                mContext.startActivity(i);
-            }
-        });*/
 
         //Displaying Thumbnails
 
         if(thumbnail1 != null) {
-            if ((thumbnail1.getMediaUrl().contains("mp4") || thumbnail1.getMediaUrl().contains(".mov")) && thumbnail1 != null) {
+            if ((thumbnail1.getMediaUrl().contains("mp4") || thumbnail1.getMediaUrl().contains("mov")) && thumbnail1 != null) {
 
                 if (thumbnail1.getThumbnailUrl() == null) {
 
@@ -127,7 +119,7 @@ public class TrendingRecyclerViewAdapter extends RecyclerView.Adapter<TrendingRe
         }
 
         if(thumbnail2 != null) {
-            if ((thumbnail2.getMediaUrl().contains("mp4") || thumbnail2.getMediaUrl().contains(".mov")) && thumbnail2 != null) {
+            if ((thumbnail2.getMediaUrl().contains("mp4") || thumbnail2.getMediaUrl().contains("mov")) && thumbnail2 != null) {
 
                 if (thumbnail2.getThumbnailUrl() == null) {
 
@@ -152,7 +144,7 @@ public class TrendingRecyclerViewAdapter extends RecyclerView.Adapter<TrendingRe
         }
 
         if(thumbnail3 != null) {
-            if ((thumbnail3.getMediaUrl().contains(".mp4") || thumbnail3.getMediaUrl().contains(".mov")) && thumbnail3 != null) {
+            if ((thumbnail3.getMediaUrl().contains("mp4") || thumbnail3.getMediaUrl().contains("mov")) && thumbnail3 != null) {
                 if (thumbnail3.getThumbnailUrl() == null) {
                     Glide.with(mContext)
                             .load(thumbnail3.getMediaUrl())
@@ -199,71 +191,13 @@ public class TrendingRecyclerViewAdapter extends RecyclerView.Adapter<TrendingRe
         }
 
 
-       /* holder.thumbnailOne.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //TODO(check if video or image/gif)
-                Log.d(TAG, "onClick: MEDIA URL " + thumbnail1.getMediaUrl());
-
-                if (thumbnail1.getMediaUrl().contains(".mp4") || thumbnail1.getMediaUrl().contains(".mov")) {
-                    Intent i = new Intent(mContext, VideoActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                    i.putExtra("postId", thisTag.getTrendingTagThumbnails()[0].getId());
-                    i.putExtra("mediaUrl", thisTag.getTrendingTagThumbnails()[0].getMediaUrl());
-                    mContext.startActivity(i);
-                }else{
-                    Intent i = new Intent(mContext, ImageActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                    i.putExtra("postId", thisTag.getTrendingTagThumbnails()[0].getId());
-                    i.putExtra("mediaUrl", thisTag.getTrendingTagThumbnails()[0].getMediaUrl());
-                    mContext.startActivity(i);
-                }
-            }
-        });*/
-
-            /*holder.thumbnailTwo.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //TODO(check if video or image/gif)
-
-                    if (thumbnail2.getMediaUrl().contains(".mp4") || thumbnail2.getMediaUrl().contains(".mov")) {
-                        Intent i = new Intent(mContext, VideoActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                        i.putExtra("postId", thisTag.getTrendingTagThumbnails()[1].getId());
-                        i.putExtra("mediaUrl", thisTag.getTrendingTagThumbnails()[1].getMediaUrl());
-                        mContext.startActivity(i);
-                    }else{
-                        Intent i = new Intent(mContext, ImageActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                        i.putExtra("postId", thisTag.getTrendingTagThumbnails()[1].getId());
-                        i.putExtra("mediaUrl", thisTag.getTrendingTagThumbnails()[1].getMediaUrl());
-                        mContext.startActivity(i);
-                    }
-                }
-            });*/
 
 
 
 
 
 
-            /*holder.thumbnailThree.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //TODO(check if video or image/gif)
 
-                    if (thumbnail3.getMediaUrl().contains(".mp4") || thumbnail3.getMediaUrl().contains(".mov")) {
-                        Intent i = new Intent(mContext, VideoActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                        i.putExtra("postId", thisTag.getTrendingTagThumbnails()[2].getId());
-                        i.putExtra("mediaUrl", thisTag.getTrendingTagThumbnails()[2].getMediaUrl());
-                        mContext.startActivity(i);
-
-
-                    }else{
-
-                        Intent i = new Intent(mContext, ImageActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                        i.putExtra("postId", thisTag.getTrendingTagThumbnails()[2].getId());
-                        i.putExtra("mediaUrl", thisTag.getTrendingTagThumbnails()[2].getMediaUrl());
-                        mContext.startActivity(i);
-                    }
-                }
-            });*/
 
 
 
@@ -333,19 +267,21 @@ public class TrendingRecyclerViewAdapter extends RecyclerView.Adapter<TrendingRe
         public void onClick(View view) {
             int thumbnailPosition = 0;
 
-            if(view.getId() == thumbnailOne.getId()){
+            if (view.getId() == thumbnailOne.getId()) {
                 thumbnailPosition = 0;
-            }else if(view.getId() == thumbnailTwo.getId()){
+            } else if (view.getId() == thumbnailTwo.getId()) {
                 thumbnailPosition = 1;
-            }else if(view.getId() == thumbnailThree.getId()){
+            } else if (view.getId() == thumbnailThree.getId()) {
                 thumbnailPosition = 2;
-            }else if(view.getId() == seeMore.getId()){
+            } else if (view.getId() == seeMore.getId()) {
 
                 thumbnailPosition = -1;
+
             }
 
+            mListener.onTrendingTagClicked(getAdapterPosition(), thumbnailPosition);
 
-            mListener.onTrendingTagClicked(getBindingAdapterPosition(), thumbnailPosition);
+
         }
     }
 

@@ -119,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(View v) {
 
                         Intent viewText = new Intent (MainActivity.this, TextBodyActivity.class);
-                        viewText.putExtra("isFAQ", false);
+                        viewText.putExtra("pageTitle", 2);
                         startActivity(viewText);
                         bottomSheetDialog.dismiss();
                     }
@@ -130,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(View v) {
 
                         Intent viewText = new Intent (MainActivity.this, TextBodyActivity.class);
-                        viewText.putExtra("isFAQ", true);
+                        viewText.putExtra("pageTitle", 1);
                         startActivity(viewText);
                         bottomSheetDialog.dismiss();
 
@@ -147,6 +147,17 @@ public class MainActivity extends AppCompatActivity {
                         viewBookmarks.putExtra("query", "Bookmarks");
                         viewBookmarks.putExtra("isBookmarkQuery", true);
                         startActivity(viewBookmarks);
+                        bottomSheetDialog.dismiss();
+                    }
+                });
+
+                bottomSheetView.findViewById(R.id.termsOfServiceButton).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        Intent viewTerms = new Intent (MainActivity.this, TextBodyActivity.class);
+                        viewTerms.putExtra("pageTitle", 3);
+                        startActivity(viewTerms);
                         bottomSheetDialog.dismiss();
                     }
                 });
@@ -177,13 +188,14 @@ public class MainActivity extends AppCompatActivity {
                         builder.setPositiveButton("Delete Account", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                sessionManagement.clearSession();
-                                sessionManagement.checkLogout();
+
 
                                 //LMAOOOO IDEK IF THIS IS RIGHT TBH
                                 if(mainViewModel.deleteAccount()) {
                                     Glide.get(MainActivity.this).clearMemory();
                                     //Glide.get(getContext()).clearDiskCache();
+                                    sessionManagement.clearSession();
+                                    sessionManagement.checkLogout();
                                     startActivity(new Intent(MainActivity.this, LoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP));
                                     finish();
                                 }else{

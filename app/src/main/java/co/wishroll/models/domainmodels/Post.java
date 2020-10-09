@@ -8,7 +8,6 @@ import com.google.gson.annotations.SerializedName;
 
 public class Post implements Parcelable {
 
-    //TODO(Remove Comment Count)
 
     @SerializedName("id")
     @Expose

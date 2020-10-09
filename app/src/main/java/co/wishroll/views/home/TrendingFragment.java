@@ -21,7 +21,6 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import java.util.ArrayList;
 
 import co.wishroll.R;
-import co.wishroll.WishRollApplication;
 import co.wishroll.databinding.FragmentTrendingBinding;
 import co.wishroll.models.domainmodels.TrendingTag;
 import co.wishroll.utilities.StateData;
@@ -92,13 +91,11 @@ public class TrendingFragment extends Fragment implements TrendingRecyclerViewAd
         myRecyclerView.setLayoutManager(linearLayoutManager);
         fragmentTrendingBinding.setTrendingviewmodel(trendingViewModel);
 
-        if(WishRollApplication.hasNetwork()) {
+
             observeTrendingTagsList();
             trendingRecyclerViewAdapter = new TrendingRecyclerViewAdapter(getContext(), listOfTrendingTags, this);
             myRecyclerView.setAdapter(trendingRecyclerViewAdapter);
-        }else{
-            
-        }
+
 
 
 
@@ -123,9 +120,7 @@ public class TrendingFragment extends Fragment implements TrendingRecyclerViewAd
                 scrollOutItems = linearLayoutManager.findFirstVisibleItemPosition();
 
                 if(isScrolling && (currentItems + scrollOutItems == totalItems) ) {
-
                     isScrolling = false;
-
                     if(totalItems % trendingViewModel.getDataSetSize() == 0) {
                         TrendingViewModel.setOffset(totalItems);
                         trendingViewModel.getMoreTrendingTagPages();

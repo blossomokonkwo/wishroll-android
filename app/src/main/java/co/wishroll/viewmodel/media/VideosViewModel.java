@@ -12,13 +12,20 @@ import java.util.ArrayList;
 import co.wishroll.models.domainmodels.Post;
 import co.wishroll.models.repository.PostRepository;
 import co.wishroll.utilities.StateData;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.observers.DisposableCompletableObserver;
 
 import static co.wishroll.WishRollApplication.applicationGraph;
 
 public class VideosViewModel extends ViewModel {
+
     private static final String TAG = "VideosViewModel";
+
     PostRepository postRepository = applicationGraph.postRepository();
+
     MediatorLiveData<StateData<ArrayList<Post>>> videoListLiveData = new MediatorLiveData<>();
+    MediatorLiveData<StateData<Post>> videoBookmarkLiveData = new MediatorLiveData<>();
+
     public int postId;
     int START_OFFSET = 0;
     public static int offset = 0;
@@ -91,7 +98,7 @@ public class VideosViewModel extends ViewModel {
 
 
 
-   /* public void toggleBookmarking(boolean bookmarking){
+    public void toggleBookmarking(boolean bookmarking){
         Disposable bookmarkStatus = postRepository.toggleBookmark(postId, bookmarking)
                 .subscribeWith(new DisposableCompletableObserver(){
                     @Override
@@ -116,19 +123,23 @@ public class VideosViewModel extends ViewModel {
                     }
                 });
     }
-*/
 
-    /*public void getPost(int postId){
-        bookmarkStatusLiveData.setValue(StateData.loading((Post) null));
+
+
+    public void getPost(int postId){
+
+        videoBookmarkLiveData.setValue(StateData.loading((Post) null));
         final LiveData<StateData<Post>> source = postRepository.getPost(postId);
         videoListLiveData.addSource(source, new Observer<StateData<Post>>() {
+
             @Override
             public void onChanged(StateData<Post> postStateData) {
-                bookmarkStatusLiveData.setValue(postStateData);
-                bookmarkStatusLiveData.removeSource(source);
+                videoBookmarkLiveData.setValue(postStateData);
+                videoBookmarkLiveData.removeSource(source);
             }
+
         });
-    }*/
+    }
 
 
 

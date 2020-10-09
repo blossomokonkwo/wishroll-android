@@ -40,22 +40,9 @@ public class SignupRequest {
     }
 
 
-    /*public SignupRequest(String name, String username, String password, String email, String birthday) {
-        super();
-        this.name = name;
-        this.username = formatUsername(username);
-        this.password = password;
-        this.email = email;
-        this.birthday = birthday;
-    }*/
 
-    public static int getGender() {
-        return gender;
-    }
 
-    public static void setGender(int gender) {
-        SignupRequest.gender = gender;
-    }
+
 
     public static String getName() {
         return name;
@@ -63,14 +50,6 @@ public class SignupRequest {
 
     public static void setName(String names) {
         name = names;
-    }
-
-    public static String getUsername() {
-        return username;
-    }
-
-    public static void setUsername(String usernames) {
-        username = usernames;
     }
 
     public static String getPassword() {
@@ -89,13 +68,7 @@ public class SignupRequest {
         email = emails;
     }
 
-    public static String getBirthday() {
-        return birthday;
-    }
 
-    public static void setBirthday(String birthdays) {
-        birthday = birthdays;
-    }
 
 
 }

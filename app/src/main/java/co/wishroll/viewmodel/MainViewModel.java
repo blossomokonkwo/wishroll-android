@@ -23,6 +23,7 @@ public class MainViewModel extends ViewModel {
     public MainViewModel() {
     }
 
+
     public boolean deleteAccount(){
         Disposable bookmarkStatus = userRepository.deleteThisUser()
                 .subscribeWith(new DisposableCompletableObserver(){

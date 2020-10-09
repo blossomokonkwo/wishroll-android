@@ -57,7 +57,7 @@ public class TrendingRepository {
                                     }
 
                                 }
-                            })
+                            }).onBackpressureLatest()
                 .subscribeOn(Schedulers.io()));
 
 

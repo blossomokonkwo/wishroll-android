@@ -21,6 +21,7 @@ import io.reactivex.observers.DisposableCompletableObserver;
 import static co.wishroll.WishRollApplication.applicationGraph;
 
 public class ImageViewModel extends ViewModel {
+
     PostRepository postRepository = applicationGraph.postRepository();
     MediatorLiveData<StateData<Post>> postLiveData = new MediatorLiveData<>();
     private static final String TAG = "ImageViewModel";
@@ -52,7 +53,7 @@ public class ImageViewModel extends ViewModel {
     }
 
     public void getPost(int postId){
-        postLiveData.setValue(StateData.loading((Post) null));
+        //postLiveData.setValue(StateData.loading((Post) null));
         final LiveData<StateData<Post>> source = postRepository.getPost(postId);
         postLiveData.addSource(source, new Observer<StateData<Post>>() {
             @Override

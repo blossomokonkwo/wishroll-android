@@ -12,10 +12,17 @@ import co.wishroll.views.search.VideoSearchFragment;
 
 public class SearchViewPagerAdapter extends FragmentStateAdapter {
 
+    String query;
 
     public SearchViewPagerAdapter(@NonNull FragmentActivity fragmentActivity) {
         super(fragmentActivity);
     }
+
+    public SearchViewPagerAdapter(@NonNull FragmentActivity fragmentActivity, String query) {
+        super(fragmentActivity);
+        this.query = query;
+    }
+
 
 
     @NonNull
@@ -24,11 +31,11 @@ public class SearchViewPagerAdapter extends FragmentStateAdapter {
 
         switch (position) {
             case 0:
-                return new VideoSearchFragment();
+                return new VideoSearchFragment(query);
             case 1:
-                return new ImageSearchFragment();
+                return new ImageSearchFragment(query);
             default:
-                return new GifSearchFragment();
+                return new GifSearchFragment(query);
 
         }
 

@@ -6,18 +6,11 @@ import com.google.gson.annotations.SerializedName;
 public class SignupRequestMany {
 
 
-
-
-
     @SerializedName("password")
      String password;
 
     @SerializedName("email")
      String email;
-
-
-
-
 
 
 
@@ -31,9 +24,6 @@ public class SignupRequestMany {
         this.email = email;
 
     }
-
-
-
 
 
     public  String getPassword() {

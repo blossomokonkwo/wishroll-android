@@ -1,7 +1,12 @@
 package co.wishroll.views.reusables;
 
+import android.app.DownloadManager;
+import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
@@ -22,6 +27,7 @@ import com.google.android.material.tabs.TabLayoutMediator;
 import co.wishroll.R;
 import co.wishroll.databinding.ActivityImageBinding;
 import co.wishroll.models.domainmodels.Post;
+import co.wishroll.utilities.FileUtils;
 import co.wishroll.utilities.StateData;
 import co.wishroll.utilities.ToastUtils;
 import co.wishroll.viewmodel.media.ImageViewModel;
@@ -30,6 +36,7 @@ import co.wishroll.views.home.MainActivity;
 import co.wishroll.views.tools.MoreLikeThisPagerAdapter;
 
 import static co.wishroll.WishRollApplication.getContext;
+import static co.wishroll.WishRollApplication.getInstance;
 
 public class ImageActivity extends AppCompatActivity {
 
@@ -41,8 +48,8 @@ public class ImageActivity extends AppCompatActivity {
     String mediaUrl;
     int postId;
     Boolean isBookmarked;
-    ImageButton downloadButton;
-    ToggleButton bookmakButton;
+    ImageButton downloadButton, shareButton;
+    ToggleButton bookmarkButton;
     Post postItem;
 
     private static final String TAG = "ImageActivity";
@@ -72,23 +79,15 @@ public class ImageActivity extends AppCompatActivity {
 
         mainImageView = findViewById(R.id.mainImageView);
         fabHome = findViewById(R.id.fabImageView);
-        downloadButton = findViewById(R.id.shareImageView);
-        bookmakButton = findViewById(R.id.bookmarkImageView);
+        downloadButton = findViewById(R.id.downloadImageView);
+        bookmarkButton = findViewById(R.id.bookmarkImageView);
+        shareButton = findViewById(R.id.shareImageView);
 
 
         Log.d(TAG, "onCreate: this post has been bookmarked already fam " + isBookmarked);
 
-        /*if(isBookmarked){
 
-            //bookmakButton.setImageResource(R.drawable.ic_bookmark_hollow);
-            bookmakButton.setChecked(true);
 
-        }else{
-
-            bookmakButton.setChecked(false);
-            //bookmakButton.setImageResource(R.drawable.ic_bookmark_filled);
-        }
-*/
         observeThisPost();
 
 
@@ -101,7 +100,7 @@ public class ImageActivity extends AppCompatActivity {
             ToastUtils.showToast(this, "Post Not Found");
             mainImageView.setVisibility(View.GONE);
             downloadButton.setVisibility(View.GONE);
-            bookmakButton.setVisibility(View.GONE);
+            bookmarkButton.setVisibility(View.GONE);
             viewPager2.setVisibility(View.GONE);
 
         }
@@ -125,6 +124,26 @@ public class ImageActivity extends AppCompatActivity {
 
 
 
+        shareButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+
+                intent.setAction(Intent.ACTION_SEND);
+
+                intent.putExtra(Intent.EXTRA_STREAM,  Uri.parse(mediaUrl));
+
+                intent.setType("image/*");
+
+                //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+                Intent shareIntent = Intent.createChooser(intent, "Share to: ");
+
+                Log.d(TAG, "onClick: UMMM??? " +  MediaStore.Images.Media.getContentUri(mediaUrl));
+                startActivity(shareIntent);
+            }
+        });
+
 
 
         fabHome.setOnClickListener(new View.OnClickListener() {
@@ -147,6 +166,12 @@ public class ImageActivity extends AppCompatActivity {
         moreButton = findViewById(R.id.moreImageView);
 
 
+        downloadButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startDownloading();
+            }
+        });
 
 
     }
@@ -160,6 +185,8 @@ public class ImageActivity extends AppCompatActivity {
                     switch (postStateData.status) {
 
                         case LOADING: {
+                            Log.d(TAG, "onChanged: BOOKMARK STATUS IS LOADING");
+                            //bookmarkButton.drawa.setVisibility();
                             Log.d(TAG, "onChanged: Loading Trending Tags");
                             break;
                         }
@@ -171,10 +198,11 @@ public class ImageActivity extends AppCompatActivity {
                         }
 
                         case AUTHENTICATED: {
+                            Log.d(TAG, "onChanged: AUTHENTICATED GETTING POSTS BOOKMARK STATUS");
                             if(postStateData.data.getBookmarked()){
-                                bookmakButton.setChecked(true);
+                                bookmarkButton.setChecked(true);
                             }else{
-                                bookmakButton.setChecked(false);
+                                bookmarkButton.setChecked(false);
                             }
 
 
@@ -193,14 +221,48 @@ public class ImageActivity extends AppCompatActivity {
         });
     }
 
+
     public void onBookmarkClicked(View view) {
-        Log.d(TAG, "onBookmarkClicked: you are trying to bookmark this, true or false: " + bookmakButton.isChecked());
-        imageViewModel.toggleBookmarking(bookmakButton.isChecked());
-        if(bookmakButton.isChecked()){
+        Log.d(TAG, "onBookmarkClicked: BOOKMARK HAS BEEN CLICKED");
+
+        Log.d(TAG, "onBookmarkClicked: you are trying to bookmark this, true or false: " + bookmarkButton.isChecked());
+
+        imageViewModel.toggleBookmarking(bookmarkButton.isChecked());
+
+        if(bookmarkButton.isChecked()){
+
             ToastUtils.showToast(this, "Added to Bookmarks");
+
         }else{
+
             ToastUtils.showToast(this, "Removed from Bookmarks");
+
         }
+
+    }
+
+    private void startDownloading() {
+
+        ToastUtils.showToast(ImageActivity.this, "Downloading...");
+
+        DownloadManager.Request request = new DownloadManager.Request(Uri.parse(mediaUrl));
+        request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE);
+        request.setTitle("Download from WishRoll");
+        request.setDescription("Downloading...");
+
+
+        //FileUtils.getExtension(mediaUrl);
+        Log.d(TAG, "startDownloading: EXTENSION " + FileUtils.getExtension(mediaUrl));
+
+
+        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS,""+System.currentTimeMillis() + FileUtils.getExtension(mediaUrl) );
+
+
+        //get download service and enque file
+        DownloadManager manager = (DownloadManager)getInstance().getSystemService(Context.DOWNLOAD_SERVICE);
+        manager.enqueue(request);
+        ToastUtils.showToast(ImageActivity.this, "Downloaded");
 
     }
 }

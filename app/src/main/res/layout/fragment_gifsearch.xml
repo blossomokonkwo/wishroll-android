@@ -1,13 +1,29 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="co.wishroll.views.search.GifSearchFragment">
+<layout  xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <data>
+
+        <variable
+            name="viewmodel"
+            type="co.wishroll.viewmodel.search.GifSearchViewModel" />
+
+    </data>
+
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Searching for Gifs" />
+        tools:context="co.wishroll.views.search.GifSearchFragment">
 
-</FrameLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/gifRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+    </FrameLayout>
+</layout>
