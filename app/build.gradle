@@ -195,7 +195,7 @@ dependencies {
 
     //Android Video View Replacement, supporting MOV files
     //implementation 'com.devbrackets.android:exomedia:4.3.0'
-    //SUCKS, UPDATED FOUR YEARS AGO
+    //SUCKS, UPDATED FOUR YEARS AGO, doesn't have start, looping, adjusting size, etc ^ _ ^
 
 
 

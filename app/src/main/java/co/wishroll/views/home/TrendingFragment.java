@@ -117,14 +117,17 @@ public class TrendingFragment extends Fragment implements TrendingRecyclerViewAd
 
                 currentItems = linearLayoutManager.getChildCount();
                 totalItems = linearLayoutManager.getItemCount();
-                scrollOutItems = linearLayoutManager.findFirstVisibleItemPosition();
+                scrollOutItems = linearLayoutManager.findFirstCompletelyVisibleItemPosition();
 
-                if(isScrolling && (currentItems + scrollOutItems == totalItems) ) {
+
+
+
+
+
+                if(isScrolling && (currentItems + scrollOutItems == totalItems) && (totalItems % trendingViewModel.getDataSetSize() == 0) ) {
                     isScrolling = false;
-                    if(totalItems % trendingViewModel.getDataSetSize() == 0) {
-                        TrendingViewModel.setOffset(totalItems);
-                        trendingViewModel.getMoreTrendingTagPages();
-                    }
+                        trendingViewModel.getMoreTrendingTagPages(totalItems);
+
                 }
 
 

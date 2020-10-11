@@ -1,4 +1,4 @@
-package co.wishroll.utilities;
+package co.wishroll.views.tools;
 
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;

@@ -27,6 +27,7 @@ import com.google.android.material.tabs.TabLayoutMediator;
 import co.wishroll.R;
 import co.wishroll.databinding.ActivityImageBinding;
 import co.wishroll.models.domainmodels.Post;
+import co.wishroll.models.domainmodels.PostCreator;
 import co.wishroll.utilities.FileUtils;
 import co.wishroll.utilities.StateData;
 import co.wishroll.utilities.ToastUtils;
@@ -204,6 +205,9 @@ public class ImageActivity extends AppCompatActivity {
                             }else{
                                 bookmarkButton.setChecked(false);
                             }
+
+                           PostCreator postCreator = postStateData.data.getCreator();
+
 
 
 

@@ -14,6 +14,7 @@ import co.wishroll.utilities.StateData;
 import static co.wishroll.WishRollApplication.applicationGraph;
 
 public class TrendingViewModel extends ViewModel {
+    private static final String TAG = "TrendingViewModel";
     //ViewModel for the Trending Fragment, Main Activity
     //fetches and displays a list of posts that are trending
 
@@ -70,8 +71,8 @@ public class TrendingViewModel extends ViewModel {
 
 
 
-    public void getMoreTrendingTagPages(){
-        final LiveData<StateData<ArrayList<TrendingTag>>> source = trendingRepository.getTrendingTags(offset);
+    public void getMoreTrendingTagPages(int offsetie){
+        final LiveData<StateData<ArrayList<TrendingTag>>> source = trendingRepository.getTrendingTags(offsetie);
         trendingTagLiveData.addSource(source, new Observer<StateData<ArrayList<TrendingTag>>>() {
             @Override
             public void onChanged(StateData<ArrayList<TrendingTag>> trendingTagStateData) {

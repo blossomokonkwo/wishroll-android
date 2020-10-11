@@ -1,17 +1,22 @@
 package co.wishroll.models.networking;
 
 import java.util.List;
+import java.util.Map;
 
 import co.wishroll.models.domainmodels.Post;
 import co.wishroll.models.domainmodels.TrendingTag;
+import co.wishroll.models.domainmodels.User;
 import co.wishroll.models.repository.datamodels.AuthResponse;
 import co.wishroll.models.repository.datamodels.LoginRequest;
 import co.wishroll.models.repository.datamodels.SignupRequestMany;
+import co.wishroll.models.repository.datamodels.UValidationRequest;
+import co.wishroll.models.repository.datamodels.UpdateResponse;
 import co.wishroll.models.repository.datamodels.UploadPostResponse;
 import io.reactivex.Completable;
 import io.reactivex.Flowable;
 import io.reactivex.Single;
 import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
@@ -20,7 +25,9 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Part;
+import retrofit2.http.PartMap;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -39,6 +46,51 @@ public interface WishRollApi {
     @POST("v3/signup")
     Call<AuthResponse> signupUser(@Body SignupRequestMany signupRequestMany);
 
+    @POST("v2/signup/username")
+    Call<AuthResponse> validateUsername(@Body UValidationRequest uValidationRequest);
+
+
+
+
+
+
+    //User Profiles & Current User Profile
+
+    @GET("v2/users/{id}")
+    Flowable<User> getUserById(@Path ("id") int id);
+
+
+    @GET("v2/users/{username}")
+    Flowable<User> getUserByUsername(@Path ("username") String username);
+
+
+    @Multipart
+    @PUT("v2/user/update")
+    Flowable<UpdateResponse> updateUserDetails(@PartMap Map<String, RequestBody> parameters,
+                                               @Part MultipartBody.Part profile,
+                                               @Part MultipartBody.Part banner);
+
+    @Multipart
+    @PUT("v2/user/update")
+    Flowable<UpdateResponse> updateUserDetails(@PartMap Map<String, RequestBody> parameters,
+                                               @Part MultipartBody.Part profile);
+
+    @Multipart
+    @PUT("v2/user/update")
+    Flowable<UpdateResponse> updateUserDetails(@PartMap Map<String, RequestBody> parameters);
+
+    @Multipart
+    @PUT("v2/user/update")
+    Flowable<UpdateResponse> updateUserDetails( @Part MultipartBody.Part profile,
+                                                @Part MultipartBody.Part banner);
+
+    @Multipart
+    @PUT("v2/user/update")
+    Flowable<UpdateResponse> updateUserDetails( @Part MultipartBody.Part profile);
+
+
+
+
 
     //Uploading Posts
     @Multipart
@@ -49,10 +101,13 @@ public interface WishRollApi {
     @POST("v2/posts")
     Single<UploadPostResponse> uploadVideo(@Part MultipartBody.Part post, @Part MultipartBody.Part videoThumbnail);
 
-
     @FormUrlEncoded
     @POST("v2/posts/{post_id}/tags")
     Completable sendTags(@Path("post_id") int postID,  @Field("tags[]") String[] tags);
+
+
+
+
 
 
     //Search
@@ -62,9 +117,16 @@ public interface WishRollApi {
     @GET("v3/posts")
     Flowable<List<Post>> getSearchResults(@Query("q") int query, @Query("offset") int offset);
 
+
+
+
+
     //Trending
     @GET("v3/trending/trending_tags/")
     Flowable<TrendingTag[]> getTrendingTags(@Query("offset") int offset);
+
+    @GET("v3/trending/trending_tags/{id}")
+    Flowable<TrendingTag> getSeeMoreTrendingTag(@Path("id") int trendingTagId, @Query("offset") int offset);
 
 
 
@@ -86,21 +148,32 @@ public interface WishRollApi {
     @DELETE("v2/posts/{post_id}/bookmarks")
     Completable deleteBookmark(@Path("post_id") int postId);
 
-    @GET("v2/posts/{post_id}")
-    Flowable<Post> getPost(@Path("post_id") int postId);
-
-
     @GET("v2/users/{user_id}/bookmarks")
     Flowable<Post[]> getBookmarkedPosts(@Path("user_id") int userId, @Query("offset") int offset);
 
 
-    //See More
-    @GET("v3/trending/trending_tags/{id}")
-    Flowable<TrendingTag> getSeeMoreTrendingTag(@Path("id") int trendingTagId, @Query("offset") int offset);
+
+
+
+    //Posts
+    @GET("v2/posts/{post_id}")
+    Flowable<Post> getPost(@Path("post_id") int postId);
+
+
+
+
 
     //Delete Account
     @DELETE("v2/users")
     Completable deleteThisAccount();
+
+
+
+
+
+    //Feed
+    @GET("v2/feed")
+    Flowable<Post[]> getUsersFeed(@Query("offset") int offset);
 
 
 

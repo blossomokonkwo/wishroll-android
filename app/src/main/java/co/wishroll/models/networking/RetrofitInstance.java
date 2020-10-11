@@ -54,9 +54,9 @@ public class RetrofitInstance {
 
 
         OkHttpClient httpClient = new OkHttpClient.Builder()
-                //.cache(cache())
-                //.addNetworkInterceptor(networkInterceptor())
-                //.addInterceptor(offlineInterceptor())
+                .cache(cache())
+                .addNetworkInterceptor(networkInterceptor())
+                .addInterceptor(offlineInterceptor())
                 /*.connectTimeout(60, TimeUnit.SECONDS)
                 .readTimeout(60, TimeUnit.SECONDS)
                 .writeTimeout(60, TimeUnit.SECONDS)*/

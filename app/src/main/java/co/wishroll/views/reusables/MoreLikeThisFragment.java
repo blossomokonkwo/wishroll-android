@@ -5,9 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 
-import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
@@ -24,6 +22,7 @@ import co.wishroll.utilities.StateData;
 import co.wishroll.utilities.ToastUtils;
 import co.wishroll.viewmodel.media.MediaViewModelFactory;
 import co.wishroll.viewmodel.media.MoreLikeThisViewModel;
+import co.wishroll.views.tools.EndlessRecyclerViewScrollListener;
 import co.wishroll.views.tools.GridRecyclerViewAdapter;
 
 
@@ -82,52 +81,29 @@ public class MoreLikeThisFragment extends Fragment {
 
 
 
-        myRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-
-
+        myRecyclerView.addOnScrollListener(new EndlessRecyclerViewScrollListener(gridLayoutManager) {
             @Override
-            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
+            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
 
+                if(totalItemsCount % moreLikeThisViewModel.getDataSetSize() == 0) {
+                    moreLikeThisViewModel.getMoreLikeThese(totalItemsCount);
 
-                if(newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL){
-                    isScrolling = true;
-                    Log.d(TAG, "onScrollStateChanged: it did");
+                    Log.d(TAG, "onLoadMore: LMAOOOO PLSSS IM SCARED " + totalItemsCount);
+                    Log.d(TAG, "onLoadMore: JUST CHECKING, DOES THIS MATCH UP? MORE ACCURATE??? " + view.getAdapter().getItemCount());
                 }
-
-
+                //moreLikeThisViewModel.getMoreLikeThese(view.getAdapter().getItemCount());
             }
-
-            @Override
-            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-
-
-
-                    currentItems = gridLayoutManager.getChildCount();
-                    totalItems = gridLayoutManager.getItemCount();
-                    scrollOutItems = gridLayoutManager.findFirstVisibleItemPosition();
-
-                    if (isScrolling && (currentItems + scrollOutItems == totalItems)) {
-                        Log.d(TAG, "onScrolled: TOTAL NUMBER OF ITEMS ALL TOGETHER " + totalItems);
-                        isScrolling = false;
-                        if (totalItems % moreLikeThisViewModel.getDataSetSize() == 0) {
-                            MoreLikeThisViewModel.setOffset(totalItems);
-                            moreLikeThisViewModel.getMoreLikeThese();
-                        }
-                    }
-
-                    }
-
-
-
-
-
-
-
-
-
         });
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -189,7 +165,6 @@ public class MoreLikeThisFragment extends Fragment {
                         }
 
                         case NOT_AUTHENTICATED:
-                            Log.d(TAG, "onChanged: REFRESHED TRENDINGLIVEDATA");
                             postGrid.clear();
                             mltRecyclerViewAdapter.notifyDataSetChanged();
                             //swipeRefreshLayout.setRefreshing(false);

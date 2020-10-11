@@ -68,7 +68,27 @@ public class SignupRequest {
         email = emails;
     }
 
+    public static String getUsername() {
+        return username;
+    }
 
+    public static void setUsername(String username) {
+        SignupRequest.username = username;
+    }
 
+    public static String getBirthday() {
+        return birthday;
+    }
 
+    public static void setBirthday(String birthday) {
+        SignupRequest.birthday = birthday;
+    }
+
+    public static int getGender() {
+        return gender;
+    }
+
+    public static void setGender(int gender) {
+        SignupRequest.gender = gender;
+    }
 }

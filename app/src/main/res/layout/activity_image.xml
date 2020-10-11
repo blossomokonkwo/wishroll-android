@@ -81,8 +81,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
+                <ImageButton
+                    android:id="@+id/bLikeImageView"
+                    android:layout_width="@dimen/_40sdp"
+                    android:layout_height="@dimen/_26sdp"
+                    android:src="@drawable/ic_like"
+                    android:background="@color/transparent"
+                    android:layout_alignParentLeft="true"/>
 
-
+                <TextView
+                    android:id="@+id/likeCountImageView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0 likes"
+                    android:textSize="@dimen/_12sdp"
+                    android:layout_toRightOf="@id/bLikeImageView"
+                    android:layout_centerVertical="true"/>
 
 
                 <RelativeLayout
@@ -135,11 +149,111 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
+                <TextView
+                    android:id="@+id/shareCountImageView"
+                    android:layout_width="@dimen/_26sdp"
+                    android:layout_height="wrap_content"
+                    android:text="13"
+                    android:textSize="@dimen/_8sdp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"/>
+
+                <TextView
+                    android:id="@+id/downloadCountImageView"
+                    android:layout_width="@dimen/_26sdp"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/_8sdp"
+
+                    android:text="13"
+                    android:layout_toLeftOf="@id/shareCountImageView"
+                    />
+
+                <TextView
+                    android:id="@+id/bookmarkCountImageView"
+                    android:layout_width="@dimen/_26sdp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:text="13"
+                    android:textSize="@dimen/_8ssp"
+
+                    android:layout_toLeftOf="@id/downloadCountImageView"
+                    />
+            </RelativeLayout>
 
 
 
+
+
+
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+
+                <com.mikhaellopez.circularimageview.CircularImageView
+                    android:id="@+id/profilePicImageView"
+                    android:layout_width="@dimen/_35sdp"
+                    app:civ_border="false"
+                    android:layout_marginLeft="@dimen/_6sdp"
+                    android:layout_height="@dimen/_35sdp"
+                    android:src="@drawable/reaction_picture"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:layout_toRightOf="@id/profilePicImageView"
+                    android:layout_centerVertical="true">
+
+                    <TextView
+                        android:id="@+id/usernameImageView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="blossom"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"
+
+                        android:textSize="@dimen/_10sdp"/>
+
+
+                </LinearLayout>
 
             </RelativeLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
             <LinearLayout

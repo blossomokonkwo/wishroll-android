@@ -70,8 +70,8 @@ public class MoreLikeThisViewModel extends ViewModel {
 
 
 
-    public void getMoreLikeThese(){
-        final LiveData<StateData<ArrayList<Post>>> source = postRepository.getMoreLikeThis(offset, postId);
+    public void getMoreLikeThese(int offsetie){
+        final LiveData<StateData<ArrayList<Post>>> source = postRepository.getMoreLikeThis(offsetie, postId);
         moreLikeThisLiveData.addSource(source, new Observer<StateData<ArrayList<Post>>>() {
             @Override
             public void onChanged(StateData<ArrayList<Post>> postStateData) {

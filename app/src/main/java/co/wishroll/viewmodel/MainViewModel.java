@@ -2,21 +2,36 @@ package co.wishroll.viewmodel;
 
 import android.util.Log;
 
+import androidx.databinding.BindingAdapter;
 import androidx.lifecycle.ViewModel;
 
-import co.wishroll.models.repository.UserRepository;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+import com.mikhaellopez.circularimageview.CircularImageView;
+
+import co.wishroll.R;
 import co.wishroll.models.repository.local.SessionManagement;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.observers.DisposableCompletableObserver;
 
 import static co.wishroll.WishRollApplication.applicationGraph;
 
 public class MainViewModel extends ViewModel {
 
+
     private static final String TAG = "MainViewModel";
     SessionManagement sessionManagement = applicationGraph.sessionManagement();
-    UserRepository userRepository = applicationGraph.userRepository();
-    boolean isDeleted = false;
+
+
+
+    @BindingAdapter("profileImage")
+    public static void loadProfileImage(CircularImageView view, String imageUrl) {
+        Log.d(TAG, "loadProfileImage: binding adapter lolol XDXDXD ");
+        Glide.with(view.getContext())
+                .load(imageUrl).apply(new RequestOptions().circleCrop()).placeholder(R.drawable.defaultprofile)
+                .into(view);
+    }
+
+
+
 
 
 
@@ -24,33 +39,7 @@ public class MainViewModel extends ViewModel {
     }
 
 
-    public boolean deleteAccount(){
-        Disposable bookmarkStatus = userRepository.deleteThisUser()
-                .subscribeWith(new DisposableCompletableObserver(){
-                    @Override
-                    public void onStart() {
 
-                    }
-
-                    @Override
-                    public void onError(Throwable error) {
-                        Log.d(TAG, "was not deleted, something is wrong");
-                        isDeleted = false;
-                        error.printStackTrace();
-
-                    }
-
-                    @Override
-                    public void onComplete() {
-                        isDeleted = true;
-                        Log.d(TAG, "ACCOUNT DELETED");
-                        dispose();
-
-                    }
-                });
-
-        return isDeleted;
-    }
 }
 
 

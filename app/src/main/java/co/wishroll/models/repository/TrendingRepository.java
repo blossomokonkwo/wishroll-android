@@ -1,5 +1,7 @@
 package co.wishroll.models.repository;
 
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.LiveDataReactiveStreams;
 
@@ -19,7 +21,7 @@ import retrofit2.Retrofit;
 
 @Singleton
 public class TrendingRepository {
-
+    private static final String TAG = "TrendingRepository";
     private WishRollApi wishRollApi;
 
     @Inject
@@ -36,7 +38,7 @@ public class TrendingRepository {
 
 
     public LiveData<StateData<ArrayList<TrendingTag>>> getTrendingTags(int offset) {
-
+        Log.d(TAG, "getTrendingTags: this is the offset going into the api call " + offset);
         final LiveData<StateData<ArrayList<TrendingTag>>> source = LiveDataReactiveStreams.fromPublisher(
                 wishRollApi.getTrendingTags(offset)
                             .onErrorReturn(new Function<Throwable, TrendingTag[]>() {

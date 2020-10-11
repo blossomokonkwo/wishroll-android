@@ -96,4 +96,48 @@
     <string name="account">Account</string>
     <string name="general">General</string>
 
+
+    <string name="select_birthdate">Select Birthday</string>
+
+    <string name="Username_label">Username</string>
+
+    <string name="set_username">Create a Username</string>
+    <string name="usernamehint">Please enter your username</string>
+
+    <string name="Age_Ask">When\'s Your Birthday?</string>
+
+    <string name="age_warning">You must be 12 years or older to use WishRoll</string>
+    <string name="age_month">Month</string>
+    <string name="age_day">Day</string>
+    <string name="age_year">Year</string>
+    <string name="full_name">What\'s your Name?</string>
+    <string name="gender_ask">What\'s your Gender?</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="prefer_not_to_answer">Prefer Not to Answer</string>
+    <string name="please_name">Please enter your full name</string>
+    <string name="MM">MM</string>
+    <string name="DD">DD</string>
+    <string name="YYYY">YYYY</string>
+    <string name="username_valid">No three periods(.) or underscores(_) in a row.</string>
+
+    <!-- Globals/Use-Anywhere -->
+    <string name="followers">Followers</string>
+    <string name="following">Following</string>
+    <string name="follow">Follow</string>
+    <string name="unfollow">Unfollow</string>
+
+    <!-- Edit Profile Activity-->
+    <string name="email_label">Email</string>
+    <string name="name_label">Name</string>
+    <string name="username_label">Username</string>
+    <string name="bio_label">Bio</string>
+    <string name="save_label">Save</string>
+    <string name="saved_dialog">Profile Updated</string>
+    <string name="profile_uploaded">Profile Updated</string>
+
+
+    <string name="likes">Liked</string>
+
+
 </resources>

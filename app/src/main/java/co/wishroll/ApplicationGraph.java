@@ -4,6 +4,7 @@ import javax.inject.Singleton;
 
 import co.wishroll.models.networking.RetrofitInstance;
 import co.wishroll.models.repository.AuthRepository;
+import co.wishroll.models.repository.FeedRepository;
 import co.wishroll.models.repository.SearchRepository;
 import co.wishroll.models.repository.TrendingRepository;
 import co.wishroll.models.repository.PostRepository;
@@ -26,6 +27,8 @@ public interface ApplicationGraph {
      PostRepository postRepository();
 
      TrendingRepository trendingRepository();
+
+     FeedRepository feedRepository();
 
 
 
