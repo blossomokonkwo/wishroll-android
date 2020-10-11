@@ -39,6 +39,16 @@ public class ImageViewModel extends ViewModel {
                 .into(view);
     }
 
+    @BindingAdapter("profilePictureViewImage")
+    public static void loadProfilePictureViewImage(ImageView view, String imageUrl) {
+
+
+        Glide.with(view.getContext())
+                .load(imageUrl)
+                .placeholder(R.drawable.defaultprofile)
+                .into(view);
+    }
+
     public ImageViewModel() {
 
     }

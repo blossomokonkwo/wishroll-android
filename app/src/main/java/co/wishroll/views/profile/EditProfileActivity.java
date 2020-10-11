@@ -319,6 +319,7 @@ public class EditProfileActivity extends AppCompatActivity implements AuthListen
 
 
 
+
     private void requestPermission(){
         if(ActivityCompat.shouldShowRequestPermissionRationale(EditProfileActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE)){
             ToastUtils.showToast(EditProfileActivity.this, "Please grant permission to allow Image Loading");
@@ -369,6 +370,10 @@ public class EditProfileActivity extends AppCompatActivity implements AuthListen
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(intent, IMAGE_REQUEST_CODE );
     }
+
+
+
+
 
 
 

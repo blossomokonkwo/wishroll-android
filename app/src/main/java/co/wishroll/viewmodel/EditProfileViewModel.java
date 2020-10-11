@@ -52,7 +52,7 @@ public class EditProfileViewModel extends ViewModel {
     public static void loadProfileImage(CircularImageView view, String imageUrl) {
         Log.d(TAG, "loadProfileImage: binding adapter lolol XDXDXD ");
         Glide.with(view.getContext())
-                .load(imageUrl).apply(new RequestOptions().circleCrop()).placeholder(R.color.light_grey)
+                .load(imageUrl).apply(new RequestOptions().circleCrop()).placeholder(R.drawable.defaultprofile)
                 .into(view);
     }
 
@@ -373,7 +373,7 @@ public class EditProfileViewModel extends ViewModel {
         return username.toLowerCase().trim().replace(' ', '_');
     }
 
-    public static boolean emailIsVerified(String emailInput) {
+    public static boolean emailIsVerified(String emailInput){
         //checks if email entry is in correct email form
 
         String emailRegex = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$";
@@ -384,4 +384,6 @@ public class EditProfileViewModel extends ViewModel {
 
         return matcher.find();
     }
+
+
 }

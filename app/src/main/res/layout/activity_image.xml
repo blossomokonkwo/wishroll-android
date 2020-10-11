@@ -13,6 +13,10 @@
             name="mediaPostUrl"
             type="String" />
 
+        <variable
+            name="profilePictureUrl"
+            type="String" />
+
     </data>
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
@@ -195,6 +199,7 @@
 
                 <com.mikhaellopez.circularimageview.CircularImageView
                     android:id="@+id/profilePicImageView"
+                    app:profilePictureViewImage="@{profilePictureUrl}"
                     android:layout_width="@dimen/_35sdp"
                     app:civ_border="false"
                     android:layout_marginLeft="@dimen/_6sdp"
@@ -202,6 +207,7 @@
                     android:src="@drawable/reaction_picture"/>
 
                 <LinearLayout
+                    android:id="@+id/usernameView"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
@@ -220,7 +226,18 @@
                         android:textSize="@dimen/_10sdp"/>
 
 
+
+
                 </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/verifiedImageView"
+                    android:layout_toRightOf="@id/usernameView"
+                    android:layout_width="@dimen/_13sdp"
+                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:layout_centerVertical="true"
+                    android:layout_height="@dimen/_13sdp"
+                    android:src="@drawable/ic_verified"/>
 
             </RelativeLayout>
 

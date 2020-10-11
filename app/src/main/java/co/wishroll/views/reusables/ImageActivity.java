@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
@@ -27,7 +28,6 @@ import com.google.android.material.tabs.TabLayoutMediator;
 import co.wishroll.R;
 import co.wishroll.databinding.ActivityImageBinding;
 import co.wishroll.models.domainmodels.Post;
-import co.wishroll.models.domainmodels.PostCreator;
 import co.wishroll.utilities.FileUtils;
 import co.wishroll.utilities.StateData;
 import co.wishroll.utilities.ToastUtils;
@@ -44,9 +44,10 @@ public class ImageActivity extends AppCompatActivity {
     ActivityImageBinding activityImageBinding;
     ImageViewModel imageViewModel;
     private FloatingActionButton fabHome;
-    private ImageView backButton, mainImageView;
+    private ImageView backButton, mainImageView, verifiedButton;
     private ImageView moreButton;
     String mediaUrl;
+    private TextView creatorUsername, bookmarkCount, shareCount, downloadCount;
     int postId;
     Boolean isBookmarked;
     ImageButton downloadButton, shareButton;
@@ -76,7 +77,24 @@ public class ImageActivity extends AppCompatActivity {
         imageViewModel = new ViewModelProvider(this, new MediaViewModelFactory(postId)).get(ImageViewModel.class);
         activityImageBinding.setImageviewmodel(imageViewModel);
         activityImageBinding.setMediaPostUrl(mediaUrl);
+        activityImageBinding.setProfilePictureUrl(postItem.getCreator().getAvatar());
+        creatorUsername = findViewById(R.id.usernameImageView);
+        verifiedButton = findViewById(R.id.verifiedImageView);
+        creatorUsername.setText(postItem.getCreator().getUsername());
 
+        if(postItem.getCreator().getVerified()){
+            verifiedButton.setVisibility(View.VISIBLE);
+        }else{
+            verifiedButton.setVisibility(View.GONE);
+        }
+
+        bookmarkCount = findViewById(R.id.bookmarkCountImageView);
+        downloadCount = findViewById(R.id.downloadCountImageView);
+        shareCount = findViewById(R.id.shareCountImageView);
+
+        shareCount.setText(postItem.getShareCount() + "");
+        downloadCount.setText("");
+        bookmarkCount.setText(postItem.getBookmarkCount() + "");
 
         mainImageView = findViewById(R.id.mainImageView);
         fabHome = findViewById(R.id.fabImageView);
@@ -206,7 +224,6 @@ public class ImageActivity extends AppCompatActivity {
                                 bookmarkButton.setChecked(false);
                             }
 
-                           PostCreator postCreator = postStateData.data.getCreator();
 
 
 
