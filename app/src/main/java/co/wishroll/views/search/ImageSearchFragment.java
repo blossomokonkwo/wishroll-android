@@ -22,7 +22,6 @@ import co.wishroll.models.domainmodels.Post;
 import co.wishroll.utilities.StateData;
 import co.wishroll.utilities.ToastUtils;
 import co.wishroll.viewmodel.search.ImageSearchViewModel;
-import co.wishroll.viewmodel.search.SearchViewModelFactory;
 import co.wishroll.views.tools.GridRecyclerViewAdapter;
 
 /**
@@ -72,7 +71,7 @@ public class ImageSearchFragment extends Fragment {
         view = fragmentImagesearchBinding.getRoot();
         recyclerView = view.findViewById(R.id.imageRecyclerView);
 
-        imageViewModel = new ViewModelProvider(this, new SearchViewModelFactory(query)).get(ImageSearchViewModel.class);
+        imageViewModel = new ViewModelProvider(this).get(ImageSearchViewModel.class);
         gridLayoutManager = new GridLayoutManager(getActivity(), 3);
         recyclerView.setLayoutManager(gridLayoutManager);
         fragmentImagesearchBinding.setViewmodel(imageViewModel);

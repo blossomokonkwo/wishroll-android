@@ -10,7 +10,6 @@ import javax.inject.Singleton;
 
 import co.wishroll.WishRollApplication;
 import co.wishroll.models.repository.datamodels.AccessToken;
-import co.wishroll.models.repository.datamodels.EditedUser;
 import co.wishroll.models.repository.datamodels.UserModel;
 import co.wishroll.utilities.Encryption;
 
@@ -126,19 +125,7 @@ public class SessionManagement extends Application {
 
     }
 
-    public void editUserDetails(EditedUser editedUser){
-        Log.d(TAG, "editUserDetails: updating the user's session with returned values");
-        editor.putString("username", editedUser.getUsername());
-        editor.putString("name", editedUser.getName());
-        editor.putString("avatar", editedUser.getAvatarUrl());
-        editor.putString("background_url", editedUser.getBackgroundUrl());
-        editor.putString("email", editedUser.getEmail());
-        editor.putString("bio", editedUser.getBio());
-        editor.commit();
 
-
-
-    }
 
     public void checkLogout(){
         Log.d(TAG, "saveSession: REMOVED CURRENT USER ID: " + sharedPreferences.getInt("id", 0));

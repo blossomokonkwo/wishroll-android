@@ -65,7 +65,7 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
         switch(v.getId()){
 
             case R.id.bSignUp:
-                startActivity(new Intent(this, SignupActivity.class));
+                startActivity(new Intent(this, UsernameActivity.class));
                 break;
 
             case R.id.bLogin:

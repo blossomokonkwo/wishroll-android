@@ -1,6 +1,5 @@
 package co.wishroll.viewmodel.media;
 
-import android.util.Log;
 import android.widget.ImageView;
 
 import androidx.databinding.BindingAdapter;
@@ -15,8 +14,6 @@ import co.wishroll.R;
 import co.wishroll.models.domainmodels.Post;
 import co.wishroll.models.repository.PostRepository;
 import co.wishroll.utilities.StateData;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.observers.DisposableCompletableObserver;
 
 import static co.wishroll.WishRollApplication.applicationGraph;
 
@@ -39,15 +36,7 @@ public class ImageViewModel extends ViewModel {
                 .into(view);
     }
 
-    @BindingAdapter("profilePictureViewImage")
-    public static void loadProfilePictureViewImage(ImageView view, String imageUrl) {
 
-
-        Glide.with(view.getContext())
-                .load(imageUrl)
-                .placeholder(R.drawable.defaultprofile)
-                .into(view);
-    }
 
     public ImageViewModel() {
 
@@ -76,31 +65,7 @@ public class ImageViewModel extends ViewModel {
     }
 
 
-    public void toggleBookmarking(boolean bookmarking){
-        Disposable bookmarkStatus = postRepository.toggleBookmark(postId, bookmarking)
-                .subscribeWith(new DisposableCompletableObserver(){
-                    @Override
-                    public void onStart() {
 
-                    }
-
-                    @Override
-                    public void onError(Throwable error) {
-                        Log.d(TAG, "onError: this couldn't be bookmarkd. you wanted to bookmark, true or false? " + bookmarking);
-                        getPost(postId);
-                        error.printStackTrace();
-
-                    }
-
-                    @Override
-                    public void onComplete() {
-                        getPost(postId);
-                        Log.d(TAG, "onComplete: this completed, whatever you did here did you bookmark it? " + bookmarking);
-                        dispose();
-
-                    }
-                });
-    }
 
 
 

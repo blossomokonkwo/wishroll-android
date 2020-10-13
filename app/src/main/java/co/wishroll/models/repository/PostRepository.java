@@ -111,22 +111,6 @@ public class PostRepository {
 
 
 
-    public Completable toggleBookmark(int postId, boolean bookmarking){
-
-        if(bookmarking){
-            status = wishRollApi.createBookmark(postId)
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribeOn(Schedulers.io());
-        }else{
-            status = wishRollApi.deleteBookmark(postId)
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribeOn(Schedulers.io());
-        }
-
-
-
-        return status;
-    }
 
 
     public LiveData<StateData<Post>> getPost(int postId){
@@ -154,32 +138,6 @@ public class PostRepository {
         return source;
     }
 
-
-    public  LiveData<StateData<ArrayList<Post>>> getBookmarkedPosts(int userId, int offset){
-        final LiveData<StateData<ArrayList<Post>>> source = LiveDataReactiveStreams.fromPublisher(
-                wishRollApi.getBookmarkedPosts(userId, offset)
-                .onErrorReturn(new Function<Throwable, Post[]>() {
-                    @Override
-                    public Post[] apply(Throwable throwable) throws Exception {
-                        return null;
-                    }
-                }).map(new Function<Post[], StateData<ArrayList<Post>>>() {
-                    @Override
-                    public StateData<ArrayList<Post>> apply(Post[] posts) throws Exception {
-                        ArrayList<Post> queriedPosts = new ArrayList<>();
-
-                        if(posts == null){
-                            return StateData.error("Something went wrong", queriedPosts);
-                        }else{
-                            queriedPosts.addAll(Arrays.asList(posts));
-                            return StateData.authenticated(queriedPosts);
-                        }
-
-                    }
-                }).subscribeOn(Schedulers.io()));
-
-        return source;
-    }
 
 
 

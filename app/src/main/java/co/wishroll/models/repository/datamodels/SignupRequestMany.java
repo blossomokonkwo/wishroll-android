@@ -1,5 +1,6 @@
 package co.wishroll.models.repository.datamodels;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 
@@ -7,19 +8,30 @@ public class SignupRequestMany {
 
 
     @SerializedName("name")
+    @Expose
     String name;
 
     @SerializedName("username")
+    @Expose
     String username;
 
+
+
     @SerializedName("password")
+    @Expose
     String password;
 
     @SerializedName("email")
+    @Expose
     String email;
 
     @SerializedName("birth_date")
+    @Expose
     String birthday;
+
+    @SerializedName("gender")
+    @Expose
+    int gender;
 
 
     public SignupRequestMany() {
@@ -29,7 +41,7 @@ public class SignupRequestMany {
     }
 
 
-    public SignupRequestMany(String name, String username, String password, String email, String birthday) {
+    public SignupRequestMany(String name, String username, String password, String email, String birthday, int gender) {
         super();
         this.name = name;
         this.username = formatUsername(username);

@@ -16,14 +16,14 @@ public class SearchViewModelFactory implements ViewModelProvider.Factory {
 
         if(modelClass.isAssignableFrom(GifSearchFragment.class)) {
 
-            return (T) new GifSearchViewModel(searchQuery);
+            return (T) new GifSearchViewModel();
 
         }else if(modelClass.isAssignableFrom(ImageSearchFragment.class)){
 
-            return (T) new ImageSearchViewModel(searchQuery);
+            return (T) new ImageSearchViewModel();
 
         }else {
-            return (T) new VideoSearchViewModel(searchQuery);
+            return (T) new VideoSearchViewModel();
         }
 
     }

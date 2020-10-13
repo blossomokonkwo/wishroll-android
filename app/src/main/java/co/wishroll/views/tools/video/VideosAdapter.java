@@ -4,13 +4,11 @@ import android.Manifest;
 import android.app.Activity;
 import android.app.DownloadManager;
 import android.content.Context;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,7 +31,6 @@ import co.wishroll.utilities.ToastUtils;
 
 public class VideosAdapter extends RecyclerView.Adapter<VideosAdapter.VideoViewHolder> {
 
-    private static final String TAG = "VideosAdapter";
 
     private ArrayList<Post> videosList = new ArrayList<>();
     Context mContext;
@@ -61,43 +58,6 @@ public class VideosAdapter extends RecyclerView.Adapter<VideosAdapter.VideoViewH
 
 
         holder.setVideoData(videosList.get(position));
-        holder.bookmarkButton.setChecked(videosList.get(position).getBookmarked());
-        holder.shareButton.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-
-                Intent intent = new Intent();
-
-                intent.setAction(Intent.ACTION_SEND);
-
-                intent.putExtra(Intent.EXTRA_STREAM, Uri.parse(videosList.get(position).getMediaUrl()));
-
-                intent.setType("video/mp4");
-
-                //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-
-                Intent shareIntent = Intent.createChooser(intent, "Share to: ");
-                mContext.startActivity(shareIntent);
-
-            }
-
-        });
-
-
-
-
-        holder.bookmarkButton.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-
-                Log.d(TAG, "onBookmarkClicked: you are trying to bookmark this, true or false: " + holder.bookmarkButton.isChecked());
-
-
-            }
-
-        });
 
 
 
@@ -171,7 +131,6 @@ public class VideosAdapter extends RecyclerView.Adapter<VideosAdapter.VideoViewH
         request.setDescription("Downloading...");
         request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
 
-        Log.d(TAG, "startDownloading: EXTENSION " + FileUtils.getExtension(videosList.get(position).getMediaUrl()));
         request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS,""+System.currentTimeMillis() + FileUtils.getExtension(videosList.get(position).getMediaUrl()));
 
         //get download service and enque file
@@ -203,8 +162,6 @@ public class VideosAdapter extends RecyclerView.Adapter<VideosAdapter.VideoViewH
             super(itemView);
 
             videoView = itemView.findViewById(R.id.videoView);
-            shareButton = itemView.findViewById(R.id.shareVideoView);
-            bookmarkButton = itemView.findViewById(R.id.bookmarkVideoView);
             progressBar = itemView.findViewById(R.id.videoProgressBar);
             downloadButton = itemView.findViewById(R.id.downloadVideoView);
 
@@ -213,7 +170,6 @@ public class VideosAdapter extends RecyclerView.Adapter<VideosAdapter.VideoViewH
 
 
         void setVideoData(Post post) {
-            bookmarkButton.setChecked(post.getBookmarked());
             videoView.setVideoURI(Uri.parse(post.getMediaUrl()));
             videoView.setClickable(true);
 

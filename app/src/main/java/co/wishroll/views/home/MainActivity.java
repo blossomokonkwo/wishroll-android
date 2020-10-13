@@ -1,38 +1,41 @@
 package co.wishroll.views.home;
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.viewpager2.widget.ViewPager2;
 
+import com.bumptech.glide.Glide;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.tabs.TabLayout;
-import com.google.android.material.tabs.TabLayoutMediator;
-import com.mikhaellopez.circularimageview.CircularImageView;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
 import co.wishroll.R;
 import co.wishroll.databinding.ActivityMainBinding;
+import co.wishroll.models.repository.UserRepository;
 import co.wishroll.models.repository.local.SessionManagement;
 import co.wishroll.utilities.FileUtils;
+import co.wishroll.utilities.ToastUtils;
 import co.wishroll.viewmodel.MainViewModel;
-import co.wishroll.views.profile.ProfileActivity;
+import co.wishroll.views.registration.LoginActivity;
+import co.wishroll.views.reusables.TextBodyActivity;
 import co.wishroll.views.search.SearchActivity;
-import co.wishroll.views.tools.MainViewPagerAdapter;
 import co.wishroll.views.upload.TaggingActivity;
 
 import static co.wishroll.WishRollApplication.applicationGraph;
@@ -42,12 +45,11 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MAIN ACTIVITY";
     ActivityMainBinding activityMainBinding;
     MainViewModel mainViewModel;
-    CircularImageView profileThumbnail;
-
     SessionManagement sessionManagement = applicationGraph.sessionManagement();
+    UserRepository userRepository = applicationGraph.userRepository();
     FloatingActionButton fabUpload;
     EditText searchBarFake;
-
+    ImageButton moreButton;
     private static final int PERMISSION_CODE = 1001;
     private static final int MEDIA_PICK_CODE = 1000;
     private int IMAGE_CROP_CODE = 1002;
@@ -63,13 +65,10 @@ public class MainActivity extends AppCompatActivity {
         activityMainBinding = DataBindingUtil.setContentView(MainActivity.this, R.layout.activity_main);
         mainViewModel = new ViewModelProvider(this).get(MainViewModel.class);
         activityMainBinding.setMainviewmodel(mainViewModel);
-        activityMainBinding.setImageUrl(sessionManagement.getAvatarURL());
-
 
         fabUpload = findViewById(R.id.fabUpload);
         searchBarFake = findViewById(R.id.etSearchBarMain);
-        profileThumbnail = findViewById(R.id.profileMain);
-
+        moreButton = findViewById(R.id.moreButtonMainPage);
 
         fabUpload.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,16 +92,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        profileThumbnail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d(TAG, "before navigating to the profile activity");
-                Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        });
-
 
 
         searchBarFake.setOnClickListener(new View.OnClickListener() {
@@ -114,42 +103,140 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
-
-        ViewPager2 viewPager2 = findViewById(R.id.viewPagerMainView);
-        viewPager2.setAdapter(new MainViewPagerAdapter(this));
-        TabLayout tabLayout = findViewById(R.id.tabLayoutMainView);
-        TabLayoutMediator tabLayoutMediator = new TabLayoutMediator(
-                tabLayout, viewPager2, new TabLayoutMediator.TabConfigurationStrategy() {
-
+        moreButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
-                Log.d(TAG, "inside the onConfigure tab, TabLayout mediator");
+            public void onClick(View v) {
+                final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(
+                        MainActivity.this, R.style.BottomSheetDialogTheme
+                );
 
-                switch (position){
+                View bottomSheetView = LayoutInflater.from(getApplicationContext()).inflate(R.layout.layout_bottom_sheet,
+                        findViewById(R.id.bottomSheetContainer));
 
-                    case 0:{
 
-                        tab.setText("Trending");
+                bottomSheetView.findViewById(R.id.privacyPolicy).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
 
-                        break;}
-
-                    //TODO(saving until messaging for android comes out)
-                   /* case 1:{
-                        tab.setText("Messages");
-                        break;}*/
-
-                    default: {
-
-                        tab.setText("Feed");
-
-                        break;
+                        Intent viewText = new Intent (MainActivity.this, TextBodyActivity.class);
+                        viewText.putExtra("pageTitle", 2);
+                        startActivity(viewText);
+                        bottomSheetDialog.dismiss();
                     }
-                }
+                });
+
+                bottomSheetView.findViewById(R.id.faqButton).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        Intent viewText = new Intent (MainActivity.this, TextBodyActivity.class);
+                        viewText.putExtra("pageTitle", 1);
+                        startActivity(viewText);
+                        bottomSheetDialog.dismiss();
+
+
+                    }
+                });
+
+
+                bottomSheetView.findViewById(R.id.termsOfServiceButton).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        Intent viewTerms = new Intent (MainActivity.this, TextBodyActivity.class);
+                        viewTerms.putExtra("pageTitle", 3);
+                        startActivity(viewTerms);
+                        bottomSheetDialog.dismiss();
+                    }
+                });
+                bottomSheetView.findViewById(R.id.contactUsButton).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        Intent viewText = new Intent (MainActivity.this, ContactActivity.class);
+                        startActivity(viewText);
+                        bottomSheetDialog.dismiss();
+
+
+                    }
+                });
+
+                bottomSheetView.findViewById(R.id.deleteAccount).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        bottomSheetDialog.dismiss();
+
+
+                        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                        builder.setMessage("All your account data and posts will be deleted.");
+                        builder.setTitle("Are You Sure?");
+                        builder.setCancelable(true);
+
+                        builder.setPositiveButton("Delete Account", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+
+
+                                //LMAOOOO IDEK IF THIS IS RIGHT TBH
+                                if(mainViewModel.deleteAccount()) {
+                                    Glide.get(MainActivity.this).clearMemory();
+                                    //Glide.get(getContext()).clearDiskCache();
+                                    sessionManagement.clearSession();
+                                    sessionManagement.checkLogout();
+                                    startActivity(new Intent(MainActivity.this, LoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                                    finish();
+                                }else{
+                                    ToastUtils.showToast(MainActivity.this, "Something went wrong");
+                                }
+                            }
+                        });
+
+                        builder.setNegativeButton("Nevermind", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+
+                            }
+                        });
+
+                        AlertDialog alertDialog = builder.create();
+                        alertDialog.show();
+
+
+                    }
+
+                });
+
+                bottomSheetView.findViewById(R.id.logoutButton).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        bottomSheetDialog.dismiss();
+                        sessionManagement.printEverything("before clearing session");
+                        sessionManagement.clearSession();
+                        sessionManagement.checkLogout();
+                        sessionManagement.printEverything("after clearing session");
+
+                        Glide.get(MainActivity.this).clearMemory();
+                        //Glide.get(getContext()).clearDiskCache();
+                        startActivity(new Intent(MainActivity.this, LoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                        finish();
+
+
+
+
+                    }
+
+                });
+
+
+
+                bottomSheetDialog.setContentView(bottomSheetView);
+                bottomSheetDialog.show();
 
             }
+
         });
-        tabLayoutMediator.attach();
 
     }
 
@@ -165,7 +252,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-       
+
         if(requestCode == MEDIA_PICK_CODE && resultCode == RESULT_OK && data != null) {
             Uri path = data.getData();
 
@@ -196,9 +283,9 @@ public class MainActivity extends AppCompatActivity {
 
 
             }
-            
+
         }
-        
+
         if(requestCode == IMAGE_CROP_CODE){
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
 
@@ -220,60 +307,15 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     private void startCropImageActivity(Uri path, int requestCode) {
 
-        Intent  cropIntent = CropImage.activity(path)
-                    .setGuidelines(CropImageView.Guidelines.ON)
-                    .setCropMenuCropButtonTitle("Done")
-                    .setFixAspectRatio(false)
-                    .setActivityTitle("Crop")
-                    .setMultiTouchEnabled(true)
-                    .getIntent(this);
+        Intent cropIntent = CropImage.activity(path)
+                .setGuidelines(CropImageView.Guidelines.ON)
+                .setCropMenuCropButtonTitle("Done")
+                .setFixAspectRatio(false)
+                .setActivityTitle("Crop")
+                .setMultiTouchEnabled(true)
+                .getIntent(this);
 
         startActivityForResult(cropIntent, requestCode);
     }

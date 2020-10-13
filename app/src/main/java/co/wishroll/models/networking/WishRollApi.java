@@ -1,22 +1,20 @@
 package co.wishroll.models.networking;
 
 import java.util.List;
-import java.util.Map;
 
 import co.wishroll.models.domainmodels.Post;
 import co.wishroll.models.domainmodels.TrendingTag;
 import co.wishroll.models.domainmodels.User;
 import co.wishroll.models.repository.datamodels.AuthResponse;
+import co.wishroll.models.repository.datamodels.EValidationRequest;
 import co.wishroll.models.repository.datamodels.LoginRequest;
 import co.wishroll.models.repository.datamodels.SignupRequestMany;
 import co.wishroll.models.repository.datamodels.UValidationRequest;
-import co.wishroll.models.repository.datamodels.UpdateResponse;
 import co.wishroll.models.repository.datamodels.UploadPostResponse;
 import io.reactivex.Completable;
 import io.reactivex.Flowable;
 import io.reactivex.Single;
 import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
@@ -25,9 +23,7 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
-import retrofit2.http.PUT;
 import retrofit2.http.Part;
-import retrofit2.http.PartMap;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -46,7 +42,11 @@ public interface WishRollApi {
     @POST("v3/signup")
     Call<AuthResponse> signupUser(@Body SignupRequestMany signupRequestMany);
 
-    @POST("v2/signup/username")
+
+    @POST("signup/email")
+    Call<AuthResponse> validateEmail(@Body EValidationRequest eValidationRequest);
+
+    @POST("signup/username")
     Call<AuthResponse> validateUsername(@Body UValidationRequest uValidationRequest);
 
 
@@ -64,29 +64,6 @@ public interface WishRollApi {
     Flowable<User> getUserByUsername(@Path ("username") String username);
 
 
-    @Multipart
-    @PUT("v2/user/update")
-    Flowable<UpdateResponse> updateUserDetails(@PartMap Map<String, RequestBody> parameters,
-                                               @Part MultipartBody.Part profile,
-                                               @Part MultipartBody.Part banner);
-
-    @Multipart
-    @PUT("v2/user/update")
-    Flowable<UpdateResponse> updateUserDetails(@PartMap Map<String, RequestBody> parameters,
-                                               @Part MultipartBody.Part profile);
-
-    @Multipart
-    @PUT("v2/user/update")
-    Flowable<UpdateResponse> updateUserDetails(@PartMap Map<String, RequestBody> parameters);
-
-    @Multipart
-    @PUT("v2/user/update")
-    Flowable<UpdateResponse> updateUserDetails( @Part MultipartBody.Part profile,
-                                                @Part MultipartBody.Part banner);
-
-    @Multipart
-    @PUT("v2/user/update")
-    Flowable<UpdateResponse> updateUserDetails( @Part MultipartBody.Part profile);
 
 
 

@@ -21,7 +21,6 @@ import co.wishroll.databinding.FragmentVideosearchBinding;
 import co.wishroll.models.domainmodels.Post;
 import co.wishroll.utilities.StateData;
 import co.wishroll.utilities.ToastUtils;
-import co.wishroll.viewmodel.search.SearchViewModelFactory;
 import co.wishroll.viewmodel.search.VideoSearchViewModel;
 import co.wishroll.views.tools.GridRecyclerViewAdapter;
 
@@ -71,7 +70,7 @@ public class VideoSearchFragment extends Fragment {
         view = fragmentVideosearchBinding.getRoot();
         recyclerView = view.findViewById(R.id.videoRecyclerView);
 
-        videoViewModel = new ViewModelProvider(this, new SearchViewModelFactory(query)).get(VideoSearchViewModel.class);
+        videoViewModel = new ViewModelProvider(this).get(VideoSearchViewModel.class);
         gridLayoutManager = new GridLayoutManager(getActivity(), 3);
         recyclerView.setLayoutManager(gridLayoutManager);
         fragmentVideosearchBinding.setViewmodel(videoViewModel);

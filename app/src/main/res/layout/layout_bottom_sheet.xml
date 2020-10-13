@@ -28,27 +28,7 @@
             />
 
     </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
 
-
-
-        <TextView
-            android:id="@+id/viewBookmarks"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/bookmarks"
-            android:gravity="left"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:layout_marginLeft="@dimen/_20sdp"
-            android:layout_marginBottom="@dimen/_10sdp"
-            android:textSize="@dimen/_14sdp"
-            android:textColor="@color/black"
-            />
-
-    </LinearLayout>
 
 
     <LinearLayout

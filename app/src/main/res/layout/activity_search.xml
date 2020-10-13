@@ -38,10 +38,12 @@
 
  <!-- android:afterTextChanged="@{(edtitable)->editProfileViewModel.afterNameChange(edtitable)}" -->
 
-                        <EditText
+                        <androidx.appcompat.widget.SearchView
                                 android:id="@+id/etSearchBarView"
                                 android:layout_width="match_parent"
                                 android:hint="@string/search_prompt"
+                                android:imeOptions="actionSearch"
+                                android:inputType="text"
                                 android:drawableStart="@drawable/ic_search"
                                 android:paddingStart="@dimen/_8sdp"
                                 android:paddingEnd="@dimen/_8sdp"

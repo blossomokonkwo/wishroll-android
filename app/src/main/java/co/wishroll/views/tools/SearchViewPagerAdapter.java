@@ -31,11 +31,11 @@ public class SearchViewPagerAdapter extends FragmentStateAdapter {
 
         switch (position) {
             case 0:
-                return new VideoSearchFragment(query);
+                return new VideoSearchFragment();
             case 1:
-                return new ImageSearchFragment(query);
+                return new ImageSearchFragment();
             default:
-                return new GifSearchFragment(query);
+                return new GifSearchFragment();
 
         }
 

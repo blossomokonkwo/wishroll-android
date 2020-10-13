@@ -34,7 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/faqs"
-            android:layout_marginStart="@dimen/_15sdp"
+            android:layout_marginStart="@dimen/_40sdp"
             android:layout_marginTop="@dimen/_15sdp"
             android:textSize="@dimen/_18ssp"
             android:textStyle="bold"
@@ -50,41 +50,10 @@
 
             >
 
-        <LinearLayout
-            android:id="@+id/faqOne"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="35dp"
-            android:layout_marginBottom="30dp"
-            android:layout_marginStart="@dimen/_40sdp"
-            android:orientation="vertical">
 
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="How do I get the Keyboard Extension?"
-                android:layout_marginBottom="@dimen/_5sdp"
-                android:textSize="@dimen/_15ssp"
-                android:textColor="@color/black"/>
-
-            <TextView
-                android:layout_marginLeft="@dimen/_7sdp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Go to Settings > System > Languages &amp; input. Tap Virtual keyboard and choose WishRoll."
-                android:textSize="@dimen/_13ssp"
-                android:textColor="@color/dark_grey"/>
-
-
-
-
-        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/faqTwo"
-            android:layout_below="@id/faqOne"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"

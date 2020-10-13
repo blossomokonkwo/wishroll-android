@@ -9,7 +9,11 @@ public class UValidationRequest {
     @Expose
     public String username;
 
+    public UValidationRequest() {
+    }
+
     public UValidationRequest(String username) {
+        super();
         this.username = username;
     }
 

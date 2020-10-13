@@ -6,13 +6,10 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -44,14 +41,11 @@ public class ImageActivity extends AppCompatActivity {
     ActivityImageBinding activityImageBinding;
     ImageViewModel imageViewModel;
     private FloatingActionButton fabHome;
-    private ImageView backButton, mainImageView, verifiedButton;
-    private ImageView moreButton;
+    private ImageView backButton, mainImageView;
     String mediaUrl;
-    private TextView creatorUsername, bookmarkCount, shareCount, downloadCount;
     int postId;
     Boolean isBookmarked;
-    ImageButton downloadButton, shareButton;
-    ToggleButton bookmarkButton;
+    ImageButton downloadButton;
     Post postItem;
 
     private static final String TAG = "ImageActivity";
@@ -66,10 +60,7 @@ public class ImageActivity extends AppCompatActivity {
 
         mediaUrl = getIntent().getStringExtra("mediaUrl");
         postId = getIntent().getIntExtra("postId", 0);
-        //isBookmarked = getIntent().getBooleanExtra("isBookmarked", false);
         postItem = getIntent().getParcelableExtra("post");
-        isBookmarked = postItem.getBookmarked();
-        Log.d(TAG, "onCreate: lets see if the post came thru mate " + postItem.getMediaUrl());
 
 
 
@@ -77,33 +68,20 @@ public class ImageActivity extends AppCompatActivity {
         imageViewModel = new ViewModelProvider(this, new MediaViewModelFactory(postId)).get(ImageViewModel.class);
         activityImageBinding.setImageviewmodel(imageViewModel);
         activityImageBinding.setMediaPostUrl(mediaUrl);
-        activityImageBinding.setProfilePictureUrl(postItem.getCreator().getAvatar());
-        creatorUsername = findViewById(R.id.usernameImageView);
-        verifiedButton = findViewById(R.id.verifiedImageView);
-        creatorUsername.setText(postItem.getCreator().getUsername());
 
-        if(postItem.getCreator().getVerified()){
-            verifiedButton.setVisibility(View.VISIBLE);
-        }else{
-            verifiedButton.setVisibility(View.GONE);
-        }
 
-        bookmarkCount = findViewById(R.id.bookmarkCountImageView);
-        downloadCount = findViewById(R.id.downloadCountImageView);
-        shareCount = findViewById(R.id.shareCountImageView);
 
-        shareCount.setText(postItem.getShareCount() + "");
-        downloadCount.setText("");
-        bookmarkCount.setText(postItem.getBookmarkCount() + "");
+
+
+
+
 
         mainImageView = findViewById(R.id.mainImageView);
         fabHome = findViewById(R.id.fabImageView);
         downloadButton = findViewById(R.id.downloadImageView);
-        bookmarkButton = findViewById(R.id.bookmarkImageView);
-        shareButton = findViewById(R.id.shareImageView);
 
 
-        Log.d(TAG, "onCreate: this post has been bookmarked already fam " + isBookmarked);
+
 
 
 
@@ -119,7 +97,6 @@ public class ImageActivity extends AppCompatActivity {
             ToastUtils.showToast(this, "Post Not Found");
             mainImageView.setVisibility(View.GONE);
             downloadButton.setVisibility(View.GONE);
-            bookmarkButton.setVisibility(View.GONE);
             viewPager2.setVisibility(View.GONE);
 
         }
@@ -143,25 +120,7 @@ public class ImageActivity extends AppCompatActivity {
 
 
 
-        shareButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent();
 
-                intent.setAction(Intent.ACTION_SEND);
-
-                intent.putExtra(Intent.EXTRA_STREAM,  Uri.parse(mediaUrl));
-
-                intent.setType("image/*");
-
-                //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-
-                Intent shareIntent = Intent.createChooser(intent, "Share to: ");
-
-                Log.d(TAG, "onClick: UMMM??? " +  MediaStore.Images.Media.getContentUri(mediaUrl));
-                startActivity(shareIntent);
-            }
-        });
 
 
 
@@ -182,7 +141,6 @@ public class ImageActivity extends AppCompatActivity {
             }
         });
 
-        moreButton = findViewById(R.id.moreImageView);
 
 
         downloadButton.setOnClickListener(new View.OnClickListener() {
@@ -218,11 +176,7 @@ public class ImageActivity extends AppCompatActivity {
 
                         case AUTHENTICATED: {
                             Log.d(TAG, "onChanged: AUTHENTICATED GETTING POSTS BOOKMARK STATUS");
-                            if(postStateData.data.getBookmarked()){
-                                bookmarkButton.setChecked(true);
-                            }else{
-                                bookmarkButton.setChecked(false);
-                            }
+
 
 
 
@@ -243,24 +197,7 @@ public class ImageActivity extends AppCompatActivity {
     }
 
 
-    public void onBookmarkClicked(View view) {
-        Log.d(TAG, "onBookmarkClicked: BOOKMARK HAS BEEN CLICKED");
 
-        Log.d(TAG, "onBookmarkClicked: you are trying to bookmark this, true or false: " + bookmarkButton.isChecked());
-
-        imageViewModel.toggleBookmarking(bookmarkButton.isChecked());
-
-        if(bookmarkButton.isChecked()){
-
-            ToastUtils.showToast(this, "Added to Bookmarks");
-
-        }else{
-
-            ToastUtils.showToast(this, "Removed from Bookmarks");
-
-        }
-
-    }
 
     private void startDownloading() {
 

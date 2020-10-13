@@ -3,11 +3,11 @@ package co.wishroll.views.search;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.tabs.TabLayout;
@@ -22,23 +22,29 @@ public class SearchActivity extends AppCompatActivity {
     private static final String TAG = "SearchActivity";
     ActivitySearchBinding activitySearchBinding;
 
+    SearchView searchBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
-        EditText searchBar = findViewById(R.id.etSearchBarView);
+        searchBar = findViewById(R.id.etSearchBarView);
+
+        ViewPager2 viewPager2 = findViewById(R.id.viewPagerSearchView);
 
         //timing of text, on text changed, with view model, on enter listener
 
+        viewPager2.setAdapter(new SearchViewPagerAdapter(SearchActivity.this));
 
         TextView cancelButton = findViewById(R.id.cancelButton);
 
 
 
-        ViewPager2 viewPager2 = findViewById(R.id.viewPagerSearchView);
-        viewPager2.setAdapter(new SearchViewPagerAdapter(this, searchBar.getText().toString()));
+
+
+
+
 
         TabLayout tabLayout = findViewById(R.id.tabLayoutSearchView);
         TabLayoutMediator tabLayoutMediator = new TabLayoutMediator(

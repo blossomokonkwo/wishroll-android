@@ -10,9 +10,7 @@
             name="mainviewmodel"
             type="co.wishroll.viewmodel.MainViewModel" />
 
-        <variable
-            name="imageUrl"
-            type="String" />
+
 
     </data>
 
@@ -36,33 +34,29 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_70sdp">
+                android:layout_height="@dimen/_75sdp"
+                android:gravity="center">
+
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true">
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true">
 
-                    <!-- android:onClick="@{() -> mainviewmodel.onProfileMainPressed}" -->
 
-                    <com.mikhaellopez.circularimageview.CircularImageView
-                        app:profileImage="@{imageUrl}"
-                        android:layout_margin="@dimen/_10sdp"
-                        android:id="@+id/profileMain"
-                        android:layout_width="@dimen/_55sdp"
-                        android:layout_height="@dimen/_55sdp"
-                        android:src="@drawable/reaction_picture"
-                        />
+
                     <RelativeLayout
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginRight="@dimen/_20sdp"
+                        android:layout_marginEnd="@dimen/_20sdp"
+                        android:layout_marginStart="@dimen/_10sdp"
                         >
 
                         <EditText
                             android:id="@+id/etSearchBarMain"
                             android:focusable="false"
+                            android:layout_marginRight="@dimen/_15sdp"
                             android:layout_alignParentLeft="true"
                             android:layout_width="match_parent"
                             android:hint="Search WishRoll..."
@@ -73,9 +67,21 @@
                             android:layout_centerVertical="true"
                             android:background="@drawable/search_button_style"
                             />
+
                     </RelativeLayout>
 
                 </LinearLayout>
+
+                <ImageButton
+                    android:id="@+id/moreButtonMainPage"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:layout_marginRight="@dimen/_10sdp"
+                    android:src="@drawable/ic_more_vert"
+                    android:background="@color/transparent"/>
+
             </RelativeLayout>
 
 
@@ -85,18 +91,7 @@
                 android:background="@color/white"
                 android:orientation="vertical">
 
-                <com.google.android.material.tabs.TabLayout
-                    app:tabSelectedTextColor="@color/wishroll_blue"
-                    app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
-                    android:id="@+id/tabLayoutMainView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:tabMode="fixed"
-                    app:tabIndicatorColor="@color/wishroll_blue"
-                    app:tabGravity="fill"
-                    app:tabIconTint="#e4e7ed"
 
-                    />
 
                 <ScrollView
                     android:id="@+id/nestedContent"
@@ -112,12 +107,14 @@
                         android:background="@color/white"
                         android:orientation="vertical">
 
-                        <androidx.viewpager2.widget.ViewPager2
-                            android:id="@+id/viewPagerMainView"
+                        <fragment
+                            android:id="@+id/trendingFragment"
                             android:layout_width="match_parent"
-                            android:layout_height="900dp">
+                            android:layout_height="900dp"
+                            android:name="co.wishroll.views.home.TrendingFragment">
 
-                        </androidx.viewpager2.widget.ViewPager2>
+                        </fragment>
+
                     </LinearLayout>
                 </ScrollView>
 

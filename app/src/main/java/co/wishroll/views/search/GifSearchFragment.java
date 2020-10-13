@@ -10,7 +10,6 @@ import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,7 +23,6 @@ import co.wishroll.utilities.StateData;
 import co.wishroll.utilities.ToastUtils;
 import co.wishroll.viewmodel.search.GifSearchViewModel;
 import co.wishroll.viewmodel.search.ImageSearchViewModel;
-import co.wishroll.viewmodel.search.SearchViewModelFactory;
 import co.wishroll.views.tools.GridRecyclerViewAdapter;
 
 /**
@@ -77,7 +75,7 @@ public class GifSearchFragment extends Fragment {
         view = fragmentGifsearchBinding.getRoot();
         recyclerView = view.findViewById(R.id.gifRecyclerView);
 
-        gifViewModel = new ViewModelProvider(this, new SearchViewModelFactory(query)).get(GifSearchViewModel.class);
+        gifViewModel = new ViewModelProvider(this).get(GifSearchViewModel.class);
         gridLayoutManager = new GridLayoutManager(getActivity(), 3);
         recyclerView.setLayoutManager(gridLayoutManager);
         fragmentGifsearchBinding.setViewmodel(gifViewModel);

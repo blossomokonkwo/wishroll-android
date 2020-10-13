@@ -12,8 +12,6 @@ import java.util.ArrayList;
 import co.wishroll.models.domainmodels.Post;
 import co.wishroll.models.repository.PostRepository;
 import co.wishroll.utilities.StateData;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.observers.DisposableCompletableObserver;
 
 import static co.wishroll.WishRollApplication.applicationGraph;
 
@@ -98,31 +96,6 @@ public class VideosViewModel extends ViewModel {
 
 
 
-    public void toggleBookmarking(boolean bookmarking){
-        Disposable bookmarkStatus = postRepository.toggleBookmark(postId, bookmarking)
-                .subscribeWith(new DisposableCompletableObserver(){
-                    @Override
-                    public void onStart() {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable error) {
-                        Log.d(TAG, "onError: this couldn't be bookmarkd. you wanted to bookmark, true or false? " + bookmarking);
-                        getPost(postId);
-                        error.printStackTrace();
-
-                    }
-
-                    @Override
-                    public void onComplete() {
-                        getPost(postId);
-                        Log.d(TAG, "onComplete: this completed, whatever you did here did you bookmark it? " + bookmarking);
-                        dispose();
-
-                    }
-                });
-    }
 
 
 

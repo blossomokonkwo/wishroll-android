@@ -73,28 +73,6 @@ public class PostsGridViewModel extends ViewModel {
     public void getFirstPostGrid() {
         postGridPostsLiveData.setValue(StateData.loading((ArrayList<Post>) null));
 
-        if (isBookmarkQuery || trendingTagId == -1) {
-            final LiveData<StateData<ArrayList<Post>>> source = postRepository.getBookmarkedPosts(sessionManagement.getCurrentUserId(), START_OFFSET);
-
-            postGridPostsLiveData.addSource(source, new Observer<StateData<ArrayList<Post>>>() {
-                @Override
-                public void onChanged(StateData<ArrayList<Post>> bookmarkedStateData) {
-
-                    if (bookmarkedStateData.data != null) {
-                        setDataSetSize(bookmarkedStateData.data.size());
-                    } else {
-                        setDataSetSize(15);
-                    }
-
-                    postGridPostsLiveData.setValue(bookmarkedStateData);
-                    postGridPostsLiveData.removeSource(source);
-                }
-            });
-
-
-
-        } else {
-
 
             final LiveData<StateData<ArrayList<Post>>> source = postRepository.getTaggedPosts(trendingTagId, START_OFFSET);
 
@@ -115,7 +93,7 @@ public class PostsGridViewModel extends ViewModel {
 
 
 
-        }
+
 
     }
 
@@ -123,26 +101,7 @@ public class PostsGridViewModel extends ViewModel {
 
         postGridPostsLiveData.setValue(StateData.loading((ArrayList<Post>) null));
 
-        if(isBookmarkQuery || trendingTagId == -1) {
-            final LiveData<StateData<ArrayList<Post>>> source = postRepository.getBookmarkedPosts(sessionManagement.getCurrentUserId(), offset);
-            postGridPostsLiveData.addSource(source, new Observer<StateData<ArrayList<Post>>>() {
-                @Override
-                public void onChanged(StateData<ArrayList<Post>> trendingTagStateData) {
 
-                    if (trendingTagStateData.data != null) {
-                        setDataSetSize(trendingTagStateData.data.size());
-                    } else {
-                        setDataSetSize(15);
-                    }
-
-                    postGridPostsLiveData.setValue(trendingTagStateData);
-                    postGridPostsLiveData.removeSource(source);
-                }
-            });
-
-
-
-        }else{
 
             //FOR OTHER QUERIES MOST LIKELY SEARCH GLOBAL QUERY VARIABLE NEEDED
 
@@ -163,7 +122,7 @@ public class PostsGridViewModel extends ViewModel {
             });
 
 
-        }
+
 
 
 
