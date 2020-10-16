@@ -1,11 +1,7 @@
 package co.wishroll.viewmodel.search;
 
 import android.util.Log;
-import android.view.KeyEvent;
-import android.widget.EditText;
-import android.widget.TextView;
 
-import androidx.databinding.BindingAdapter;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.Observer;
@@ -46,7 +42,7 @@ public class SearchViewModel extends ViewModel {
     }
 
     private enum ContentType {
-        VIDEO, IMAGES, GIF
+        video, images, gif
     };
     
     
@@ -73,19 +69,6 @@ public class SearchViewModel extends ViewModel {
 
     }
 
-    @BindingAdapter("onEnterPressed")
-    public static void onEnterButtonPressed(EditText editText, String query){
-
-
-        editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
-
-                SearchViewModel.performFirstSearch();
-                return false;
-            }
-        });
-    }
 
     public void onTextChanged(CharSequence s, int start, int before, int count){
 
@@ -112,7 +95,7 @@ public class SearchViewModel extends ViewModel {
         if(currentFragment == 0){
             listOfVideoMedia.setValue(StateData.loading((ArrayList<Post>) null));
 
-            final LiveData<StateData<ArrayList<Post>>> source = searchRepository.getSearchResults(START_OFFSET, query, ContentType.VIDEO.toString());
+            final LiveData<StateData<ArrayList<Post>>> source = searchRepository.getSearchResults(START_OFFSET, query, ContentType.video.toString());
             listOfVideoMedia.addSource(source, new Observer<StateData<ArrayList<Post>>>() {
                 @Override
                 public void onChanged(StateData<ArrayList<Post>> videoSearchStateData) {
@@ -133,7 +116,7 @@ public class SearchViewModel extends ViewModel {
 
         }else if(currentFragment == 1){
             listOfImageMedia.setValue(StateData.loading((ArrayList<Post>) null));
-            final LiveData<StateData<ArrayList<Post>>> source = searchRepository.getSearchResults(START_OFFSET, query, ContentType.IMAGES.toString());
+            final LiveData<StateData<ArrayList<Post>>> source = searchRepository.getSearchResults(START_OFFSET, query, ContentType.images.toString());
             listOfImageMedia.addSource(source, new Observer<StateData<ArrayList<Post>>>() {
                 @Override
                 public void onChanged(StateData<ArrayList<Post>> imageSearchStateData) {
@@ -154,7 +137,7 @@ public class SearchViewModel extends ViewModel {
         }else if(currentFragment == 2){
 
             listOfGifMedia.setValue(StateData.loading((ArrayList<Post>) null));
-            final LiveData<StateData<ArrayList<Post>>> source = searchRepository.getSearchResults(START_OFFSET, query, ContentType.GIF.toString());
+            final LiveData<StateData<ArrayList<Post>>> source = searchRepository.getSearchResults(START_OFFSET, query, ContentType.gif.toString());
             listOfGifMedia.addSource(source, new Observer<StateData<ArrayList<Post>>>() {
                 @Override
                 public void onChanged(StateData<ArrayList<Post>> gifSearchStateData) {

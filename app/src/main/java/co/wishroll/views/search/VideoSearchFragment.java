@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
@@ -23,7 +24,6 @@ import co.wishroll.models.domainmodels.Post;
 import co.wishroll.utilities.StateData;
 import co.wishroll.utilities.ToastUtils;
 import co.wishroll.viewmodel.search.SearchViewModel;
-import co.wishroll.viewmodel.search.VideoSearchViewModel;
 import co.wishroll.views.tools.GridRecyclerViewAdapter;
 
 public class VideoSearchFragment extends Fragment {
@@ -35,11 +35,11 @@ public class VideoSearchFragment extends Fragment {
 
     FragmentVideosearchBinding fragmentVideosearchBinding;
     View view;
-    VideoSearchViewModel videoViewModel;
     SearchViewModel searchViewModel;
 
     boolean isScrolling = false;
     int currentItems, totalItems, scrollOutItems;
+    ProgressBar progressBar;
 
 
     private RecyclerView recyclerView;
@@ -51,10 +51,7 @@ public class VideoSearchFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public VideoSearchFragment(String query) {
-        this.query = query;
-        // Required empty public constructor
-    }
+
 
 
 
@@ -73,12 +70,12 @@ public class VideoSearchFragment extends Fragment {
         view = fragmentVideosearchBinding.getRoot();
         recyclerView = view.findViewById(R.id.videoRecyclerView);
 
-        videoViewModel = new ViewModelProvider(this).get(VideoSearchViewModel.class);
 
         searchViewModel = new ViewModelProvider(this).get(SearchViewModel.class);
         gridLayoutManager = new GridLayoutManager(getActivity(), 3);
         recyclerView.setLayoutManager(gridLayoutManager);
         fragmentVideosearchBinding.setViewmodel(searchViewModel);
+        progressBar = view.findViewById(R.id.progressBarVideoSearch);
 
 
         observeVideoSearchResults();
@@ -144,10 +141,12 @@ public class VideoSearchFragment extends Fragment {
 
                         switch (arrayListStateData.status) {
                             case LOADING:
+                                showProgress(true);
                                 Log.d(TAG, "onChanged: NULL LOADING HERE");
                                 break;
 
                             case AUTHENTICATED:
+                                showProgress(false);
                                 Log.d(TAG, "onChanged: VIDEO SEARCH HAS BEEN AUTHENTICATED");
                                 listOfVideoSearchResults.addAll(arrayListStateData.data);
                                 gridRecyclerViewAdapter.notifyDataSetChanged();
@@ -166,5 +165,13 @@ public class VideoSearchFragment extends Fragment {
                 }
             });
 
+    }
+
+    public void showProgress(boolean isVisible){
+        if(isVisible){
+            progressBar.setVisibility(View.VISIBLE);
+        }else{
+            progressBar.setVisibility(View.GONE);
+        }
     }
 }

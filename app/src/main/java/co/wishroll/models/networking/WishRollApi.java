@@ -88,10 +88,10 @@ public interface WishRollApi {
 
 
     //Search
-    @GET("v3/posts")
+    @GET("v3/search/posts")
     Flowable<Post[]> getSearchResults(@Query("q") String query, @Query("offset") int offset, @Query("content-type") String contentType); //content type = video, image, gif
 
-    @GET("v3/posts")
+    @GET("v3/search/posts")
     Flowable<List<Post>> getSearchResults(@Query("q") int query, @Query("offset") int offset);
 
 

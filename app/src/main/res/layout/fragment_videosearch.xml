@@ -14,8 +14,19 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context="co.wishroll.views.search.VideoSearchFragment">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <ProgressBar
+            android:id="@+id/progressBarVideoSearch"
+            android:layout_marginTop="@dimen/_26sdp"
+            android:layout_width="@dimen/_26sdp"
+            android:layout_height="@dimen/_26sdp"
+            android:layout_centerHorizontal="true"/>
 
         <androidx.recyclerview.widget.RecyclerView
+            android:layout_below="@id/progressBarVideoSearch"
             android:id="@+id/videoRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -24,6 +35,8 @@
 
 
         </androidx.recyclerview.widget.RecyclerView>
+
+        </RelativeLayout>
 
     </FrameLayout>
 </layout>

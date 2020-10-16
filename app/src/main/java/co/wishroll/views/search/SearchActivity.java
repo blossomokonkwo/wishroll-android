@@ -53,19 +53,7 @@ public class SearchActivity extends AppCompatActivity {
         TextView cancelButton = findViewById(R.id.cancelButton);
 
 
-        searchBar.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                Log.d(TAG, "onQueryTextSubmit: EUGHH SUBMIT BUTTON CLICKED CHILE");
-                return false;
-            }
 
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                Log.d(TAG, "onQueryTextChange: text changed " + newText);
-                return false;
-            }
-        });
 
 
 
@@ -133,6 +121,23 @@ public class SearchActivity extends AppCompatActivity {
 
             }
 
+        });
+
+        searchBar.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                Log.d(TAG, "onQueryTextSubmit: EUGHH SUBMIT BUTTON CLICKED CHILE");
+                SearchViewModel.query = query;
+                SearchViewModel.performFirstSearch();
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                Log.d(TAG, "onQueryTextChange: text changed " + newText);
+                //if newtext is null
+                return false;
+            }
         });
 
         cancelButton.setOnClickListener(new View.OnClickListener() {
