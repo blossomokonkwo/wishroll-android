@@ -40,10 +40,15 @@ public class LoginActivity extends AppCompatActivity implements AuthListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
         activityLoginBinding = DataBindingUtil.setContentView(LoginActivity.this, R.layout.activity_login);
         loginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
+
+
         activityLoginBinding.setLoginviewmodel(loginViewModel);
         loginViewModel.authListener = this;
+
+
         progressBar = findViewById(R.id.progressBarLogin);
         signupInstead = findViewById(R.id.newSignUp);
 

@@ -1,5 +1,7 @@
 package co.wishroll.viewmodel;
 
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.Observer;
@@ -56,7 +58,6 @@ public class TrendingViewModel extends ViewModel {
         trendingTagLiveData.addSource(source, new Observer<StateData<ArrayList<TrendingTag>>>() {
                 @Override
                 public void onChanged(StateData<ArrayList<TrendingTag>> trendingTagStateData) {
-
                     if(trendingTagStateData.data != null){
                         setDataSetSize(trendingTagStateData.data.size());
                     }else{

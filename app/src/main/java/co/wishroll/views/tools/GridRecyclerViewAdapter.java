@@ -60,20 +60,20 @@ public class GridRecyclerViewAdapter extends RecyclerView.Adapter<GridRecyclerVi
 
                     Glide.with(mContext)
                             .load(thisPost.getMediaUrl())
-                            .placeholder(R.drawable.reaction_picture)
+                            .placeholder(R.color.light_grey)
                             .into(holder.mediaThumbnail);
 
                 } else {
                     Glide.with(mContext)
                             .load(thisPost.getThumbnailUrl())
-                            .placeholder(R.drawable.reaction_picture)
+                            .placeholder(R.color.light_grey)
                             .into(holder.mediaThumbnail);
                 }
 
             } else {
                 Glide.with(mContext)
                         .load(thisPost.getMediaUrl())
-                        .placeholder(R.drawable.reaction_picture)
+                        .placeholder(R.color.light_grey)
                         .into(holder.mediaThumbnail);
             }
 

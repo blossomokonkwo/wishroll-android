@@ -22,9 +22,7 @@ public class SearchRepository {
 
     public WishRollApi wishRollApi;
 
-    private enum ContentType {
-        VIDEO, IMAGES, GIF
-    };
+
 
 
     @Inject

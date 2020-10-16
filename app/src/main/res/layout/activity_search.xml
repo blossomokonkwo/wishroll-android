@@ -3,6 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     >
+    
+    <data>
+        
+        <variable
+            name="searchviewmodel"
+            type="co.wishroll.viewmodel.search.SearchViewModel" />
+
+
+        
+    </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
@@ -36,7 +46,7 @@
                         android:layout_marginLeft="@dimen/_10sdp"
                         android:layout_weight="1">
 
- <!-- android:afterTextChanged="@{(edtitable)->editProfileViewModel.afterNameChange(edtitable)}" -->
+
 
                         <androidx.appcompat.widget.SearchView
                                 android:id="@+id/etSearchBarView"
@@ -46,6 +56,7 @@
                                 android:inputType="text"
                                 android:drawableStart="@drawable/ic_search"
                                 android:paddingStart="@dimen/_8sdp"
+                                android:maxLines="1"
                                 android:paddingEnd="@dimen/_8sdp"
                                 android:textColorHint="@color/dark_grey"
                                 android:layout_height="@dimen/_33sdp"

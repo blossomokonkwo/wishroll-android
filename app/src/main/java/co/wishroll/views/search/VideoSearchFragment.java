@@ -1,6 +1,7 @@
 package co.wishroll.views.search;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,7 @@ import co.wishroll.databinding.FragmentVideosearchBinding;
 import co.wishroll.models.domainmodels.Post;
 import co.wishroll.utilities.StateData;
 import co.wishroll.utilities.ToastUtils;
+import co.wishroll.viewmodel.search.SearchViewModel;
 import co.wishroll.viewmodel.search.VideoSearchViewModel;
 import co.wishroll.views.tools.GridRecyclerViewAdapter;
 
@@ -34,6 +36,7 @@ public class VideoSearchFragment extends Fragment {
     FragmentVideosearchBinding fragmentVideosearchBinding;
     View view;
     VideoSearchViewModel videoViewModel;
+    SearchViewModel searchViewModel;
 
     boolean isScrolling = false;
     int currentItems, totalItems, scrollOutItems;
@@ -71,14 +74,17 @@ public class VideoSearchFragment extends Fragment {
         recyclerView = view.findViewById(R.id.videoRecyclerView);
 
         videoViewModel = new ViewModelProvider(this).get(VideoSearchViewModel.class);
+
+        searchViewModel = new ViewModelProvider(this).get(SearchViewModel.class);
         gridLayoutManager = new GridLayoutManager(getActivity(), 3);
         recyclerView.setLayoutManager(gridLayoutManager);
-        fragmentVideosearchBinding.setViewmodel(videoViewModel);
+        fragmentVideosearchBinding.setViewmodel(searchViewModel);
 
 
         observeVideoSearchResults();
         gridRecyclerViewAdapter = new GridRecyclerViewAdapter(getContext(), listOfVideoSearchResults);
         recyclerView.setAdapter(gridRecyclerViewAdapter);
+
 
 
 
@@ -104,9 +110,9 @@ public class VideoSearchFragment extends Fragment {
 
                 if(isScrolling && (currentItems + scrollOutItems == totalItems) ) {
                     isScrolling = false;
-                    if(totalItems % videoViewModel.getDataSetSize() == 0) {
-                        VideoSearchViewModel.setOffset(totalItems);
-                        videoViewModel.getMoreVideoSearchResults();
+                    if(totalItems % 15 == 0) {
+                        SearchViewModel.setOffset(totalItems);
+                        SearchViewModel.getMoreSearchResults();
                     }
                 }
 
@@ -131,16 +137,18 @@ public class VideoSearchFragment extends Fragment {
 
     public void observeVideoSearchResults(){
 
-            videoViewModel.observeVideoSearchResults().observe(getViewLifecycleOwner(), new Observer<StateData<ArrayList<Post>>>() {
+            searchViewModel.observeSearchResults().observe(getViewLifecycleOwner(), new Observer<StateData<ArrayList<Post>>>() {
                 @Override
                 public void onChanged(StateData<ArrayList<Post>> arrayListStateData) {
                     if (arrayListStateData != null) {
 
                         switch (arrayListStateData.status) {
                             case LOADING:
+                                Log.d(TAG, "onChanged: NULL LOADING HERE");
                                 break;
 
                             case AUTHENTICATED:
+                                Log.d(TAG, "onChanged: VIDEO SEARCH HAS BEEN AUTHENTICATED");
                                 listOfVideoSearchResults.addAll(arrayListStateData.data);
                                 gridRecyclerViewAdapter.notifyDataSetChanged();
                                 break;

@@ -29,7 +29,6 @@ public class ImageViewModel extends ViewModel {
     @BindingAdapter("mainViewImage")
     public static void loadProfileViewImage(ImageView view, String imageUrl) {
 
-
         Glide.with(view.getContext())
                 .load(imageUrl)
                 .placeholder(R.color.white)

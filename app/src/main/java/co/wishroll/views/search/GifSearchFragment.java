@@ -71,12 +71,16 @@ public class GifSearchFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         fragmentGifsearchBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_gifsearch, container, false);
         view = fragmentGifsearchBinding.getRoot();
         recyclerView = view.findViewById(R.id.gifRecyclerView);
 
+
         gifViewModel = new ViewModelProvider(this).get(GifSearchViewModel.class);
         gridLayoutManager = new GridLayoutManager(getActivity(), 3);
+
+
         recyclerView.setLayoutManager(gridLayoutManager);
         fragmentGifsearchBinding.setViewmodel(gifViewModel);
 

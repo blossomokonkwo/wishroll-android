@@ -6,7 +6,7 @@
 
         <variable
             name="viewmodel"
-            type="co.wishroll.viewmodel.search.VideoSearchViewModel" />
+            type="co.wishroll.viewmodel.search.SearchViewModel" />
 
     </data>
 
