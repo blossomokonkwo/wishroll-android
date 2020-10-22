@@ -197,6 +197,8 @@ dependencies {
     //implementation 'com.devbrackets.android:exomedia:4.3.0'
     //SUCKS, UPDATED FOUR YEARS AGO, doesn't have start, looping, adjusting size, etc ^ _ ^
 
+    //Exoplayer to Support MOV/All Video types
+    implementation 'com.google.android.exoplayer:exoplayer:2.7.3'
 
 
 

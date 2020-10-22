@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:text="Tiffany Pollard"
             android:textColor="@color/black"
-            android:textSize="@dimen/_15sdp"
+            android:textSize="@dimen/_15ssp"
             android:layout_centerVertical="true"/>
 
     </RelativeLayout>

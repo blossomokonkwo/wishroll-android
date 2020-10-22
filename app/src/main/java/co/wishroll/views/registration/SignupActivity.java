@@ -18,6 +18,7 @@ import co.wishroll.R;
 import co.wishroll.models.networking.RetrofitInstance;
 import co.wishroll.models.networking.WishRollApi;
 import co.wishroll.models.repository.datamodels.AccessToken;
+import co.wishroll.models.repository.datamodels.AuthResponse;
 import co.wishroll.models.repository.datamodels.SignupRequest;
 import co.wishroll.models.repository.datamodels.SignupRequestMany;
 import co.wishroll.models.repository.datamodels.UserModel;
@@ -25,6 +26,9 @@ import co.wishroll.models.repository.local.SessionManagement;
 import co.wishroll.utilities.AuthListener;
 import co.wishroll.utilities.ToastUtils;
 import co.wishroll.views.home.MainActivity;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 
 import static co.wishroll.WishRollApplication.applicationGraph;
@@ -108,7 +112,8 @@ public class SignupActivity extends AppCompatActivity implements AuthListener {
 
 
 
-                    /*wishRollApi.signupUser(signupRequestMany).enqueue(new Callback<AuthResponse>() {
+                    wishRollApi.signupUser(signupRequestMany).enqueue(new Callback<AuthResponse>() {
+
                         @Override
                         public void onResponse(Call<AuthResponse> call, Response<AuthResponse> response) {
 
@@ -142,7 +147,7 @@ public class SignupActivity extends AppCompatActivity implements AuthListener {
                         public void onFailure(Call<AuthResponse> call, Throwable t) {
                             t.printStackTrace();
                         }
-                    });*/
+                    });
                 }
 
 

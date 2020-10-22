@@ -29,6 +29,7 @@ public abstract class PaginationScrollListener extends RecyclerView.OnScrollList
         this.linearLayoutManager = layoutManager;
     }
 
+/*
     @Override
     public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
         super.onScrolled(recyclerView, dx, dy);
@@ -43,7 +44,7 @@ public abstract class PaginationScrollListener extends RecyclerView.OnScrollList
             }
         }
 
-    }
+    }*/
 
 
    /* @Override
@@ -61,12 +62,12 @@ public abstract class PaginationScrollListener extends RecyclerView.OnScrollList
         }
     }*/
 
-        /*@Override
+     /*   @Override
         public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
             super.onScrolled(recyclerView, dx, dy);
-            int visibleItemCount = mGridLayoutManager.getChildCount();
-            int totalItemCount = mGridLayoutManager.getItemCount();
-            int[] firstVisibleItemPositions = mGridLayoutManager.findFirstVisibleItemPositions(null);
+            int visibleItemCount = gridLayoutManager.getChildCount();
+            int totalItemCount = gridLayoutManager.getItemCount();
+            int[] firstVisibleItemPositions = gridLayoutManager.fin
             if (!mIsLoading && !mIsLastPage) {
                 if ((firstVisibleItemPositions[0] + visibleItemCount) >= totalItemCount
                         && firstVisibleItemPositions[0] >= 0

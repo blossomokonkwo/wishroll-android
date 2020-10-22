@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
@@ -24,7 +25,6 @@ import co.wishroll.R;
 import co.wishroll.databinding.FragmentTrendingBinding;
 import co.wishroll.models.domainmodels.TrendingTag;
 import co.wishroll.utilities.StateData;
-import co.wishroll.utilities.ToastUtils;
 import co.wishroll.viewmodel.TrendingViewModel;
 import co.wishroll.views.reusables.ImageActivity;
 import co.wishroll.views.reusables.VideoActivity;
@@ -45,6 +45,7 @@ public class TrendingFragment extends Fragment implements TrendingRecyclerViewAd
     SwipeRefreshLayout swipeRefreshLayout;
     TrendingRecyclerViewAdapter trendingRecyclerViewAdapter;
     LinearLayoutManager linearLayoutManager;
+    private TextView noResults;
 
     boolean isScrolling = false;
     int currentItems, totalItems, scrollOutItems;
@@ -91,6 +92,7 @@ public class TrendingFragment extends Fragment implements TrendingRecyclerViewAd
         myRecyclerView.setLayoutManager(linearLayoutManager);
         fragmentTrendingBinding.setTrendingviewmodel(trendingViewModel);
 
+        noResults = view.findViewById(R.id.noResultsTrendingTags);
 
             observeTrendingTagsList();
             trendingRecyclerViewAdapter = new TrendingRecyclerViewAdapter(getContext(), listOfTrendingTags, this);
@@ -181,7 +183,12 @@ public class TrendingFragment extends Fragment implements TrendingRecyclerViewAd
                             break;
                         }
                         case ERROR: {
-                            ToastUtils.showToast(getContext(), arrayListStateData.message);
+                            if(arrayListStateData.data == null || arrayListStateData.data.size() == 0){
+                                noResults.setVisibility(View.VISIBLE);
+                            }else{
+                                noResults.setVisibility(View.INVISIBLE);
+                            }
+                            //ToastUtils.showToast(getContext(), arrayListStateData.message);
 
                             break;
 

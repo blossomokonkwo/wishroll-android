@@ -36,6 +36,7 @@ public class SearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
+        Log.d(TAG, "onCreate: created the search activity");
 
 
         activitySearchBinding = DataBindingUtil.setContentView(SearchActivity.this, R.layout.activity_search);
@@ -97,8 +98,9 @@ public class SearchActivity extends AppCompatActivity {
         tabLayoutMediator.attach();
 
 
-
+        Log.d(TAG, "onCreate: attached the tab layout mediator");
         SearchViewModel.setCurrentFragment(tabLayout.getSelectedTabPosition());
+        Log.d(TAG, "onCreate: set the view model current fragment as the default: " + SearchViewModel.getCurrentFragment());
 
 
 
@@ -108,16 +110,22 @@ public class SearchActivity extends AppCompatActivity {
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
+                Log.d(TAG, "onTabSelected: setting the current fragment because it has been chosen");
                 SearchViewModel.setCurrentFragment(tab.getPosition());
+                Log.d(TAG, "onTabSelected: finished setting the current tab position, here it is: " + SearchViewModel.currentFragment);
             }
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
+                Log.d(TAG, "onTabUnselected: this tab has been unselected: " + tab.getPosition());
+                SearchViewModel.clearSpecificTab(tab.getPosition());
+                Log.d(TAG, "onTabUnselected: we are now");
                 //maybe clear lists from livedata??????
             }
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
+                SearchViewModel.setCurrentFragment(tab.getPosition());
 
             }
 
@@ -126,23 +134,28 @@ public class SearchActivity extends AppCompatActivity {
         searchBar.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                Log.d(TAG, "onQueryTextSubmit: EUGHH SUBMIT BUTTON CLICKED CHILE");
+                Log.d(TAG, "onQueryTextSubmit: ENTER BUTTON PRESSED ON FRAGMENT: " + SearchViewModel.getCurrentFragment() );
                 SearchViewModel.query = query;
+                hideKeyboard();
                 SearchViewModel.performFirstSearch();
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                Log.d(TAG, "onQueryTextChange: text changed " + newText);
-                //if newtext is null
+               if(newText.isEmpty() || newText == null || newText.equals("   ")){
+                   Log.d(TAG, "onQueryTextChange: CLEARED OUT SEARCH BODY IN FRAGMENT: " + SearchViewModel.getCurrentFragment() );
+                   SearchViewModel.onSearchingEmpty();
+               }
                 return false;
             }
+
         });
 
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                SearchViewModel.onSearchingEmpty();
                 startActivity(new Intent(SearchActivity.this, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
                 finish();
             }

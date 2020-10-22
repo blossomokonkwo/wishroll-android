@@ -1,12 +1,13 @@
 package co.wishroll.views.search;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
@@ -20,9 +21,8 @@ import co.wishroll.R;
 import co.wishroll.databinding.FragmentGifsearchBinding;
 import co.wishroll.models.domainmodels.Post;
 import co.wishroll.utilities.StateData;
-import co.wishroll.utilities.ToastUtils;
-import co.wishroll.viewmodel.search.GifSearchViewModel;
-import co.wishroll.viewmodel.search.ImageSearchViewModel;
+import co.wishroll.viewmodel.search.SearchViewModel;
+import co.wishroll.views.tools.EndlessRecyclerViewScrollListener;
 import co.wishroll.views.tools.GridRecyclerViewAdapter;
 
 /**
@@ -32,7 +32,9 @@ import co.wishroll.views.tools.GridRecyclerViewAdapter;
 public class GifSearchFragment extends Fragment {
     FragmentGifsearchBinding fragmentGifsearchBinding;
     View view;
-    GifSearchViewModel gifViewModel;
+    SearchViewModel searchViewModel;
+
+    private static final String TAG = "GifSearchFragment";
 
     boolean isScrolling = false;
     int currentItems, totalItems, scrollOutItems;
@@ -42,7 +44,9 @@ public class GifSearchFragment extends Fragment {
     public ArrayList<Post> listOfGifSearchResults = new ArrayList<>();
     GridRecyclerViewAdapter gridRecyclerViewAdapter;
     GridLayoutManager gridLayoutManager;
+    private TextView noResults;
 
+    ProgressBar progressBar;
 
     String query;
 
@@ -77,44 +81,26 @@ public class GifSearchFragment extends Fragment {
         recyclerView = view.findViewById(R.id.gifRecyclerView);
 
 
-        gifViewModel = new ViewModelProvider(this).get(GifSearchViewModel.class);
+        searchViewModel = new ViewModelProvider(this).get(SearchViewModel.class);
         gridLayoutManager = new GridLayoutManager(getActivity(), 3);
 
 
         recyclerView.setLayoutManager(gridLayoutManager);
-        fragmentGifsearchBinding.setViewmodel(gifViewModel);
+        fragmentGifsearchBinding.setViewmodel(searchViewModel);
+
+        progressBar = view.findViewById(R.id.progressBarGifSearch);
 
 
         observeGifSearchResults();
         gridRecyclerViewAdapter = new GridRecyclerViewAdapter(getContext(), listOfGifSearchResults);
         recyclerView.setAdapter(gridRecyclerViewAdapter);
+        noResults = view.findViewById(R.id.noResultsGif);
 
 
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        recyclerView.addOnScrollListener(new EndlessRecyclerViewScrollListener(gridLayoutManager) {
             @Override
-            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-                if(newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL){
-                    isScrolling = true;
-                }
-            }
-
-            @Override
-            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-
-                currentItems = gridLayoutManager.getChildCount();
-                totalItems = gridLayoutManager.getItemCount();
-                scrollOutItems = gridLayoutManager.findFirstVisibleItemPosition();
-
-                if(isScrolling && (currentItems + scrollOutItems == totalItems) ) {
-                    isScrolling = false;
-                    if(totalItems % gifViewModel.getDataSetSize() == 0) {
-                        ImageSearchViewModel.setOffset(totalItems);
-                        gifViewModel.getMoreImageSearchResults();
-                    }
-                }
-
+            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+                Log.d(TAG, "onLoadMore: load more");
 
             }
         });
@@ -126,25 +112,44 @@ public class GifSearchFragment extends Fragment {
 
     public void observeGifSearchResults(){
 
-        gifViewModel.observeGifSearchResults().observe(getViewLifecycleOwner(), new Observer<StateData<ArrayList<Post>>>() {
+        searchViewModel.observeSearchResults().observe(getViewLifecycleOwner(), new Observer<StateData<ArrayList<Post>>>() {
             @Override
             public void onChanged(StateData<ArrayList<Post>> arrayListStateData) {
                 if (arrayListStateData != null) {
 
+                    Log.d(TAG, "onChanged: reached on change in gifsearchfragment, this is the status we are getting " + arrayListStateData.status.toString());
+
                     switch (arrayListStateData.status) {
                         case LOADING:
+                            showProgress(true);
                             break;
 
                         case AUTHENTICATED:
+                            showProgress(false);
                             listOfGifSearchResults.addAll(arrayListStateData.data);
                             gridRecyclerViewAdapter.notifyDataSetChanged();
+
+
                             break;
 
                         case ERROR:
-                            ToastUtils.showToast(getContext(), arrayListStateData.message);
+                            showProgress(false);
+                            Log.d(TAG, "onChanged: reached error clause");
+
+                            if(arrayListStateData.data == null || arrayListStateData.data.size() == 0  ){
+                                noResults.setVisibility(View.VISIBLE);
+                                showProgress(false);
+                            }else{
+                                noResults.setVisibility(View.INVISIBLE);
+                                showProgress(true);
+
+                            }
+
                             break;
 
                         case NOT_AUTHENTICATED:
+                            showProgress(false);
+                            noResults.setVisibility(View.INVISIBLE);
                             listOfGifSearchResults.clear();
                             gridRecyclerViewAdapter.notifyDataSetChanged();
                             break;
@@ -153,5 +158,13 @@ public class GifSearchFragment extends Fragment {
             }
         });
 
+    }
+
+    public void showProgress(boolean isVisible){
+        if(isVisible){
+            progressBar.setVisibility(View.VISIBLE);
+        }else{
+            progressBar.setVisibility(View.GONE);
+        }
     }
 }

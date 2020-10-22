@@ -43,22 +43,26 @@ public class SearchRepository {
                 .onErrorReturn(new Function<Throwable, Post[]>() {
                     @Override
                     public Post[] apply(Throwable throwable) throws Exception {
-                        return null;
+                        Log.d(TAG, "apply: an error happened");
+                        Post [] errorArray = new Post[0];
+                        return errorArray;
                     }
                 })
                 .map(new Function<Post[], StateData<ArrayList<Post>>>() {
                     @Override
                     public StateData<ArrayList<Post>> apply(Post[] posts) throws Exception {
                         ArrayList<Post> searchResult = new ArrayList<>();
+                        
+                        if(posts == null || posts.length == 0){
 
-                        if(posts == null){
+                            searchResult.addAll(Arrays.asList(posts));
                             return StateData.error("Something went wrong", null);
+
                         }else{
-                            if(searchResult.addAll(Arrays.asList(posts))) {
+                            searchResult.addAll(Arrays.asList(posts));
+
                                 return StateData.authenticated(searchResult);
-                            }else{
-                                return StateData.error("Something went wrong", null);
-                            }
+
                         }
 
                     }

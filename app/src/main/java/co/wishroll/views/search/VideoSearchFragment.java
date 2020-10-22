@@ -5,10 +5,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
@@ -22,8 +21,8 @@ import co.wishroll.R;
 import co.wishroll.databinding.FragmentVideosearchBinding;
 import co.wishroll.models.domainmodels.Post;
 import co.wishroll.utilities.StateData;
-import co.wishroll.utilities.ToastUtils;
 import co.wishroll.viewmodel.search.SearchViewModel;
+import co.wishroll.views.tools.EndlessRecyclerViewScrollListener;
 import co.wishroll.views.tools.GridRecyclerViewAdapter;
 
 public class VideoSearchFragment extends Fragment {
@@ -40,6 +39,7 @@ public class VideoSearchFragment extends Fragment {
     boolean isScrolling = false;
     int currentItems, totalItems, scrollOutItems;
     ProgressBar progressBar;
+    private TextView noResults;
 
 
     private RecyclerView recyclerView;
@@ -76,6 +76,7 @@ public class VideoSearchFragment extends Fragment {
         recyclerView.setLayoutManager(gridLayoutManager);
         fragmentVideosearchBinding.setViewmodel(searchViewModel);
         progressBar = view.findViewById(R.id.progressBarVideoSearch);
+        noResults = view.findViewById(R.id.noResultsVideo);
 
 
         observeVideoSearchResults();
@@ -88,32 +89,10 @@ public class VideoSearchFragment extends Fragment {
 
 
 
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        recyclerView.addOnScrollListener(new EndlessRecyclerViewScrollListener(gridLayoutManager) {
             @Override
-            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-                if(newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL){
-                    isScrolling = true;
-                }
-            }
-
-            @Override
-            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-
-                currentItems = gridLayoutManager.getChildCount();
-                totalItems = gridLayoutManager.getItemCount();
-                scrollOutItems = gridLayoutManager.findFirstVisibleItemPosition();
-
-                if(isScrolling && (currentItems + scrollOutItems == totalItems) ) {
-                    isScrolling = false;
-                    if(totalItems % 15 == 0) {
-                        SearchViewModel.setOffset(totalItems);
-                        SearchViewModel.getMoreSearchResults();
-                    }
-                }
-
-
+            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+                Log.d(TAG, "onLoadMore: loading more video search results");
             }
         });
 
@@ -142,21 +121,33 @@ public class VideoSearchFragment extends Fragment {
                         switch (arrayListStateData.status) {
                             case LOADING:
                                 showProgress(true);
-                                Log.d(TAG, "onChanged: NULL LOADING HERE");
                                 break;
 
                             case AUTHENTICATED:
                                 showProgress(false);
-                                Log.d(TAG, "onChanged: VIDEO SEARCH HAS BEEN AUTHENTICATED");
                                 listOfVideoSearchResults.addAll(arrayListStateData.data);
                                 gridRecyclerViewAdapter.notifyDataSetChanged();
+
+
                                 break;
 
                             case ERROR:
-                                ToastUtils.showToast(getContext(), arrayListStateData.message);
+
+                                if(arrayListStateData.data == null || arrayListStateData.data.size() == 0  ){
+                                    noResults.setVisibility(View.VISIBLE);
+                                    showProgress(false);
+                                }else{
+                                    noResults.setVisibility(View.INVISIBLE);
+                                    showProgress(true);
+
+                                }
+
+                                //ToastUtils.showToast(getContext(), arrayListStateData.message);
                                 break;
 
                             case NOT_AUTHENTICATED:
+                                showProgress(false);
+                                noResults.setVisibility(View.INVISIBLE);
                                 listOfVideoSearchResults.clear();
                                 gridRecyclerViewAdapter.notifyDataSetChanged();
                                 break;
@@ -164,6 +155,8 @@ public class VideoSearchFragment extends Fragment {
                     }
                 }
             });
+            
+            
 
     }
 

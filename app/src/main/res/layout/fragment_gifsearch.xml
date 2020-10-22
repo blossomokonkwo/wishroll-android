@@ -6,7 +6,7 @@
 
         <variable
             name="viewmodel"
-            type="co.wishroll.viewmodel.search.GifSearchViewModel" />
+            type="co.wishroll.viewmodel.search.SearchViewModel" />
 
     </data>
 
@@ -15,7 +15,33 @@
         android:layout_height="match_parent"
         tools:context="co.wishroll.views.search.GifSearchFragment">
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:visibility="invisible"
+                android:id="@+id/noResultsGif"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/no_results"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/_60sdp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:textSize="@dimen/_20sdp"
+                />
+
+        <ProgressBar
+            android:id="@+id/progressBarGifSearch"
+            android:visibility="gone"
+            android:layout_marginTop="@dimen/_26sdp"
+            android:layout_width="@dimen/_26sdp"
+            android:layout_height="@dimen/_26sdp"
+            android:layout_centerHorizontal="true"/>
+
         <androidx.recyclerview.widget.RecyclerView
+            android:layout_below="@id/progressBarGifSearch"
             android:id="@+id/gifRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -24,6 +50,7 @@
 
 
         </androidx.recyclerview.widget.RecyclerView>
+        </RelativeLayout>
 
     </FrameLayout>
 </layout>

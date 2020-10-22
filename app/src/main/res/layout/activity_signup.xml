@@ -132,6 +132,7 @@
                 android:textColor="@color/electric_blue"
                 android:text="@string/you_agree"
                 android:textAlignment="center"
+                android:textSize="@dimen/_10ssp"
                 android:gravity="center_horizontal" />
 
         </LinearLayout>

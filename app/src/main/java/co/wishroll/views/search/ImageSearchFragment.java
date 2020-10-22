@@ -1,12 +1,13 @@
 package co.wishroll.views.search;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
@@ -20,9 +21,8 @@ import co.wishroll.R;
 import co.wishroll.databinding.FragmentImagesearchBinding;
 import co.wishroll.models.domainmodels.Post;
 import co.wishroll.utilities.StateData;
-import co.wishroll.utilities.ToastUtils;
-import co.wishroll.viewmodel.search.ImageSearchViewModel;
 import co.wishroll.viewmodel.search.SearchViewModel;
+import co.wishroll.views.tools.EndlessRecyclerViewScrollListener;
 import co.wishroll.views.tools.GridRecyclerViewAdapter;
 
 /**
@@ -31,7 +31,7 @@ import co.wishroll.views.tools.GridRecyclerViewAdapter;
  */
 public class ImageSearchFragment extends Fragment {
 
-
+    private static final String TAG = "ImageSearchFragment";
     FragmentImagesearchBinding fragmentImagesearchBinding;
     View view;
     SearchViewModel searchViewModel;
@@ -44,6 +44,8 @@ public class ImageSearchFragment extends Fragment {
     public ArrayList<Post> listOfImageSearchResults = new ArrayList<>();
     GridRecyclerViewAdapter gridRecyclerViewAdapter;
     GridLayoutManager gridLayoutManager;
+    ProgressBar progressBar;
+    private TextView noResults;
 
     String query;
 
@@ -76,42 +78,21 @@ public class ImageSearchFragment extends Fragment {
         gridLayoutManager = new GridLayoutManager(getActivity(), 3);
         recyclerView.setLayoutManager(gridLayoutManager);
         fragmentImagesearchBinding.setViewmodel(searchViewModel);
+        progressBar = view.findViewById(R.id.progressBarImageSearch);
 
 
         observeImageSearchResults();
         gridRecyclerViewAdapter = new GridRecyclerViewAdapter(getContext(), listOfImageSearchResults);
         recyclerView.setAdapter(gridRecyclerViewAdapter);
+        noResults = view.findViewById(R.id.noResultsImage);
 
 
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        recyclerView.addOnScrollListener(new EndlessRecyclerViewScrollListener(gridLayoutManager) {
             @Override
-            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-                if(newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL){
-                    isScrolling = true;
-                }
-            }
-
-            @Override
-            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-
-                currentItems = gridLayoutManager.getChildCount();
-                totalItems = gridLayoutManager.getItemCount();
-                scrollOutItems = gridLayoutManager.findFirstVisibleItemPosition();
-
-                if(isScrolling && (currentItems + scrollOutItems == totalItems) ) {
-                    isScrolling = false;
-                    if(totalItems % imageViewModel.getDataSetSize() == 0) {
-                        ImageSearchViewModel.setOffset(totalItems);
-                        imageViewModel.getMoreImageSearchResults();
-                    }
-                }
-
-
+            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+                Log.d(TAG, "onLoadMore: loading more image search");
             }
         });
-
 
         // Inflate the layout for this fragment
         return view;
@@ -119,25 +100,41 @@ public class ImageSearchFragment extends Fragment {
 
     public void observeImageSearchResults(){
 
-        imageViewModel.observeImageSearchResults().observe(getViewLifecycleOwner(), new Observer<StateData<ArrayList<Post>>>() {
+        searchViewModel.observeSearchResults().observe(getViewLifecycleOwner(), new Observer<StateData<ArrayList<Post>>>() {
             @Override
             public void onChanged(StateData<ArrayList<Post>> arrayListStateData) {
                 if (arrayListStateData != null) {
 
                     switch (arrayListStateData.status) {
                         case LOADING:
+                            showProgress(true);
                             break;
 
                         case AUTHENTICATED:
+                            showProgress(false);
                             listOfImageSearchResults.addAll(arrayListStateData.data);
                             gridRecyclerViewAdapter.notifyDataSetChanged();
+
                             break;
 
                         case ERROR:
-                            ToastUtils.showToast(getContext(), arrayListStateData.message);
+
+                            if(arrayListStateData.data == null || arrayListStateData.data.size() == 0  ){
+                                noResults.setVisibility(View.VISIBLE);
+                                showProgress(false);
+                            }else{
+                                noResults.setVisibility(View.INVISIBLE);
+                                showProgress(true);
+
+                            }
+
+
+
                             break;
 
                         case NOT_AUTHENTICATED:
+                            showProgress(false);
+                            noResults.setVisibility(View.INVISIBLE);
                             listOfImageSearchResults.clear();
                             gridRecyclerViewAdapter.notifyDataSetChanged();
                             break;
@@ -146,5 +143,13 @@ public class ImageSearchFragment extends Fragment {
             }
         });
 
+    }
+
+    public void showProgress(boolean isVisible){
+        if(isVisible){
+            progressBar.setVisibility(View.VISIBLE);
+        }else{
+            progressBar.setVisibility(View.GONE);
+        }
     }
 }

@@ -129,28 +129,15 @@ public interface WishRollApi {
     Flowable<Post[]> getBookmarkedPosts(@Path("user_id") int userId, @Query("offset") int offset);
 
 
-
-
-
     //Posts
     @GET("v2/posts/{post_id}")
     Flowable<Post> getPost(@Path("post_id") int postId);
 
 
-
-
-
     //Delete Account
-    @DELETE("v2/users")
+    @DELETE("v2/delete/users")
     Completable deleteThisAccount();
 
-
-
-
-
-    //Feed
-    @GET("v2/feed")
-    Flowable<Post[]> getUsersFeed(@Query("offset") int offset);
 
 
 

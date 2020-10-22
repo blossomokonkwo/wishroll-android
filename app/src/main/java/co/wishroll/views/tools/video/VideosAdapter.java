@@ -72,8 +72,8 @@ public class VideosAdapter extends RecyclerView.Adapter<VideosAdapter.VideoViewH
                             != PackageManager.PERMISSION_GRANTED) {
 
                         ActivityCompat.requestPermissions((Activity)mContext,
-                            new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                            1000);
+                                new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                                1000);
 
                     }else{
 
@@ -188,8 +188,7 @@ public class VideosAdapter extends RecyclerView.Adapter<VideosAdapter.VideoViewH
 
                     }
 
-                    float videoHeight = (float) mediaPlayer.getVideoHeight();
-                    float videoWidth = (float) mediaPlayer.getVideoWidth();
+
 
                     float videoRatio = mediaPlayer.getVideoWidth() / (float) mediaPlayer.getVideoHeight();
                     float screenRatio = videoView.getWidth() / (float) videoView.getHeight();

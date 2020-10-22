@@ -17,21 +17,48 @@ import static co.wishroll.WishRollApplication.applicationGraph;
 
 public class SearchViewModel extends ViewModel {
     private static final String TAG = "SearchViewModel";
-    public static MediatorLiveData<StateData<ArrayList<Post>>> listOfVideoMedia = new MediatorLiveData<>();
-    public static MediatorLiveData<StateData<ArrayList<Post>>> listOfImageMedia = new MediatorLiveData<>();
-    public static MediatorLiveData<StateData<ArrayList<Post>>> listOfGifMedia = new MediatorLiveData<>();
+    public static  MediatorLiveData<StateData<ArrayList<Post>>> listOfVideoMedia = new MediatorLiveData<>();
+    public  static MediatorLiveData<StateData<ArrayList<Post>>> listOfImageMedia = new MediatorLiveData<>();
+    public  static MediatorLiveData<StateData<ArrayList<Post>>> listOfGifMedia = new MediatorLiveData<>();
     //three different mediator live datas?????
     static SearchRepository searchRepository = applicationGraph.searchRepository();
 
     public static String query;
     public static int currentFragment;
-    public String dummyText;
+
 
 
 
     static int START_OFFSET = 0;
     public static int offset = 0; //nervous for the offsets, they might need to live in the activity? or have multiple different ones?????????
-    public int dataSetSize = 0;
+    public static int videoDataSetSize = 0;
+    public static int gifDataSetSize = 0;
+    public static int imageDataSetSize = 0;
+
+
+    public static int getVideoDataSetSize() {
+        return SearchViewModel.videoDataSetSize;
+    }
+
+    public static void setVideoDataSetSize(int videoDataSetSize) {
+        SearchViewModel.videoDataSetSize = videoDataSetSize;
+    }
+
+    public static int getGifDataSetSize() {
+        return SearchViewModel.gifDataSetSize;
+    }
+
+    public static void setGifDataSetSize(int gifDataSetSize) {
+        SearchViewModel.gifDataSetSize = gifDataSetSize;
+    }
+
+    public static int getImageDataSetSize() {
+        return SearchViewModel.imageDataSetSize;
+    }
+
+    public static void setImageDataSetSize(int imageDataSetSize) {
+        SearchViewModel.imageDataSetSize = imageDataSetSize;
+    }
 
     public static int getOffset() {
         return offset;
@@ -42,7 +69,7 @@ public class SearchViewModel extends ViewModel {
     }
 
     private enum ContentType {
-        video, images, gif
+        video, image, gif
     };
     
     
@@ -52,8 +79,8 @@ public class SearchViewModel extends ViewModel {
 
    
 
-    public int getCurrentFragment() {
-        return currentFragment;
+    public static int getCurrentFragment() {
+        return SearchViewModel.currentFragment;
     }
 
     public static void setCurrentFragment(int currentFragment) {
@@ -70,89 +97,83 @@ public class SearchViewModel extends ViewModel {
     }
 
 
-    public void onTextChanged(CharSequence s, int start, int before, int count){
 
-        
-
-        SearchViewModel.query = s.toString();
-        /*if(s != null) {
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    Log.d(TAG, "run: SEARCH REQUEST BEING MADE FOR FRAGMENT " + " WITH SEARCH QUERY: " + s);
-                }
-            }, 500);
-
-        }*/
-
-    }
     
     
     
     
     public static void performFirstSearch(){
 
-        if(currentFragment == 0){
-            listOfVideoMedia.setValue(StateData.loading((ArrayList<Post>) null));
+        Log.d(TAG, "performFirstSearch: THIS IS THE CURRENT FRAGMENT " + SearchViewModel.getCurrentFragment());
 
-            final LiveData<StateData<ArrayList<Post>>> source = searchRepository.getSearchResults(START_OFFSET, query, ContentType.video.toString());
-            listOfVideoMedia.addSource(source, new Observer<StateData<ArrayList<Post>>>() {
-                @Override
-                public void onChanged(StateData<ArrayList<Post>> videoSearchStateData) {
-                    Log.d(TAG, "onChanged: LETS HOPE THIS WORKS VIDEO:  " + videoSearchStateData.data.size());
-                    /*if(videoSearchStateData.data != null){
-                        //setDataSetSize(trendingTagStateData.data.size());
+        if(SearchViewModel.getCurrentFragment() == 0){
+
+
+                listOfVideoMedia.setValue(StateData.loading((ArrayList<Post>) null));
+
+                final LiveData<StateData<ArrayList<Post>>> source = searchRepository.getSearchResults(START_OFFSET, query, ContentType.video.toString());
+                listOfVideoMedia.addSource(source, new Observer<StateData<ArrayList<Post>>>() {
+                    @Override
+                    public void onChanged(StateData<ArrayList<Post>> videoSearchStateData) {
+                    if(videoSearchStateData.data != null){
+                        setVideoDataSetSize(videoSearchStateData.data.size());
                     }else{
-                        //setDataSetSize(8);
-                    }*/
+                        setVideoDataSetSize(18);
+                    }
 
-                    listOfVideoMedia.setValue(videoSearchStateData);
-                    listOfVideoMedia.removeSource(source);
-                }
-            });
+                        listOfVideoMedia.setValue(videoSearchStateData);
+                        listOfVideoMedia.removeSource(source);
+                    }
+                });
+
 
            
             
 
-        }else if(currentFragment == 1){
-            listOfImageMedia.setValue(StateData.loading((ArrayList<Post>) null));
-            final LiveData<StateData<ArrayList<Post>>> source = searchRepository.getSearchResults(START_OFFSET, query, ContentType.images.toString());
-            listOfImageMedia.addSource(source, new Observer<StateData<ArrayList<Post>>>() {
-                @Override
-                public void onChanged(StateData<ArrayList<Post>> imageSearchStateData) {
+        }else if(SearchViewModel.getCurrentFragment() == 1){
 
-                   /* if(imageSearchStateData.data != null){
-                        //setDataSetSize(trendingTagStateData.data.size());
-                    }else{
-                        //setDataSetSize(8);
-                    }*/
 
-                    listOfVideoMedia.setValue(imageSearchStateData);
-                    listOfVideoMedia.removeSource(source);
-                }
-            });
+                listOfImageMedia.setValue(StateData.loading((ArrayList<Post>) null));
+                final LiveData<StateData<ArrayList<Post>>> source = searchRepository.getSearchResults(START_OFFSET, query, ContentType.image.toString());
+                listOfImageMedia.addSource(source, new Observer<StateData<ArrayList<Post>>>() {
+                    @Override
+                    public void onChanged(StateData<ArrayList<Post>> imageSearchStateData) {
+
+                        if(imageSearchStateData.data != null){
+                            setImageDataSetSize(imageSearchStateData.data.size());
+                        }else{
+                            setImageDataSetSize(18);
+                        }
+
+                        listOfImageMedia.setValue(imageSearchStateData);
+                        listOfImageMedia.removeSource(source);
+                    }
+                });
+
 
         
             
-        }else if(currentFragment == 2){
+        }else if(SearchViewModel.getCurrentFragment() == 2){
 
-            listOfGifMedia.setValue(StateData.loading((ArrayList<Post>) null));
-            final LiveData<StateData<ArrayList<Post>>> source = searchRepository.getSearchResults(START_OFFSET, query, ContentType.gif.toString());
-            listOfGifMedia.addSource(source, new Observer<StateData<ArrayList<Post>>>() {
-                @Override
-                public void onChanged(StateData<ArrayList<Post>> gifSearchStateData) {
-                    Log.d(TAG, "onChanged: LETS HOPE THIS WORKS GIF:  " + gifSearchStateData.data.size());
 
-                    /*if(gifSearchStateData.data != null){
-                        //setDataSetSize(trendingTagStateData.data.size());
-                    }else{
-                        //setDataSetSize(8);
-                    }*/
+                listOfGifMedia.setValue(StateData.loading((ArrayList<Post>) null));
+                final LiveData<StateData<ArrayList<Post>>> source = searchRepository.getSearchResults(START_OFFSET, query, ContentType.gif.toString());
+            //Log.d(TAG, "performFirstSearch: VALUE OF SOURCE GIF: " + source.getValue().status);
+                listOfGifMedia.addSource(source, new Observer<StateData<ArrayList<Post>>>() {
+                    @Override
+                    public void onChanged(StateData<ArrayList<Post>> gifSearchStateData) {
+                        Log.d(TAG, "onChanged: status in view model " + gifSearchStateData.status.toString());
+                        if(gifSearchStateData.data != null){
+                            setGifDataSetSize(gifSearchStateData.data.size());
+                        }else{
+                            setGifDataSetSize(18);
+                        }
 
-                    listOfGifMedia.setValue(gifSearchStateData);
-                    listOfGifMedia.removeSource(source);
-                }
-            });
+                        listOfGifMedia.setValue(gifSearchStateData);
+                        listOfGifMedia.removeSource(source);
+                    }
+                });
+
 
             
         }else{
@@ -162,29 +183,48 @@ public class SearchViewModel extends ViewModel {
         Log.d(TAG, "performSearch: this is the fragment we are on " + currentFragment);
     }
 
-    public static  void getMoreSearchResults(){
+    public static void getMoreSearchResults(int offsetie){
 
 
-        if(currentFragment == 0){
-            listOfVideoMedia.setValue(StateData.loading((ArrayList<Post>) null));
+        if(SearchViewModel.getCurrentFragment() == 0){
+            final LiveData<StateData<ArrayList<Post>>> source = searchRepository.getSearchResults(offsetie, query, ContentType.video.toString());
+            listOfVideoMedia.addSource(source, new Observer<StateData<ArrayList<Post>>>() {
+                @Override
+                public void onChanged(StateData<ArrayList<Post>> videoStateData) {
+                    listOfVideoMedia.setValue(videoStateData);
+                    listOfVideoMedia.removeSource(source);
+                }
+            });
 
             Log.d(TAG, "getMoreSearchResults: getting more videos to append");
             
 
             //make network call to update live data but with a video content type
 
-        }else if(currentFragment == 1){
-            listOfImageMedia.setValue(StateData.loading((ArrayList<Post>) null));
-            
-            
-            
+        }else if(SearchViewModel.getCurrentFragment() == 1){
+
+
+            final LiveData<StateData<ArrayList<Post>>> source = searchRepository.getSearchResults(offsetie, query, ContentType.image.toString());
+            listOfImageMedia.addSource(source, new Observer<StateData<ArrayList<Post>>>() {
+                @Override
+                public void onChanged(StateData<ArrayList<Post>> imageStateData) {
+                    listOfImageMedia.setValue(imageStateData);
+                    listOfImageMedia.removeSource(source);
+                }
+            });
             
 
             //make network call to update live data but with an image content type
 
-        }else if(currentFragment == 2){
-            listOfGifMedia.setValue(StateData.loading((ArrayList<Post>) null));
-            
+        }else if(SearchViewModel.getCurrentFragment() == 2){
+            final LiveData<StateData<ArrayList<Post>>> source = searchRepository.getSearchResults(offsetie, query, ContentType.gif.toString());
+            listOfGifMedia.addSource(source, new Observer<StateData<ArrayList<Post>>>() {
+                @Override
+                public void onChanged(StateData<ArrayList<Post>> gifStateData) {
+                    listOfGifMedia.setValue(gifStateData);
+                    listOfGifMedia.removeSource(source);
+                }
+            });
             
             
             
@@ -196,20 +236,42 @@ public class SearchViewModel extends ViewModel {
 
     }
 
+
+
+
     public LiveData<StateData<ArrayList<Post>>> observeSearchResults(){
 
-        if(currentFragment == 0){
+        if(SearchViewModel.getCurrentFragment() == 0){
             //make network call to update live data but with a video content type
                 return listOfVideoMedia;
-        }else if(currentFragment == 1){
+        }else if(SearchViewModel.getCurrentFragment() == 1){
             //make network call to update live data but with an image content type
                 return listOfImageMedia;
-        }else if(currentFragment == 2){
+        }else if(SearchViewModel.getCurrentFragment() == 2){
             //make network call update livedata but with a gif content type
             return listOfGifMedia;
         }else{
             return null;
             //lol idk
+        }
+    }
+
+    public static void onSearchingEmpty(){
+        listOfGifMedia.setValue(StateData.notauthenticated((ArrayList<Post>)null));
+        listOfVideoMedia.setValue(StateData.notauthenticated((ArrayList<Post>)null));
+        listOfImageMedia.setValue(StateData.notauthenticated((ArrayList<Post>)null));
+
+    }
+
+    public static void clearSpecificTab(int position){
+        if(position == 0){
+            listOfVideoMedia.setValue(StateData.notauthenticated((ArrayList<Post>) null));
+        }else if(position == 1){
+            listOfImageMedia.setValue(StateData.notauthenticated((ArrayList<Post>) null));
+        }else if(position == 2 ){
+            listOfGifMedia.setValue(StateData.notauthenticated((ArrayList<Post>) null));
+        }else{
+            //do nothing
         }
     }
     

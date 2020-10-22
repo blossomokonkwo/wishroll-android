@@ -19,7 +19,6 @@ import co.wishroll.R;
 import co.wishroll.databinding.FragmentMorelikethisBinding;
 import co.wishroll.models.domainmodels.Post;
 import co.wishroll.utilities.StateData;
-import co.wishroll.utilities.ToastUtils;
 import co.wishroll.viewmodel.media.MediaViewModelFactory;
 import co.wishroll.viewmodel.media.MoreLikeThisViewModel;
 import co.wishroll.views.tools.EndlessRecyclerViewScrollListener;
@@ -74,7 +73,6 @@ public class MoreLikeThisFragment extends Fragment {
 
         observeMoreLikeThis();
         mltRecyclerViewAdapter = new GridRecyclerViewAdapter(getContext(), postGrid);
-        //trendingRecyclerViewAdapter = new TrendingRecyclerViewAdapter(getContext(), listOfTrendingTags, this);
         myRecyclerView.setAdapter(mltRecyclerViewAdapter);
 
 
@@ -145,8 +143,8 @@ public class MoreLikeThisFragment extends Fragment {
                             break;
                         }
                         case ERROR: {
-                            ToastUtils.showToast(getContext(), arrayListStateData.message);
-                            Log.d(TAG, "onChanged: THERE WAS AN ERROR");
+                            //ToastUtils.showToast(getContext(), arrayListStateData.message);
+                            //Log.d(TAG, "onChanged: THERE WAS AN ERROR");
 
                             break;
 

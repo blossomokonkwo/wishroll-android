@@ -138,6 +138,11 @@
 
 
     <string name="likes">Liked</string>
+    <string name="no_results">No Results</string>
+    <string name="no_wifi">No Internet Connection</string>
+    <string name="try_again">Try Again</string>
+    <string name="email_or_username">Email or Username</string>
+    <string name="no_trending_tags">No Trending Tags</string>
 
 
 </resources>
