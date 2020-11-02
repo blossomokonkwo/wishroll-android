@@ -1,7 +1,5 @@
 package co.wishroll.viewmodel.registration;
 
-import android.util.Log;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.Observer;
@@ -18,7 +16,6 @@ import static co.wishroll.WishRollApplication.applicationGraph;
 
 public class LoginViewModel extends ViewModel {
 
-    private static final String TAG = "Login View Model";
 
     AuthRepository authRepository = applicationGraph.authRepository();
     public AuthListener authListener = null;
@@ -48,7 +45,6 @@ public class LoginViewModel extends ViewModel {
           loginRequest = new LoginRequest(accessCredential.trim(), passwordCredential);
           //authResponseMediatorLiveData = authRepository.loginUser(loginRequest);
           //authListener.statusGetter(authRepository.getStatusCode());
-          Log.d(TAG, "onLoginButtonPressed: before the authenticate user thing");
           authenticateUser(loginRequest);
 
 

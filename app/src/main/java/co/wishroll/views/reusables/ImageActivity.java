@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -22,9 +21,12 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
+import java.util.HashMap;
+
 import co.wishroll.R;
 import co.wishroll.databinding.ActivityImageBinding;
 import co.wishroll.models.domainmodels.Post;
+import co.wishroll.models.repository.PostRepository;
 import co.wishroll.utilities.FileUtils;
 import co.wishroll.utilities.StateData;
 import co.wishroll.utilities.ToastUtils;
@@ -33,6 +35,7 @@ import co.wishroll.viewmodel.media.MediaViewModelFactory;
 import co.wishroll.views.home.MainActivity;
 import co.wishroll.views.tools.MoreLikeThisPagerAdapter;
 
+import static co.wishroll.WishRollApplication.applicationGraph;
 import static co.wishroll.WishRollApplication.getContext;
 import static co.wishroll.WishRollApplication.getInstance;
 
@@ -47,8 +50,9 @@ public class ImageActivity extends AppCompatActivity {
     Boolean isBookmarked;
     ImageButton downloadButton;
     Post postItem;
+    PostRepository postRepository = applicationGraph.postRepository();
 
-    private static final String TAG = "ImageActivity";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +72,8 @@ public class ImageActivity extends AppCompatActivity {
         imageViewModel = new ViewModelProvider(this, new MediaViewModelFactory(postId)).get(ImageViewModel.class);
         activityImageBinding.setImageviewmodel(imageViewModel);
         activityImageBinding.setMediaPostUrl(mediaUrl);
+
+
 
 
 
@@ -117,6 +123,7 @@ public class ImageActivity extends AppCompatActivity {
         });
 
         tabLayoutMediator.attach();
+        //trackView();
 
 
 
@@ -162,9 +169,7 @@ public class ImageActivity extends AppCompatActivity {
                     switch (postStateData.status) {
 
                         case LOADING: {
-                            Log.d(TAG, "onChanged: BOOKMARK STATUS IS LOADING");
                             //bookmarkButton.drawa.setVisibility();
-                            Log.d(TAG, "onChanged: Loading Trending Tags");
                             break;
                         }
                         case ERROR: {
@@ -175,7 +180,6 @@ public class ImageActivity extends AppCompatActivity {
                         }
 
                         case AUTHENTICATED: {
-                            Log.d(TAG, "onChanged: AUTHENTICATED GETTING POSTS BOOKMARK STATUS");
 
 
 
@@ -210,7 +214,6 @@ public class ImageActivity extends AppCompatActivity {
 
 
         //FileUtils.getExtension(mediaUrl);
-        Log.d(TAG, "startDownloading: EXTENSION " + FileUtils.getExtension(mediaUrl));
 
 
         request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
@@ -221,6 +224,18 @@ public class ImageActivity extends AppCompatActivity {
         DownloadManager manager = (DownloadManager)getInstance().getSystemService(Context.DOWNLOAD_SERVICE);
         manager.enqueue(request);
         ToastUtils.showToast(ImageActivity.this, "Downloaded");
+        trackShare();
 
+    }
+
+    public void trackView(){
+        HashMap<String, Object> data = new HashMap<>();
+        data.put("viewable_type", "Post");
+        data.put("viewable_id", postId);
+        postRepository.trackView(data);
+    }
+
+    public void trackShare(){
+        postRepository.trackShare(postId, "library");
     }
 }

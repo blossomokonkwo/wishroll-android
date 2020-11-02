@@ -1,7 +1,5 @@
 package co.wishroll.viewmodel.media;
 
-import android.util.Log;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.Observer;
@@ -17,7 +15,6 @@ import static co.wishroll.WishRollApplication.applicationGraph;
 
 public class VideosViewModel extends ViewModel {
 
-    private static final String TAG = "VideosViewModel";
 
     PostRepository postRepository = applicationGraph.postRepository();
 
@@ -50,7 +47,6 @@ public class VideosViewModel extends ViewModel {
 
     public VideosViewModel(int postId) {
         this.postId = postId;
-        Log.d(TAG, "VideosViewModel: we in here the post id for this is: " + postId);
         getFirstVideoList();
     }
 

@@ -3,7 +3,6 @@ package co.wishroll.views.registration;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -36,7 +35,6 @@ import static co.wishroll.WishRollApplication.applicationGraph;
 
 public class SignupActivity extends AppCompatActivity implements AuthListener {
 
-    private static final String TAG = "SIGNUP ACTIVITY";
     private Retrofit retrofitInstance = RetrofitInstance.getRetrofitInstance();
     private WishRollApi wishRollApi = retrofitInstance.create(WishRollApi.class);
     private SessionManagement sessionManagement = applicationGraph.sessionManagement();
@@ -104,8 +102,7 @@ public class SignupActivity extends AppCompatActivity implements AuthListener {
                     SignupRequest.setPassword(etPasswordOne.getText().toString());
 
 
-                    Log.d(TAG, "onClick: VALUES FOR SIGNUP " + " " + SignupRequest.getUsername() + " " + SignupRequest.getPassword() + " " + SignupRequest.getEmail() + " " + SignupRequest.getBirthday() +
-                            " " + SignupRequest.getGender());
+
 
                     SignupRequestMany signupRequestMany = new SignupRequestMany(" ", SignupRequest.getUsername(), SignupRequest.getPassword(),
                             SignupRequest.getEmail(), SignupRequest.getBirthday(), SignupRequest.getGender());

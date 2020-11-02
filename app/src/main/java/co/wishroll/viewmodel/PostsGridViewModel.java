@@ -17,7 +17,6 @@ import static co.wishroll.WishRollApplication.applicationGraph;
 public class PostsGridViewModel extends ViewModel {
     MediatorLiveData<StateData<ArrayList<Post>>> postGridPostsLiveData = new MediatorLiveData<>();
 
-    private static final String TAG = "PostsGridViewModel";
 
     PostRepository postRepository = applicationGraph.postRepository();
     SessionManagement sessionManagement = applicationGraph.sessionManagement();
@@ -46,13 +45,7 @@ public class PostsGridViewModel extends ViewModel {
         PostsGridViewModel.offset = offset;
     }
 
-    public boolean isBookmarkQuery() {
-        return isBookmarkQuery;
-    }
 
-    public void setBookmarkQuery(boolean bookmarkQuery) {
-        isBookmarkQuery = bookmarkQuery;
-    }
 
     public PostsGridViewModel() {
     }
@@ -83,7 +76,7 @@ public class PostsGridViewModel extends ViewModel {
                     if (trendingTagStateData.data != null) {
                         setDataSetSize(trendingTagStateData.data.size());
                     } else {
-                        setDataSetSize(15);
+                        setDataSetSize(18);
                     }
 
                     postGridPostsLiveData.setValue(trendingTagStateData);
@@ -97,7 +90,7 @@ public class PostsGridViewModel extends ViewModel {
 
     }
 
-    public void getMorePostGridPages(){
+    public void getMorePostGridPages(int offsetie){
 
         postGridPostsLiveData.setValue(StateData.loading((ArrayList<Post>) null));
 
@@ -105,16 +98,11 @@ public class PostsGridViewModel extends ViewModel {
 
             //FOR OTHER QUERIES MOST LIKELY SEARCH GLOBAL QUERY VARIABLE NEEDED
 
-            final LiveData<StateData<ArrayList<Post>>> source = postRepository.getTaggedPosts(trendingTagId, offset);
+            final LiveData<StateData<ArrayList<Post>>> source = postRepository.getTaggedPosts(trendingTagId, offsetie);
             postGridPostsLiveData.addSource(source, new Observer<StateData<ArrayList<Post>>>() {
                 @Override
                 public void onChanged(StateData<ArrayList<Post>> trendingTagStateData) {
 
-                    if (trendingTagStateData.data != null) {
-                        setDataSetSize(trendingTagStateData.data.size());
-                    } else {
-                        setDataSetSize(15);
-                    }
 
                     postGridPostsLiveData.setValue(trendingTagStateData);
                     postGridPostsLiveData.removeSource(source);

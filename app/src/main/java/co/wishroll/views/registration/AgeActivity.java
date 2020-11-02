@@ -3,7 +3,6 @@ package co.wishroll.views.registration;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -24,7 +23,6 @@ import co.wishroll.utilities.ToastUtils;
 
 public class AgeActivity extends AppCompatActivity implements AuthListener {
 
-    private static final String TAG = "SIGNUP ACTIVITY";
     public String year;
     public String month;
     public String day;
@@ -90,7 +88,6 @@ public class AgeActivity extends AppCompatActivity implements AuthListener {
                 }else{
 
                     int radioId = radioGroupGender.getCheckedRadioButtonId();
-                    Log.d(TAG, "checkButton: THIS IS WHAT THIS LOOKS LIKE " + radioId);
 
                     switch (radioGroupGender.getCheckedRadioButtonId()){
                         case (R.id.rbMale):
@@ -107,7 +104,6 @@ public class AgeActivity extends AppCompatActivity implements AuthListener {
                     SignupRequest.setGender(genderNum);
                     SignupRequest.setBirthday(formatBirthdate(month, day, year));
                     statusGetter(200);
-                    Log.d(TAG, "onNextEmail: asc values: " + SignupRequest.getEmail() +  " " + SignupRequest.getBirthday() + " " + SignupRequest.getGender()) ;
                 }
             }
         });

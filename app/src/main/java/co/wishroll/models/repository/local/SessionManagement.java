@@ -3,7 +3,6 @@ package co.wishroll.models.repository.local;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -15,7 +14,6 @@ import co.wishroll.utilities.Encryption;
 
 @Singleton
 public class SessionManagement extends Application {
-    private static final String TAG = "SessionManagement";
     //stores current user information
 
     SharedPreferences sharedPreferences;
@@ -67,11 +65,6 @@ public class SessionManagement extends Application {
 
 
     public void printEverything(String location){
-        Log.d(TAG, "printing everything at this point: " + location );
-        Log.d(TAG, "printEverything: bio: " + sharedPreferences.getString("bio", "bio is blank"));
-        Log.d(TAG, "printEverything: email: " + sharedPreferences.getString("email", "email is blank"));
-
-
 
 
     }
@@ -128,12 +121,7 @@ public class SessionManagement extends Application {
 
 
     public void checkLogout(){
-        Log.d(TAG, "saveSession: REMOVED CURRENT USER ID: " + sharedPreferences.getInt("id", 0));
-        Log.d(TAG, "saveSession: REMOVED CURRENT USERNAME: " + sharedPreferences.getString("username", ""));
-        Log.d(TAG, "saveSession: REMOVED CURRENT BIO: " + sharedPreferences.getString("bio", ""));
-        Log.d(TAG, "saveSession: REMOVED CURRENT NAME: " + sharedPreferences.getString("name", ""));
-        Log.d(TAG, "saveSession: REMOVED CURRENT EMAIL: " + sharedPreferences.getString("email", ""));
-        Log.d(TAG, "saveSession: REMOVED ENCRYPTED TOKEN: " + sharedPreferences.getString("token", ""));
+
 
     }
 }

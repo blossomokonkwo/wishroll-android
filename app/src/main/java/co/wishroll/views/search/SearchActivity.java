@@ -3,7 +3,6 @@ package co.wishroll.views.search;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
@@ -25,7 +24,6 @@ import co.wishroll.views.home.MainActivity;
 import co.wishroll.views.tools.SearchViewPagerAdapter;
 
 public class SearchActivity extends AppCompatActivity {
-    private static final String TAG = "SearchActivity";
     ActivitySearchBinding activitySearchBinding;
     SearchViewModel searchViewModel;
     SearchView searchBar;
@@ -36,7 +34,6 @@ public class SearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
-        Log.d(TAG, "onCreate: created the search activity");
 
 
         activitySearchBinding = DataBindingUtil.setContentView(SearchActivity.this, R.layout.activity_search);
@@ -81,15 +78,15 @@ public class SearchActivity extends AppCompatActivity {
 
                         break;}
 
-                    case 1:{
+                    default:{
                         tab.setText("Images");
 
                         break;}
 
-                    default: {
+                    /*default: {
                         tab.setText("Gifs");
                         break;
-                    }
+                    }*/
                 }
 
             }
@@ -98,9 +95,7 @@ public class SearchActivity extends AppCompatActivity {
         tabLayoutMediator.attach();
 
 
-        Log.d(TAG, "onCreate: attached the tab layout mediator");
         SearchViewModel.setCurrentFragment(tabLayout.getSelectedTabPosition());
-        Log.d(TAG, "onCreate: set the view model current fragment as the default: " + SearchViewModel.getCurrentFragment());
 
 
 
@@ -110,16 +105,12 @@ public class SearchActivity extends AppCompatActivity {
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                Log.d(TAG, "onTabSelected: setting the current fragment because it has been chosen");
                 SearchViewModel.setCurrentFragment(tab.getPosition());
-                Log.d(TAG, "onTabSelected: finished setting the current tab position, here it is: " + SearchViewModel.currentFragment);
             }
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-                Log.d(TAG, "onTabUnselected: this tab has been unselected: " + tab.getPosition());
                 SearchViewModel.clearSpecificTab(tab.getPosition());
-                Log.d(TAG, "onTabUnselected: we are now");
                 //maybe clear lists from livedata??????
             }
 
@@ -134,9 +125,9 @@ public class SearchActivity extends AppCompatActivity {
         searchBar.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                Log.d(TAG, "onQueryTextSubmit: ENTER BUTTON PRESSED ON FRAGMENT: " + SearchViewModel.getCurrentFragment() );
                 SearchViewModel.query = query;
                 hideKeyboard();
+                SearchViewModel.clearSpecificTab(SearchViewModel.getCurrentFragment());
                 SearchViewModel.performFirstSearch();
                 return false;
             }
@@ -144,7 +135,6 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextChange(String newText) {
                if(newText.isEmpty() || newText == null || newText.equals("   ")){
-                   Log.d(TAG, "onQueryTextChange: CLEARED OUT SEARCH BODY IN FRAGMENT: " + SearchViewModel.getCurrentFragment() );
                    SearchViewModel.onSearchingEmpty();
                }
                 return false;

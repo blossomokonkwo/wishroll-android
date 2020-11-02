@@ -7,6 +7,7 @@ import androidx.lifecycle.LiveDataReactiveStreams;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -21,13 +22,16 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.MultipartBody;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 
 @Singleton
 public class PostRepository {
 
     private static final String TAG = "PostRepository";
-
     public WishRollApi wishRollApi;
     Completable uploadStatus;
     Completable status;
@@ -43,6 +47,36 @@ public class PostRepository {
         wishRollApi = retrofitInstance.create(WishRollApi.class);
 
 
+    }
+
+    public void trackView(HashMap<String, Object> data){
+        wishRollApi.trackView(data).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if(response.isSuccessful())
+                Log.d(TAG, "onResponse: tracked the view of this item");
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.d(TAG, "onFailure: this failed");
+            }
+        });
+    }
+
+    public void trackShare(int postId, String sharedService){
+        wishRollApi.trackShare(postId, sharedService).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if(response.isSuccessful())
+                Log.d(TAG, "onResponse: successfully logged this items share");
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.d(TAG, "onFailure: did not successfully log this items share");
+            }
+        });
     }
 
 
@@ -76,14 +110,12 @@ public class PostRepository {
     }
 
     public LiveData<StateData<ArrayList<Post>>> getMoreLikeThis(int offset, int postId) {
-        Log.d(TAG, "getUserById: in the get user by id method");
 
         final LiveData<StateData<ArrayList<Post>>> source = LiveDataReactiveStreams.fromPublisher(
                 wishRollApi.getMoreLikeThis(postId, offset)
                         .onErrorReturn(new Function<Throwable, Post[]>() {
                             @Override
                             public Post[] apply(Throwable throwable) throws Exception {
-                                Log.d(TAG, "apply: this isn't going through");
                                 return null;
                             }
                         })
@@ -148,7 +180,6 @@ public class PostRepository {
                         .onErrorReturn(new Function<Throwable, TrendingTag>() {
                             @Override
                             public TrendingTag apply(Throwable throwable) throws Exception {
-                                Log.d(TAG, "apply: error happened and we in here");
                                 return null;
                             }
                         }).map(new Function<TrendingTag, StateData<ArrayList<Post>>>() {

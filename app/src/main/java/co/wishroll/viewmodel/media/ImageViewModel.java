@@ -26,6 +26,8 @@ public class ImageViewModel extends ViewModel {
 
 
 
+
+
     @BindingAdapter("mainViewImage")
     public static void loadProfileViewImage(ImageView view, String imageUrl) {
 
@@ -62,6 +64,8 @@ public class ImageViewModel extends ViewModel {
             }
         });
     }
+
+
 
 
 

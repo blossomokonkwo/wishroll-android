@@ -27,7 +27,6 @@ import static co.wishroll.WishRollApplication.applicationGraph;
 
 
 public class LoginActivity extends AppCompatActivity implements AuthListener {
-    private static final String TAG = "LoginActivity";
 
     ActivityLoginBinding activityLoginBinding;
     LoginViewModel loginViewModel;
@@ -64,7 +63,7 @@ public class LoginActivity extends AppCompatActivity implements AuthListener {
         signupInstead.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(LoginActivity.this, SignupActivity.class);
+                Intent intent = new Intent(LoginActivity.this, UsernameActivity.class);
                 startActivity(intent);
 
             }

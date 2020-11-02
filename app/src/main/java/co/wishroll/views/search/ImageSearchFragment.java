@@ -1,7 +1,7 @@
 package co.wishroll.views.search;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +22,8 @@ import co.wishroll.databinding.FragmentImagesearchBinding;
 import co.wishroll.models.domainmodels.Post;
 import co.wishroll.utilities.StateData;
 import co.wishroll.viewmodel.search.SearchViewModel;
+import co.wishroll.views.reusables.ImageActivity;
+import co.wishroll.views.reusables.VideoActivity;
 import co.wishroll.views.tools.EndlessRecyclerViewScrollListener;
 import co.wishroll.views.tools.GridRecyclerViewAdapter;
 
@@ -31,13 +33,11 @@ import co.wishroll.views.tools.GridRecyclerViewAdapter;
  */
 public class ImageSearchFragment extends Fragment {
 
-    private static final String TAG = "ImageSearchFragment";
     FragmentImagesearchBinding fragmentImagesearchBinding;
     View view;
     SearchViewModel searchViewModel;
 
-    boolean isScrolling = false;
-    int currentItems, totalItems, scrollOutItems;
+
 
 
     private RecyclerView recyclerView;
@@ -90,9 +90,37 @@ public class ImageSearchFragment extends Fragment {
         recyclerView.addOnScrollListener(new EndlessRecyclerViewScrollListener(gridLayoutManager) {
             @Override
             public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
-                Log.d(TAG, "onLoadMore: loading more image search");
+
+                if(SearchViewModel.getImageDataSetSize() > 0) {
+                    if (totalItemsCount % SearchViewModel.getImageDataSetSize() == 0) {
+                        SearchViewModel.getMoreSearchResults(totalItemsCount);
+
+                    }
+                }
             }
         });
+
+        gridRecyclerViewAdapter.setOnGridItemClickListener(new GridRecyclerViewAdapter.OnGridItemClickListener() {
+            @Override
+            public void onGridItemClicked(int position) {
+                if(listOfImageSearchResults.get(position).getMediaUrl().contains(".mp4") || listOfImageSearchResults.get(position).getMediaUrl().contains(".mov") ){
+                    Intent i = new Intent(getActivity(), VideoActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                    i.putExtra("mediaUrl", listOfImageSearchResults.get(position).getMediaUrl());
+                    i.putExtra("postId", listOfImageSearchResults.get(position).getId());
+                    i.putExtra("isBookmarked", listOfImageSearchResults.get(position).getBookmarked());
+                    i.putExtra("post", listOfImageSearchResults.get(position));
+                    startActivity(i);
+                }else{
+                    Intent i = new Intent(getActivity(), ImageActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                    i.putExtra("mediaUrl", listOfImageSearchResults.get(position).getMediaUrl());
+                    i.putExtra("postId", listOfImageSearchResults.get(position).getId());
+                    i.putExtra("isBookmarked", listOfImageSearchResults.get(position).getBookmarked());
+                    i.putExtra("post", listOfImageSearchResults.get(position));
+                    startActivity(i);
+                }
+            }
+        });
+
 
         // Inflate the layout for this fragment
         return view;

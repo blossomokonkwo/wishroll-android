@@ -1,7 +1,5 @@
 package co.wishroll.viewmodel.media;
 
-import android.util.Log;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.Observer;
@@ -18,7 +16,6 @@ import static co.wishroll.WishRollApplication.applicationGraph;
 
 public class MoreLikeThisViewModel extends ViewModel {
 
-    private static final String TAG = "MoreLikeThisViewModel";
     public PostRepository postRepository = applicationGraph.postRepository();
     MediatorLiveData<StateData<ArrayList<Post>>> moreLikeThisLiveData = new MediatorLiveData<>();
     int START_OFFSET = 0;
@@ -59,7 +56,6 @@ public class MoreLikeThisViewModel extends ViewModel {
             @Override
             public void onChanged(StateData<ArrayList<Post>> postStateData) {
 
-                Log.d(TAG, "onChanged: size of data and status " + postStateData.status.toString() + " data size " + postStateData.data.size());
                 if(postStateData!= null || postStateData.data != null){
                     setDataSetSize(postStateData.data.size());
                 }else{

@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import co.wishroll.views.search.GifSearchFragment;
 import co.wishroll.views.search.ImageSearchFragment;
 import co.wishroll.views.search.VideoSearchFragment;
 
@@ -32,10 +31,10 @@ public class SearchViewPagerAdapter extends FragmentStateAdapter {
         switch (position) {
             case 0:
                 return new VideoSearchFragment();
-            case 1:
-                return new ImageSearchFragment();
             default:
-                return new GifSearchFragment();
+                return new ImageSearchFragment();
+            /*default:
+                return new GifSearchFragment();*/
 
         }
 
@@ -46,7 +45,7 @@ public class SearchViewPagerAdapter extends FragmentStateAdapter {
     @Override
     public int getItemCount() {
 
-        return 3;
+        return 2;
 
     }
 

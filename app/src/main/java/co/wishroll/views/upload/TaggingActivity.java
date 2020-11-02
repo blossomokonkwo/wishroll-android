@@ -1,11 +1,11 @@
 package co.wishroll.views.upload;
 
+import android.content.ContentResolver;
 import android.graphics.Bitmap;
-import android.media.ThumbnailUtils;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -27,7 +27,6 @@ import co.wishroll.utilities.ToastUtils;
 import co.wishroll.viewmodel.TaggingViewModel;
 
 public class TaggingActivity extends AppCompatActivity implements AuthListener {
-    private static final String TAG = "TaggingActivity";
 
     ActivityTaggingBinding activityTaggingBinding;
     TaggingViewModel taggingViewModel;
@@ -66,10 +65,8 @@ public class TaggingActivity extends AppCompatActivity implements AuthListener {
 
 
         Uri mediaUri = getIntent().getData();
-        Log.d(TAG, "onCreate: this is the mediaUri path " + mediaUri);
         boolean isVideo = getIntent().getBooleanExtra("isVideo", false);
         String postPath = FileUtils.getPath(TaggingActivity.this, mediaUri);
-        Log.d(TAG, "onCreate: this is the path for both processed pictures and videos " + postPath);
 
 
         //Sends post path to view model
@@ -80,7 +77,6 @@ public class TaggingActivity extends AppCompatActivity implements AuthListener {
         if(!isVideo) {
             videoIndicator.setVisibility(View.GONE);
 
-            Log.d(TAG, "onCreate: this is not a video we got");
             try {
                 thumbnailBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), mediaUri);
             } catch (IOException e) {
@@ -97,15 +93,29 @@ public class TaggingActivity extends AppCompatActivity implements AuthListener {
 
         }else if(isVideo){
 
-            Log.d(TAG, "onCreate: getting video thumbnail");
 
-            assert postPath != null;
-            thumbnailBitmap = ThumbnailUtils.createVideoThumbnail(postPath, MediaStore.Images.Thumbnails.MINI_KIND);
+            assert postPath !=null;
+            ContentResolver crThumb = getContentResolver();
+            BitmapFactory.Options options=new BitmapFactory.Options();
+            options.inSampleSize = 1;
+
+
+
+
+
+                long id = 0;
+                String tempId = mediaUri.toString();
+                if(tempId.contains("%3A")){
+                    id = Long.parseLong(tempId.substring(tempId.lastIndexOf("%3A") + 3));
+                }
+
+            thumbnailBitmap = MediaStore.Video.Thumbnails.getThumbnail(crThumb, id, MediaStore.Video.Thumbnails.MICRO_KIND, options);
+
+
+            //thumbnailBitmap = ThumbnailUtils.createVideoThumbnailpostPath, MediaStore.Images.Thumbnails.MINI_KIND);
+
             Uri omg = ThumbnailHandler.saveToCacheAndGetUri(thumbnailBitmap);
-            //Log.d(TAG, "onCreate: GASSED UP SHAWTY: " + FileUtils.getPath(this, omg) + "");
             String videoThumbnailPath = omg.getPath();
-            Log.d(TAG, "onCreate: OMG IM JUST WAITING FOR THIS TO WORK TBH /data/user/0/co.WishRoll" + videoThumbnailPath);
-            Log.d(TAG, "onCreate: LETS SEE IF THIS GET FILES DIR THING IS LEGIT: /data/user/0/co.WishRoll"  + videoThumbnailPath);
             taggingViewModel.setVideoThumbnailPath("/data/user/0/co.WishRoll" + videoThumbnailPath);
 
 

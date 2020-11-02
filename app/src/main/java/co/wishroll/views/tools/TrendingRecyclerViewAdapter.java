@@ -52,7 +52,14 @@ public class TrendingRecyclerViewAdapter extends RecyclerView.Adapter<TrendingRe
     @Override
     public void onBindViewHolder(@NonNull TrendingViewHolder holder, int position) {
 
+
         TrendingTag thisTag = mData.get(position);
+
+        if(thisTag.getTrendingTagThumbnails().length <= 3){
+            holder.seeMore.setVisibility(View.GONE);
+        }else{
+            holder.seeMore.setVisibility(View.VISIBLE);
+        }
 
         switch(thisTag.getTrendingTagThumbnails().length){
             case 0:

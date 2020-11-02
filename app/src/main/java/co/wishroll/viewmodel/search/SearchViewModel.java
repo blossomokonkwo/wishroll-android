@@ -1,7 +1,5 @@
 package co.wishroll.viewmodel.search;
 
-import android.util.Log;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.Observer;
@@ -16,7 +14,6 @@ import co.wishroll.utilities.StateData;
 import static co.wishroll.WishRollApplication.applicationGraph;
 
 public class SearchViewModel extends ViewModel {
-    private static final String TAG = "SearchViewModel";
     public static  MediatorLiveData<StateData<ArrayList<Post>>> listOfVideoMedia = new MediatorLiveData<>();
     public  static MediatorLiveData<StateData<ArrayList<Post>>> listOfImageMedia = new MediatorLiveData<>();
     public  static MediatorLiveData<StateData<ArrayList<Post>>> listOfGifMedia = new MediatorLiveData<>();
@@ -104,7 +101,6 @@ public class SearchViewModel extends ViewModel {
     
     public static void performFirstSearch(){
 
-        Log.d(TAG, "performFirstSearch: THIS IS THE CURRENT FRAGMENT " + SearchViewModel.getCurrentFragment());
 
         if(SearchViewModel.getCurrentFragment() == 0){
 
@@ -162,7 +158,7 @@ public class SearchViewModel extends ViewModel {
                 listOfGifMedia.addSource(source, new Observer<StateData<ArrayList<Post>>>() {
                     @Override
                     public void onChanged(StateData<ArrayList<Post>> gifSearchStateData) {
-                        Log.d(TAG, "onChanged: status in view model " + gifSearchStateData.status.toString());
+
                         if(gifSearchStateData.data != null){
                             setGifDataSetSize(gifSearchStateData.data.size());
                         }else{
@@ -179,8 +175,7 @@ public class SearchViewModel extends ViewModel {
         }else{
             //lol idk
         }
-        Log.d(TAG, "performSearch: this is the query: " + query);
-        Log.d(TAG, "performSearch: this is the fragment we are on " + currentFragment);
+
     }
 
     public static void getMoreSearchResults(int offsetie){
@@ -196,8 +191,7 @@ public class SearchViewModel extends ViewModel {
                 }
             });
 
-            Log.d(TAG, "getMoreSearchResults: getting more videos to append");
-            
+
 
             //make network call to update live data but with a video content type
 
@@ -216,7 +210,7 @@ public class SearchViewModel extends ViewModel {
 
             //make network call to update live data but with an image content type
 
-        }else if(SearchViewModel.getCurrentFragment() == 2){
+       /* }else if(SearchViewModel.getCurrentFragment() == 2){
             final LiveData<StateData<ArrayList<Post>>> source = searchRepository.getSearchResults(offsetie, query, ContentType.gif.toString());
             listOfGifMedia.addSource(source, new Observer<StateData<ArrayList<Post>>>() {
                 @Override
@@ -225,7 +219,7 @@ public class SearchViewModel extends ViewModel {
                     listOfGifMedia.removeSource(source);
                 }
             });
-            
+            */
             
             
 

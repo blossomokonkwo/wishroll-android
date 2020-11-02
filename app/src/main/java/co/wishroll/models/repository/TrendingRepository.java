@@ -19,7 +19,6 @@ import retrofit2.Retrofit;
 
 @Singleton
 public class TrendingRepository {
-    private static final String TAG = "TrendingRepository";
     private WishRollApi wishRollApi;
 
     @Inject

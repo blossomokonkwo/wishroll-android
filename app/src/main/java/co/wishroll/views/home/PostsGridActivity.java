@@ -1,14 +1,12 @@
 package co.wishroll.views.home;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.AbsListView;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
@@ -24,8 +22,10 @@ import co.wishroll.models.domainmodels.Post;
 import co.wishroll.utilities.StateData;
 import co.wishroll.utilities.ToastUtils;
 import co.wishroll.viewmodel.PostsGridViewModel;
-import co.wishroll.viewmodel.TrendingViewModel;
 import co.wishroll.viewmodel.media.MediaViewModelFactory;
+import co.wishroll.views.reusables.ImageActivity;
+import co.wishroll.views.reusables.VideoActivity;
+import co.wishroll.views.tools.EndlessRecyclerViewScrollListener;
 import co.wishroll.views.tools.GridRecyclerViewAdapter;
 
 public class PostsGridActivity extends AppCompatActivity {
@@ -40,9 +40,6 @@ public class PostsGridActivity extends AppCompatActivity {
     TextView activityTitle;
     ImageButton backButton;
 
-    private static final String TAG = "PostsGridActivity";
-    boolean isScrolling = false;
-    int currentItems, totalItems, scrollOutItems;
     ProgressBar progressBar;
 
     @Override
@@ -74,36 +71,40 @@ public class PostsGridActivity extends AppCompatActivity {
         postGridRecyclerView.setAdapter(gridRecyclerViewAdapter);
 
 
-        postGridRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        postGridRecyclerView.addOnScrollListener(new EndlessRecyclerViewScrollListener(gridLayoutManager) {
             @Override
-            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-                if(newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL){
-                    isScrolling = true;
-                }
-            }
+            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
 
-            @Override
-            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
+                    if (totalItemsCount % 18 == 0) {
+                        postsGridViewModel.getMorePostGridPages(totalItemsCount);
 
-                currentItems = gridLayoutManager.getChildCount();
-                totalItems = gridLayoutManager.getItemCount();
-                scrollOutItems = gridLayoutManager.findFirstVisibleItemPosition();
-
-                if(isScrolling && (currentItems + scrollOutItems == totalItems) ) {
-
-                    isScrolling = false;
-
-                    if(totalItems % postsGridViewModel.getDataSetSize() == 0) {
-                        TrendingViewModel.setOffset(totalItems);
-                        postsGridViewModel.getMorePostGridPages();
                     }
-                }
-
 
             }
         });
+
+        gridRecyclerViewAdapter.setOnGridItemClickListener(new GridRecyclerViewAdapter.OnGridItemClickListener() {
+            @Override
+            public void onGridItemClicked(int position) {
+                if(postGridList.get(position).getMediaUrl().contains(".mp4") || postGridList.get(position).getMediaUrl().contains(".mov") || postGridList.get(position).getMediaUrl().contains(".MP4")){
+                    Intent i = new Intent(PostsGridActivity.this, VideoActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                    i.putExtra("mediaUrl", postGridList.get(position).getMediaUrl());
+                    i.putExtra("postId", postGridList.get(position).getId());
+                    i.putExtra("isBookmarked", postGridList.get(position).getBookmarked());
+                    i.putExtra("post", postGridList.get(position));
+                    startActivity(i);
+                }else{
+                    Intent i = new Intent(PostsGridActivity.this, ImageActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                    i.putExtra("mediaUrl", postGridList.get(position).getMediaUrl());
+                    i.putExtra("postId", postGridList.get(position).getId());
+                    i.putExtra("isBookmarked", postGridList.get(position).getBookmarked());
+                    i.putExtra("post", postGridList.get(position));
+                    startActivity(i);
+                }
+            }
+        });
+
+
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -123,7 +124,6 @@ public class PostsGridActivity extends AppCompatActivity {
                     switch (arrayListStateData.status) {
 
                         case LOADING: {
-                            Log.d(TAG, "onChanged: Loading Trending Tags");
                             showProgressBar(true);
                             break;
                         }
@@ -138,19 +138,16 @@ public class PostsGridActivity extends AppCompatActivity {
                         case AUTHENTICATED: {
                             showProgressBar(false);
                             postGridList.addAll(arrayListStateData.data);
-                            Log.d(TAG, "onChanged: Size of List going into adapter " + postGridList.size());
                             gridRecyclerViewAdapter.notifyDataSetChanged();
 
 
 
 
 
-                            Log.d(TAG, "onChanged: This has been authenticated.");
                             break;
                         }
 
                         case NOT_AUTHENTICATED:
-                            Log.d(TAG, "onChanged: Refreshed Trending Live Data");
                             postGridList.clear();
                             gridRecyclerViewAdapter.notifyDataSetChanged();
 

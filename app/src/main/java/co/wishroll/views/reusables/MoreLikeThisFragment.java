@@ -1,7 +1,7 @@
 package co.wishroll.views.reusables;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,7 +27,6 @@ import co.wishroll.views.tools.GridRecyclerViewAdapter;
 
 public class MoreLikeThisFragment extends Fragment {
 
-    private static final String TAG = "MoreLikeThisFragment";
     View view;
     private RecyclerView myRecyclerView;
     private ArrayList<Post> postGrid = new ArrayList<>();
@@ -38,8 +37,7 @@ public class MoreLikeThisFragment extends Fragment {
 
     public int postId;
 
-    boolean isScrolling = false;
-    int currentItems, totalItems, scrollOutItems;
+
 
 
 
@@ -75,6 +73,27 @@ public class MoreLikeThisFragment extends Fragment {
         mltRecyclerViewAdapter = new GridRecyclerViewAdapter(getContext(), postGrid);
         myRecyclerView.setAdapter(mltRecyclerViewAdapter);
 
+        mltRecyclerViewAdapter.setOnGridItemClickListener(new GridRecyclerViewAdapter.OnGridItemClickListener() {
+            @Override
+            public void onGridItemClicked(int position) {
+                if(postGrid.get(position).getMediaUrl().contains(".mp4") || postGrid.get(position).getMediaUrl().contains(".mov") ){
+                    Intent i = new Intent(getActivity(), VideoActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                    i.putExtra("mediaUrl", postGrid.get(position).getMediaUrl());
+                    i.putExtra("postId", postGrid.get(position).getId());
+                    i.putExtra("isBookmarked", postGrid.get(position).getBookmarked());
+                    i.putExtra("post", postGrid.get(position));
+                    startActivity(i);
+                }else{
+                    Intent i = new Intent(getActivity(), ImageActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                    i.putExtra("mediaUrl", postGrid.get(position).getMediaUrl());
+                    i.putExtra("postId", postGrid.get(position).getId());
+                    i.putExtra("isBookmarked", postGrid.get(position).getBookmarked());
+                    i.putExtra("post", postGrid.get(position));
+                    startActivity(i);
+                }
+            }
+        });
+
 
 
 
@@ -86,8 +105,6 @@ public class MoreLikeThisFragment extends Fragment {
                 if(totalItemsCount % moreLikeThisViewModel.getDataSetSize() == 0) {
                     moreLikeThisViewModel.getMoreLikeThese(totalItemsCount);
 
-                    Log.d(TAG, "onLoadMore: LMAOOOO PLSSS IM SCARED " + totalItemsCount);
-                    Log.d(TAG, "onLoadMore: JUST CHECKING, DOES THIS MATCH UP? MORE ACCURATE??? " + view.getAdapter().getItemCount());
                 }
                 //moreLikeThisViewModel.getMoreLikeThese(view.getAdapter().getItemCount());
             }
@@ -139,7 +156,6 @@ public class MoreLikeThisFragment extends Fragment {
                     switch (arrayListStateData.status) {
                         case LOADING: {
                             postGrid.clear();
-                            Log.d(TAG, "onChanged: THIS IS LOADING");
                             break;
                         }
                         case ERROR: {
@@ -152,13 +168,11 @@ public class MoreLikeThisFragment extends Fragment {
 
                         case AUTHENTICATED: {
                             postGrid.addAll(arrayListStateData.data);
-                            Log.d(TAG, "onChanged: SIZE OF LIST GOING INTO ADAPTER " + postGrid.size());
                             mltRecyclerViewAdapter.notifyDataSetChanged();
 
 
 
 
-                            Log.d(TAG, "onChanged: THIS HAS BEEN AUTHENTICATED");
                             break;
                         }
 

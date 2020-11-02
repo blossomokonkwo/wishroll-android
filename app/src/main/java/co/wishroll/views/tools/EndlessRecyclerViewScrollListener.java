@@ -1,14 +1,11 @@
 package co.wishroll.views.tools;
 
-import android.util.Log;
-
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 public abstract class EndlessRecyclerViewScrollListener extends RecyclerView.OnScrollListener {
-    private static final String TAG = "EndlessRecyclerViewScro";
 
     // The minimum amount of items to have below your current scroll position
     // before loading more.
@@ -93,9 +90,7 @@ public abstract class EndlessRecyclerViewScrollListener extends RecyclerView.OnS
 
 
         if (!loading && (lastVisibleItemPosition + visibleThreshold) > totalItemCount && view.getAdapter().getItemCount() >= visibleThreshold) {
-            Log.d(TAG, "onScrolled: lastVisibleItem Position " + lastVisibleItemPosition);
-            Log.d(TAG, "onScrolled: visibleThreshold " + visibleThreshold);
-            Log.d(TAG, "onScrolled: totalItemCount  " + totalItemCount);
+
             currentPage++;
             onLoadMore(currentPage, totalItemCount, view);
             loading = true;

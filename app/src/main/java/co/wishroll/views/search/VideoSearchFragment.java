@@ -1,7 +1,7 @@
 package co.wishroll.views.search;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +22,8 @@ import co.wishroll.databinding.FragmentVideosearchBinding;
 import co.wishroll.models.domainmodels.Post;
 import co.wishroll.utilities.StateData;
 import co.wishroll.viewmodel.search.SearchViewModel;
+import co.wishroll.views.reusables.ImageActivity;
+import co.wishroll.views.reusables.VideoActivity;
 import co.wishroll.views.tools.EndlessRecyclerViewScrollListener;
 import co.wishroll.views.tools.GridRecyclerViewAdapter;
 
@@ -29,15 +31,12 @@ public class VideoSearchFragment extends Fragment {
 
 
 
-    String query;
-    private static final String TAG = "TrendingFragment";
 
     FragmentVideosearchBinding fragmentVideosearchBinding;
     View view;
     SearchViewModel searchViewModel;
 
-    boolean isScrolling = false;
-    int currentItems, totalItems, scrollOutItems;
+
     ProgressBar progressBar;
     private TextView noResults;
 
@@ -86,13 +85,38 @@ public class VideoSearchFragment extends Fragment {
 
 
 
+        gridRecyclerViewAdapter.setOnGridItemClickListener(new GridRecyclerViewAdapter.OnGridItemClickListener() {
+            @Override
+            public void onGridItemClicked(int position) {
+                if(listOfVideoSearchResults.get(position).getMediaUrl().contains(".mp4") || listOfVideoSearchResults.get(position).getMediaUrl().contains(".mov") ){
+                    Intent i = new Intent(getActivity(), VideoActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                    i.putExtra("mediaUrl", listOfVideoSearchResults.get(position).getMediaUrl());
+                    i.putExtra("postId", listOfVideoSearchResults.get(position).getId());
+                    i.putExtra("isBookmarked", listOfVideoSearchResults.get(position).getBookmarked());
+                    i.putExtra("post", listOfVideoSearchResults.get(position));
+                    startActivity(i);
+                }else{
+                    Intent i = new Intent(getActivity(), ImageActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                    i.putExtra("mediaUrl", listOfVideoSearchResults.get(position).getMediaUrl());
+                    i.putExtra("postId", listOfVideoSearchResults.get(position).getId());
+                    i.putExtra("isBookmarked", listOfVideoSearchResults.get(position).getBookmarked());
+                    i.putExtra("post", listOfVideoSearchResults.get(position));
+                    startActivity(i);
+                }
+            }
+
+
+        });
 
 
 
         recyclerView.addOnScrollListener(new EndlessRecyclerViewScrollListener(gridLayoutManager) {
             @Override
             public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
-                Log.d(TAG, "onLoadMore: loading more video search results");
+                if(totalItemsCount % SearchViewModel.getVideoDataSetSize() == 0) {
+                    SearchViewModel.getMoreSearchResults(totalItemsCount);
+
+                }
             }
         });
 

@@ -1,8 +1,6 @@
 package co.wishroll.views.tools;
 
 import android.content.Context;
-import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,15 +16,15 @@ import java.util.List;
 
 import co.wishroll.R;
 import co.wishroll.models.domainmodels.Post;
-import co.wishroll.views.reusables.ImageActivity;
-import co.wishroll.views.reusables.VideoActivity;
 
 public class GridRecyclerViewAdapter extends RecyclerView.Adapter<GridRecyclerViewAdapter.GridViewHolder> {
 
-    private static final String TAG = "GridRecyclerViewAdapter";
+
+
 
     private Context mContext;
     List<Post> mData;
+
 
     public GridRecyclerViewAdapter(Context mContext, List<Post> mData) {
         this.mContext = mContext;
@@ -40,14 +38,13 @@ public class GridRecyclerViewAdapter extends RecyclerView.Adapter<GridRecyclerVi
         View view;
         LayoutInflater mInflater = LayoutInflater.from(mContext);
         view = mInflater.inflate(R.layout.item_post_grid, parent, false);
-        return new GridViewHolder(view);
+        return new GridViewHolder(view, mListener);
     }
 
     @Override
     public void onBindViewHolder(@NonNull GridViewHolder holder, int position) {
         Post thisPost = mData.get(position);
 
-        //holder.mediaThumbnail.setImageResource(R.color.red);
         holder.videoFlag.setImageResource(R.drawable.ic_play_white);
 
 
@@ -56,7 +53,6 @@ public class GridRecyclerViewAdapter extends RecyclerView.Adapter<GridRecyclerVi
             if (thisPost.getMediaUrl().contains("mp4") || thisPost.getMediaUrl().contains(".mov")) {
 
                 if (thisPost.getThumbnailUrl() == null) {
-                    Log.d(TAG, "onBindViewHolder: Glide is being asked to load the video thumbnail out of the box");
 
                     Glide.with(mContext)
                             .load(thisPost.getMediaUrl())
@@ -91,35 +87,6 @@ public class GridRecyclerViewAdapter extends RecyclerView.Adapter<GridRecyclerVi
                     holder.videoFlag.setVisibility(View.INVISIBLE);
                 }
 
-
-                //imitation
-                if (thisPost.getMediaUrl().contains(".mp4") || thisPost.getMediaUrl().contains(".mov")) {
-                    holder.postItem.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Intent i = new Intent(mContext, VideoActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                            i.putExtra("mediaUrl", thisPost.getMediaUrl());
-                            i.putExtra("postId", thisPost.getId());
-                            i.putExtra("isBookmarked", thisPost.getBookmarked());
-                            i.putExtra("post", thisPost);
-                            mContext.startActivity(i);
-                        }
-                    });
-                } else {
-                    holder.postItem.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Intent i = new Intent(mContext, ImageActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                            i.putExtra("mediaUrl", thisPost.getMediaUrl());
-                            i.putExtra("postId", thisPost.getId());
-                            i.putExtra("isBookmarked", thisPost.getBookmarked());
-                            i.putExtra("post", thisPost);
-                            mContext.startActivity(i);
-                        }
-                    });
-
-                }
-
             }
 
 
@@ -133,23 +100,44 @@ public class GridRecyclerViewAdapter extends RecyclerView.Adapter<GridRecyclerVi
         return mData.size();
     }
 
+
+    private OnGridItemClickListener mListener;
+    public interface OnGridItemClickListener{
+        void onGridItemClicked(int position);
+    }
+
+    public void setOnGridItemClickListener(OnGridItemClickListener listener){
+            this.mListener = listener;
+    }
+
     public static class GridViewHolder extends RecyclerView.ViewHolder{
 
         LinearLayout postItem;
         ImageView mediaThumbnail;
         ImageView videoFlag;
 
-        public GridViewHolder(@NonNull View itemView) {
+        public GridViewHolder(@NonNull View itemView, OnGridItemClickListener listener) {
             super(itemView);
             postItem = itemView.findViewById(R.id.postItem);
             mediaThumbnail = itemView.findViewById(R.id.mediaThumbnail);
             videoFlag = itemView.findViewById(R.id.videoFlag);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(listener != null){
+                        int position = getAdapterPosition();
+                        if(position != RecyclerView.NO_POSITION) {
+                            listener.onGridItemClicked(getAdapterPosition());
+                        }
+                    }
+
+                }
+            });
         }
     }
 
 
-    public interface OnGridItemClicked{
-        void onGridItemClicked();
-    }
+
 
 }

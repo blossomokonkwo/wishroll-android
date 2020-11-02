@@ -2,7 +2,6 @@ package co.wishroll.views.registration;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -19,7 +18,6 @@ import static co.wishroll.WishRollApplication.applicationGraph;
 
 
 public class WelcomeActivity extends AppCompatActivity implements View.OnClickListener {
-    private static final String TAG = "WELCOME ACTIVITY";
 
     @Inject
     SessionManagement sessionManagement = applicationGraph.sessionManagement();
@@ -43,7 +41,6 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
 
 
         if(loggedIn(sessionManagement.getCurrentUserId())){
-            Log.d(TAG, "WelcomeActivity: CURRENT USER ID  " + sessionManagement.getCurrentUserId() );
             startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
             finish();
         }else{

@@ -46,6 +46,12 @@ public class ThumbnailHandler {
             cachePath.mkdirs();
 
             FileOutputStream stream = new FileOutputStream(cachePath + "/" + fileName + FILE_EXTENSION);
+            Log.d(TAG, "saveImgToCache: stream " + stream.toString());
+            Log.d(TAG, "saveImgToCache: cachePath " + cachePath);
+            Log.d(TAG, "saveImgToCache: fileName " + fileName);
+            Log.d(TAG, "saveImgToCache: compressQuality " + COMPRESS_QUALITY );
+            Log.d(TAG, "saveImgToCache: compress " + Bitmap.CompressFormat.JPEG);
+            Log.d(TAG, "saveImgToCache: bitmap " + bitmap.toString());
             bitmap.compress(Bitmap.CompressFormat.JPEG, COMPRESS_QUALITY, stream);
             stream.close();
         } catch (IOException e) {
@@ -134,7 +140,7 @@ public class ThumbnailHandler {
             for (String s : children) {
                 if (!s.equals("lib") && !s.equals("shared_prefs") && !s.equals("code_cache") && !s.equals("files") && !s.equals("wishrollCache") && !s.equals("image_manager_disk_cache") ) {  //!s.equals("documents"
                     deleteDir(new File(appDir, s));
-                    Log.i("TAG", "**************** File /data/data/APP_PACKAGE/" + s + " DELETED *******************");
+                    //Log.i("TAG", "**************** File /data/data/APP_PACKAGE/" + s + " DELETED *******************");
                 }
             }
         }

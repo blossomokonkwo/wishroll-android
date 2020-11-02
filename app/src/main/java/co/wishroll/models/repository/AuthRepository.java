@@ -20,7 +20,6 @@ import retrofit2.Retrofit;
 public class AuthRepository {
     //network calls related to registration
 
-    private static final String TAG = "AuthRepository";
 
     public WishRollApi wishRollApi;
 

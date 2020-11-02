@@ -23,15 +23,20 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import co.wishroll.R;
 import co.wishroll.models.domainmodels.Post;
+import co.wishroll.models.repository.PostRepository;
 import co.wishroll.utilities.FileUtils;
 import co.wishroll.utilities.ToastUtils;
+
+import static co.wishroll.WishRollApplication.applicationGraph;
 
 public class VideosAdapter extends RecyclerView.Adapter<VideosAdapter.VideoViewHolder> {
 
 
+    PostRepository postRepository = applicationGraph.postRepository();
     private ArrayList<Post> videosList = new ArrayList<>();
     Context mContext;
 
@@ -57,9 +62,12 @@ public class VideosAdapter extends RecyclerView.Adapter<VideosAdapter.VideoViewH
     public void onBindViewHolder(@NonNull VideoViewHolder holder, int position) {
 
 
-        holder.setVideoData(videosList.get(position));
+        if(videosList != null) {
+            holder.setVideoData(videosList.get(position));
 
+            //trackView( videosList.get(position).getId());
 
+        }
 
         holder.downloadButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -137,6 +145,7 @@ public class VideosAdapter extends RecyclerView.Adapter<VideosAdapter.VideoViewH
         DownloadManager manager = (DownloadManager)mContext.getSystemService(Context.DOWNLOAD_SERVICE);
         manager.enqueue(request);
         ToastUtils.showToast(mContext, "Downloaded");
+        trackShare(videosList.get(position).getId());
 
 
     }
@@ -235,5 +244,16 @@ public class VideosAdapter extends RecyclerView.Adapter<VideosAdapter.VideoViewH
                 }
             });
         }
+    }
+
+    public void trackView( int postId){
+        HashMap<String, Object> data = new HashMap<>();
+        data.put("viewable_type", "Post");
+        data.put("viewable_id", postId);
+        postRepository.trackView(data);
+    }
+
+    public void trackShare(int postId){
+        postRepository.trackShare(postId, "library");
     }
 }

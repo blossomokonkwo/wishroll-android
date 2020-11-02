@@ -1,5 +1,6 @@
 package co.wishroll.models.networking;
 
+import java.util.HashMap;
 import java.util.List;
 
 import co.wishroll.models.domainmodels.Post;
@@ -15,6 +16,7 @@ import io.reactivex.Completable;
 import io.reactivex.Flowable;
 import io.reactivex.Single;
 import okhttp3.MultipartBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
@@ -134,9 +136,20 @@ public interface WishRollApi {
     Flowable<Post> getPost(@Path("post_id") int postId);
 
 
+    //Tracking Actions
+    @POST("v2/posts/{post_id}/shares")
+    Call<ResponseBody> trackShare(@Path("post_id") int postId, @Query("shared_service") String sharedService);
+
+
+    @POST("v2/views")
+    Call<ResponseBody> trackView(@Body HashMap<String, Object> data);
+
+
     //Delete Account
-    @DELETE("v2/delete/users")
-    Completable deleteThisAccount();
+    /*@DELETE("v2/delete/users")
+    Completable deleteThisAccount();*/
+
+    //Request Tracking
 
 
 

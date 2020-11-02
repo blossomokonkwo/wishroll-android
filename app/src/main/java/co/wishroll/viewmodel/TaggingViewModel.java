@@ -18,7 +18,6 @@ import static co.wishroll.WishRollApplication.applicationGraph;
 
 public class TaggingViewModel extends ViewModel {
 
-    private static final String TAG = "TaggingViewModel";
     PostRepository postRepository = applicationGraph.postRepository();
     public AuthListener authListener = null;
 

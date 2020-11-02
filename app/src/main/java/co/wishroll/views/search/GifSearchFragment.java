@@ -1,7 +1,6 @@
 package co.wishroll.views.search;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,10 +33,8 @@ public class GifSearchFragment extends Fragment {
     View view;
     SearchViewModel searchViewModel;
 
-    private static final String TAG = "GifSearchFragment";
 
-    boolean isScrolling = false;
-    int currentItems, totalItems, scrollOutItems;
+
 
 
     private RecyclerView recyclerView;
@@ -100,7 +97,10 @@ public class GifSearchFragment extends Fragment {
         recyclerView.addOnScrollListener(new EndlessRecyclerViewScrollListener(gridLayoutManager) {
             @Override
             public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
-                Log.d(TAG, "onLoadMore: load more");
+                if(totalItemsCount % SearchViewModel.getGifDataSetSize() == 0) {
+                    SearchViewModel.getMoreSearchResults(totalItemsCount);
+
+                }
 
             }
         });
@@ -117,7 +117,6 @@ public class GifSearchFragment extends Fragment {
             public void onChanged(StateData<ArrayList<Post>> arrayListStateData) {
                 if (arrayListStateData != null) {
 
-                    Log.d(TAG, "onChanged: reached on change in gifsearchfragment, this is the status we are getting " + arrayListStateData.status.toString());
 
                     switch (arrayListStateData.status) {
                         case LOADING:
@@ -134,7 +133,6 @@ public class GifSearchFragment extends Fragment {
 
                         case ERROR:
                             showProgress(false);
-                            Log.d(TAG, "onChanged: reached error clause");
 
                             if(arrayListStateData.data == null || arrayListStateData.data.size() == 0  ){
                                 noResults.setVisibility(View.VISIBLE);

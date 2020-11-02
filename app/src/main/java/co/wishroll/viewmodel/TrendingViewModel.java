@@ -1,7 +1,5 @@
 package co.wishroll.viewmodel;
 
-import android.util.Log;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.Observer;
@@ -16,7 +14,6 @@ import co.wishroll.utilities.StateData;
 import static co.wishroll.WishRollApplication.applicationGraph;
 
 public class TrendingViewModel extends ViewModel {
-    private static final String TAG = "TrendingViewModel";
     //ViewModel for the Trending Fragment, Main Activity
     //fetches and displays a list of posts that are trending
 
