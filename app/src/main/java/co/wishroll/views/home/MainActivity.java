@@ -21,6 +21,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.bumptech.glide.Glide;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.mikhaellopez.circularimageview.CircularImageView;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
@@ -29,6 +30,7 @@ import co.wishroll.databinding.ActivityMainBinding;
 import co.wishroll.models.repository.local.SessionManagement;
 import co.wishroll.utilities.FileUtils;
 import co.wishroll.viewmodel.MainViewModel;
+import co.wishroll.views.profile.ProfileViewActivity;
 import co.wishroll.views.registration.LoginActivity;
 import co.wishroll.views.reusables.TextBodyActivity;
 import co.wishroll.views.search.SearchActivity;
@@ -44,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
     FloatingActionButton fabUpload;
     EditText searchBarFake;
     ImageButton moreButton;
+    CircularImageView profileThumbnail;
     private static final int PERMISSION_CODE = 1001;
     private static final int MEDIA_PICK_CODE = 1000;
     private int IMAGE_CROP_CODE = 1002;
@@ -59,10 +62,25 @@ public class MainActivity extends AppCompatActivity {
         activityMainBinding = DataBindingUtil.setContentView(MainActivity.this, R.layout.activity_main);
         mainViewModel = new ViewModelProvider(this).get(MainViewModel.class);
         activityMainBinding.setMainviewmodel(mainViewModel);
+        activityMainBinding.setImageUrl(sessionManagement.getAvatarURL());
 
         fabUpload = findViewById(R.id.fabUpload);
         searchBarFake = findViewById(R.id.etSearchBarMain);
         moreButton = findViewById(R.id.moreButtonMainPage);
+        profileThumbnail = findViewById(R.id.profileMain);
+
+
+        profileThumbnail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, ProfileViewActivity.class);
+                intent.putExtra("userId", sessionManagement.getCurrentUserId());
+                startActivity(intent);
+                finish();
+            }
+        });
+
+
 
         fabUpload.setOnClickListener(new View.OnClickListener() {
             @Override

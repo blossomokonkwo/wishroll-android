@@ -45,6 +45,8 @@ public class SessionManagement extends Application {
 
         }
 
+
+
         if( userModel.getProfileBackgroundUrl() != null) {
             editor.putString("background_url", userModel.getProfileBackgroundUrl());
         }else{

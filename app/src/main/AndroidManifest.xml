@@ -12,7 +12,6 @@
     <application
         android:name=".WishRollApplication"
         android:allowBackup="true"
-
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:requestLegacyExternalStorage="true"
@@ -20,11 +19,22 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".views.registration.AgeActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".views.registration.UsernameActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".views.home.PostsGridActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".views.home.ContactActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".views.reusables.TextBodyActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".views.profile.ProfileViewActivity"></activity>
+        <activity
+            android:name=".views.registration.AgeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".views.registration.UsernameActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".views.home.PostsGridActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".views.home.ContactActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".views.reusables.TextBodyActivity"
+            android:screenOrientation="portrait" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -37,35 +47,39 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
-        <activity android:name=".views.upload.TaggingActivity" android:screenOrientation="portrait"/>
+        <activity
+            android:name=".views.upload.TaggingActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".views.reusables.VideoActivity"
-            android:theme="@style/Fullscreen"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/Fullscreen" />
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
-            android:theme="@style/Base.Theme.AppCompat"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".views.reusables.ImageActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/Base.Theme.AppCompat" />
+        <activity
+            android:name=".views.reusables.ImageActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".views.search.SearchActivity"
-            android:windowSoftInputMode="stateVisible"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateVisible" />
         <activity
             android:name=".views.home.MainActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".views.registration.SignupActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".views.registration.SignupActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".views.registration.LoginActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".views.reusables.SplashScreen"
-            android:theme="@style/splashscreen"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/splashscreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -74,8 +88,8 @@
         </activity>
         <activity
             android:name=".views.registration.WelcomeActivity"
-            android:theme="@style/AppTheme"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
     </application>
 
 </manifest>

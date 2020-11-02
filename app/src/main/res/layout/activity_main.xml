@@ -10,6 +10,10 @@
             name="mainviewmodel"
             type="co.wishroll.viewmodel.MainViewModel" />
 
+        <variable
+            name="imageUrl"
+            type="String" />
+
 
 
     </data>
@@ -44,13 +48,23 @@
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true">
 
+                    <com.mikhaellopez.circularimageview.CircularImageView
+                        app:profileImage="@{imageUrl}"
+                        android:layout_margin="@dimen/_10sdp"
+                        android:id="@+id/profileMain"
+                        android:layout_width="@dimen/_55sdp"
+                        android:layout_height="@dimen/_55sdp"
+                        android:src="@drawable/reaction_picture"
+                        />
+
 
 
                     <RelativeLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/_20sdp"
-                        android:layout_marginStart="@dimen/_10sdp"
+                        android:layout_marginStart="@dimen/_1sdp"
+                        android:layout_gravity="center_vertical"
                         >
 
                         <EditText

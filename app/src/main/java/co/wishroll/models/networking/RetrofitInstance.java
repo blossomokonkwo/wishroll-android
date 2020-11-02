@@ -30,8 +30,8 @@ import static co.wishroll.WishRollApplication.applicationGraph;
 public class RetrofitInstance {
 
     private static final String TAG = "RetrofitInstance";
-
-    private static String API_BASE_URL = "https://www.wishroll.co/";
+    //houses Retrofit Instance "http://10.0.2.2:3000/v2/" @PhysicalDevice: http://192.168.1.251:3000 www.wishroll.co/   wishroll-testing.herokuapp.com/
+    private static String API_BASE_URL = "https:/wishroll-testing.herokuapp.com/";
     private static Retrofit retrofitInstance;
     public static SessionManagement sessionManagement = applicationGraph.sessionManagement();
     private static Gson gson;
