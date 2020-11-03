@@ -24,6 +24,7 @@ import co.wishroll.views.home.MainActivity;
 import co.wishroll.views.tools.SearchViewPagerAdapter;
 
 public class SearchActivity extends AppCompatActivity {
+    private static final String TAG = "SearchActivity";
     ActivitySearchBinding activitySearchBinding;
     SearchViewModel searchViewModel;
     SearchView searchBar;
@@ -142,11 +143,19 @@ public class SearchActivity extends AppCompatActivity {
 
         });
 
+        searchBar.requestFocus();
+
+
+
+
+
+
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 SearchViewModel.onSearchingEmpty();
                 startActivity(new Intent(SearchActivity.this, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
+                hideKeyboard();
                 finish();
             }
         });
@@ -158,5 +167,15 @@ public class SearchActivity extends AppCompatActivity {
         InputMethodManager in = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         in.hideSoftInputFromWindow(searchBar.getWindowToken(), 0);
     }
+
+    private void showInputMethod(View view) {
+        //((InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE)).toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
+
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (imm != null) {
+            imm.showSoftInput(view, 0);
+        }
+    }
+    
 
 }

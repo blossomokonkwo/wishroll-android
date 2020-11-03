@@ -81,7 +81,7 @@
                         android:id="@+id/bannerProfileView"
                         app:bannerViewImage="@{bannerImageUrl}"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/_140sdp"
+                        android:layout_height="@dimen/_100sdp"
                         android:scaleType="centerCrop"
                         android:src="@color/wishroll_blue" />
 
@@ -92,15 +92,15 @@
                 <!-- Profile Picture -->
                 <com.mikhaellopez.circularimageview.CircularImageView
                     android:id="@+id/profilePictureProfileView"
-                    android:layout_width="@dimen/_90sdp"
-                    android:layout_height="@dimen/_90sdp"
+                    android:layout_width="@dimen/_75sdp"
+                    android:layout_height="@dimen/_75sdp"
                     android:layout_marginTop="-55dp"
                     android:elevation="10dp"
                     android:src="@drawable/defaultprofile"
                     app:civ_border="true"
                     app:profileViewImage="@{profileImageUrl}"
                     app:civ_border_color="@color/white"
-                    app:civ_border_width="4dp"
+                    app:civ_border_width="1.65dp"
                     app:civ_shadow="true"
                     app:civ_shadow_radius="0"/>
 
@@ -144,7 +144,7 @@
                         android:text=""
                         android:textColor="@color/black"
                         android:textStyle="bold"
-                        android:textSize="@dimen/_14ssp"/>
+                        android:textSize="@dimen/_13ssp"/>
 
                 </LinearLayout>
 
@@ -169,32 +169,12 @@
 
                 </LinearLayout>
 
-                <!-- Edit Profile, Follow, or Following Button -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:layout_marginTop="@dimen/_5sdp">
-
-                    <Button
-                        android:id="@+id/mainButtonProfileView"
-                        android:layout_width="@dimen/_115sdp"
-                        android:layout_height="@dimen/_35sdp"
-                        android:background="@drawable/edit_white_button"
-                        android:text="@string/edit_profile"
-                        android:textAllCaps="false"
-                        android:textSize="@dimen/_12ssp"
-                        style="?android:attr/borderlessButtonStyle"/>
-
-                </LinearLayout>
-
-                <!-- User Views, UserList, and Following Count -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_19sdp"
                     android:gravity="center"
-                    android:layout_marginTop="@dimen/_15sdp"
-                    android:weightSum="3">
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:weightSum="5">
 
 
                     <TextView
@@ -203,7 +183,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text=""
-                        android:textSize="@dimen/_13ssp"
+                        android:textSize="@dimen/_10ssp"
                         android:textColor="@color/black"
                         android:textStyle="bold"
                         android:textAlignment="center"
@@ -215,7 +195,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text=""
-                        android:textSize="@dimen/_13ssp"
+                        android:textSize="@dimen/_10ssp"
                         android:textColor="@color/black"
                         android:textStyle="bold"
                         android:textAlignment="center"
@@ -223,13 +203,15 @@
 
                 </LinearLayout>
 
+                <!-- User Views, UserList, and Following Count -->
+
                 <!-- Statistics Labels -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="-5dp"
                     android:gravity="center"
-                    android:weightSum="3"
+                    android:weightSum="5"
                     >
 
 
@@ -238,7 +220,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="Followers"
-                        android:textSize="@dimen/_10ssp"
+                        android:textSize="@dimen/_9ssp"
                         android:textColor="@color/grey"
                         android:textAlignment="center"
                         android:gravity="center_horizontal"/>
@@ -247,12 +229,34 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="Following"
-                        android:textSize="@dimen/_10ssp"
+                        android:textSize="@dimen/_9ssp"
                         android:textColor="@color/grey"
                         android:textAlignment="center"
                         android:gravity="center_horizontal"/>
 
                 </LinearLayout>
+
+                <!-- Edit Profile, Follow, or Following Button -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:layout_marginBottom="@dimen/_10sdp">
+
+                    <Button
+                        android:id="@+id/mainButtonProfileView"
+                        android:layout_width="@dimen/_100sdp"
+                        android:layout_height="@dimen/_35sdp"
+                        android:background="@drawable/edit_white_button"
+                        android:text="@string/edit_profile"
+                        android:textAllCaps="false"
+                        android:textSize="@dimen/_10ssp"
+                        style="?android:attr/borderlessButtonStyle"/>
+
+                </LinearLayout>
+
+
 
                 <!-- TabLayout and View Pager 2 -->
                 <LinearLayout
