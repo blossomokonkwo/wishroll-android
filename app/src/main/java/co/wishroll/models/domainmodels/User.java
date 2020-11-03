@@ -41,7 +41,7 @@ public class User {
 
     @SerializedName("following")
     @Expose
-    public boolean following;
+    public Boolean following;
 
     @SerializedName("name")
     @Expose
@@ -64,7 +64,7 @@ public class User {
 
     }
 
-    public User(String username, int id, boolean verified) {
+    public User(String username, int id, Boolean verified) {
         this.username = username;
         this.id = id;
         this.verified = verified;
@@ -138,11 +138,11 @@ public class User {
         this.verified = verified;
     }
 
-    public boolean isFollowing() {
+    public Boolean isFollowing() {
         return following;
     }
 
-    public void setFollowing(boolean following) {
+    public void setFollowing(Boolean following) {
         this.following = following;
     }
 

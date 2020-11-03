@@ -56,7 +56,7 @@ public class RetrofitInstance {
                 .cache(cache())
                 .addNetworkInterceptor(networkInterceptor())
                 .addInterceptor(offlineInterceptor())
-                //.addInterceptor(loggingInterceptor)
+                .addInterceptor(loggingInterceptor)
                 .addInterceptor(new Interceptor() {
 
                     @Override

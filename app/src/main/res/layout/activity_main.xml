@@ -50,51 +50,40 @@
 
                     <com.mikhaellopez.circularimageview.CircularImageView
                         app:profileImage="@{imageUrl}"
-                        android:layout_margin="@dimen/_10sdp"
+                        android:layout_margin="@dimen/_5sdp"
                         android:id="@+id/profileMain"
                         android:layout_width="@dimen/_55sdp"
                         android:layout_height="@dimen/_55sdp"
-                        android:src="@drawable/reaction_picture"
+                        android:src="@drawable/defaultprofile"
                         />
 
 
-
                     <RelativeLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="310dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="@dimen/_20sdp"
-                        android:layout_marginStart="@dimen/_1sdp"
                         android:layout_gravity="center_vertical"
-                        >
+                        android:layout_marginStart="@dimen/_1sdp"
+                        android:layout_marginEnd="@dimen/_20sdp">
 
                         <EditText
                             android:id="@+id/etSearchBarMain"
-                            android:focusable="false"
-                            android:layout_marginRight="@dimen/_15sdp"
-                            android:layout_alignParentLeft="true"
                             android:layout_width="match_parent"
-                            android:hint="Search WishRoll..."
-                            android:drawableLeft="@drawable/ic_search"
-                            android:paddingLeft="@dimen/_8sdp"
-                            android:textColorHint="@color/dark_grey"
                             android:layout_height="@dimen/_33sdp"
+                            android:layout_alignParentLeft="true"
                             android:layout_centerVertical="true"
+                            android:layout_marginRight="@dimen/_5sdp"
                             android:background="@drawable/search_button_style"
-                            />
+                            android:drawableLeft="@drawable/ic_search"
+                            android:focusable="false"
+                            android:hint="Search WishRoll..."
+                            android:paddingLeft="@dimen/_8sdp"
+                            android:textColorHint="@color/dark_grey" />
 
                     </RelativeLayout>
 
                 </LinearLayout>
 
-                <ImageButton
-                    android:id="@+id/moreButtonMainPage"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:layout_width="@dimen/_20sdp"
-                    android:layout_height="@dimen/_20sdp"
-                    android:layout_marginRight="@dimen/_10sdp"
-                    android:src="@drawable/ic_more_vert"
-                    android:background="@color/transparent"/>
+
 
             </RelativeLayout>
 

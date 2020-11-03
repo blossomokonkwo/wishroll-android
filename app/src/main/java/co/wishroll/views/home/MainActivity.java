@@ -7,10 +7,8 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,8 +16,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.bumptech.glide.Glide;
-import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.mikhaellopez.circularimageview.CircularImageView;
 import com.theartofdev.edmodo.cropper.CropImage;
@@ -31,8 +27,6 @@ import co.wishroll.models.repository.local.SessionManagement;
 import co.wishroll.utilities.FileUtils;
 import co.wishroll.viewmodel.MainViewModel;
 import co.wishroll.views.profile.ProfileViewActivity;
-import co.wishroll.views.registration.LoginActivity;
-import co.wishroll.views.reusables.TextBodyActivity;
 import co.wishroll.views.search.SearchActivity;
 import co.wishroll.views.upload.TaggingActivity;
 
@@ -45,7 +39,6 @@ public class MainActivity extends AppCompatActivity {
     SessionManagement sessionManagement = applicationGraph.sessionManagement();
     FloatingActionButton fabUpload;
     EditText searchBarFake;
-    ImageButton moreButton;
     CircularImageView profileThumbnail;
     private static final int PERMISSION_CODE = 1001;
     private static final int MEDIA_PICK_CODE = 1000;
@@ -66,7 +59,6 @@ public class MainActivity extends AppCompatActivity {
 
         fabUpload = findViewById(R.id.fabUpload);
         searchBarFake = findViewById(R.id.etSearchBarMain);
-        moreButton = findViewById(R.id.moreButtonMainPage);
         profileThumbnail = findViewById(R.id.profileMain);
 
 
@@ -115,93 +107,6 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        moreButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(
-                        MainActivity.this, R.style.BottomSheetDialogTheme
-                );
-
-                View bottomSheetView = LayoutInflater.from(getApplicationContext()).inflate(R.layout.layout_bottom_sheet,
-                        findViewById(R.id.bottomSheetContainer));
-
-
-                bottomSheetView.findViewById(R.id.privacyPolicy).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                        Intent viewText = new Intent (MainActivity.this, TextBodyActivity.class);
-                        viewText.putExtra("pageTitle", 2);
-                        startActivity(viewText);
-                        bottomSheetDialog.dismiss();
-                    }
-                });
-
-                bottomSheetView.findViewById(R.id.faqButton).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                        Intent viewText = new Intent (MainActivity.this, TextBodyActivity.class);
-                        viewText.putExtra("pageTitle", 1);
-                        startActivity(viewText);
-                        bottomSheetDialog.dismiss();
-
-
-                    }
-                });
-
-
-                bottomSheetView.findViewById(R.id.termsOfServiceButton).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                        Intent viewTerms = new Intent (MainActivity.this, TextBodyActivity.class);
-                        viewTerms.putExtra("pageTitle", 3);
-                        startActivity(viewTerms);
-                        bottomSheetDialog.dismiss();
-                    }
-                });
-                bottomSheetView.findViewById(R.id.contactUsButton).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                        Intent viewText = new Intent (MainActivity.this, ContactActivity.class);
-                        startActivity(viewText);
-                        bottomSheetDialog.dismiss();
-
-
-                    }
-                });
-
-
-                bottomSheetView.findViewById(R.id.logoutButton).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                        bottomSheetDialog.dismiss();
-                        sessionManagement.clearSession();
-                        sessionManagement.checkLogout();
-
-                        Glide.get(MainActivity.this).clearMemory();
-                        //Glide.get(getContext()).clearDiskCache();
-                        startActivity(new Intent(MainActivity.this, LoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP));
-                        finish();
-
-
-
-
-                    }
-
-                });
-
-
-
-                bottomSheetDialog.setContentView(bottomSheetView);
-                bottomSheetDialog.show();
-
-            }
-
-        });
 
     }
 
