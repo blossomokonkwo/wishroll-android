@@ -144,6 +144,11 @@
     <string name="try_again">Try Again</string>
     <string name="email_or_username">Email or Username</string>
     <string name="no_trending_tags">No Trending Tags</string>
+    <string name="no_liked">No Liked Posts Yet</string>
+    <string name="no_uploads">No Posts Yet</string>
+    <string name="no_bookmarks">No Bookmarked Posts Yet</string>
+    <string name="no_notis">No Notifications Yet</string>
+
 
 
 </resources>

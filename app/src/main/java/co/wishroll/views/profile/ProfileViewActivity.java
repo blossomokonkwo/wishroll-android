@@ -333,13 +333,6 @@ public class ProfileViewActivity extends AppCompatActivity {
                             Boolean isFollowing = user.isFollowing();
 
 
-                            /*Glide.with(getContext())
-                                    .load(user.getAvatar()).apply(new RequestOptions().circleCrop()).placeholder(R.drawable.defaultprofile)
-                                    .into(profilePicture);
-
-                            Glide.with(getContext())
-                                    .load(user.getProfileBackgroundUrl()).apply(new RequestOptions()).placeholder(R.color.wishroll_blue)
-                                    .into(bannerPicture);*/
 
 
                             if(isFollowing == null){
@@ -347,14 +340,11 @@ public class ProfileViewActivity extends AppCompatActivity {
                                 bMainButton.setBackground(ContextCompat.getDrawable(ProfileViewActivity.this, R.drawable.edit_white_button));
                                 moreProfileView.setVisibility(View.VISIBLE);
                             }else if(isFollowing){
-                                bMainButton.setText(getString(R.string.following));
-                                bMainButton.setBackground(ContextCompat.getDrawable(ProfileViewActivity.this, R.drawable.following_white_button));
+                                bMainButton.setVisibility(View.GONE);
                                 moreProfileView.setVisibility(View.GONE);
 
-
                             }else{ //is not following
-                                bMainButton.setText(getString(R.string.follow));
-                                bMainButton.setBackground(ContextCompat.getDrawable(ProfileViewActivity.this, R.drawable.follow_blue_button));
+                                bMainButton.setVisibility(View.GONE);
                                 moreProfileView.setVisibility(View.GONE);
 
 

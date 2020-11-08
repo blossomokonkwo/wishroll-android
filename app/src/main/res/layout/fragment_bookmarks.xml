@@ -3,10 +3,44 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+
+    <data>
+
+        <variable
+            name="viewmodel"
+            type="co.wishroll.viewmodel.BookmarksViewModel" />
+
+    </data>
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context="co.wishroll.views.profile.BookmarksFragment">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <TextView
+            android:visibility="invisible"
+            android:id="@+id/noBookmarksText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/no_bookmarks"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/_60sdp"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:textSize="@dimen/_20sdp"
+            />
+
+        <ProgressBar
+            android:visibility="gone"
+            android:id="@+id/progressBarBookmarks"
+            android:layout_marginTop="@dimen/_26sdp"
+            android:layout_width="@dimen/_26sdp"
+            android:layout_height="@dimen/_26sdp"
+            android:layout_centerHorizontal="true"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/bookmarksRecyclerView"
@@ -17,6 +51,7 @@
 
 
         </androidx.recyclerview.widget.RecyclerView>
+        </RelativeLayout>
 
     </FrameLayout>
 </layout>

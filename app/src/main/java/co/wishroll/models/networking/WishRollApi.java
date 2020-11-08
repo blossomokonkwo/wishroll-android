@@ -7,6 +7,7 @@ import java.util.Map;
 import co.wishroll.models.domainmodels.Post;
 import co.wishroll.models.domainmodels.TrendingTag;
 import co.wishroll.models.domainmodels.User;
+import co.wishroll.models.domainmodels.UserNotification;
 import co.wishroll.models.repository.datamodels.AuthResponse;
 import co.wishroll.models.repository.datamodels.EValidationRequest;
 import co.wishroll.models.repository.datamodels.LoginRequest;
@@ -159,8 +160,7 @@ public interface WishRollApi {
     @DELETE("v2/posts/{post_id}/bookmarks")
     Completable deleteBookmark(@Path("post_id") int postId);
 
-    @GET("v2/users/{user_id}/bookmarks")
-    Flowable<Post[]> getBookmarkedPosts(@Path("user_id") int userId, @Query("offset") int offset);
+
 
 
     //Posts
@@ -177,11 +177,26 @@ public interface WishRollApi {
     Call<ResponseBody> trackView(@Body HashMap<String, Object> data);
 
 
-    //Delete Account
-    /*@DELETE("v2/delete/users")
-    Completable deleteThisAccount();*/
 
-    //Request Tracking
+
+
+
+
+
+    @GET("v2/users/{user_id}/bookmarks")
+    Flowable<Post[]> getBookmarks(@Path("user_id") int userId, @Query("offset") int offset);
+
+    @GET("v2/users/{user_id}/liked-posts")
+    Flowable<Post[]> getLikes(@Path("user_id") int userId, @Query("offset") int offset);
+
+    @GET("v2/users/{user_id/posts")
+    Flowable<Post[]> getUploads(@Path("user_id") int userId, @Query("offset") int offset);
+
+    @GET("v2/activities")
+    Flowable<UserNotification[]> getNotifications(@Query("offset") int offset);
+
+
+
 
 
 

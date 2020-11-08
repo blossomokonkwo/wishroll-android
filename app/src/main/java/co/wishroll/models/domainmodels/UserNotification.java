@@ -1,68 +1,106 @@
 package co.wishroll.models.domainmodels;
 
-import androidx.annotation.Nullable;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 public class UserNotification {
 
-    public User user = new User("blossom", 1, false);
-    public String timeAgo;
-    public String imageThumbnailURL;
-    public String actionPhrase;
-    public String notificationDescription;
+    @SerializedName("id")
+    @Expose
+    public int id;
 
-    //TODO(legitimize this class, its just fairies and imagination rn)
+    @SerializedName("created_at")
+    @Expose
+    private String createdAt;
+    @SerializedName("phrase")
+    @Expose
+    private String phrase;
+    @SerializedName("type")
+    @Expose
+    private String type;
+    @SerializedName("post")
+    @Expose
+    private Post post;
+    @SerializedName("active_user")
+    @Expose
+    private ActiveUser activeUser;
 
-    public UserNotification() {
-        timeAgo = "35 minutes ago";
-        actionPhrase = "liked your post!";
-        notificationDescription = "blossom liked your post!";
-
+    public Integer getId() {
+        return id;
     }
 
-    public String getNotificationDescription() {
-        return notificationDescription;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public void setNotificationDescription(String notificationDescription) {
-        this.notificationDescription = notificationDescription;
+    public UserNotification withId(Integer id) {
+        this.id = id;
+        return this;
     }
 
-    public String getTimeAgo() {
-
-        return timeAgo;
+    public String getCreatedAt() {
+        return createdAt;
     }
 
-    public void setTimeAgo(String timeAgo) {
-
-        this.timeAgo = timeAgo;
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
     }
 
-    public User getUser() {
-        return user;
+    public UserNotification withCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
+        return this;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public String getPhrase() {
+        return phrase;
     }
 
-    @Nullable
-    public String getImageThumnailURL() {
-
-        return imageThumbnailURL;
+    public void setPhrase(String phrase) {
+        this.phrase = phrase;
     }
 
-    public void setImageThumnailURL(String imageThumnailURL) {
-
-        this.imageThumbnailURL = imageThumnailURL;
+    public UserNotification withPhrase(String phrase) {
+        this.phrase = phrase;
+        return this;
     }
 
-    public String getActionPhrase() {
-
-        return actionPhrase;
+    public String getType() {
+        return type;
     }
 
-    public void setActionPhrase(String actionPhrase) {
-        this.actionPhrase = actionPhrase;
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public UserNotification withType(String type) {
+        this.type = type;
+        return this;
+    }
+
+    public Post getPost() {
+        return post;
+    }
+
+    public void setPost(Post post) {
+        this.post = post;
+    }
+
+    public UserNotification withPost(Post post) {
+        this.post = post;
+        return this;
+    }
+
+    public ActiveUser getActiveUser() {
+        return activeUser;
+    }
+
+    public void setActiveUser(ActiveUser activeUser) {
+        this.activeUser = activeUser;
+    }
+
+    public UserNotification withActiveUser(ActiveUser activeUser) {
+        this.activeUser = activeUser;
+        return this;
     }
 
 }

@@ -14,8 +14,10 @@ import javax.inject.Singleton;
 
 import co.wishroll.models.domainmodels.Post;
 import co.wishroll.models.domainmodels.TrendingTag;
+import co.wishroll.models.domainmodels.UserNotification;
 import co.wishroll.models.networking.RetrofitInstance;
 import co.wishroll.models.networking.WishRollApi;
+import co.wishroll.models.repository.local.SessionManagement;
 import co.wishroll.utilities.StateData;
 import io.reactivex.Completable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -28,6 +30,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
+import static co.wishroll.WishRollApplication.applicationGraph;
+
 @Singleton
 public class PostRepository {
 
@@ -38,6 +42,10 @@ public class PostRepository {
     private enum ContentType {
         VIDEO, IMAGES, GIF
     };
+    LiveData<StateData<ArrayList<Post>>> uploadsSource;
+    LiveData<StateData<ArrayList<Post>>> likedSource;
+
+    SessionManagement sessionManagement = applicationGraph.sessionManagement();
 
 
     @Inject
@@ -140,11 +148,6 @@ public class PostRepository {
         return source;
     }
 
-
-
-
-
-
     public LiveData<StateData<Post>> getPost(int postId){
 
         LiveData<StateData<Post>>source = LiveDataReactiveStreams.fromPublisher(
@@ -169,9 +172,6 @@ public class PostRepository {
                 .subscribeOn(Schedulers.io()));
         return source;
     }
-
-
-
 
     public  LiveData<StateData<ArrayList<Post>>> getTaggedPosts(int trendingTagId, int offset){
         final LiveData<StateData<ArrayList<Post>>> source = LiveDataReactiveStreams.fromPublisher(
@@ -199,8 +199,6 @@ public class PostRepository {
 
         return source;
     }
-
-
 
     public  LiveData<StateData<ArrayList<Post>>> getVideosListPosts(int postId, int offset){
         final LiveData<StateData<ArrayList<Post>>> source = LiveDataReactiveStreams.fromPublisher(
@@ -232,4 +230,126 @@ public class PostRepository {
     }
 
 
-}
+
+
+    public LiveData<StateData<ArrayList<Post>>> getUploadedPosts(int userId, int offset){
+
+            uploadsSource = LiveDataReactiveStreams.fromPublisher(
+                    wishRollApi.getUploads(userId, offset)
+                            .onErrorReturn(new Function<Throwable, Post[]>() {
+                                @Override
+                                public Post[] apply(Throwable throwable) throws Exception {
+                                    return null;
+                                }
+                            })
+                            .map(new Function<Post[], StateData<ArrayList<Post>>>() {
+                                @Override
+                                public StateData<ArrayList<Post>> apply(Post[] posts) throws Exception {
+                                    ArrayList<Post> uploadsList = new ArrayList<>();
+
+                                    if(posts == null){
+                                        return StateData.error("Something went wrong, please try again", uploadsList);
+                                    }else{
+                                        uploadsList.addAll(Arrays.asList(posts));
+                                        return StateData.authenticated(uploadsList);
+                                    }
+
+                                }
+                            }).subscribeOn(Schedulers.io()));
+
+
+
+
+        return uploadsSource;
+
+
+    }
+
+
+
+    public LiveData<StateData<ArrayList<Post>>> getLikedPosts(int userId, int offset){
+
+
+            likedSource = LiveDataReactiveStreams.fromPublisher(
+                    wishRollApi.getLikes(userId, offset)
+                            .onErrorReturn(new Function<Throwable, Post[]>() {
+                                @Override
+                                public Post[] apply(Throwable throwable) throws Exception {
+                                    return null;
+                                }
+                            })
+                            .map(new Function<Post[], StateData<ArrayList<Post>>>() {
+                                @Override
+                                public StateData<ArrayList<Post>> apply(Post[] posts) throws Exception {
+                                    ArrayList<Post> likedList = new ArrayList<>();
+
+                                    if(posts == null){
+                                        return StateData.error("Something went wrong, please try again", likedList);
+                                    }else{
+                                        likedList.addAll(Arrays.asList(posts));
+                                        return StateData.authenticated(likedList);
+                                    }
+
+                                }
+                            }).subscribeOn(Schedulers.io())
+            );
+
+
+
+
+        return likedSource;
+    }
+
+
+
+    public LiveData<StateData<ArrayList<Post>>> getBookmarkedPosts(int userId, int offset){
+        return LiveDataReactiveStreams.fromPublisher(
+                wishRollApi.getBookmarks(userId, offset)
+                .onErrorReturn(new Function<Throwable, Post[]>() {
+                    @Override
+                    public Post[] apply(Throwable throwable) throws Exception {
+                        return null;
+                    }
+                })
+                .map(new Function<Post[], StateData<ArrayList<Post>>>() {
+                    @Override
+                    public StateData<ArrayList<Post>> apply(Post[] posts) throws Exception {
+                        ArrayList<Post> bookmarkedList = new ArrayList<>();
+
+                        if(posts == null){
+                            return StateData.error("Something went wrong, please try again", bookmarkedList);
+                        }else{
+                            bookmarkedList.addAll(Arrays.asList(posts));
+                            return StateData.authenticated(bookmarkedList);
+                        }
+
+                    }
+                }).subscribeOn(Schedulers.io())
+        );
+    }
+
+    public LiveData<StateData<ArrayList<UserNotification>>> getUserNotifications(int offset){
+        return LiveDataReactiveStreams.fromPublisher(
+                wishRollApi.getNotifications(offset)
+                .onErrorReturn(new Function<Throwable, UserNotification[]>() {
+                    @Override
+                    public UserNotification[] apply(Throwable throwable) throws Exception {
+                        return null;
+                    }
+                })
+                .map(new Function<UserNotification[], StateData<ArrayList<UserNotification>>>() {
+                    @Override
+                    public StateData<ArrayList<UserNotification>> apply(UserNotification[] userNotifications) throws Exception {
+                        ArrayList<UserNotification> userNotificationList = new ArrayList<>();
+
+                        if(userNotifications == null){
+                            return StateData.error("Something went wrong, please try again", userNotificationList);
+                        }else{
+                            userNotificationList.addAll(Arrays.asList(userNotifications));
+                            return StateData.authenticated(userNotificationList);
+                        }
+                    }
+                }).subscribeOn(Schedulers.io())
+        );
+    }
+    }
