@@ -39,9 +39,6 @@ public class MainActivity extends AppCompatActivity {
     ActivityMainBinding activityMainBinding;
     MainViewModel mainViewModel;
     SessionManagement sessionManagement = applicationGraph.sessionManagement();
-    FloatingActionButton fabUpload;
-    EditText searchBarFake;
-    CircularImageView profileThumbnail;
     private static final int PERMISSION_CODE = 1001;
     private static final int MEDIA_PICK_CODE = 1000;
     private int IMAGE_CROP_CODE = 1002;
@@ -59,55 +56,16 @@ public class MainActivity extends AppCompatActivity {
         activityMainBinding.setMainviewmodel(mainViewModel);
         activityMainBinding.setImageUrl(sessionManagement.getAvatarURL());
 
-        fabUpload = findViewById(R.id.fabUpload);
-        searchBarFake = findViewById(R.id.etSearchBarMain);
-        profileThumbnail = findViewById(R.id.profileMain);
-
-
-        profileThumbnail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, ProfileViewActivity.class);
-                intent.putExtra("userId", sessionManagement.getCurrentUserId());
-                startActivity(intent);
-                finish();
-            }
-        });
 
 
 
-        fabUpload.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v){
-
-                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M ){
-                    if(checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED){
-                        String[] permissions ={Manifest.permission.READ_EXTERNAL_STORAGE};
-                        requestPermissions(permissions, PERMISSION_CODE);
-
-                    }else if(checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
-                        goToGallery();
-
-                    }
-
-                }else{
-                    goToGallery();
-
-                }
-
-            }
-        });
 
 
 
-        searchBarFake.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, SearchActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
-                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,0);
-            }
-        });
+
+
+
+
 
 
 

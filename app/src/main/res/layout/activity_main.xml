@@ -26,66 +26,12 @@
 
 
         <!-- Full Page -->
-        <LinearLayout
+       <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:orientation="vertical"
             android:background="@color/white">
-
-
-            <!-- Profile Banner & Top Image Buttons -->
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_75sdp"
-                android:gravity="center">
-
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_centerVertical="true">
-
-                    <com.mikhaellopez.circularimageview.CircularImageView
-                        app:profileImage="@{imageUrl}"
-                        android:layout_margin="@dimen/_5sdp"
-                        android:id="@+id/profileMain"
-                        android:layout_width="@dimen/_55sdp"
-                        android:layout_height="@dimen/_55sdp"
-                        android:src="@drawable/defaultprofile"
-                        />
-
-
-                    <RelativeLayout
-                        android:layout_width="310dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginStart="@dimen/_1sdp"
-                        android:layout_marginEnd="@dimen/_20sdp">
-
-                        <EditText
-                            android:id="@+id/etSearchBarMain"
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/_33sdp"
-                            android:layout_alignParentLeft="true"
-                            android:layout_centerVertical="true"
-                            android:layout_marginRight="@dimen/_5sdp"
-                            android:background="@drawable/search_button_style"
-                            android:drawableLeft="@drawable/ic_search"
-                            android:focusable="false"
-                            android:hint="Search WishRoll..."
-                            android:paddingLeft="@dimen/_8sdp"
-                            android:textColorHint="@color/dark_grey" />
-
-                    </RelativeLayout>
-
-                </LinearLayout>
-
-
-
-            </RelativeLayout>
 
 
             <LinearLayout
@@ -110,13 +56,13 @@
                         android:background="@color/white"
                         android:orientation="vertical">
 
-                        <fragment
-                            android:id="@+id/trendingFragment"
-                            android:layout_width="match_parent"
-                            android:layout_height="900dp"
-                            android:name="co.wishroll.views.home.TrendingFragment">
+<!--                        <fragment-->
+<!--                            android:id="@+id/trendingFragment"-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="900dp"-->
+<!--                            android:name="co.wishroll.views.home.TrendingFragment">-->
 
-                        </fragment>
+<!--                        </fragment>-->
 
                     </LinearLayout>
                 </ScrollView>
@@ -131,18 +77,7 @@
         </LinearLayout>
 
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fabUpload"
-            android:layout_gravity="center|bottom"
-            android:layout_width="@dimen/_60sdp"
-            android:layout_height="@dimen/_60sdp"
-            app:fabCustomSize="@dimen/_60sdp"
-            android:src="@drawable/ic_add"
-            style="?borderlessButtonStyle"
-            android:layout_margin="16dp"
-            app:backgroundTint="@color/wishroll_blue"
 
-            />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </layout>
