@@ -1,4 +1,4 @@
-package co.wishroll.views.profile;
+package co.wishroll.views.home;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -23,6 +23,7 @@ import co.wishroll.models.domainmodels.UserNotification;
 import co.wishroll.utilities.StateData;
 import co.wishroll.viewmodel.NotificationsViewModel;
 import co.wishroll.viewmodel.ProfileViewModelFactory;
+import co.wishroll.views.profile.ProfileViewActivity;
 import co.wishroll.views.reusables.ImageActivity;
 import co.wishroll.views.reusables.VideoActivity;
 import co.wishroll.views.tools.EndlessRecyclerViewScrollListener;

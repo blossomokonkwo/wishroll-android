@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+
+    >
 
     <data>
         <variable
-            name="ProfileViewModel"
+            name="profileviewmodel"
             type="co.wishroll.viewmodel.ProfileViewModel" />
 
 
@@ -17,17 +18,16 @@
         <variable
             name="bannerImageUrl"
             type="String" />
-
-
-
-
     </data>
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".views.profile.ProfileViewActivity"
-        >
+
+<FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/electric_blue"
+    tools:context=".views.home.ProfileFragment">
+
+
 
 
         <ScrollView
@@ -55,6 +55,16 @@
                     android:layout_height="wrap_content">
 
 
+                    <ImageButton
+                        android:id="@+id/backProfileView"
+                        android:layout_width="@dimen/_40sdp"
+                        android:layout_height="@dimen/_40sdp"
+                        android:src="@drawable/ic_chevron_left_white"
+                        android:elevation="2dp"
+                        android:layout_margin="5dp"
+                        android:background="@color/transparent"
+                        android:layout_alignParentLeft="true"/>
+
 
                     <ImageButton
                         android:id="@+id/moreProfileView"
@@ -69,11 +79,11 @@
 
                     <ImageView
                         android:id="@+id/bannerProfileView"
-                        app:bannerViewImage="@{bannerImageUrl}"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_100sdp"
                         android:scaleType="centerCrop"
-                        android:src="@color/wishroll_blue" />
+                        android:src="@color/wishroll_blue"
+                        app:bannerViewImage="@{bannerImageUrl}" />
 
 
                 </RelativeLayout>
@@ -294,5 +304,10 @@
 
 
 
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
+
+
+</FrameLayout>
+
 </layout>

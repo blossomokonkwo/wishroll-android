@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import co.wishroll.models.domainmodels.TrendingTag;
 import co.wishroll.models.repository.TrendingRepository;
+import co.wishroll.models.repository.local.SessionManagement;
 import co.wishroll.utilities.StateData;
 
 import static co.wishroll.WishRollApplication.applicationGraph;
@@ -20,6 +21,7 @@ public class TrendingViewModel extends ViewModel {
 
     public TrendingRepository trendingRepository = applicationGraph.trendingRepository();
     MediatorLiveData<StateData<ArrayList<TrendingTag>>> trendingTagLiveData = new MediatorLiveData<>();
+    SessionManagement sessionManagement = applicationGraph.sessionManagement();
     int START_OFFSET = 0;
     public static int offset = 0;
     public int dataSetSize = 0;
@@ -41,7 +43,12 @@ public class TrendingViewModel extends ViewModel {
     }
 
     public TrendingViewModel() {
-        getFirstTrendingTagPage();
+        if(sessionManagement.getCurrentUserId() == 0){
+
+        }else{
+            getFirstTrendingTagPage();
+
+        }
     }
 
     public LiveData<StateData<ArrayList<TrendingTag>>> observeTrendingTags(){

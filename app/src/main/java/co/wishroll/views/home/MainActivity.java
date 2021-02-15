@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -16,8 +17,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.mikhaellopez.circularimageview.CircularImageView;
 import com.theartofdev.edmodo.cropper.CropImage;
@@ -39,9 +42,8 @@ public class MainActivity extends AppCompatActivity {
     ActivityMainBinding activityMainBinding;
     MainViewModel mainViewModel;
     SessionManagement sessionManagement = applicationGraph.sessionManagement();
-    private static final int PERMISSION_CODE = 1001;
-    private static final int MEDIA_PICK_CODE = 1000;
-    private int IMAGE_CROP_CODE = 1002;
+    private BottomNavigationView bottomNavigationView;
+
 
 
 
@@ -54,7 +56,12 @@ public class MainActivity extends AppCompatActivity {
         activityMainBinding = DataBindingUtil.setContentView(MainActivity.this, R.layout.activity_main);
         mainViewModel = new ViewModelProvider(this).get(MainViewModel.class);
         activityMainBinding.setMainviewmodel(mainViewModel);
-        activityMainBinding.setImageUrl(sessionManagement.getAvatarURL());
+
+        bottomNavigationView = activityMainBinding.getRoot().findViewById(R.id.bottomNavigation);
+        bottomNavigationView.setOnNavigationItemSelectedListener(bottomNavMethod);
+        bottomNavigationView.setItemIconTintList(null);
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, new HomeFragment()).commit();
+
 
 
 
@@ -72,100 +79,56 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void goToGallery(){
-        Intent intentUpload = new Intent();
-        intentUpload.setType("*/*");
-        intentUpload.putExtra(MediaStore.EXTRA_DURATION_LIMIT, 30);
-        intentUpload.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(intentUpload, MEDIA_PICK_CODE );
-    }
+    private final BottomNavigationView.OnNavigationItemSelectedListener bottomNavMethod =
+            new BottomNavigationView.OnNavigationItemSelectedListener() {
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if(requestCode == MEDIA_PICK_CODE && resultCode == RESULT_OK && data != null) {
-            Uri path = data.getData();
-
-            String mimeType = getContentResolver().getType(path);
-            String extension = FileUtils.getExtension(data.getData().toString());
-
-
-            assert mimeType != null;
-            if(extension.equals(".mp4") || extension.equals(".mov") || extension.equals(".m4a") || extension.equals(".avi")
-                    || extension.equals(".wmv") || mimeType.equals("video/mp4") || mimeType.contains("video") ){
-
-                Intent taggingVideoIntent = new Intent(MainActivity.this, TaggingActivity.class);
-
-
-
-
-
-
-                taggingVideoIntent.setData(path);
-                taggingVideoIntent.putExtra("isVideo", true);
-                startActivity(taggingVideoIntent);
-
-
-            }else if(extension.equals(".jpg") || extension.equals(".gif") || extension.equals(".png") || extension.equals(".jpeg")
-                    || extension.equals(".PNG")|| mimeType.equals("image/jpeg") || mimeType.contains("image")){
-
-                startCropImageActivity(path, IMAGE_CROP_CODE);
-
+            Fragment fragment = null;
+            switch(item.getItemId()){
+                case R.id.homeBottomNav:
+                    fragment = new HomeFragment();
+                    break;
+                case R.id.searchBottomNav:
+                    fragment = new SearchFragment();
+                    break;
+                case R.id.uploadBottomNav:
+                    fragment = new UploadFragment();
+                    break;
+                case R.id.notifBottomNav:
+                    fragment = new NotificationsFragment();
+                    break;
+                case R.id.profileBottomNav:
+                    fragment = new ProfileFragment();
+                    break;
+                default:
+                    fragment = new HomeFragment();
+                    break;
 
             }
-
+            getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment).commit();
+            return true;
         }
-
-        if(requestCode == IMAGE_CROP_CODE){
-            CropImage.ActivityResult result = CropImage.getActivityResult(data);
-
-            if(result != null) {
-                Intent startTagging = new Intent(MainActivity.this, TaggingActivity.class);
-                startTagging.setData(result.getUri());
-                startTagging.putExtra("isVideo", false);
-                startActivity(startTagging);
-            }
-        }
+    };
 
 
 
 
 
 
-    }
 
 
 
 
-    private void startCropImageActivity(Uri path, int requestCode) {
-
-        Intent cropIntent = CropImage.activity(path)
-                .setGuidelines(CropImageView.Guidelines.ON)
-                .setCropMenuCropButtonTitle("Done")
-                .setFixAspectRatio(false)
-                .setActivityTitle("Crop")
-                .setMultiTouchEnabled(true)
-                .getIntent(this);
-
-        startActivityForResult(cropIntent, requestCode);
-    }
 
 
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        switch (requestCode){
-            case PERMISSION_CODE:
-                if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-                    goToGallery();
-                }else{
 
-                }
-                break;
-        }
-    }
+
+
+
+
+
 
 
 }

@@ -24,15 +24,19 @@ import java.util.ArrayList;
 import co.wishroll.R;
 import co.wishroll.databinding.FragmentTrendingBinding;
 import co.wishroll.models.domainmodels.TrendingTag;
+import co.wishroll.models.repository.local.SessionManagement;
 import co.wishroll.utilities.StateData;
 import co.wishroll.viewmodel.TrendingViewModel;
 import co.wishroll.views.reusables.ImageActivity;
 import co.wishroll.views.reusables.VideoActivity;
 import co.wishroll.views.tools.TrendingRecyclerViewAdapter;
 
+import static co.wishroll.WishRollApplication.applicationGraph;
+
 
 public class TrendingFragment extends Fragment implements TrendingRecyclerViewAdapter.OnTrendingTagListener {
 
+    //for use inside the search fragment right before user clicks the search bar
     private static final String TAG = "TrendingFragment";
 
     FragmentTrendingBinding fragmentTrendingBinding;

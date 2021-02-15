@@ -29,13 +29,8 @@ public class MainViewModel extends ViewModel {
 
 
 
-    @BindingAdapter("profileImage")
-    public static void loadProfileImage(CircularImageView view, String imageUrl) {
-        Log.d(TAG, "loadProfileImage: loading trending page profile picture");
-        Glide.with(view.getContext())
-                .load(imageUrl).apply(new RequestOptions().circleCrop()).placeholder(R.drawable.defaultprofile)
-                .into(view);
-    }
+
+
 
 
 }

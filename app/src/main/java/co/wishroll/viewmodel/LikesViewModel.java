@@ -23,7 +23,13 @@ public class LikesViewModel extends ViewModel {
 
     public LikesViewModel(int userId) {
         this.userId = userId;
-        getFirstPageOfLikes();
+
+        if(userId == 0){
+
+        }else {
+            getFirstPageOfLikes();
+
+        }
 
     }
 

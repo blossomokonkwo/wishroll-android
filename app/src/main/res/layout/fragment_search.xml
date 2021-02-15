@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="mainviewmodel"
+            type="co.wishroll.viewmodel.MainViewModel" />
+
+    </data>
+
+<FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".views.home.SearchFragment"
+    >
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+       >
+
+
+        <!-- Full Page -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:background="@color/white">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_75sdp"
+                android:gravity="center">
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true">
+
+
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/_10sdp"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        >
+
+                        <EditText
+                            android:id="@+id/etSearchBarMain"
+                            android:focusable="false"
+                            android:layout_width="match_parent"
+                            android:hint="Search WishRoll..."
+                            android:drawableLeft="@drawable/ic_search"
+                            android:paddingLeft="@dimen/_8sdp"
+                            android:textColorHint="@color/dark_grey"
+                            android:layout_height="@dimen/_33sdp"
+                            android:layout_centerVertical="true"
+                            android:background="@drawable/search_button_style"
+                            />
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+
+
+            </RelativeLayout>
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+
+
+                <ScrollView
+                    android:id="@+id/nestedContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clipToPadding="false"
+                    android:background="@color/white"
+                    android:scrollbars="none"
+                    android:scrollingCache="true">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:orientation="vertical">
+
+                                                <fragment
+                                                    android:id="@+id/trendingFragment"
+                                                    android:layout_width="match_parent"
+                                                    android:layout_height="900dp"
+                                                    android:name="co.wishroll.views.home.TrendingFragment">
+
+                                                </fragment>
+
+                    </LinearLayout>
+                </ScrollView>
+
+            </LinearLayout>
+
+
+
+
+
+
+        </LinearLayout>
+
+
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
+
+</FrameLayout>
+</layout>

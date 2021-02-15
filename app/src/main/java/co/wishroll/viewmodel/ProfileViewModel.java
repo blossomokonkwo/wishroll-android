@@ -31,7 +31,12 @@ public class ProfileViewModel extends ViewModel {
 
     public ProfileViewModel(int userId) {
         this.userId = userId;
-        getThisUser(userId);
+        if(userId == 0){
+            getThisUser(userId);
+
+        }else{
+            getThisUser(userId);
+        }
         Log.d(TAG, "profileViewModel: SESSION ID CUZ THIS IS GETTING RIDONKULUOIS " + sessionManagement.getCurrentUserId());
 
     }
@@ -40,7 +45,7 @@ public class ProfileViewModel extends ViewModel {
     public static void loadProfileViewImage(CircularImageView view, String imageUrl) {
         Log.d(TAG, "loadProfileImage: binding adapter lolol XDXDXD ");
         Glide.with(view.getContext())
-                .load(imageUrl).apply(new RequestOptions().circleCrop()).placeholder(R.color.light_grey)
+                .load(imageUrl).apply(new RequestOptions().circleCrop()).placeholder(R.drawable.defaultprofile)
                 .into(view);
     }
 

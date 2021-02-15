@@ -23,7 +23,13 @@ public class NotificationsViewModel extends ViewModel {
 
     public NotificationsViewModel(int userId) {
         this.userId = userId;
-        getFirstPageOfNotifications();
+
+        if(userId == 0){
+
+        }else{
+            getFirstPageOfNotifications();
+
+        }
 
     }
 

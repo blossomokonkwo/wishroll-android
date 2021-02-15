@@ -10,74 +10,50 @@
             name="mainviewmodel"
             type="co.wishroll.viewmodel.MainViewModel" />
 
-        <variable
-            name="imageUrl"
-            type="String" />
+
 
 
 
     </data>
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <RelativeLayout
 
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".views.home.MainActivity">
 
+        <FrameLayout
+            android:id="@+id/container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <!-- Full Page -->
-       <LinearLayout
+        </FrameLayout>
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:orientation="vertical"
-            android:background="@color/white">
+            android:id="@+id/bottomNavigation"
+            android:layout_alignParentBottom="true"
+            android:background="?android:attr/windowBackground"
+            app:menu="@menu/bottom_navigation"
+            app:itemHorizontalTranslationEnabled="false"
+            app:labelVisibilityMode="unlabeled"
 
+            >
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:orientation="vertical">
-
-
-
-                <ScrollView
-                    android:id="@+id/nestedContent"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:clipToPadding="false"
-                    android:background="@color/white"
-                    android:scrollbars="none"
-                    android:scrollingCache="true">
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/white"
-                        android:orientation="vertical">
-
-<!--                        <fragment-->
-<!--                            android:id="@+id/trendingFragment"-->
-<!--                            android:layout_width="match_parent"-->
-<!--                            android:layout_height="900dp"-->
-<!--                            android:name="co.wishroll.views.home.TrendingFragment">-->
-
-<!--                        </fragment>-->
-
-                    </LinearLayout>
-                </ScrollView>
-
-            </LinearLayout>
+        </com.google.android.material.bottomnavigation.BottomNavigationView>
 
 
 
 
 
 
-        </LinearLayout>
 
 
 
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
+
+    </RelativeLayout>
 
 </layout>

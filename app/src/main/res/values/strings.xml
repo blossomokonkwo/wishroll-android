@@ -149,6 +149,12 @@
     <string name="no_bookmarks">No Bookmarked Posts Yet</string>
     <string name="no_notis">No Notifications Yet</string>
 
+    <!-- Bottom Navigation -->
+    <string name="home">Home</string>
+    <string name="search">Search</string>
+    <string name="upload">Upload</string>
+    <string name="notifications">Notifications</string>
+    <string name="profile">Profile</string>
 
 
 </resources>

@@ -24,7 +24,13 @@ public class UploadsViewModel extends ViewModel {
 
     public UploadsViewModel(int userId) {
         this.userId = userId;
-        getFirstPageOfUploads();
+
+        if(userId == 0){
+
+        }else{
+            getFirstPageOfUploads();
+
+        }
 
     }
 

@@ -24,7 +24,12 @@ public class BookmarksViewModel  extends ViewModel {
 
     public BookmarksViewModel(int userId) {
         this.userId = userId;
-        getFirstPageOfBookmarks();
+
+        if(userId == 0){
+            
+        }else{
+            getFirstPageOfBookmarks();
+        }
 
     }
 

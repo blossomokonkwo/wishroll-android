@@ -5,9 +5,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import co.wishroll.views.profile.BookmarksFragment;
 import co.wishroll.views.profile.LikesFragment;
-import co.wishroll.views.profile.NotificationsFragment;
 import co.wishroll.views.profile.UploadsFragment;
 
 public class ProfileViewPagerAdapter extends FragmentStateAdapter {
@@ -39,22 +37,18 @@ public class ProfileViewPagerAdapter extends FragmentStateAdapter {
             switch (position) {
                 case 0:
                     return new UploadsFragment(userId);
-                case 1:
-                    return new LikesFragment(userId);
-
-                case 2:
-                    return new BookmarksFragment(userId);
 
                 default:
-                    return new NotificationsFragment(userId);
+                    return new LikesFragment(userId);
+
+
             }
         }else {
-            switch (position) {
-                case 0:
+
+
                     return new UploadsFragment(userId);
-                default:
-                    return new LikesFragment(userId);
-            }
+
+
         }
 
 
@@ -64,9 +58,9 @@ public class ProfileViewPagerAdapter extends FragmentStateAdapter {
     public int getItemCount() {
 
         if(isCurrentUser) {
-            return 4;
-        }else{
             return 2;
+        }else{
+            return 1;
         }
 
     }
