@@ -177,13 +177,7 @@ public class AgeActivity extends AppCompatActivity implements AuthListener {
         final Calendar c = Calendar.getInstance();
         int mYear = c.get(Calendar.YEAR);
 
-        if(monthNum > 12 || dayNum > 31 || yearNum >= mYear || monthNum == 0 || dayNum == 0 || yearNum == 0){
-            return false;
-
-        }else{
-            return true;
-
-        }
+        return monthNum <= 12 && dayNum <= 31 && yearNum < mYear && monthNum != 0 && dayNum != 0 && yearNum != 0;
 
 
     }

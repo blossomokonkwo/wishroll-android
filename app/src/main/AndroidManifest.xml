@@ -20,15 +20,11 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity android:name=".views.profile.EditProfileActivity"></activity>
-        <activity android:name=".views.profile.ProfileViewActivity" />
         <activity
             android:name=".views.registration.AgeActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".views.registration.UsernameActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".views.home.PostsGridActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".views.home.ContactActivity"
@@ -52,20 +48,9 @@
             android:name=".views.upload.TaggingActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".views.reusables.VideoActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/Fullscreen" />
-        <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Base.Theme.AppCompat" />
-        <activity
-            android:name=".views.reusables.ImageActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".views.search.SearchActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateVisible" />
         <activity
             android:name=".views.home.MainActivity"
             android:launchMode="singleTask"

@@ -312,7 +312,7 @@ public class EditProfileViewModel  extends ViewModel {
     public void updateCurrentUser(Map<String, RequestBody> changedAttributes, MultipartBody.Part profilePicture, MultipartBody.Part bannerPicture){
         //for when the save button is pressed
         Log.d(TAG, "updateCurrentUser: in the update current user method of the view model");
-        editedCurrentUser.setValue(StateData.loading((UpdateResponse) null));
+        editedCurrentUser.setValue(StateData.loading(null));
 
         final LiveData<StateData<UpdateResponse>> source = userRepository.updateUser(changedAttributes, profilePicture, bannerPicture);
         editedCurrentUser.addSource(source, new Observer<StateData<UpdateResponse>>() {

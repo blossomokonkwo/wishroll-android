@@ -133,16 +133,6 @@ public interface WishRollApi {
 
 
 
-    //Trending
-    @GET("v3/trending/trending_tags/")
-    Flowable<TrendingTag[]> getTrendingTags(@Query("offset") int offset);
-
-    @GET("v3/trending/trending_tags/{id}")
-    Flowable<TrendingTag> getSeeMoreTrendingTag(@Path("id") int trendingTagId, @Query("offset") int offset);
-
-
-
-
     //More Like This and Video Recommendation
     @GET("v3/recommendation/posts")
     Flowable<Post[]> getVideoList(@Query("post_id") int postId, @Query("offset") int offset, @Query("content-type") String contentType);

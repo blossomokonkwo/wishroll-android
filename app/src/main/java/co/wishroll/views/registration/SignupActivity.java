@@ -35,9 +35,9 @@ import static co.wishroll.WishRollApplication.applicationGraph;
 
 public class SignupActivity extends AppCompatActivity implements AuthListener {
 
-    private Retrofit retrofitInstance = RetrofitInstance.getRetrofitInstance();
-    private WishRollApi wishRollApi = retrofitInstance.create(WishRollApi.class);
-    private SessionManagement sessionManagement = applicationGraph.sessionManagement();
+    private final Retrofit retrofitInstance = RetrofitInstance.getRetrofitInstance();
+    private final WishRollApi wishRollApi = retrofitInstance.create(WishRollApi.class);
+    private final SessionManagement sessionManagement = applicationGraph.sessionManagement();
 
 
     private Button signUp;
@@ -56,7 +56,7 @@ public class SignupActivity extends AppCompatActivity implements AuthListener {
         setContentView(R.layout.activity_signup);
 
 
-        bBackPassword = (Button) findViewById(R.id.backButtonPassword);
+        bBackPassword = findViewById(R.id.backButtonPassword);
         signupEmailET = findViewById(R.id.userEmail);
 
         progressBarEnd = findViewById(R.id.progressBarSignupLast);

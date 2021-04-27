@@ -41,7 +41,8 @@ public class PostRepository {
     Completable status;
     private enum ContentType {
         VIDEO, IMAGES, GIF
-    };
+    }
+
     LiveData<StateData<ArrayList<Post>>> uploadsSource;
     LiveData<StateData<ArrayList<Post>>> likedSource;
 
@@ -117,36 +118,6 @@ public class PostRepository {
 
     }
 
-    public LiveData<StateData<ArrayList<Post>>> getMoreLikeThis(int offset, int postId) {
-
-        final LiveData<StateData<ArrayList<Post>>> source = LiveDataReactiveStreams.fromPublisher(
-                wishRollApi.getMoreLikeThis(postId, offset)
-                        .onErrorReturn(new Function<Throwable, Post[]>() {
-                            @Override
-                            public Post[] apply(Throwable throwable) throws Exception {
-                                return null;
-                            }
-                        })
-                        .map(new Function<Post[], StateData<ArrayList<Post>>>() {
-                            @Override
-                            public StateData<ArrayList<Post>> apply(Post[] moreLikeThis) throws Exception {
-                                ArrayList<Post> moreLikeThisArrayList = new ArrayList<>();
-                                if (moreLikeThis == null) {
-                                    return StateData.error("Something went wrong, please try again", moreLikeThisArrayList);
-                                } else {
-                                    moreLikeThisArrayList = new ArrayList<>(Arrays.asList(moreLikeThis));
-                                    return StateData.authenticated(moreLikeThisArrayList);
-                                }
-
-                            }
-                        })
-                        .subscribeOn(Schedulers.io()));
-
-
-
-
-        return source;
-    }
 
     public LiveData<StateData<Post>> getPost(int postId){
 
@@ -173,61 +144,9 @@ public class PostRepository {
         return source;
     }
 
-    public  LiveData<StateData<ArrayList<Post>>> getTaggedPosts(int trendingTagId, int offset){
-        final LiveData<StateData<ArrayList<Post>>> source = LiveDataReactiveStreams.fromPublisher(
 
-                wishRollApi.getSeeMoreTrendingTag(trendingTagId, offset)
-                        .onErrorReturn(new Function<Throwable, TrendingTag>() {
-                            @Override
-                            public TrendingTag apply(Throwable throwable) throws Exception {
-                                return null;
-                            }
-                        }).map(new Function<TrendingTag, StateData<ArrayList<Post>>>() {
-                    @Override
-                    public StateData<ArrayList<Post>> apply(TrendingTag trendingTag) throws Exception {
-                        ArrayList<Post> trendingTagPosts = new ArrayList<>();
 
-                        if(trendingTag == null){
-                            return StateData.error("Something went wrong", trendingTagPosts);
-                        }else{
-                            trendingTagPosts.addAll(Arrays.asList(trendingTag.getTrendingTagThumbnails()));
-                            return StateData.authenticated(trendingTagPosts);
-                        }
 
-                    }
-                }).subscribeOn(Schedulers.io()));
-
-        return source;
-    }
-
-    public  LiveData<StateData<ArrayList<Post>>> getVideosListPosts(int postId, int offset){
-        final LiveData<StateData<ArrayList<Post>>> source = LiveDataReactiveStreams.fromPublisher(
-
-                wishRollApi.getVideoList(postId, offset, "video")
-                            .onErrorReturn(new Function<Throwable, Post[]>() {
-                                @Override
-                                public Post[] apply(Throwable throwable) throws Exception {
-                                    return null;
-                                }
-                            })
-                            .map(new Function<Post[], StateData<ArrayList<Post>>>() {
-                                @Override
-                                public StateData<ArrayList<Post>> apply(Post[] posts) throws Exception {
-                                    ArrayList<Post> videosList = new ArrayList<>();
-
-                                    if(posts == null){
-                                        return StateData.error("Something went wrong, please try again", videosList);
-                                    }else{
-                                        videosList.addAll(Arrays.asList(posts));
-                                        return StateData.authenticated(videosList);
-                                    }
-
-                                }
-                            }).subscribeOn(Schedulers.io()));
-
-        return source;
-
-    }
 
 
 

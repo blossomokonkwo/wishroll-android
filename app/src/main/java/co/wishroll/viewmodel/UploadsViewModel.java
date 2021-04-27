@@ -52,7 +52,7 @@ public class UploadsViewModel extends ViewModel {
 
 
     public void getFirstPageOfUploads(){
-        listOfUploads.setValue(StateData.loading((ArrayList<Post>) null));
+        listOfUploads.setValue(StateData.loading(null));
         final LiveData<StateData<ArrayList<Post>>> source = postRepository.getUploadedPosts(userId, START_OFFSET);
         listOfUploads.addSource(source, new Observer<StateData<ArrayList<Post>>>() {
             @Override

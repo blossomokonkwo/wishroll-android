@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import co.wishroll.views.profile.LikesFragment;
 import co.wishroll.views.profile.UploadsFragment;
 
 public class ProfileViewPagerAdapter extends FragmentStateAdapter {
@@ -33,7 +32,7 @@ public class ProfileViewPagerAdapter extends FragmentStateAdapter {
     @Override
     public Fragment createFragment(int position) {
 
-        if(isCurrentUser) {
+       /* if(isCurrentUser) {
             switch (position) {
                 case 0:
                     return new UploadsFragment(userId);
@@ -43,13 +42,13 @@ public class ProfileViewPagerAdapter extends FragmentStateAdapter {
 
 
             }
-        }else {
+        }else {*/
 
 
                     return new UploadsFragment(userId);
 
 
-        }
+
 
 
     }

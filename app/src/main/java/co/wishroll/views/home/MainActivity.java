@@ -1,39 +1,20 @@
 package co.wishroll.views.home;
 
-import android.Manifest;
-import android.content.Context;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.mikhaellopez.circularimageview.CircularImageView;
-import com.theartofdev.edmodo.cropper.CropImage;
-import com.theartofdev.edmodo.cropper.CropImageView;
 
 import co.wishroll.R;
 import co.wishroll.databinding.ActivityMainBinding;
 import co.wishroll.models.repository.local.SessionManagement;
-import co.wishroll.utilities.FileUtils;
 import co.wishroll.viewmodel.MainViewModel;
-import co.wishroll.views.profile.ProfileViewActivity;
-import co.wishroll.views.search.SearchActivity;
-import co.wishroll.views.upload.TaggingActivity;
 
 import static co.wishroll.WishRollApplication.applicationGraph;
 
@@ -93,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
                     fragment = new SearchFragment();
                     break;
                 case R.id.uploadBottomNav:
-                    fragment = new UploadFragment();
+
                     break;
                 case R.id.notifBottomNav:
                     fragment = new NotificationsFragment();

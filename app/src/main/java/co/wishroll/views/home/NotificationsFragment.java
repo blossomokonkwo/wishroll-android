@@ -23,9 +23,6 @@ import co.wishroll.models.domainmodels.UserNotification;
 import co.wishroll.utilities.StateData;
 import co.wishroll.viewmodel.NotificationsViewModel;
 import co.wishroll.viewmodel.ProfileViewModelFactory;
-import co.wishroll.views.profile.ProfileViewActivity;
-import co.wishroll.views.reusables.ImageActivity;
-import co.wishroll.views.reusables.VideoActivity;
 import co.wishroll.views.tools.EndlessRecyclerViewScrollListener;
 import co.wishroll.views.tools.NotisRecyclerViewAdapter;
 
@@ -76,7 +73,7 @@ public class NotificationsFragment extends Fragment implements NotisRecyclerView
         progressBar = view.findViewById(R.id.progressBarNotis);
         noResults = view.findViewById(R.id.noNotisText);
 
-        observeNotifsList();
+        //observeNotifsList();
 
 
 
@@ -159,22 +156,22 @@ public class NotificationsFragment extends Fragment implements NotisRecyclerView
     public void onNotificationClicked(int position, int notificationIntentPosition) {
 
         if(notificationIntentPosition == 1){ //going to this user's profile through the profile picture
-            Intent intent = new Intent(getContext(), ProfileViewActivity.class);
-            intent.putExtra("userId", notifsList.get(position).getActiveUser().getId());
+//            Intent intent = new Intent(getContext(), ProfileViewActivity.class);
+//            intent.putExtra("userId", notifsList.get(position).getActiveUser().getId());
 
         }else if(notificationIntentPosition == 2){ //wanting to see your post that they interacted with
 
             if(notifsList.get(position).getPost().getMediaUrl().contains(".mp4") || notifsList.get(position).getPost().getMediaUrl().contains(".mov")  ){
-                Intent intent = new Intent(getContext(), VideoActivity.class);
-                intent.putExtra("postId", notifsList.get(position).getPost().getId());
-                intent.putExtra("postItem", notifsList.get(position).getPost());
+//                Intent intent = new Intent(getContext(), VideoActivity.class);
+//                intent.putExtra("postId", notifsList.get(position).getPost().getId());
+//                intent.putExtra("postItem", notifsList.get(position).getPost());
 
 
             }else{
 
-                Intent intent = new Intent(getContext(), ImageActivity.class);
-                intent.putExtra("postId", notifsList.get(position).getPost().getId());
-                intent.putExtra("postItem", notifsList.get(position).getPost());
+//                Intent intent = new Intent(getContext(), ImageActivity.class);
+//                intent.putExtra("postId", notifsList.get(position).getPost().getId());
+//                intent.putExtra("postItem", notifsList.get(position).getPost());
 
             }
 

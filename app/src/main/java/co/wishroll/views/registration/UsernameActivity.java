@@ -47,7 +47,7 @@ public class UsernameActivity extends AppCompatActivity implements AuthListener 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_username);
 
-        bBackUsername = (Button) findViewById(R.id.backButtonUsername);
+        bBackUsername = findViewById(R.id.backButtonUsername);
         progressBarSignup = findViewById(R.id.progressBarSignup);
         etUsername = findViewById(R.id.userUsername);
 

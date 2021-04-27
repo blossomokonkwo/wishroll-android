@@ -31,14 +31,14 @@ public class RetrofitInstance {
 
     private static final String TAG = "RetrofitInstance";
     //houses Retrofit Instance "http://10.0.2.2:3000/v2/" @PhysicalDevice: http://192.168.1.251:3000 www.wishroll.co/   wishroll-testing.herokuapp.com/
-    private static String API_BASE_URL = "https:/wishroll-testing.herokuapp.com/";
+    private static final String API_BASE_URL = "https:/wishroll-testing.herokuapp.com/";
     private static Retrofit retrofitInstance;
     public static SessionManagement sessionManagement = applicationGraph.sessionManagement();
     private static Gson gson;
 
     private static final long cacheSize = 175 * 1024 * 1024; // 175 MB
-    private static String HEADER_CACHE_CONTROL = "Cache-Control";
-    private static String HEADER_PRAGMA = "Pragma";
+    private static final String HEADER_CACHE_CONTROL = "Cache-Control";
+    private static final String HEADER_PRAGMA = "Pragma";
 
 
 
@@ -96,11 +96,7 @@ public class RetrofitInstance {
     }
 
     public static boolean isUserLoggedIn(){
-        if(sessionManagement.getCurrentUserId() != 0 && sessionManagement.getToken() != null){
-            return true;
-        }else{
-            return false;
-        }
+        return sessionManagement.getCurrentUserId() != 0 && sessionManagement.getToken() != null;
     }
 
     private static Interceptor offlineInterceptor(){

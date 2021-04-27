@@ -67,9 +67,9 @@ public class SearchViewModel extends ViewModel {
 
     private enum ContentType {
         video, image, gif
-    };
-    
-    
+    }
+
+
     public SearchViewModel() {
 
     }
@@ -105,7 +105,7 @@ public class SearchViewModel extends ViewModel {
         if(SearchViewModel.getCurrentFragment() == 0){
 
 
-                listOfVideoMedia.setValue(StateData.loading((ArrayList<Post>) null));
+                listOfVideoMedia.setValue(StateData.loading(null));
 
                 final LiveData<StateData<ArrayList<Post>>> source = searchRepository.getSearchResults(START_OFFSET, query, ContentType.video.toString());
                 listOfVideoMedia.addSource(source, new Observer<StateData<ArrayList<Post>>>() {
@@ -129,7 +129,7 @@ public class SearchViewModel extends ViewModel {
         }else if(SearchViewModel.getCurrentFragment() == 1){
 
 
-                listOfImageMedia.setValue(StateData.loading((ArrayList<Post>) null));
+                listOfImageMedia.setValue(StateData.loading(null));
                 final LiveData<StateData<ArrayList<Post>>> source = searchRepository.getSearchResults(START_OFFSET, query, ContentType.image.toString());
                 listOfImageMedia.addSource(source, new Observer<StateData<ArrayList<Post>>>() {
                     @Override
@@ -152,7 +152,7 @@ public class SearchViewModel extends ViewModel {
         }else if(SearchViewModel.getCurrentFragment() == 2){
 
 
-                listOfGifMedia.setValue(StateData.loading((ArrayList<Post>) null));
+                listOfGifMedia.setValue(StateData.loading(null));
                 final LiveData<StateData<ArrayList<Post>>> source = searchRepository.getSearchResults(START_OFFSET, query, ContentType.gif.toString());
             //Log.d(TAG, "performFirstSearch: VALUE OF SOURCE GIF: " + source.getValue().status);
                 listOfGifMedia.addSource(source, new Observer<StateData<ArrayList<Post>>>() {
@@ -251,19 +251,19 @@ public class SearchViewModel extends ViewModel {
     }
 
     public static void onSearchingEmpty(){
-        listOfGifMedia.setValue(StateData.notauthenticated((ArrayList<Post>)null));
-        listOfVideoMedia.setValue(StateData.notauthenticated((ArrayList<Post>)null));
-        listOfImageMedia.setValue(StateData.notauthenticated((ArrayList<Post>)null));
+        listOfGifMedia.setValue(StateData.notauthenticated(null));
+        listOfVideoMedia.setValue(StateData.notauthenticated(null));
+        listOfImageMedia.setValue(StateData.notauthenticated(null));
 
     }
 
     public static void clearSpecificTab(int position){
         if(position == 0){
-            listOfVideoMedia.setValue(StateData.notauthenticated((ArrayList<Post>) null));
+            listOfVideoMedia.setValue(StateData.notauthenticated(null));
         }else if(position == 1){
-            listOfImageMedia.setValue(StateData.notauthenticated((ArrayList<Post>) null));
+            listOfImageMedia.setValue(StateData.notauthenticated(null));
         }else if(position == 2 ){
-            listOfGifMedia.setValue(StateData.notauthenticated((ArrayList<Post>) null));
+            listOfGifMedia.setValue(StateData.notauthenticated(null));
         }else{
             //do nothing
         }

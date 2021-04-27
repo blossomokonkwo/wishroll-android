@@ -22,9 +22,9 @@ public class NotisRecyclerViewAdapter extends RecyclerView.Adapter<NotisRecycler
 
 
     private static final String TAG = "NotifsRecyclerViewAda";
-    private Context mContext;
+    private final Context mContext;
     ArrayList<UserNotification> mData;
-    private OnNotificationListener onNotificationListener;
+    private final OnNotificationListener onNotificationListener;
 
     public NotisRecyclerViewAdapter(Context mContext, ArrayList<UserNotification> mData, OnNotificationListener onNotificationListener) {
         this.mContext = mContext;

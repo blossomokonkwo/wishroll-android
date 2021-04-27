@@ -9,7 +9,6 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.util.Log;
@@ -23,7 +22,6 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.mikhaellopez.circularimageview.CircularImageView;
@@ -34,15 +32,12 @@ import co.wishroll.models.domainmodels.User;
 import co.wishroll.models.repository.local.SessionManagement;
 import co.wishroll.utilities.StateData;
 import co.wishroll.viewmodel.ProfileViewModel;
-import co.wishroll.viewmodel.TrendingViewModel;
 import co.wishroll.views.profile.EditProfileActivity;
-import co.wishroll.views.profile.ProfileViewActivity;
 import co.wishroll.views.registration.LoginActivity;
 import co.wishroll.views.reusables.TextBodyActivity;
 import co.wishroll.views.tools.ProfileViewPagerAdapter;
 
 import static co.wishroll.WishRollApplication.applicationGraph;
-import static co.wishroll.WishRollApplication.getInstance;
 
 public class ProfileFragment extends Fragment {
 

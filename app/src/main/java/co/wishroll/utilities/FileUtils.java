@@ -71,10 +71,7 @@ public class FileUtils {
          * @return Whether the URI is a local one.
          */
         public static boolean isLocal(String url) {
-            if (url != null && !url.startsWith("http://") && !url.startsWith("https://")) {
-                return true;
-            }
-            return false;
+            return url != null && !url.startsWith("http://") && !url.startsWith("https://");
         }
 
         /**
@@ -414,7 +411,7 @@ public class FileUtils {
                     }
                 }
             }
-            return String.valueOf(dec.format(fileSize) + suffix);
+            return dec.format(fileSize) + suffix;
         }
 
         /**

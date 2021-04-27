@@ -55,7 +55,7 @@ public class LoginViewModel extends ViewModel {
 
     public void authenticateUser(LoginRequest loginRequest){
 
-        authResponseMediatorLiveData.setValue(AuthResource.loading((AuthResponse)null));
+        authResponseMediatorLiveData.setValue(AuthResource.loading(null));
        final LiveData<AuthResource<AuthResponse>> source = authRepository.loginUser(loginRequest);
 
        authResponseMediatorLiveData.addSource(source, new Observer<AuthResource<AuthResponse>>() {

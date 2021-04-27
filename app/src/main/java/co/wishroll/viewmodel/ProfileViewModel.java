@@ -66,7 +66,7 @@ public class ProfileViewModel extends ViewModel {
     }
 
     public void getThisUser(int userId){
-        userLiveData.setValue(StateData.loading((User)null));
+        userLiveData.setValue(StateData.loading(null));
         final LiveData<StateData<User>> source = userRepository.getUserById(userId);
         userLiveData.addSource(source, new Observer<StateData<User>>() {
             @Override

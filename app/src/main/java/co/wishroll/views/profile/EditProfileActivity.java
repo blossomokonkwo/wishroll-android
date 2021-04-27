@@ -49,10 +49,10 @@ public class EditProfileActivity extends AppCompatActivity implements AuthListen
     private ActivityEditProfileBinding editProfileBinding;
     EditProfileViewModel editProfileViewModel;
     private ProgressBar progressBar;
-    private int IMAGE_REQUEST_CODE = 20;
-    private int BACKGROUND_IMAGE_REQUEST_CODE = 30;
-    private int BACKGROUND_CROP_CODE = 40;
-    private int PROFILE_CROP_CODE = 50;
+    private final int IMAGE_REQUEST_CODE = 20;
+    private final int BACKGROUND_IMAGE_REQUEST_CODE = 30;
+    private final int BACKGROUND_CROP_CODE = 40;
+    private final int PROFILE_CROP_CODE = 50;
 
 
     String profileURL = "";
@@ -65,7 +65,7 @@ public class EditProfileActivity extends AppCompatActivity implements AuthListen
     private Bitmap bitmap;
     private ImageView backgroundProfile;
     private Bitmap backgroundBitmap;
-    private int MY_PERMISSIONS_REQUEST = 200;
+    private final int MY_PERMISSIONS_REQUEST = 200;
 
 
     @Override
@@ -133,10 +133,10 @@ public class EditProfileActivity extends AppCompatActivity implements AuthListen
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(EditProfileActivity.this, ProfileViewActivity.class);
-                intent.putExtra("userId", sessionManagement.getCurrentUserId());
-                startActivity(intent);
-                finish();
+//                Intent intent = new Intent(EditProfileActivity.this, ProfileViewActivity.class);
+//                intent.putExtra("userId", sessionManagement.getCurrentUserId());
+//                startActivity(intent);
+//                finish();
             }
         });
 
@@ -252,7 +252,7 @@ public class EditProfileActivity extends AppCompatActivity implements AuthListen
                             Log.d(TAG, "onChanged: we have an error with the edited user.");
                             showProgressBar(false);
                             ToastUtils.showToast(EditProfileActivity.this, "That username is taken");
-                            startActivity(new Intent(EditProfileActivity.this, ProfileViewActivity.class));
+                           // startActivity(new Intent(EditProfileActivity.this, ProfileViewActivity.class));
                             finish();
 
                             break;
@@ -272,7 +272,7 @@ public class EditProfileActivity extends AppCompatActivity implements AuthListen
 
                                 sessionManagement.printEverything("AFTER USER HAD PRESSED SAVE AND IT HAS UPDATED SUCCESSFULLY");
                                 ToastUtils.showToast(EditProfileActivity.this, "Profile Updated");
-                                startActivity(new Intent(EditProfileActivity.this, ProfileViewActivity.class));
+                                //startActivity(new Intent(EditProfileActivity.this, ProfileViewActivity.class));
                                 finish();
 
 
@@ -290,7 +290,7 @@ public class EditProfileActivity extends AppCompatActivity implements AuthListen
                     }
                 } else {
                     ToastUtils.showToast(EditProfileActivity.this, "That username is taken");
-                    startActivity(new Intent(EditProfileActivity.this, ProfileViewActivity.class));
+                    //startActivity(new Intent(EditProfileActivity.this, ProfileViewActivity.class));
                     finish();
                 }
             }
@@ -314,12 +314,7 @@ public class EditProfileActivity extends AppCompatActivity implements AuthListen
 
     private boolean checkPermission(){
         int result= ContextCompat.checkSelfPermission(EditProfileActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE);
-        if(result== PackageManager.PERMISSION_GRANTED){
-            return true;
-        }
-        else{
-            return false;
-        }
+        return result == PackageManager.PERMISSION_GRANTED;
     }
 
     @Override
