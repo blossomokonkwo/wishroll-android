@@ -3,10 +3,10 @@
     <!-- Sign Up/Login Proceess-->
     <string name="UsernameEmail_label">Email</string>
     <string name="Password_label">Password</string>
-    <string name="Login_label">Login</string>
+    <string name="Login_label">Log in</string>
     <string name="email">What\'s your Email?</string>
     <string name="enter_email">Please enter your email</string>
-    <string name="already_have">Already have an account? Login here</string>
+    <string name="already_have">Already have an account? Log in here</string>
     <string name="new_prompt">New to WishRoll? Signup here</string>
     <string name="create_account">Create Your Account</string>
     <string name="confirm_password">Confirm Password</string>
@@ -15,8 +15,7 @@
     <string name="email_valid">Please enter a valid email</string>
     <string name="you_agree">By joining you agree to WishRoll\'s Terms of Service and Privacy Policy</string>
     <string name="Join">Join</string>
-    <string name="joinTheCommunity"><b>Join the Community</b></string>
-    <string name="shortWelcome">Find and share reaction pictures and videos</string>
+    <string name="welcome"><b>Welcome <br>to WishRoll</br></b></string>
     <string name="signup">Sign up</string>
 
 
