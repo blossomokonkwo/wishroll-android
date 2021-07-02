@@ -13,7 +13,6 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import co.wishroll.models.domainmodels.Post;
-import co.wishroll.models.domainmodels.TrendingTag;
 import co.wishroll.models.domainmodels.UserNotification;
 import co.wishroll.models.networking.RetrofitInstance;
 import co.wishroll.models.networking.WishRollApi;

@@ -15,6 +15,7 @@
     <color name="dark_grey">#87878b</color>
     <color name="periwinkle">#BE93D4</color>
     <color name="onboarding_grey">#EEEEEE</color>
+    <color name="onboarding_dark_grey">#E0E0E0</color>
 
 
 </resources>

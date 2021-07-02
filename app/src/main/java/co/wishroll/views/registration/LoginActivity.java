@@ -49,7 +49,7 @@ public class LoginActivity extends AppCompatActivity implements AuthListener {
 
 
         progressBar = findViewById(R.id.progressBarLogin);
-        signupInstead = findViewById(R.id.newSignUp);
+        //signupInstead = findViewById(R.id.newSignUp);
 
 
 

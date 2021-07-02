@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 
 import co.wishroll.models.domainmodels.Post;
-import co.wishroll.models.domainmodels.TrendingTag;
 import co.wishroll.models.domainmodels.User;
 import co.wishroll.models.domainmodels.UserNotification;
 import co.wishroll.models.repository.datamodels.AuthResponse;

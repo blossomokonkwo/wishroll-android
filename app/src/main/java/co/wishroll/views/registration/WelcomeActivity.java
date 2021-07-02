@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.multidex.BuildConfig;
 
 import javax.inject.Inject;
 
@@ -23,60 +24,54 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
     SessionManagement sessionManagement = applicationGraph.sessionManagement();
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
 
-        Button signup = findViewById(R.id.bSignUp);
-        TextView login = findViewById(R.id.bLogin);
+        Button signup = findViewById(R.id.welcomeSignupB);
+        TextView login = findViewById(R.id.welcomeLoginB);
 
-        signup.setOnClickListener(this);
-        login.setOnClickListener(this);
+        signup.setOnClickListener(new View.OnClickListener() {
+         @Override
+         public void onClick(View v) {
+             startActivity(new Intent(WelcomeActivity.this, EmailActivity.class));
+            }
+         });
 
 
+         login.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+                 startActivity(new Intent(WelcomeActivity.this, LoginActivity.class));
+
+             }
+         });
 
 
+        if (loggedIn(sessionManagement.getCurrentUserId())) {
+            if (true) {
+                startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
+                finish();
+            } else {
 
+            }
 
-        //if(loggedIn(sessionManagement.getCurrentUserId())){
-        if(true){
-            startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
-            finish();
-        }else{
 
         }
-
-
-
-
-
-
-
-
     }
+
+
+
+
+        public boolean loggedIn ( int id){
+        return false;
+            //return id != 0;
+
+        }
 
     @Override
     public void onClick(View v) {
-
-        switch(v.getId()){
-
-            case R.id.bSignUp:
-                startActivity(new Intent(this, UsernameActivity.class));
-                break;
-
-            case R.id.bLogin:
-                startActivity(new Intent(this, LoginActivity.class));
-                break;
-        }
-
-
-
-    }
-
-    public boolean loggedIn(int id){
-        return id != 0;
 
     }
 }

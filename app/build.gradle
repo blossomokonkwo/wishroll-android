@@ -4,6 +4,14 @@ apply plugin: 'com.android.application'
 
 android {
 
+    signingConfigs {
+        debug {
+            storeFile file('debugKey')
+            storePassword 'Eu*r4ad,>z~6$=Ek'
+            keyAlias 'devAlias'
+            keyPassword 'AX6scc&[u4}6\'AB~'
+        }
+    }
     compileSdkVersion 30
     buildToolsVersion "29.0.3"
 
@@ -23,6 +31,7 @@ android {
         multiDexEnabled true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        signingConfig signingConfigs.debug
     }
 
    /* configurations.all {
@@ -82,20 +91,39 @@ android {
         release {
             //production build type
 
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             //buildConfigField "String", 'BASE_URL', "\"https://wishroll-production.herokuapp.com\""
+            resValue "string", "BASE_URL", "\"https://wishroll-production.herokuapp.com\""
+            signingConfig signingConfigs.debug
         }
 
         development {
 
             buildConfigField "String", 'BASE_URL', "\"http://localhost:3000\""
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            resValue "string", "BASE_URL", "\"https://wishroll-production.herokuapp.com\""
+            signingConfig signingConfigs.debug
+
 
         }
 
         bTesting {
 
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             buildConfigField "String", 'REGISTER_REQUEST_URL', "\"https://wishroll-testing.herokuapp.com\""
+            resValue "string", "BASE_URL", "\"https://wishroll-production.herokuapp.com\""
+            signingConfig signingConfigs.debug
+
+
+        }
+
+        debug {
+
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            resValue "string", "BASE_URL", "\"https://wishroll-production.herokuapp.com\""
+            signingConfig signingConfigs.debug
+
 
         }
 
@@ -111,10 +139,10 @@ dependencies {
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
-    implementation 'androidx.navigation:navigation-fragment:2.3.0'
-    implementation 'androidx.navigation:navigation-ui:2.3.0'
+    implementation 'androidx.appcompat:appcompat:1.3.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    implementation 'androidx.navigation:navigation-fragment:2.3.5'
+    implementation 'androidx.navigation:navigation-ui:2.3.5'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
     implementation 'androidx.coordinatorlayout:coordinatorlayout:1.1.0'
@@ -133,16 +161,16 @@ dependencies {
     //Bottom Navigation View Ex Library
     implementation 'com.github.ittianyu:BottomNavigationViewEx:2.0.4'
 
-    //Recylcer View
+    //Recycler View
     implementation 'com.android.support:recyclerview-v7:30.0.0'
-    implementation "androidx.recyclerview:recyclerview-selection:1.1.0-rc01"
-    implementation "androidx.recyclerview:recyclerview:1.1.0"
+    implementation "androidx.recyclerview:recyclerview-selection:1.2.0-alpha01"
+    implementation "androidx.recyclerview:recyclerview:1.2.1"
 
 
     //Design Library for Circular Profile Picture
     implementation 'de.hdodenhof:circleimageview:3.1.0'
     implementation 'com.mikhaellopez:circularimageview:3.2.0'
-    implementation 'com.google.android.material:material:1.2.0'
+    implementation 'com.google.android.material:material:1.3.0'
 
     //Volley Library
     implementation 'com.android.volley:volley:1.1.1'
@@ -150,7 +178,7 @@ dependencies {
     implementation 'com.android.support:multidex:1.0.3'
 
     //Bottom Sheet Dependencies
-    implementation group: 'com.google.android.material', name: 'material', version: '1.3.0-alpha02'
+    implementation group: 'com.google.android.material', name: 'material', version: '1.4.0-rc01'
 
 
     //Rounded Image View
@@ -159,7 +187,7 @@ dependencies {
    //Exoplayer Video Player
     implementation 'com.google.android.exoplayer:exoplayer:2.8.4'
 
-    //Glide Image Loader Dependecy
+    //Glide Image Loader Dependency
     implementation 'com.github.bumptech.glide:glide:4.11.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
 
@@ -173,7 +201,7 @@ dependencies {
     annotationProcessor 'com.google.dagger:dagger-compiler:2.28.3'
 
     //Android Encryption
-    implementation "androidx.security:security-crypto:1.1.0-alpha02"
+    implementation "androidx.security:security-crypto:1.1.0-alpha03"
 
     //RxJava and RxAndroid
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
@@ -181,8 +209,8 @@ dependencies {
     implementation 'io.reactivex.rxjava2:rxjava:2.0.6'
 
     //Converting Observables to LiveData
-    implementation "androidx.lifecycle:lifecycle-reactivestreams:2.2.0"
-    implementation "androidx.lifecycle:lifecycle-livedata:2.2.0"
+    implementation "androidx.lifecycle:lifecycle-reactivestreams:2.3.1"
+    implementation "androidx.lifecycle:lifecycle-livedata:2.3.1"
 
     //OkHttp Logging Interceptor
     implementation "com.squareup.okhttp3:logging-interceptor:4.8.1"
