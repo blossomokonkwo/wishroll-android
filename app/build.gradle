@@ -4,14 +4,6 @@ apply plugin: 'com.android.application'
 
 android {
 
-    signingConfigs {
-        debug {
-            storeFile file('debugKey')
-            storePassword 'Eu*r4ad,>z~6$=Ek'
-            keyAlias 'devAlias'
-            keyPassword 'AX6scc&[u4}6\'AB~'
-        }
-    }
     compileSdkVersion 30
     buildToolsVersion "29.0.3"
 

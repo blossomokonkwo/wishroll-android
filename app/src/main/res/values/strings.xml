@@ -4,7 +4,7 @@
     <string name="UsernameEmail_label">Email</string>
     <string name="Password_label">Password</string>
     <string name="Login_label">Log in</string>
-    <string name="email">What's your email?</string>
+    <string name="email">What\'s your email?</string>
     <string name="enter_email">Please enter your email</string>
     <string name="already_have">Already have an account? Log in here</string>
     <string name="new_prompt">New to WishRoll? Signup here</string>
