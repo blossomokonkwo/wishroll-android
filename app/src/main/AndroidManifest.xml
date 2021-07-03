@@ -19,7 +19,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".views.registration.EmailActivity"></activity>
+        <activity android:name=".views.registration.ForgotPassActivity"></activity>
+        <activity android:name=".views.registration.NotificationsActivity" />
+        <activity android:name=".views.registration.MutualsActivity" />
+        <activity android:name=".views.registration.PasswordActivity" />
+        <activity android:name=".views.registration.EmailActivity" />
         <activity android:name=".views.profile.EditProfileActivity" />
         <activity
             android:name=".views.registration.AgeActivity"
