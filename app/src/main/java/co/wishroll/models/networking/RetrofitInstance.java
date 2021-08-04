@@ -9,6 +9,8 @@ import java.util.concurrent.TimeUnit;
 
 import javax.inject.Singleton;
 
+
+import co.wishroll.BuildConfig;
 import co.wishroll.WishRollApplication;
 import co.wishroll.models.repository.local.SessionManagement;
 import dagger.Module;
@@ -30,8 +32,8 @@ import static co.wishroll.WishRollApplication.applicationGraph;
 public class RetrofitInstance {
 
     private static final String TAG = "RetrofitInstance";
-    //houses Retrofit Instance "http://10.0.2.2:3000/v2/" @PhysicalDevice: http://192.168.1.251:3000 www.wishroll.co/   wishroll-testing.herokuapp.com/
-    private static final String API_BASE_URL = "https:/wishroll-testing.herokuapp.com/";
+    //houses Retrofit Instance "http://10.0.2.2:3000/v2/" @PhysicalDevice: http://192.168.1.251:3000 192.168.1.186 OR 6379 wishroll-testing.herokuapp.com/ From Postman 127.0.0.1:6379/
+    private static final String API_BASE_URL = "http://10.0.2.2:3000/";
     private static Retrofit retrofitInstance;
     public static SessionManagement sessionManagement = applicationGraph.sessionManagement();
     private static Gson gson;
@@ -72,6 +74,8 @@ public class RetrofitInstance {
                     }
                 })
                 .build();
+
+
 
 
 

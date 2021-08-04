@@ -10,6 +10,7 @@ import co.wishroll.models.repository.datamodels.AuthResponse;
 import co.wishroll.models.repository.datamodels.LoginRequest;
 import co.wishroll.utilities.AuthListener;
 import co.wishroll.utilities.AuthResource;
+import co.wishroll.utilities.StateData;
 
 import static co.wishroll.WishRollApplication.applicationGraph;
 
@@ -41,9 +42,9 @@ public class LoginViewModel extends ViewModel {
       if(accessCredential.isEmpty() || passwordCredential.isEmpty()){
           authListener.onFailure("Please enter a valid username or password.");
 
-       }else {
+       }else{
           loginRequest = new LoginRequest(accessCredential.trim(), passwordCredential);
-          //authResponseMediatorLiveData = authRepository.loginUser(loginRequest);
+          //authResponseMediatorLiveData = (MediatorLiveData<AuthResource<AuthResponse>>) authRepository.loginUser(loginRequest);
           //authListener.statusGetter(authRepository.getStatusCode());
           authenticateUser(loginRequest);
 

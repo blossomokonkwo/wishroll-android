@@ -22,6 +22,7 @@ android {
         versionName "1.0"
         multiDexEnabled true
 
+
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         signingConfig signingConfigs.debug
     }
@@ -84,38 +85,33 @@ android {
             //production build type
 
             minifyEnabled true
+            buildConfigField 'String', 'BASE_URL', '"api.wishroll.co"'
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            //buildConfigField "String", 'BASE_URL', "\"https://wishroll-production.herokuapp.com\""
-            resValue "string", "BASE_URL", "\"https://wishroll-production.herokuapp.com\""
             signingConfig signingConfigs.debug
-        }
-
-        development {
-
-            buildConfigField "String", 'BASE_URL', "\"http://localhost:3000\""
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            resValue "string", "BASE_URL", "\"https://wishroll-production.herokuapp.com\""
-            signingConfig signingConfigs.debug
-
-
         }
 
         bTesting {
-
+            //development variant
+            buildConfigField 'String', 'BASE_URL', '"http://localhost:3000"'
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            buildConfigField "String", 'REGISTER_REQUEST_URL', "\"https://wishroll-testing.herokuapp.com\""
-            resValue "string", "BASE_URL", "\"https://wishroll-production.herokuapp.com\""
             signingConfig signingConfigs.debug
 
+
+        }
+
+        development {
+            //unit tests/testing variant
+            buildConfigField 'String', 'BASE_URL', '"http://localhost:3000"'
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.debug
 
         }
 
         debug {
-
+            //debugging variant
+            buildConfigField 'String', 'BASE_URL', '"http://localhost:3000"'
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            resValue "string", "BASE_URL", "\"https://wishroll-production.herokuapp.com\""
             signingConfig signingConfigs.debug
-
 
         }
 

@@ -11,10 +11,13 @@ import co.wishroll.models.networking.WishRollApi;
 import co.wishroll.models.repository.datamodels.AuthResponse;
 import co.wishroll.models.repository.datamodels.LoginRequest;
 import co.wishroll.models.repository.datamodels.UserModel;
+import co.wishroll.models.repository.local.SessionManagement;
 import co.wishroll.utilities.AuthResource;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Retrofit;
+
+import static co.wishroll.WishRollApplication.applicationGraph;
 
 @Singleton
 public class AuthRepository {
@@ -22,6 +25,7 @@ public class AuthRepository {
 
 
     public WishRollApi wishRollApi;
+    SessionManagement sessionManagement = applicationGraph.sessionManagement();
 
 
 
@@ -45,6 +49,7 @@ public class AuthRepository {
                                 AuthResponse errorResponse = new AuthResponse();
                                 UserModel userModel = new UserModel();
                                 userModel.setId(0);
+                                sessionManagement.printEverything("nasty location but we're inside the authrepository class, in an error clause");
                                 errorResponse.setUserModel(userModel);
                                 return errorResponse;
                             }
@@ -54,10 +59,10 @@ public class AuthRepository {
                             @Override
                             public AuthResource<AuthResponse> apply(AuthResponse authResponse) throws Exception {
                                 if (authResponse.getUserModel().getId() == 0) {
-
+                                     sessionManagement.printEverything("annother really nasty location but we're also in an error clause, in the map addon");
                                     return AuthResource.error("Please enter the correct credentials", null);
                                 } else {
-
+                                    sessionManagement.printEverything("Hey!! we're in a success area! these the credentials that should be saved");
                                     return AuthResource.authenticated(authResponse);
 
                                 }

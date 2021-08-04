@@ -70,6 +70,15 @@ public class SessionManagement extends Application {
 
 
     public void printEverything(String location){
+        Log.d(TAG, "printEverything: WE ARE CURRENTLY IN: " + location);
+        Log.d(TAG, "printEverything: user's id: " + getCurrentUserId());
+        Log.d(TAG, "printEverything: user's avatar url: " + getAvatarURL());
+        Log.d(TAG, "printEverything: user's email: " + getEmail() );
+        Log.d(TAG, "printEverything: user's bio: " + getBio());
+        Log.d(TAG, "printEverything: user's name: " + getName());
+        Log.d(TAG, "printEverything: user's background url: " + getBackgroundURL());
+        Log.d(TAG, "printEverything: user's authie token: " + getToken());
+
 
 
     }

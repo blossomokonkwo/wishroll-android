@@ -3,6 +3,7 @@ package co.wishroll.views.registration;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -10,6 +11,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+
+import org.w3c.dom.Text;
 
 import co.wishroll.R;
 import co.wishroll.databinding.ActivityLoginBinding;
@@ -31,8 +34,9 @@ public class LoginActivity extends AppCompatActivity implements AuthListener {
     ActivityLoginBinding activityLoginBinding;
     LoginViewModel loginViewModel;
     SessionManagement sessionManagement = applicationGraph.sessionManagement();
-    private TextView signupInstead;
     private ProgressBar progressBar;
+    private ImageButton backImageButton;
+    private TextView loginCredentialsWarning;
 
 
     @Override
@@ -48,7 +52,10 @@ public class LoginActivity extends AppCompatActivity implements AuthListener {
         loginViewModel.authListener = this;
 
 
-        progressBar = findViewById(R.id.progressBarLogin);
+        progressBar = activityLoginBinding.progressBarLogin;
+        backImageButton = activityLoginBinding.imageButton;
+        loginCredentialsWarning = activityLoginBinding.wrongLoginWarning;
+
         //signupInstead = findViewById(R.id.newSignUp);
 
 
@@ -60,11 +67,13 @@ public class LoginActivity extends AppCompatActivity implements AuthListener {
 
 
 
-        signupInstead.setOnClickListener(new View.OnClickListener() {
+        backImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(LoginActivity.this, UsernameActivity.class);
-                startActivity(intent);
+                Intent intent = new Intent(LoginActivity.this, WelcomeActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK| Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                LoginActivity.this.startActivity(intent);
+                //LoginActivity.this.overridePendingTransition(0, 0);
 
             }
         });
@@ -88,11 +97,13 @@ public class LoginActivity extends AppCompatActivity implements AuthListener {
                     switch (authResponseAuthResource.status){
                         case LOADING: {
                             showProgressBar(true);
+                            onStarted();
                             break;
                         }
                         case ERROR:{
-                            ToastUtils.showToast(LoginActivity.this, "Incorrect Email or Password");
+                            //ToastUtils.showToast(LoginActivity.this, "Incorrect Email or Password");
                             showProgressBar(false);
+                            showLoginWarning(true);
                             break;
 
                         }
@@ -100,12 +111,19 @@ public class LoginActivity extends AppCompatActivity implements AuthListener {
                         case AUTHENTICATED:{
                             if(welcomeUser(response.getUserModel(), response.getAccessToken())) {
                                 showProgressBar(false);
-                                statusGetter(200);
+                                showLoginWarning(false);
+                                //statusGetter(200);
+                                onSuccess();
+                                sessionManagement.printEverything("in the authenticated clause of the loginActivity");
+                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK| Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                startActivity(intent);
                             }
                             break;
                         }
 
                         case NOT_AUTHENTICATED:{
+                            showLoginWarning(true);
                             showProgressBar(false);
                             break;
 
@@ -134,17 +152,27 @@ public class LoginActivity extends AppCompatActivity implements AuthListener {
         }
     }
 
+    private void showLoginWarning(boolean isVisible){
+        if(isVisible){
+            loginCredentialsWarning.setVisibility(View.VISIBLE);
+        }else{
+            loginCredentialsWarning.setVisibility(View.GONE);
+        }
+    }
+
 
 
    @Override
    public void onStarted() {
         progressBar.setVisibility(View.VISIBLE);
+       loginCredentialsWarning.setVisibility(View.INVISIBLE);
 
-}
+
+   }
 
     @Override
     public void onSuccess() {
-
+        loginCredentialsWarning.setVisibility(View.INVISIBLE);
         progressBar.setVisibility(View.INVISIBLE);
 
     }
@@ -152,7 +180,9 @@ public class LoginActivity extends AppCompatActivity implements AuthListener {
     @Override
     public void onFailure(String message) {
         progressBar.setVisibility(View.INVISIBLE);
-        ToastUtils.showToast(this, message);
+        //ToastUtils.showToast(this, message);
+        loginCredentialsWarning.setText(message);
+        loginCredentialsWarning.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -171,7 +201,7 @@ public class LoginActivity extends AppCompatActivity implements AuthListener {
         switch(statusCode){
 
             case 100:
-                ToastUtils.showToast(LoginActivity.this, "Please try again.");
+                //ToastUtils.showToast(LoginActivity.this, "Please try again.");
 
             break;
 

@@ -18,7 +18,7 @@ import co.wishroll.views.home.MainActivity;
 import static co.wishroll.WishRollApplication.applicationGraph;
 
 
-public class WelcomeActivity extends AppCompatActivity implements View.OnClickListener {
+public class WelcomeActivity extends AppCompatActivity  {
 
     @Inject
     SessionManagement sessionManagement = applicationGraph.sessionManagement();
@@ -35,7 +35,7 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
         signup.setOnClickListener(new View.OnClickListener() {
          @Override
          public void onClick(View v) {
-             startActivity(new Intent(WelcomeActivity.this, EmailActivity.class));
+             startActivity(new Intent(WelcomeActivity.this, EmailActivity.class).setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
             }
          });
 
@@ -43,7 +43,8 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
          login.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View v) {
-                 startActivity(new Intent(WelcomeActivity.this, LoginActivity.class));
+                 startActivity(new Intent(WelcomeActivity.this, LoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
+
 
              }
          });
@@ -51,7 +52,7 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
 
         if (loggedIn(sessionManagement.getCurrentUserId())) {
             if (true) {
-                startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
+                startActivity(new Intent(WelcomeActivity.this, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
                 finish();
             } else {
 
@@ -66,12 +67,10 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
 
         public boolean loggedIn ( int id){
         return false;
+        //defaulted to false for testing, meaning not signed in, goes to log in and/or sign up page
             //return id != 0;
 
         }
 
-    @Override
-    public void onClick(View v) {
 
-    }
 }

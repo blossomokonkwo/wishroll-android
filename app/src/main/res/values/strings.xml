@@ -18,6 +18,7 @@
     <string name="welcome"><b>Welcome <br>to WishRoll</br></b></string>
     <string name="signup">Sign up</string>
     <string name="wrongCredentialsLogin">Wrong username or password, please try again</string>
+    <string name="username_email">Username or Email</string>
 
 
     <!-- Globals/Use-Anywhere -->

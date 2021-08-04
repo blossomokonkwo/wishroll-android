@@ -9,12 +9,15 @@ public class ActiveUser {
     @SerializedName("id")
     @Expose
     private Integer id;
+
     @SerializedName("username")
     @Expose
     private String username;
+
     @SerializedName("avatar")
     @Expose
     private String avatar;
+
     @SerializedName("verified")
     @Expose
     private Boolean verified;

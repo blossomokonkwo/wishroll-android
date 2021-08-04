@@ -43,10 +43,10 @@ public interface WishRollApi {
 
 
     //Authentication and Signup
-    @POST("v2/login")
+    @POST("v1/login")
     Flowable<AuthResponse> loginUser(@Body LoginRequest loginRequest);
 
-    @POST("v2/signup")
+    @POST("v1/signup")
     Call<AuthResponse> signupUser(@Body SignupRequestMany signupRequestMany);
 
 
